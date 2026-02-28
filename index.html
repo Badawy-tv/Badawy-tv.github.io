@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="theme-color" content="#ff0000">
+<link rel="manifest" href="manifest.json">
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHSQ2M07L9"></script>
 <script>
@@ -198,6 +200,7 @@ window.onscroll = function() {
 };
 </script>
 <script src="notify.js"></script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js");}</script>
 </body>
 </html>
 
