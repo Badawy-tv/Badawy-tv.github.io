@@ -17,7 +17,6 @@ gtag("config", "G-VHSQ2M07L9");
 <meta property="og:title" content="Badawy TV | Islamic Live Channel">
 <meta property="og:description" content="Watch Live Islamic Programs, Quran Recitation and Modern Islamic Content on Badawy TV.">
 <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Star_and_Crescent.svg/512px-Star_and_Crescent.svg.png">
-<meta property="og:url" content="https://badawy-tv.github.io/">
 <meta property="og:type" content="website">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1003,4 +1002,58 @@ font-size:14px;
 © 2026 Badawy TV. All Rights Reserved.
 
 </footer>
+
+
+<!-- ===== FIRST VISIT WELCOME ===== -->
+<style>
+#welcomePopup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#ffffff;
+padding:30px 40px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+border-radius:10px;
+z-index:10000;
+text-align:center;
+font-size:18px;
+display:none;
+animation:fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+</style>
+
+<div id="welcomePopup">
+<b>Welcome to Badawy TV</b><br><br>
+We are glad to have you following 🌙
+</div>
+
+<audio id="welcomeSound" preload="auto">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b48d5.mp3?filename=success-1-6297.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+window.addEventListener("load", function(){
+
+if(!localStorage.getItem("visitedBefore")){
+
+var popup=document.getElementById("welcomePopup");
+popup.style.display="block";
+
+document.getElementById("welcomeSound").play().catch(()=>{});
+
+setTimeout(function(){
+popup.style.display="none";
+},4000);
+
+localStorage.setItem("visitedBefore","yes");
+}
+
+});
+</script>
 
