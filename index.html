@@ -100,31 +100,6 @@ header p{ font-size:16px; }
 .live-facebook{ background:#145dbf; }
 .btn:hover{ opacity:0.8; }
 
-/* ===== COMMENTS SECTION ===== */
-.comments-section{
-  padding:30px 20px;
-  background:#f9f9f9;
-  max-width:800px;
-  margin:auto;
-}
-.comment-box{
-  border:1px solid #ccc;
-  padding:10px;
-  margin:10px 0;
-  border-radius:8px;
-  background:white;
-}
-.comment-actions button{
-  margin-right:10px;
-  background:#ff9800;
-  border:none;
-  padding:5px 10px;
-  color:white;
-  border-radius:5px;
-}
-.comment-actions button:hover{opacity:0.8;}
-
-/* ===== FOOTER ===== */
 footer{
   background:black;
   color:white;
@@ -252,16 +227,11 @@ footer{
     <a href="https://youtube.com/@ahmadbadawytv" target="_blank" class="btn live-youtube">YouTube Live</a>
     <a href="https://ww</section>
 
-<!-- COMMENTS SECTION -->
-<section class="comments-section">
-K
-  <h2>💬 Comments</h2>
+<!-- FACEBOOK COMMENTS -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0"></script>
+<div class="fb-comments" data-href="https://badawy-tv.github.io/" data-width="100%" data-numposts="5"></div>
 
-  <div id="commentsBox"></div>
-
-  <input type="text" id="commentInput" pl
-
-<!-- FOOTER -->
 <footer>
   © 2026 BADAWY TV | Islamic Live Streaming Channel
 </footer>
