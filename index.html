@@ -362,3 +362,25 @@ font-weight:bold;
 </a>
 </div>
 
+
+<!-- ===== LANGUAGE SWITCHER ===== -->
+<style>
+#google_translate_element{
+margin-top:15px;
+}
+</style>
+
+<div id="google_translate_element"></div>
+
+<script>
+function googleTranslateElementInit() {
+new google.translate.TranslateElement({
+pageLanguage: 'en',
+includedLanguages: 'en,ar,sw,fr,tr,ur,ha',
+layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+}, 'google_translate_element');
+}
+</script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
