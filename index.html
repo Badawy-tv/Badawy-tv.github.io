@@ -407,3 +407,70 @@ function toggleDarkMode(){
 }
 </script>
 
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  const menu = document.querySelector("#rightDropdown, .dropdown-content, .menu-content");
+
+  if(menu){
+
+    // Dark Mode
+    const darkBtn = document.createElement("a");
+    darkBtn.innerHTML = "🌙 Dark / Light";
+    darkBtn.href = "#";
+    darkBtn.onclick = function(){
+      document.body.classList.toggle("dark-mode");
+    };
+
+    // Auto Scroll
+    let scrollInterval=null;
+    const scrollBtn = document.createElement("a");
+    scrollBtn.innerHTML = "🔄 Auto Scroll";
+    scrollBtn.href="#";
+    scrollBtn.onclick=function(){
+      if(scrollInterval){
+        clearInterval(scrollInterval);
+        scrollInterval=null;
+      }else{
+        scrollInterval=setInterval(()=>window.scrollBy(0,1),20);
+      }
+    };
+
+    // About
+    const aboutLink=document.createElement("a");
+    aboutLink.innerHTML="📖 About Us - Build v1.0";
+    aboutLink.href="#about";
+
+    // Email
+    const emailLink=document.createElement("a");
+    emailLink.innerHTML="📧 Email";
+    emailLink.href="mailto:badawytv76@gmail.com";
+
+    // WhatsApp
+    const waLink=document.createElement("a");
+    waLink.innerHTML="💬 WhatsApp";
+    waLink.href="https://wa.me/254716802090";
+    waLink.target="_blank";
+
+    menu.appendChild(darkBtn);
+    menu.appendChild(scrollBtn);
+    menu.appendChild(aboutLink);
+    menu.appendChild(emailLink);
+    menu.appendChild(waLink);
+  }
+
+});
+</script>
+
+<style>
+.dark-mode{
+  background:#111 !important;
+  color:#eee !important;
+}
+.dark-mode header,
+.dark-mode footer{
+  background:#000 !important;
+}
+</style>
+
