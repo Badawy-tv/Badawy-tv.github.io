@@ -124,7 +124,13 @@ font-weight:bold;
 
 <body>
 
-<div id="menuBtn">☰ Menu</div>
+<div id="menuBtn" onclick="toggleMenu()">☰ Menu</div>
+<div id="sideMenu" style="position:fixed;top:0;left:-250px;width:250px;height:100%;background:#222;color:white;padding:20px;transition:0.3s;z-index:9998;">
+<h3>Menu</h3>
+<a href="#" style="color:white;display:block;margin:15px 0;text-decoration:none;">Home</a>
+<a href="#live" style="color:white;display:block;margin:15px 0;text-decoration:none;">Live</a>
+<a href="#contact" style="color:white;display:block;margin:15px 0;text-decoration:none;">Contact</a>
+</div>
 <div id="supportBtn" onclick="toggleSupport()">☕ Support Us</div>
 
 <div id="supportMenu">
@@ -186,6 +192,14 @@ day:'numeric',
 month:'long',
 year:'numeric'
 }).format(new Date());
+function toggleMenu(){
+var menu=document.getElementById("sideMenu");
+if(menu.style.left==="0px"){
+menu.style.left="-250px";
+}else{
+menu.style.left="0px";
+}
+}
 </script>
 
 </body>
