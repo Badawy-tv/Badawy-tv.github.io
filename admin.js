@@ -3,35 +3,29 @@ const ADMIN_PASSWORD = "Badawy254@ahmad";
 let tapCount = 0;
 let tapTimer;
 
-window.onload = function() {
+document.addEventListener("click", function() {
 
-  const logo = document.querySelector("img");
+  tapCount++;
 
-  if (logo) {
-    logo.addEventListener("click", function() {
+  clearTimeout(tapTimer);
 
-      tapCount++;
+  tapTimer = setTimeout(() => {
+    tapCount = 0;
+  }, 1500);
 
-      clearTimeout(tapTimer);
+  if (tapCount === 5) {
+    tapCount = 0;
 
-      tapTimer = setTimeout(() => {
-        tapCount = 0;
-      }, 1500);
+    let pass = prompt("Enter Admin Password:");
 
-      if (tapCount === 5) {
-        tapCount = 0;
-        let pass = prompt("Enter Admin Password:");
-        if (pass === ADMIN_PASSWORD) {
-          showAdminPanel();
-        } else {
-          alert("Wrong Password");
-        }
-      }
-
-    });
+    if (pass === ADMIN_PASSWORD) {
+      showAdminPanel();
+    } else {
+      alert("Wrong Password");
+    }
   }
 
-};
+});
 
 function showAdminPanel() {
 
