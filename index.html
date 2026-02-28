@@ -131,6 +131,9 @@ text-decoration:none;
 </head>
 
 <body>
+<div id="notificationBell" style="position:fixed;top:15px;left:15px;font-size:28px;cursor:pointer;z-index:9999;">🔔 <span id="notifyCount" style="background:red;color:white;border-radius:50%;padding:3px 8px;font-size:12px;">0</span></div>
+<div id="notificationPanel" style="display:none;position:fixed;top:60px;left:15px;width:250px;background:white;box-shadow:0 5px 15px rgba(0,0,0,0.2);border-radius:10px;padding:15px;z-index:9999;"><h3>Notifications</h3><ul id="notificationList"></ul></div>
+<script>document.addEventListener("DOMContentLoaded",function(){const bell=document.getElementById("notificationBell");const panel=document.getElementById("notificationPanel");bell.onclick=()=>{panel.style.display=panel.style.display==="none"?"block":"none";};});</script>
 <div id="progressBar"></div>
 <div id="loader">
   <div class="spinner"></div>
@@ -194,6 +197,7 @@ window.onscroll = function() {
   document.getElementById("progressBar").style.width = scrolled + "%";
 };
 </script>
+<script src="notify.js"></script>
 </body>
 </html>
 
