@@ -87,10 +87,35 @@ padding:10px 15px;
 border-radius:25px;
 text-decoration:none;
 }
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
 </style>
 </head>
 
 <body>
+<div id="loader">
+  <div class="spinner"></div>
+</div>
 
 <header>
 <img src="profile.png" class="profile-img">
@@ -135,6 +160,13 @@ text-decoration:none;
 <a href="mailto:badawytv76@gmail.com" class="bottom-email">📧 Email</a>
 <a href="https://wa.me/254716802090" target="_blank" class="bottom-whatsapp">💬 WhatsApp</a>
 
+<script>
+window.addEventListener("load", function(){
+  setTimeout(function(){
+    document.getElementById("loader").style.display="none";
+  }, 1200);
+});
+</script>
 </body>
 </html>
 
@@ -177,6 +209,28 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin:10px 0;
+}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
 }
 </style>
 
@@ -227,6 +281,28 @@ clearInterval(window.scrollInterval);
 background:#111 !important;
 color:#fff !important;
 }
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
 </style>
 
 
@@ -258,6 +334,28 @@ border-radius:5px;
 .cookie-accept{background:#28a745;color:#fff;}
 .cookie-reject{background:#dc3545;color:#fff;}
 .cookie-no{background:#6c757d;color:#fff;}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
 </style>
 
 <div id="cookieBox" style="display:none;">
@@ -304,6 +402,28 @@ animation:fadeIn 0.5s ease-in-out;
 @keyframes fadeIn{
 from{opacity:0;}
 to{opacity:1;}
+}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
 }
 </style>
 
@@ -359,6 +479,28 @@ text-decoration:none;
 border-radius:8px;
 font-weight:bold;
 }
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
 </style>
 
 <div id="youtubeLiveBox">
@@ -375,6 +517,28 @@ font-weight:bold;
 <style>
 #google_translate_element{
 margin-top:15px;
+}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
 }
 </style>
 
@@ -412,6 +576,28 @@ display:flex;
 justify-content:space-between;
 padding:8px 0;
 border-bottom:1px solid #eee;
+}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
 }
 </style>
 
@@ -467,6 +653,28 @@ font-weight:bold;
 #rateBox a:hover{
 background:#e2e6ea;
 }
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
 </style>
 
 <div id="rateBox">
@@ -506,6 +714,28 @@ font-weight:bold;
 .mpesa{background:#2BB673;}
 .paypal{background:#0070ba;}
 .skrill{background:#862165;}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
 </style>
 
 <div id="supportBox">
@@ -571,6 +801,28 @@ text-align:center;
 .whatsapp{background:#25D366;}
 .facebook{background:#1877F2;}
 .email{background:#007BFF;}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
 </style>
 
 <div id="contactLauncher" onclick="toggleContact()">📩 Contact Us</div>
