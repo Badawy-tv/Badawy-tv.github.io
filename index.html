@@ -30,8 +30,25 @@ h1{
 margin:15px 0 5px;
 }
 
-section{
+.live-box{
+margin:30px auto;
 padding:20px;
+width:90%;
+max-width:400px;
+background:white;
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.live-btn{
+display:inline-block;
+margin-top:15px;
+padding:12px 20px;
+background:#ff0000;
+color:white;
+text-decoration:none;
+border-radius:25px;
+font-weight:bold;
 }
 
 footer{
@@ -39,36 +56,6 @@ margin-top:40px;
 padding:15px;
 background:#222;
 color:white;
-}
-
-#menuBtn{
-position:fixed;
-top:15px;
-left:15px;
-background:#333;
-color:white;
-padding:10px 15px;
-border-radius:25px;
-cursor:pointer;
-}
-
-#sideMenu{
-position:fixed;
-top:0;
-left:-220px;
-width:220px;
-height:100%;
-background:#222;
-color:white;
-padding:20px;
-transition:0.3s;
-}
-
-#sideMenu a{
-color:white;
-display:block;
-margin:15px 0;
-text-decoration:none;
 }
 
 .bottom-email{
@@ -97,29 +84,17 @@ text-decoration:none;
 
 <body>
 
-<div id="menuBtn" onclick="toggleMenu()">☰ Menu</div>
-
-<div id="sideMenu">
-<h3>Menu</h3>
-<a href="#home">Home</a>
-<a href="#contact">Contact</a>
-</div>
-
-<header id="home">
+<header>
 <img src="profile.png" class="profile-img">
 <h1>🕌 BADAWY TV</h1>
 <p>Islamic Live Streaming Channel</p>
 </header>
 
-<section>
-<h2>Watch Us Live</h2>
-<p>Follow us on YouTube, Facebook & TikTok</p>
-</section>
-
-<section id="contact">
-<h2>Contact</h2>
-<p>📞 0716 802090</p>
-</section>
+<div class="live-box">
+<h2>🔴 We Are Live</h2>
+<p>Watch us now on YouTube</p>
+<a href="https://youtube.com" target="_blank" class="live-btn">Watch Live</a>
+</div>
 
 <footer>
 © 2026 BADAWY TV
@@ -127,13 +102,6 @@ text-decoration:none;
 
 <a href="mailto:badawytv76@gmail.com" class="bottom-email">📧 Email</a>
 <a href="https://wa.me/254716802090" target="_blank" class="bottom-whatsapp">💬 WhatsApp</a>
-
-<script>
-function toggleMenu(){
-var menu=document.getElementById("sideMenu");
-menu.style.left = menu.style.left==="0px" ? "-220px" : "0px";
-}
-</script>
 
 </body>
 </html>
