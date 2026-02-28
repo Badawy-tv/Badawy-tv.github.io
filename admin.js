@@ -1,22 +1,39 @@
 const ADMIN_PASSWORD = "Badawy254@ahmad";
 
-let pressTimer;
+let tapCount = 0;
+let tapTimer;
 
-document.addEventListener("touchstart", function() {
+window.addEventListener("load", function() {
 
-  pressTimer = setTimeout(function() {
-    let pass = prompt("Enter Admin Password:");
-    if (pass === ADMIN_PASSWORD) {
-      showAdminPanel();
-    } else {
-      alert("Wrong Password");
+  const logo = document.querySelector(".profile-img");
+
+  if (!logo) {
+    console.log("Profile image not found");
+    return;
+  }
+
+  logo.addEventListener("click", function() {
+
+    tapCount++;
+
+    clearTimeout(tapTimer);
+
+    tapTimer = setTimeout(() => {
+      tapCount = 0;
+    }, 1500);
+
+    if (tapCount === 5) {
+      tapCount = 0;
+      let pass = prompt("Enter Admin Password:");
+      if (pass === ADMIN_PASSWORD) {
+        showAdminPanel();
+      } else {
+        alert("Wrong Password");
+      }
     }
-  }, 5000); // 5 seconds hold
 
-});
+  });
 
-document.addEventListener("touchend", function() {
-  clearTimeout(pressTimer);
 });
 
 function showAdminPanel() {
