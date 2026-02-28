@@ -19,7 +19,7 @@ window.addEventListener("load", function() {
 
     pressTimer = setTimeout(function() {
       openAdmin();
-    }, 2000);
+    }, 5000);
 
   });
 
