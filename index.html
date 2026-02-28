@@ -274,3 +274,57 @@ document.getElementById("cookieBox").style.display="flex";
 }
 </script>
 
+
+<!-- ===== FIRST VISIT WELCOME ===== -->
+<style>
+#welcomePopup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#ffffff;
+padding:30px 40px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+border-radius:10px;
+z-index:10000;
+text-align:center;
+font-size:18px;
+display:none;
+animation:fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+</style>
+
+<div id="welcomePopup">
+<b>Welcome to Badawy TV</b><br><br>
+We are glad to have you following 🌙
+</div>
+
+<audio id="welcomeSound" preload="auto">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b48d5.mp3?filename=success-1-6297.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+window.addEventListener("load", function(){
+
+if(!localStorage.getItem("visitedBefore")){
+
+var popup=document.getElementById("welcomePopup");
+popup.style.display="block";
+
+document.getElementById("welcomeSound").play().catch(()=>{});
+
+setTimeout(function(){
+popup.style.display="none";
+},4000);
+
+localStorage.setItem("visitedBefore","yes");
+}
+
+});
+</script>
+
