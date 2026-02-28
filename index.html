@@ -1057,3 +1057,60 @@ localStorage.setItem("visitedBefore","yes");
 });
 </script>
 
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyASNJLrmw3pk9ClzYeFUyu4fq_AqO4Wkjc",
+  authDomain: "badawytv.firebaseapp.com",
+  databaseURL: "https://badawytv-default-rtdb.firebaseio.com",
+  projectId: "badawytv",
+  storageBucket: "badawytv.firebasestorage.app",
+  messagingSenderId: "290361356500",
+  appId: "1:290361356500:web:c281156ffb95d1ad964b41"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+// LIVE Banner Listener
+db.ref("liveStatus").on("value", snapshot => {
+  const isLive = snapshot.val();
+
+  let banner = document.getElementById("liveBanner");
+
+  if (isLive) {
+    if (!banner) {
+      banner = document.createElement("div");
+      banner.id = "liveBanner";
+      banner.innerHTML = "🔴 WE ARE LIVE NOW!";
+      banner.style.position = "fixed";
+      banner.style.top = "0";
+      banner.style.left = "0";
+      banner.style.width = "100%";
+      banner.style.background = "red";
+      banner.style.color = "white";
+      banner.style.textAlign = "center";
+      banner.style.padding = "15px";
+      banner.style.fontWeight = "bold";
+      banner.style.zIndex = "9999";
+      document.body.appendChild(banner);
+    }
+  } else {
+    if (banner) banner.remove();
+  }
+});
+
+// Notification Listener
+db.ref("announcement").on("value", snapshot => {
+  const message = snapshot.val();
+  if (message) {
+    alert(message);
+  }
+});
+</script>
+
