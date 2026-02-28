@@ -127,9 +127,31 @@ footer{
 @media(max-width:768px){
   .social-buttons, .live-buttons{ flex-direction:column; }
 }
+.support-container{position:fixed;top:20px;left:20px;z-index:1000;}
+.support-btn{background:#0b3d0b;color:white;padding:10px 15px;border:none;border-radius:8px;cursor:pointer;}
+.support-menu{display:none;background:white;padding:10px;border-radius:8px;margin-top:5px;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+.support-menu a,.support-menu button{display:block;margin:5px 0;text-decoration:none;background:none;border:none;cursor:pointer;}
+
 </style>
 </head>
 <body>
+
+<!-- SUPPORT BUTTON -->
+<div class="support-container">
+  <button onclick="toggleSupport()" class="support-btn">☕ Support Us</button>
+  <div id="supportMenu" class="support-menu">
+    <a href="https://www.paypal.com" target="_blank">💳 PayPal</a>
+    <button onclick="toggleMpesa()">📱 M-Pesa</button>
+    <a href="https://www.skrill.com" target="_blank">💰 Skrill</a>
+    <div id="mpesaDetails" style="display:none; padding:10px;">
+      <p>Go to M-Pesa</p>
+      <p>Lipa na M-Pesa</p>
+      <p>Paybill: 123456</p>
+      <p>Account: BADAWY</p>
+    </div>
+  </div>
+</div>
+
 <!-- TOP RIGHT MENU -->
 <div style="position:fixed;top:15px;right:20px;z-index:1000;">
 <div style="position:relative;display:inline-block;">
@@ -312,6 +334,17 @@ function clearComments(){
    box-shadow:0 4px 10px rgba(0,0,0,0.3);">
    📱 Download APK
 </a>
+<script>
+function toggleSupport(){
+  var menu=document.getElementById("supportMenu");
+  menu.style.display=menu.style.display==="block"?"none":"block";
+}
+function toggleMpesa(){
+  var mp=document.getElementById("mpesaDetails");
+  mp.style.display=mp.style.display==="block"?"none":"block";
+}
+</script>
+
 </body>
 </html>
 
@@ -376,5 +409,10 @@ document.addEventListener("DOMContentLoaded", function(){
 <style>
   background:#000 !important;
 }
+.support-container{position:fixed;top:20px;left:20px;z-index:1000;}
+.support-btn{background:#0b3d0b;color:white;padding:10px 15px;border:none;border-radius:8px;cursor:pointer;}
+.support-menu{display:none;background:white;padding:10px;border-radius:8px;margin-top:5px;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+.support-menu a,.support-menu button{display:block;margin:5px 0;text-decoration:none;background:none;border:none;cursor:pointer;}
+
 </style>
 
