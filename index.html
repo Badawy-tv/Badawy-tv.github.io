@@ -13,9 +13,7 @@ background:linear-gradient(135deg,#f5f7fa,#c3cfe2);
 text-align:center;
 }
 
-header{
-padding:20px;
-}
+header{padding:20px;}
 
 .profile-img{
 width:150px;
@@ -26,13 +24,9 @@ display:block;
 margin:0 auto;
 }
 
-h1{
-margin:10px 0 5px;
-}
+h1{margin:10px 0 5px;}
 
-section{
-padding:20px;
-}
+section{padding:20px;}
 
 .btn{
 display:inline-block;
@@ -48,10 +42,6 @@ font-weight:bold;
 .tiktok{background:#000;}
 .facebook{background:#1877f2;}
 
-.live-youtube{
-background:#cc0000;
-}
-
 footer{
 margin-top:40px;
 padding:15px;
@@ -59,41 +49,36 @@ background:#222;
 color:white;
 }
 
-/* Floating Buttons */
 #menuBtn{
 position:fixed;
 top:15px;
 left:15px;
-z-index:9999;
 background:#333;
 color:white;
 padding:10px 15px;
 border-radius:30px;
 cursor:pointer;
-}
-
-#supportBtn{
-position:fixed;
-top:15px;
-right:15px;
 z-index:9999;
-background:#ff9800;
-color:white;
-padding:10px 15px;
-border-radius:30px;
-cursor:pointer;
 }
 
-#supportMenu{
-display:none;
+#sideMenu{
 position:fixed;
-top:60px;
-right:15px;
-background:white;
-padding:15px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
-text-align:left;
+top:0;
+left:-250px;
+width:250px;
+height:100%;
+background:#222;
+color:white;
+padding:20px;
+transition:0.3s;
+z-index:9998;
+}
+
+#sideMenu a{
+color:white;
+display:block;
+margin:15px 0;
+text-decoration:none;
 }
 
 .bottom-email{
@@ -119,53 +104,54 @@ border-radius:30px;
 text-decoration:none;
 font-weight:bold;
 }
+
+#jummahBanner{
+display:none;
+background:#28a745;
+color:white;
+padding:15px;
+margin:20px;
+font-weight:bold;
+border-radius:10px;
+}
 </style>
 </head>
 
 <body>
 
 <div id="menuBtn" onclick="toggleMenu()">☰ Menu</div>
-<div id="sideMenu" style="position:fixed;top:0;left:-250px;width:250px;height:100%;background:#222;color:white;padding:20px;transition:0.3s;z-index:9998;">
-<h3>Menu</h3>
-<a href="#" style="color:white;display:block;margin:15px 0;text-decoration:none;">Home</a>
-<a href="#live" style="color:white;display:block;margin:15px 0;text-decoration:none;">Live</a>
-<a href="#contact" style="color:white;display:block;margin:15px 0;text-decoration:none;">Contact</a>
-</div>
-<div id="supportBtn" onclick="toggleSupport()">☕ Support Us</div>
 
-<div id="supportMenu">
-<b>Support Options</b><br><br>
-<a href="https://www.paypal.com" target="_blank">💳 PayPal</a><br><br>
-<a href="#" onclick="toggleMpesa()">📱 M-Pesa</a><br><br>
-<div id="mpesaDetails" style="display:none;">
-Lipa na M-Pesa<br>
-Paybill: 123456<br>
-Account: BADAWY
-</div>
-<br>
-<a href="https://www.skrill.com" target="_blank">💰 Skrill</a>
+<div id="sideMenu">
+<h3>Menu</h3>
+<a href="#live">Live</a>
+<a href="#prayer">Prayer Times</a>
+<a href="#contact">Contact</a>
 </div>
 
 <header>
 <img src="profile.png" class="profile-img">
 <h1>🕌 BADAWY TV</h1>
 <p>Islamic Live Streaming Channel</p>
-<p>🌙 Islamic Date: <span id="hijriDate"></span></p>
 </header>
 
-<section>
-<h2>🔴 LIVE NOW</h2>
-<a href="https://youtube.com/@ahmadbadawytv" target="_blank" class="btn youtube">YouTube</a>
-<a href="#" class="btn tiktok">TikTok</a>
-<a href="#" class="btn facebook">Facebook</a>
+<div id="jummahBanner">
+🌙 Jumu’ah Mubarak! Join our Live Khutbah Today.
+</div>
+
+<section id="live">
+<h2>🔴 Watch Us Live</h2>
+<iframe width="100%" height="315"
+src="https://www.youtube.com/embed/live_stream?channel=UCXXXXXXXXXXXX"
+frameborder="0" allowfullscreen>
+</iframe>
 </section>
 
-<section>
-<h2>Watch Us Live</h2>
-<a href="https://youtube.com/@ahmadbadawytv" target="_blank" class="btn live-youtube">YouTube Live</a>
+<section id="prayer">
+<h2>🕌 Prayer Times (Nairobi)</h2>
+<div id="prayerTimes">Loading prayer times...</div>
 </section>
 
-<section>
+<section id="contact">
 <h2>Contact</h2>
 <p>📞 Call: 0716 802090</p>
 </section>
@@ -178,28 +164,26 @@ Account: BADAWY
 <a href="https://wa.me/254716802090" target="_blank" class="bottom-whatsapp">💬 WhatsApp</a>
 
 <script>
-function toggleSupport(){
-var menu=document.getElementById("supportMenu");
-menu.style.display=menu.style.display==="block"?"none":"block";
-}
-function toggleMpesa(){
-var mp=document.getElementById("mpesaDetails");
-mp.style.display=mp.style.display==="block"?"none":"block";
-}
-document.getElementById("hijriDate").innerHTML=
-new Intl.DateTimeFormat('en-TN-u-ca-islamic',{
-day:'numeric',
-month:'long',
-year:'numeric'
-}).format(new Date());
 function toggleMenu(){
 var menu=document.getElementById("sideMenu");
-if(menu.style.left==="0px"){
-menu.style.left="-250px";
-}else{
-menu.style.left="0px";
+menu.style.left = menu.style.left==="0px" ? "-250px" : "0px";
 }
+
+if(new Date().getDay() === 5){
+document.getElementById("jummahBanner").style.display="block";
 }
+
+fetch("https://api.aladhan.com/v1/timingsByCity?city=Nairobi&country=Kenya&method=2")
+.then(res => res.json())
+.then(data => {
+let t = data.data.timings;
+document.getElementById("prayerTimes").innerHTML =
+"Fajr: " + t.Fajr + "<br>" +
+"Dhuhr: " + t.Dhuhr + "<br>" +
+"Asr: " + t.Asr + "<br>" +
+"Maghrib: " + t.Maghrib + "<br>" +
+"Isha: " + t.Isha;
+});
 </script>
 
 </body>
