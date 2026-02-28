@@ -1,30 +1,22 @@
 const ADMIN_PASSWORD = "Badawy254@ahmad";
 
-let tapCount = 0;
-let tapTimer;
+let pressTimer;
 
-document.addEventListener("click", function() {
+document.addEventListener("touchstart", function() {
 
-  tapCount++;
-
-  clearTimeout(tapTimer);
-
-  tapTimer = setTimeout(() => {
-    tapCount = 0;
-  }, 1500);
-
-  if (tapCount === 5) {
-    tapCount = 0;
-
+  pressTimer = setTimeout(function() {
     let pass = prompt("Enter Admin Password:");
-
     if (pass === ADMIN_PASSWORD) {
       showAdminPanel();
     } else {
       alert("Wrong Password");
     }
-  }
+  }, 5000); // 5 seconds hold
 
+});
+
+document.addEventListener("touchend", function() {
+  clearTimeout(pressTimer);
 });
 
 function showAdminPanel() {
