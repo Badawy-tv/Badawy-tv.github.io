@@ -129,3 +129,95 @@ text-decoration:none;
 
 </body>
 </html>
+
+<!-- ===== TOP RIGHT MENU ===== -->
+<style>
+#topMenuBtn{
+position:fixed;
+top:15px;
+right:15px;
+background:#222;
+color:#fff;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+z-index:9999;
+}
+
+#topMenu{
+position:fixed;
+top:55px;
+right:-300px;
+width:260px;
+background:#fff;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+padding:20px;
+transition:0.3s;
+z-index:9999;
+}
+
+#topMenu a{
+display:block;
+padding:10px 0;
+text-decoration:none;
+color:#333;
+border-bottom:1px solid #eee;
+}
+
+.switch{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:10px 0;
+}
+</style>
+
+<div id="topMenuBtn" onclick="toggleTopMenu()">☰ Menu</div>
+
+<div id="topMenu">
+<a href="mailto:badawytv76@gmail.com?subject=Welcome%20to%20Badawy%20TV&body=Assalamu%20Alaikum%20wa%20Rahmatullahi%20wa%20Barakatuh.%0A%0AWelcome%20to%20Badawy%20TV%20🌙%0AHow%20can%20we%20assist%20you%20today?">📧 Email</a>
+
+<a href="https://wa.me/254716802090?text=Assalamu%20Alaikum%20wa%20Rahmatullahi%20wa%20Barakatuh.%0A%0AWelcome%20to%20Badawy%20TV%20🌙%0AHow%20can%20we%20assist%20you%20today?" target="_blank">📱 WhatsApp</a>
+
+<a href="https://www.youtube.com/" target="_blank">▶ Subscribe</a>
+
+<a href="https://quran.com" target="_blank">📖 Read Quran</a>
+
+<div class="switch">
+<span>🌙 Dark Mode</span>
+<input type="checkbox" onchange="toggleDarkMode()">
+</div>
+
+<div class="switch">
+<span>🔄 Auto Scroll</span>
+<input type="checkbox" onchange="toggleScroll(this)">
+</div>
+
+</div>
+
+<script>
+function toggleTopMenu(){
+var menu=document.getElementById("topMenu");
+menu.style.right = menu.style.right==="0px" ? "-300px" : "0px";
+}
+
+function toggleDarkMode(){
+document.body.classList.toggle("darkmode");
+}
+
+function toggleScroll(el){
+if(el.checked){
+window.scrollInterval=setInterval(()=>window.scrollBy(0,1),30);
+}else{
+clearInterval(window.scrollInterval);
+}
+}
+</script>
+
+<style>
+.darkmode{
+background:#111 !important;
+color:#fff !important;
+}
+</style>
+
