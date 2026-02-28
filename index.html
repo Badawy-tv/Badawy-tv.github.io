@@ -221,3 +221,56 @@ color:#fff !important;
 }
 </style>
 
+
+<!-- ===== COOKIE CONSENT ===== -->
+<style>
+#cookieBox{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:#222;
+color:#fff;
+padding:15px;
+display:flex;
+flex-wrap:wrap;
+justify-content:space-between;
+align-items:center;
+z-index:9999;
+}
+
+#cookieBox button{
+margin:5px;
+padding:8px 15px;
+border:none;
+cursor:pointer;
+border-radius:5px;
+}
+
+.cookie-accept{background:#28a745;color:#fff;}
+.cookie-reject{background:#dc3545;color:#fff;}
+.cookie-no{background:#6c757d;color:#fff;}
+</style>
+
+<div id="cookieBox" style="display:none;">
+<span>This website uses cookies to improve your experience.</span>
+<div>
+<button class="cookie-accept" onclick="setCookieConsent('accepted')">Accept</button>
+<button class="cookie-reject" onclick="setCookieConsent('rejected')">Reject</button>
+<button class="cookie-no" onclick="setCookieConsent('no')">No Thanks</button>
+</div>
+</div>
+
+<script>
+function setCookieConsent(choice){
+localStorage.setItem("cookieConsent",choice);
+document.getElementById("cookieBox").style.display="none";
+}
+
+window.onload=function(){
+if(!localStorage.getItem("cookieConsent")){
+document.getElementById("cookieBox").style.display="flex";
+}
+}
+</script>
+
