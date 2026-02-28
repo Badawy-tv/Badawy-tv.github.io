@@ -1,15 +1,40 @@
-const ADMIN_PASSWORD = "12345"; // CHANGE THIS
+const ADMIN_PASSWORD = "Badawy254@ahmad";
 
-function openAdmin() {
-  const password = prompt("Enter Admin Password:");
-  if (password === ADMIN_PASSWORD) {
-    showAdminPanel();
-  } else {
-    alert("Wrong Password!");
+let tapCount = 0;
+let tapTimer;
+
+window.onload = function() {
+
+  const logo = document.querySelector("img");
+
+  if (logo) {
+    logo.addEventListener("click", function() {
+
+      tapCount++;
+
+      clearTimeout(tapTimer);
+
+      tapTimer = setTimeout(() => {
+        tapCount = 0;
+      }, 1500);
+
+      if (tapCount === 5) {
+        tapCount = 0;
+        let pass = prompt("Enter Admin Password:");
+        if (pass === ADMIN_PASSWORD) {
+          showAdminPanel();
+        } else {
+          alert("Wrong Password");
+        }
+      }
+
+    });
   }
-}
+
+};
 
 function showAdminPanel() {
+
   if (document.getElementById("adminPanel")) return;
 
   const panel = document.createElement("div");
