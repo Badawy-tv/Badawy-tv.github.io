@@ -1,160 +1,175 @@
-			^K
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-rm -rf $HOME/*
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>✨ BADAWY TV ✨</title>
+
 <style>
-/* ===== GLOBAL ===== */
-body {
-  margin:0;
-  font-family:'Segoe UI',sans-serif;
-  color:#111;
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#f5f7fa,#c3cfe2);
+text-align:center;
 }
-a { text-decoration:none; }
-h1,h2,h3,h4 { margin:10px 0; }
-button{cursor:pointer;}
 
-/* ===== HEADER ===== */
 header{
-  background:#0b3d0b;
-  color:white;
-  padding:20px;
-  text-align:center;
+padding:20px;
 }
-header h1{ font-size:28px; }
-header p{ font-size:16px; }
 
-/* ===== BREAKING NEWS ===== */
-.breaking-bar {
-  background:red;
-  color:white;
-  padding:8px;
-  font-weight:bold;
-  text-align:center;
+.profile-img{
+width:150px;
+height:150px;
+border-radius:50%;
+object-fit:cover;
+display:block;
+margin:0 auto;
 }
-.breaking-bar marquee { font-weight:bold; }
 
-/* ===== LIVE SECTION ===== */
-.live-stream{
-  padding:40px 20px;
-  background:#f4f4f4;
-  text-align:center;
+h1{
+margin:10px 0 5px;
 }
-.live-stream h2{ margin-bottom:150px; color:#b30000; }
 
-/* ===== CONTACT & SOCIAL ===== */
-.contact-section{
-  background:#0b3d0b;
-  color:white;
-  padding:40px 20px;
-  text-align:center;
+section{
+padding:20px;
 }
-.contact-section h2{ margin-top:30px; font-size:22px; color:#f9c400; }
-.contact-box p{ margin:10px 0; font-size:18px; }
-.contact-box a{ color:#00ffcc; }
-.social-buttons, .live-buttons{
-  display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin-top:20px;
-}
+
 .btn{
-  padding:12px 18px;
-  border-radius:6px;
-  text-decoration:none;
-  font-weight:bold;
-  color:white;
-  transition:0.3s;
+display:inline-block;
+padding:12px 20px;
+margin:8px;
+border-radius:30px;
+text-decoration:none;
+color:white;
+font-weight:bold;
 }
-.youtube{ background:#ff0000; }
-.tiktok{ background:#000000; }
-.facebook{ background:#1877f2; }
-.live-youtube{ background:#cc0000; }
-.live-tiktok{ background:#111; }
-.live-facebook{ background:#145dbf; }
-.btn:hover{ opacity:0.8; }
+
+.youtube{background:#ff0000;}
+.tiktok{background:#000;}
+.facebook{background:#1877f2;}
+
+.live-youtube{
+background:#cc0000;
+}
 
 footer{
-  background:black;
-  color:white;
-  padding:20px;
-  text-align:center;
-  margin-top:40px;
+margin-top:40px;
+padding:15px;
+background:#222;
+color:white;
 }
 
-/* ===== FLOATING WHATSAPP ===== */
-.whatsapp-float{
-  position:relative;
-  bottom:20px;
-  right:20px;
-  background:#25D366;
-  color:white;
-  font-size:28px;
-  padding:15px 18px;
-  border-radius:50%;
-  text-decoration:none;
-  z-index:1000;
+/* Floating Buttons */
+#menuBtn{
+position:fixed;
+top:15px;
+left:15px;
+z-index:9999;
+background:#333;
+color:white;
+padding:10px 15px;
+border-radius:30px;
+cursor:pointer;
 }
 
-/* ===== RESPONSIVE ===== */
-@media(max-width:768px){
-  .social-buttons, .live-buttons{ flex-direction:column; }
+#supportBtn{
+position:fixed;
+top:15px;
+right:15px;
+z-index:9999;
+background:#ff9800;
+color:white;
+padding:10px 15px;
+border-radius:30px;
+cursor:pointer;
 }
-.support-container{position:relative;float:left;margin:20px;}
-.support-btn{background:#0b3d0b;color:white;padding:10px 15px;border:none;border-radius:8px;cursor:pointer;}
-.support-menu a,.support-menu button{display:block;margin:5px 0;text-decoration:none;background:none;border:none;cursor:pointer;}
 
+#supportMenu{
+display:none;
+position:fixed;
+top:60px;
+right:15px;
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+text-align:left;
+}
+
+.bottom-email{
+position:fixed;
+bottom:15px;
+left:15px;
+background:#0d6efd;
+color:white;
+padding:12px 18px;
+border-radius:30px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.bottom-whatsapp{
+position:fixed;
+bottom:15px;
+right:15px;
+background:#25D366;
+color:white;
+padding:12px 18px;
+border-radius:30px;
+text-decoration:none;
+font-weight:bold;
+}
 </style>
 </head>
+
 <body>
 
-<!-- SUPPORT BUTTON -->
-<div class="support-container">
-  <button onclick="toggleSupport()" class="support-btn">☕ Support Us</button>
-  <div id="supportMenu" class="support-menu">
+<div id="menuBtn">☰ Menu</div>
+<div id="supportBtn" onclick="toggleSupport()">☕ Support Us</div>
 
-  </div>
+<div id="supportMenu">
+<b>Support Options</b><br><br>
+<a href="https://www.paypal.com" target="_blank">💳 PayPal</a><br><br>
+<a href="#" onclick="toggleMpesa()">📱 M-Pesa</a><br><br>
+<div id="mpesaDetails" style="display:none;">
+Lipa na M-Pesa<br>
+Paybill: 123456<br>
+Account: BADAWY
+</div>
+<br>
+<a href="https://www.skrill.com" target="_blank">💰 Skrill</a>
+</div>
 
-  <h2>Watch Us Live</h2>
-  <div class="live-buttons">
-    <a href="https://youtube.com/@ahmadbadawytv" target="_blank" class="btn live-youtube">YouTube Live</a>
-  </div>
+<header>
+<img src="profile.png" class="profile-img">
+<h1>🕌 BADAWY TV</h1>
+<p>Islamic Live Streaming Channel</p>
+<p>🌙 Islamic Date: <span id="hijriDate"></span></p>
+</header>
 
+<section>
+<h2>🔴 LIVE NOW</h2>
+<a href="https://youtube.com/@ahmadbadawytv" target="_blank" class="btn youtube">YouTube</a>
+<a href="#" class="btn tiktok">TikTok</a>
+<a href="#" class="btn facebook">Facebook</a>
+</section>
+
+<section>
+<h2>Watch Us Live</h2>
+<a href="https://youtube.com/@ahmadbadawytv" target="_blank" class="btn live-youtube">YouTube Live</a>
+</section>
+
+<section>
+<h2>Contact</h2>
+<p>📞 Call: 0716 802090</p>
 </section>
 
 <footer>
-  © 2026 BADAWY TV | Islamic Live Streaming Channel
+© 2026 BADAWY TV | Islamic Live Streaming Channel
 </footer>
 
-<a href="mailto:badawytv76@gmail.com" style="position:fixed;bottom:15px;left:15px;z-index:9999;background:#0d6efd;color:white;padding:12px 18px;border-radius:30px;text-decoration:none;font-weight:bold;">📧 Email</a>
-
-<a href="https://wa.me/254716802090" target="_blank" style="position:fixed;bottom:15px;right:15px;z-index:9999;background:#25D366;color:white;padding:12px 18px;border-radius:30px;text-decoration:none;font-weight:bold;">💬 WhatsApp</a>
+<a href="mailto:badawytv76@gmail.com" class="bottom-email">📧 Email</a>
+<a href="https://wa.me/254716802090" target="_blank" class="bottom-whatsapp">💬 WhatsApp</a>
 
 <script>
 function toggleSupport(){
@@ -165,6 +180,12 @@ function toggleMpesa(){
 var mp=document.getElementById("mpesaDetails");
 mp.style.display=mp.style.display==="block"?"none":"block";
 }
+document.getElementById("hijriDate").innerHTML=
+new Intl.DateTimeFormat('en-TN-u-ca-islamic',{
+day:'numeric',
+month:'long',
+year:'numeric'
+}).format(new Date());
 </script>
 
 </body>
