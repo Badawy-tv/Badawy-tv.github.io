@@ -1,5 +1,9 @@
 const ADMIN_PASSWORD = "Badawy254@ahmad";
 
+let pressTimer;
+let isPromptOpen = false;   // lock system
+let isProcessing = false;   // prevent double trigger
+
 window.addEventListener("load", function() {
 
   const logo = document.querySelector(".profile-img");
@@ -9,12 +13,14 @@ window.addEventListener("load", function() {
     return;
   }
 
-  let pressTimer;
-
   logo.addEventListener("touchstart", function() {
+
+    if (isProcessing) return;
+
     pressTimer = setTimeout(function() {
       openAdmin();
-    }, 2000); // 2 seconds long press
+    }, 2000);
+
   });
 
   logo.addEventListener("touchend", function() {
@@ -28,12 +34,32 @@ window.addEventListener("load", function() {
 });
 
 function openAdmin() {
+
+  if (isPromptOpen) return;
+
+  isPromptOpen = true;
+  isProcessing = true;
+
   let pass = prompt("Enter Admin Password:");
+
+  if (pass === null) {
+    isPromptOpen = false;
+    isProcessing = false;
+    return;
+  }
+
+  pass = pass.trim();
+
   if (pass === ADMIN_PASSWORD) {
     showAdminPanel();
   } else {
     alert("Wrong Password");
   }
+
+  isPromptOpen = false;
+  setTimeout(() => {
+    isProcessing = false;
+  }, 500);
 }
 
 function showAdminPanel() {
