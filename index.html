@@ -519,3 +519,77 @@ href="https://www.skrill.com/en/send-money/?recipient=badawytv76@gmail.com">
 
 </div>
 
+
+<!-- ===== FINAL AUTO WELCOME CONTACT (CORRECTED) ===== -->
+<style>
+#contactLauncher{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#000;
+color:#fff;
+padding:15px 22px;
+border-radius:50px;
+cursor:pointer;
+z-index:9999;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+font-weight:bold;
+}
+
+#contactPopup{
+position:fixed;
+bottom:80px;
+right:20px;
+background:#ffffff;
+padding:20px;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+display:none;
+z-index:9999;
+width:260px;
+}
+
+#contactPopup a{
+display:block;
+margin:10px 0;
+padding:12px;
+text-decoration:none;
+color:#fff;
+border-radius:6px;
+font-weight:bold;
+text-align:center;
+}
+
+.whatsapp{background:#25D366;}
+.facebook{background:#1877F2;}
+.email{background:#007BFF;}
+</style>
+
+<div id="contactLauncher" onclick="toggleContact()">📩 Contact Us</div>
+
+<div id="contactPopup">
+
+<a class="whatsapp" target="_blank"
+href="https://wa.me/254716802090?text=Assalamu%20Alaikum%20wa%20Rahmatullahi%20wa%20Barakatuh.%0A%0AWelcome%20to%20Badawy%20TV%20🌙%0AWe%20are%20glad%20to%20have%20you%20following.%20How%20can%20we%20assist%20you%20today?">
+📱 WhatsApp
+</a>
+
+<a class="facebook" target="_blank"
+href="https://m.me/ahmed.badawy.1690?ref=Welcome%20to%20Badawy%20TV">
+💬 Facebook Messenger
+</a>
+
+<a class="email"
+href="mailto:badawytv76@gmail.com?subject=Welcome%20to%20Badawy%20TV&body=Assalamu%20Alaikum%20wa%20Rahmatullahi%20wa%20Barakatuh.%0A%0AWelcome%20to%20Badawy%20TV%20🌙%0AWe%20are%20glad%20to%20have%20you%20following.%0AHow%20can%20we%20assist%20you%20today?">
+📧 Email
+</a>
+
+</div>
+
+<script>
+function toggleContact(){
+var box=document.getElementById("contactPopup");
+box.style.display = box.style.display==="block" ? "none" : "block";
+}
+</script>
+
