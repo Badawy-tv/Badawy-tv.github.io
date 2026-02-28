@@ -1,4 +1,55 @@
 
+const auth = firebase.auth();
+const db = firebase.database();
+
+// Auto detect login
+auth.onAuthStateChanged(user => {
+  if (user) {
+    showAdminPanel();
+  }
+});
+
+// Long press 5 seconds to open login
+let pressTimer;
+let loginOpen = false;
+
+window.addEventListener("load", function() {
+
+  const logo = document.querySelector(".profile-img");
+  if (!logo) return;
+
+  logo.addEventListener("touchstart", function() {
+    pressTimer = setTimeout(() => {
+      openLogin();
+    }, 5000);
+  });
+
+  logo.addEventListener("touchend", () => clearTimeout(pressTimer));
+  logo.addEventListener("touchmove", () => clearTimeout(pressTimer));
+
+});
+
+function openLogin() {
+
+  if (loginOpen) return;
+  loginOpen = true;
+
+  const email = prompt("Enter Admin Email:");
+  if (!email) { loginOpen = false; return; }
+
+  const password = prompt("Enter Password:");
+  if (!password) { loginOpen = false; return; }
+
+  auth.signInWithEmailAndPassword(email.trim(), password.trim())
+    .then(() => {
+      loginOpen = false;
+    })
+    .catch(error => {
+      alert("Login Failed: " + error.message);
+      loginOpen = false;
+    });
+}
+
 function showAdminPanel() {
 
   if (document.getElementById("adminPanel")) return;
@@ -22,30 +73,6 @@ function showAdminPanel() {
 
   panel.innerHTML = `
     <h2 style="text-align:center;margin-bottom:20px;">🚀 ADMIN CONTROL</h2>
-
-    <button id="ytBtn" style="
-      width:100%;
-      padding:12px;
-      margin-bottom:10px;
-      border:none;
-      border-radius:10px;
-      background:#ff0000;
-      color:white;
-      font-weight:bold;
-      font-size:16px;
-    ">🔴 Go LIVE on YouTube</button>
-
-    <button id="fbBtn" style="
-      width:100%;
-      padding:12px;
-      margin-bottom:15px;
-      border:none;
-      border-radius:10px;
-      background:#1877f2;
-      color:white;
-      font-weight:bold;
-      font-size:16px;
-    ">🔵 Go LIVE on Facebook</button>
 
     <button id="toggleLive" style="
       width:100%;
@@ -79,16 +106,15 @@ function showAdminPanel() {
       font-size:16px;
     ">Send Announcement</button>
 
-    <br><br>
-
-    <button onclick="this.parentElement.remove()" style="
+    <button id="logoutBtn" style="
       width:100%;
       padding:10px;
+      margin-top:15px;
       border:none;
       border-radius:10px;
-      background:#444;
+      background:#f44336;
       color:white;
-    ">Close</button>
+    ">Logout</button>
   `;
 
   document.body.appendChild(panel);
@@ -97,31 +123,23 @@ function showAdminPanel() {
     panel.style.transform = "translate(-50%, -50%) scale(1)";
   }, 100);
 
-  // Firebase controls
-  const db = firebase.database();
-
   document.getElementById("toggleLive").onclick = () => {
     db.ref("liveStatus").once("value").then(snapshot => {
-      const current = snapshot.val();
-      db.ref("liveStatus").set(!current);
+      db.ref("liveStatus").set(!snapshot.val());
     });
   };
 
   document.getElementById("sendAnnouncement").onclick = () => {
-    const message = document.getElementById("announcementInput").value;
-    if (message.trim() !== "") {
-      db.ref("announcement").set(message);
-      document.getElementById("announcementInput").value = "";
+    const msg = document.getElementById("announcementInput").value;
+    if (msg.trim() !== "") {
+      db.ref("announcement").set(msg);
       alert("Announcement sent!");
     }
   };
 
-  document.getElementById("ytBtn").onclick = () => {
-    window.open("https://youtube.com/", "_blank");
-  };
-
-  document.getElementById("fbBtn").onclick = () => {
-    window.open("https://facebook.com/", "_blank");
+  document.getElementById("logoutBtn").onclick = () => {
+    auth.signOut();
+    panel.remove();
   };
 }
 
