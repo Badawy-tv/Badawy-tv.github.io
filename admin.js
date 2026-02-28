@@ -1,8 +1,5 @@
 const ADMIN_PASSWORD = "Badawy254@ahmad";
 
-let tapCount = 0;
-let tapTimer;
-
 window.addEventListener("load", function() {
 
   const logo = document.querySelector(".profile-img");
@@ -12,29 +9,32 @@ window.addEventListener("load", function() {
     return;
   }
 
-  logo.addEventListener("click", function() {
+  let pressTimer;
 
-    tapCount++;
+  logo.addEventListener("touchstart", function() {
+    pressTimer = setTimeout(function() {
+      openAdmin();
+    }, 2000); // 2 seconds long press
+  });
 
-    clearTimeout(tapTimer);
+  logo.addEventListener("touchend", function() {
+    clearTimeout(pressTimer);
+  });
 
-    tapTimer = setTimeout(() => {
-      tapCount = 0;
-    }, 1500);
-
-    if (tapCount === 5) {
-      tapCount = 0;
-      let pass = prompt("Enter Admin Password:");
-      if (pass === ADMIN_PASSWORD) {
-        showAdminPanel();
-      } else {
-        alert("Wrong Password");
-      }
-    }
-
+  logo.addEventListener("touchmove", function() {
+    clearTimeout(pressTimer);
   });
 
 });
+
+function openAdmin() {
+  let pass = prompt("Enter Admin Password:");
+  if (pass === ADMIN_PASSWORD) {
+    showAdminPanel();
+  } else {
+    alert("Wrong Password");
+  }
+}
 
 function showAdminPanel() {
 
