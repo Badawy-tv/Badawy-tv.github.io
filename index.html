@@ -384,3 +384,53 @@ layout: google.translate.TranslateElement.InlineLayout.SIMPLE
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+
+<!-- ===== LIVE ISLAMIC PRAYER TIMES ===== -->
+<style>
+#prayerBox{
+margin:40px auto;
+max-width:500px;
+padding:25px;
+background:#ffffff;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+text-align:center;
+}
+#prayerBox h3{
+margin-bottom:15px;
+}
+.prayer-row{
+display:flex;
+justify-content:space-between;
+padding:8px 0;
+border-bottom:1px solid #eee;
+}
+</style>
+
+<div id="prayerBox">
+<h3>🕌 Today's Prayer Times</h3>
+<div id="prayerTimes">Loading prayer times...</div>
+</div>
+
+<script>
+async function loadPrayerTimes(){
+try{
+let response = await fetch("https://api.aladhan.com/v1/timingsByCity?city=Nairobi&country=Kenya&method=2");
+let data = await response.json();
+let t = data.data.timings;
+
+document.getElementById("prayerTimes").innerHTML = `
+<div class="prayer-row"><span>Fajr</span><span>${t.Fajr}</span></div>
+<div class="prayer-row"><span>Dhuhr</span><span>${t.Dhuhr}</span></div>
+<div class="prayer-row"><span>Asr</span><span>${t.Asr}</span></div>
+<div class="prayer-row"><span>Maghrib</span><span>${t.Maghrib}</span></div>
+<div class="prayer-row"><span>Isha</span><span>${t.Isha}</span></div>
+`;
+}catch(e){
+document.getElementById("prayerTimes").innerHTML="Prayer times unavailable.";
+}
+}
+
+loadPrayerTimes();
+</script>
+
