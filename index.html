@@ -150,6 +150,10 @@ z-index: 10000 !important;
 </div>
 
 <div id="sideMenu">
+<a href="#" onclick="toggleSupport()">💚 Support ▾</a>
+<div id="supportDrop" style="display:none; padding-left:15px;">
+<a href="#" onclick="mpesaPay()">📲 M-PESA</a>
+</div>
 <a href="mailto:ahmedbadawy786@gmail.com" target="_blank">📧 Email</a>
 <a href="https://wa.me/254716802090" target="_blank">📱 WhatsApp</a>
 <a href="https://www.facebook.com/ahmed.badawy.1690" target="_blank">📘 Facebook</a>
@@ -158,6 +162,11 @@ z-index: 10000 !important;
 </div>
 
 <script>
+function toggleSupport(){
+var x=document.getElementById("supportDrop");
+x.style.display=(x.style.display==="block")?"none":"block";
+}
+
 function toggleMenu(){
 const menu=document.getElementById("sideMenu");
 menu.style.right=(menu.style.right==="0px")?"-260px":"0px";
