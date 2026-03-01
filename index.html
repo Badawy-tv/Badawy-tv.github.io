@@ -1,3 +1,18 @@
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyASNJLrmw3pk9ClzYeFUyu4fq_AqO4Wkjc",
+  authDomain: "badawytv.firebaseapp.com",
+  databaseURL: "https://badawytv-default-rtdb.firebaseio.com",
+  projectId: "badawytv",
+  storageBucket: "badawytv.firebasestorage.app",
+  messagingSenderId: "290361356500",
+  appId: "1:290361356500:web:c281156ffb95d1ad964b41"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -203,6 +218,21 @@ window.onscroll = function() {
 <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js");}</script>
 <script src="admin.js"></script>
 <div id="posts" style="padding:20px;"></div>
+<script>
+db.ref("posts").on("value", snapshot => {
+  const container = document.getElementById("posts");
+  container.innerHTML = "";
+  snapshot.forEach(child => {
+    const data = child.val();
+    if (data.type === "image") {
+      container.innerHTML += `<img src="${data.url}" style="width:100%;max-width:600px;margin:15px auto;display:block;border-radius:12px;">`;
+    }
+    if (data.type === "video") {
+      container.innerHTML += `<video controls style="width:100%;max-width:600px;margin:15px auto;display:block;border-radius:12px;"><source src="${data.url}" type="video/mp4"></video>`;
+    }
+  });
+});
+</script>
 <script>
 db.ref("posts").on("value", snapshot => {
   const container = document.getElementById("posts");
@@ -1089,16 +1119,6 @@ localStorage.setItem("visitedBefore","yes");
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyASNJLrmw3pk9ClzYeFUyu4fq_AqO4Wkjc",
-  authDomain: "badawytv.firebaseapp.com",
-  databaseURL: "https://badawytv-default-rtdb.firebaseio.com",
-  projectId: "badawytv",
-  storageBucket: "badawytv.firebasestorage.app",
-  messagingSenderId: "290361356500",
-  appId: "1:290361356500:web:09ba34fee7734fa2964b41"
-};
-firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const auth = firebase.auth();
 
