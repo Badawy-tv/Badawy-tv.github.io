@@ -127,9 +127,34 @@ function openMenu(){
 </html>
 
 <section style="padding:50px 20px;background:#121212;text-align:center;">
-<h2 style="margin-bottom:20px;">🌙 Islamic Prayer Calendar (Hijri)</h2>
 
-<select id="hijriMonth" style="padding:8px;border-radius:6px;margin-bottom:20px;">
+<section style="
+padding:60px 20px;
+background:linear-gradient(135deg,#0f0f0f,#1a1a1a);
+text-align:center;
+border-top:2px solid #0f9d58;
+">
+
+<h2 style="
+color:#0f9d58;
+font-size:28px;
+margin-bottom:10px;
+letter-spacing:1px;">
+🌙 Islamic Prayer Calendar
+</h2>
+
+<p style="color:#bbb;margin-bottom:25px;">
+Select Hijri Month
+</p>
+
+<select id="hijriMonth" style="
+padding:10px 15px;
+border-radius:8px;
+background:#111;
+color:#0f9d58;
+border:1px solid #0f9d58;
+font-size:16px;
+margin-bottom:30px;">
 <option value="1">Muharram</option>
 <option value="2">Safar</option>
 <option value="3">Rabi al-Awwal</option>
@@ -144,25 +169,47 @@ function openMenu(){
 <option value="12">Dhul Hijjah</option>
 </select>
 
-<div id="hijriCalendar" style="overflow-x:auto;"></div>
+<div id="hijriCalendar" style="
+overflow-x:auto;
+max-width:1000px;
+margin:auto;">
+</div>
+
 </section>
 
 <script>
 async function loadHijriCalendar(month){
-  const yearResponse = await fetch("https://api.aladhan.com/v1/gToH");
-  const todayData = await yearResponse.json();
-  const hijriYear = todayData.data.hijri.year;
+
+  const today = new Date();
+  const gDay = today.getDate();
+  const gMonth = today.getMonth()+1;
+  const gYear = today.getFullYear();
+
+  const convert = await fetch(
+    `https://api.aladhan.com/v1/gToH?date=${gDay}-${gMonth}-${gYear}`
+  );
+  const convertData = await convert.json();
+  const hijriYear = convertData.data.hijri.year;
 
   const response = await fetch(
     `https://api.aladhan.com/v1/hijriCalendarByCity?city=Mombasa&country=Kenya&method=2&month=${month}&year=${hijriYear}`
   );
+
   const data = await response.json();
   const days = data.data;
 
   let table = `
-  <table style="width:100%;border-collapse:collapse;font-size:14px;">
-  <tr style="background:#1f1f1f;">
-    <th>Hijri Date</th>
+  <table style="
+  width:100%;
+  border-collapse:collapse;
+  background:#111;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 0 20px rgba(15,157,88,0.2);
+  font-size:14px;">
+  
+  <tr style="background:#0f9d58;color:black;">
+    <th style="padding:12px;">Hijri Date</th>
     <th>Fajr</th>
     <th>Dhuhr</th>
     <th>Asr</th>
@@ -173,16 +220,19 @@ async function loadHijriCalendar(month){
   days.forEach(day=>{
     table += `
     <tr style="border-bottom:1px solid #222;">
-      <td>${day.date.hijri.day} ${day.date.hijri.month.en} ${day.date.hijri.year}</td>
-      <td>${day.timings.Fajr}</td>
-      <td>${day.timings.Dhuhr}</td>
-      <td>${day.timings.Asr}</td>
-      <td>${day.timings.Maghrib}</td>
-      <td>${day.timings.Isha}</td>
+      <td style="padding:10px;color:#0f9d58;">
+      ${day.date.hijri.day} ${day.date.hijri.month.en}
+      </td>
+      <td>${day.timings.Fajr.split(" ")[0]}</td>
+      <td>${day.timings.Dhuhr.split(" ")[0]}</td>
+      <td>${day.timings.Asr.split(" ")[0]}</td>
+      <td>${day.timings.Maghrib.split(" ")[0]}</td>
+      <td>${day.timings.Isha.split(" ")[0]}</td>
     </tr>`;
   });
 
   table += "</table>";
+
   document.getElementById("hijriCalendar").innerHTML = table;
 }
 
