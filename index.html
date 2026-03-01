@@ -109,31 +109,10 @@ background:#0d9c4a;
 
 
 <div class="section">
-const data=await response.json();
-const days=data.data;
-let table="<table style="width:100%;border-collapse:collapse;background:#111;">";
-table+="<tr style="background:#0f9d58;color:black;">";
-table+="<th>Hijri</th><th>Fajr</th><th>Dhuhr</th><th>Asr</th><th>Maghrib</th><th>Isha</th></tr>";
-days.forEach(day=>{
-table+=`<tr>
-<td>${day.date.hijri.day} ${day.date.hijri.month.en}</td>
-<td>${day.timings.Fajr.split(" ")[0]}</td>
-<td>${day.timings.Dhuhr.split(" ")[0]}</td>
-<td>${day.timings.Asr.split(" ")[0]}</td>
-<td>${day.timings.Maghrib.split(" ")[0]}</td>
-<td>${day.timings.Isha.split(" ")[0]}</td>
-</tr>`;
-});
-table+="</table>";
-document.getElementById("hijriCalendar").innerHTML=table;
-}
-
-document.addEventListener("DOMContentLoaded",function(){
 });
 </script>
 
 <div class="section">
-<h2 style="color:#0f9d58;">🌙 Islamic Prayer Calendar</h2>
 <select id="hijriMonth">
 <option value="1">Muharram</option>
 <option value="2">Safar</option>
