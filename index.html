@@ -1,20 +1,1085 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Badawy TV</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ff0000">
+<link rel="manifest" href="manifest.json">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VHSQ2M07L9"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-VHSQ2M07L9");
+</script>
+<meta name="description" content="Badawy TV - Islamic Live Programs, Quran Recitation, Islamic Teachings and Modern Islamic Content.">
+<meta name="keywords" content="Badawy TV, Islamic TV, Quran, Live Islamic Programs, Sheikh Ahmad Badawy, Islam">
+<meta name="author" content="Badawy TV">
+<meta property="og:title" content="Badawy TV | Islamic Live Channel">
+<meta property="og:description" content="Watch Live Islamic Programs, Quran Recitation and Modern Islamic Content on Badawy TV.">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Star_and_Crescent.svg/512px-Star_and_Crescent.svg.png">
+<meta property="og:type" content="website">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BADAWY TV</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#f4f4f4;
+text-align:center;
+}
+
+header{
+padding:30px 20px;
+}
+
+.profile-img{
+width:140px;
+height:140px;
+border-radius:50%;
+object-fit:cover;
+display:block;
+margin:0 auto;
+}
+
+h1{
+margin:15px 0 5px;
+}
+
+.live-box{
+margin:30px auto;
+padding:20px;
+width:90%;
+max-width:400px;
+background:white;
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.live-btn{
+display:inline-block;
+margin-top:15px;
+padding:12px 20px;
+background:#ff0000;
+color:white;
+text-decoration:none;
+border-radius:25px;
+font-weight:bold;
+}
+
+footer{
+margin-top:40px;
+padding:15px;
+background:#222;
+color:white;
+}
+
+.bottom-email{
+position:fixed;
+bottom:15px;
+left:15px;
+background:#007bff;
+color:white;
+padding:10px 15px;
+border-radius:25px;
+text-decoration:none;
+}
+
+.bottom-whatsapp{
+position:fixed;
+bottom:15px;
+right:15px;
+background:#25D366;
+color:white;
+padding:10px 15px;
+border-radius:25px;
+text-decoration:none;
+}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+/* ===== SCROLL PROGRESS BAR ===== */
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: gold;
+  z-index: 9999;
+}
+</style>
 </head>
-<body style="margin:0;font-family:sans-serif;background:#f2f2f2;">
 
-<h2 style="text-align:center;padding:15px;">Badawy TV Posts</h2>
+<body>
+<div onclick="openAdmin()" style="position:fixed;bottom:5px;left:5px;width:30px;height:30px;background:transparent;z-index:9999;"></div>
+<div id="notificationBell" style="position:fixed;top:15px;left:15px;font-size:28px;cursor:pointer;z-index:9999;">🔔 <span id="notifyCount" style="background:red;color:white;border-radius:50%;padding:3px 8px;font-size:12px;">0</span></div>
+<div id="notificationPanel" style="display:none;position:fixed;top:60px;left:15px;width:250px;background:white;box-shadow:0 5px 15px rgba(0,0,0,0.2);border-radius:10px;padding:15px;z-index:9999;"><h3>Notifications</h3><ul id="notificationList"></ul></div>
+<script>document.addEventListener("DOMContentLoaded",function(){const bell=document.getElementById("notificationBell");const panel=document.getElementById("notificationPanel");bell.onclick=()=>{panel.style.display=panel.style.display==="none"?"block":"none";};});</script>
+<div id="progressBar"></div>
+<div id="loader">
+  <div class="spinner"></div>
+</div>
 
-<div id="posts" style="padding:15px;"></div>
+<header>
+<img src="profile.png" class="profile-img">
+<h1>🕌 BADAWY TV</h1>
+<p>Islamic Live Streaming Channel</p>
+</header>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<div class="live-box">
+<h2>🔴 We Are Live</h2>
+<p>Watch us now on YouTube</p>
+<a href="https://youtube.com" target="_blank" class="live-btn">Watch Live</a>
+</div>
+
+<footer>
+© 2026 BADAWY TV
+<section id="support">
+
+<h2>☕ Support Us</h2>
+
+<p>💳 PayPal</p>
+
+<p>📱 M-Pesa</p>
+
+<p>💰 Skrill</p>
+
+</section>
+
+
+
+<section id="contact">
+
+<h2>📞 Contact</h2>
+
+<p>Phone: 0716 802090</p>
+
+<p>Email: badawytv76@gmail.com</p>
+
+</section>
+
+</footer>
+
+<a href="mailto:badawytv76@gmail.com" class="bottom-email">📧 Email</a>
+<a href="https://wa.me/254716802090" target="_blank" class="bottom-whatsapp">💬 WhatsApp</a>
 
 <script>
-firebase.initializeApp({
+window.addEventListener("load", function(){
+  setTimeout(function(){
+    document.getElementById("loader").style.display="none";
+  }, 1200);
+});
+</script>
+<script>
+window.onscroll = function() {
+  let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  let scrolled = (winScroll / height) * 100;
+  document.getElementById("progressBar").style.width = scrolled + "%";
+};
+</script>
+<script src="notify.js"></script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js");}</script>
+<script src="admin.js"></script>
+<div id="posts" style="padding:20px;"></div>
+<script>
+const posts = [
+  "uploads/FILENAME",
+];
+posts.forEach(file=>{
+const ext=file.split(".").pop().toLowerCase();
+if(["jpg","jpeg","png"].includes(ext)){
+document.getElementById("posts").innerHTML+=`<img src="${file}" style="width:100%;max-width:600px;margin:15px auto;display:block;border-radius:12px;">`;
+}
+if(ext==="mp4"){
+document.getElementById("posts").innerHTML+=`<video controls style="width:100%;max-width:600px;margin:15px auto;display:block;border-radius:12px;"><source src="${file}" type="video/mp4"></video>`;
+}
+});
+</script>
+</body>
+</html>
+
+<!-- ===== TOP RIGHT MENU ===== -->
+<style>
+#topMenuBtn{
+position:fixed;
+top:15px;
+right:15px;
+background:#222;
+color:#fff;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+z-index:9999;
+}
+
+#topMenu{
+position:fixed;
+top:55px;
+right:-300px;
+width:260px;
+background:#fff;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+padding:20px;
+transition:0.3s;
+z-index:9999;
+}
+
+#topMenu a{
+display:block;
+padding:10px 0;
+text-decoration:none;
+color:#333;
+border-bottom:1px solid #eee;
+}
+
+.switch{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:10px 0;
+}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+/* ===== SCROLL PROGRESS BAR ===== */
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: gold;
+  z-index: 9999;
+}
+</style>
+
+<div id="topMenuBtn" onclick="toggleTopMenu()">☰ Menu</div>
+
+<div id="topMenu">
+<a href="mailto:badawytv76@gmail.com?subject=Welcome%20to%20Badawy%20TV&body=Assalamu%20Alaikum%20wa%20Rahmatullahi%20wa%20Barakatuh.%0A%0AWelcome%20to%20Badawy%20TV%20🌙%0AHow%20can%20we%20assist%20you%20today?">📧 Email</a>
+
+<a href="https://wa.me/254716802090?text=Assalamu%20Alaikum%20wa%20Rahmatullahi%20wa%20Barakatuh.%0A%0AWelcome%20to%20Badawy%20TV%20🌙%0AHow%20can%20we%20assist%20you%20today?" target="_blank">📱 WhatsApp</a>
+
+<a href="https://www.youtube.com/" target="_blank">▶ Subscribe</a>
+
+<a href="https://quran.com" target="_blank">📖 Read Quran</a>
+
+<div class="switch">
+<span>🌙 Dark Mode</span>
+<input type="checkbox" onchange="toggleDarkMode()">
+</div>
+
+<div class="switch">
+<span>🔄 Auto Scroll</span>
+<input type="checkbox" onchange="toggleScroll(this)">
+</div>
+
+</div>
+
+<script>
+function toggleTopMenu(){
+var menu=document.getElementById("topMenu");
+menu.style.right = menu.style.right==="0px" ? "-300px" : "0px";
+}
+
+function toggleDarkMode(){
+document.body.classList.toggle("darkmode");
+}
+
+function toggleScroll(el){
+if(el.checked){
+window.scrollInterval=setInterval(()=>window.scrollBy(0,1),30);
+}else{
+clearInterval(window.scrollInterval);
+}
+}
+</script>
+
+<style>
+.darkmode{
+background:#111 !important;
+color:#fff !important;
+}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+/* ===== SCROLL PROGRESS BAR ===== */
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: gold;
+  z-index: 9999;
+}
+</style>
+
+
+<!-- ===== COOKIE CONSENT ===== -->
+<style>
+#cookieBox{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:#222;
+color:#fff;
+padding:15px;
+display:flex;
+flex-wrap:wrap;
+justify-content:space-between;
+align-items:center;
+z-index:9999;
+}
+
+#cookieBox button{
+margin:5px;
+padding:8px 15px;
+border:none;
+cursor:pointer;
+border-radius:5px;
+}
+
+.cookie-accept{background:#28a745;color:#fff;}
+.cookie-reject{background:#dc3545;color:#fff;}
+.cookie-no{background:#6c757d;color:#fff;}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+/* ===== SCROLL PROGRESS BAR ===== */
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: gold;
+  z-index: 9999;
+}
+</style>
+
+<div id="cookieBox" style="display:none;">
+<span>This website uses cookies to improve your experience.</span>
+<div>
+<button class="cookie-accept" onclick="setCookieConsent('accepted')">Accept</button>
+<button class="cookie-reject" onclick="setCookieConsent('rejected')">Reject</button>
+<button class="cookie-no" onclick="setCookieConsent('no')">No Thanks</button>
+</div>
+</div>
+
+<script>
+function setCookieConsent(choice){
+localStorage.setItem("cookieConsent",choice);
+document.getElementById("cookieBox").style.display="none";
+}
+
+window.onload=function(){
+if(!localStorage.getItem("cookieConsent")){
+document.getElementById("cookieBox").style.display="flex";
+}
+}
+</script>
+
+
+<!-- ===== FIRST VISIT WELCOME ===== -->
+<style>
+#welcomePopup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#ffffff;
+padding:30px 40px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+border-radius:10px;
+z-index:10000;
+text-align:center;
+font-size:18px;
+display:none;
+animation:fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+/* ===== SCROLL PROGRESS BAR ===== */
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: gold;
+  z-index: 9999;
+}
+</style>
+
+<div id="welcomePopup">
+<b>Welcome to Badawy TV</b><br><br>
+We are glad to have you following 🌙
+</div>
+
+<audio id="welcomeSound" preload="auto">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b48d5.mp3?filename=success-1-6297.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+window.addEventListener("load", function(){
+
+if(!localStorage.getItem("visitedBefore")){
+
+var popup=document.getElementById("welcomePopup");
+popup.style.display="block";
+
+document.getElementById("welcomeSound").play().catch(()=>{});
+
+setTimeout(function(){
+popup.style.display="none";
+},4000);
+
+localStorage.setItem("visitedBefore","yes");
+}
+
+});
+</script>
+
+
+<!-- ===== YOUTUBE LIVE SECTION ===== -->
+<style>
+#youtubeLiveBox{
+margin:30px auto;
+padding:25px;
+max-width:450px;
+background:#ffffff;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+border-radius:12px;
+text-align:center;
+}
+
+#youtubeLiveBox a{
+display:inline-block;
+margin-top:15px;
+padding:12px 25px;
+background:#FF0000;
+color:#fff;
+text-decoration:none;
+border-radius:8px;
+font-weight:bold;
+}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+/* ===== SCROLL PROGRESS BAR ===== */
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: gold;
+  z-index: 9999;
+}
+</style>
+
+<div id="youtubeLiveBox">
+<h3>🔴 Watch Us Live on YouTube</h3>
+<p>Click below to watch our live programs and Islamic broadcasts.</p>
+
+<a href="https://youtube.com/@ahmadbadawytv/live" target="_blank">
+▶ Watch Live Now
+</a>
+</div>
+
+
+<!-- ===== LANGUAGE SWITCHER ===== -->
+<style>
+#google_translate_element{
+margin-top:15px;
+}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+/* ===== SCROLL PROGRESS BAR ===== */
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: gold;
+  z-index: 9999;
+}
+</style>
+
+<div id="google_translate_element"></div>
+
+<script>
+function googleTranslateElementInit() {
+new google.translate.TranslateElement({
+pageLanguage: 'en',
+includedLanguages: 'en,ar,sw,fr,tr,ur,ha',
+layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+}, 'google_translate_element');
+}
+</script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+<!-- ===== LIVE ISLAMIC PRAYER TIMES ===== -->
+<style>
+#prayerBox{
+margin:40px auto;
+max-width:500px;
+padding:25px;
+background:#ffffff;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+text-align:center;
+}
+#prayerBox h3{
+margin-bottom:15px;
+}
+.prayer-row{
+display:flex;
+justify-content:space-between;
+padding:8px 0;
+border-bottom:1px solid #eee;
+}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+/* ===== SCROLL PROGRESS BAR ===== */
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: gold;
+  z-index: 9999;
+}
+</style>
+
+<div id="prayerBox">
+<h3>🕌 Today's Prayer Times</h3>
+<div id="prayerTimes">Loading prayer times...</div>
+</div>
+
+<script>
+async function loadPrayerTimes(){
+try{
+let response = await fetch("https://api.aladhan.com/v1/timingsByCity?city=Nairobi&country=Kenya&method=2");
+let data = await response.json();
+let t = data.data.timings;
+
+document.getElementById("prayerTimes").innerHTML = `
+<div class="prayer-row"><span>Fajr</span><span>${t.Fajr}</span></div>
+<div class="prayer-row"><span>Dhuhr</span><span>${t.Dhuhr}</span></div>
+<div class="prayer-row"><span>Asr</span><span>${t.Asr}</span></div>
+<div class="prayer-row"><span>Maghrib</span><span>${t.Maghrib}</span></div>
+<div class="prayer-row"><span>Isha</span><span>${t.Isha}</span></div>
+`;
+}catch(e){
+document.getElementById("prayerTimes").innerHTML="Prayer times unavailable.";
+}
+}
+
+loadPrayerTimes();
+</script>
+
+
+<!-- ===== RATE US SECTION ===== -->
+<style>
+#rateBox{
+margin:40px auto;
+max-width:450px;
+padding:25px;
+background:#ffffff;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+text-align:center;
+}
+#rateBox a{
+display:block;
+margin:10px 0;
+padding:12px;
+background:#f8f9fa;
+text-decoration:none;
+color:#333;
+border-radius:8px;
+font-weight:bold;
+}
+#rateBox a:hover{
+background:#e2e6ea;
+}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+/* ===== SCROLL PROGRESS BAR ===== */
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: gold;
+  z-index: 9999;
+}
+</style>
+
+<div id="rateBox">
+<h3>⭐ Rate Us</h3>
+
+<a href="https://github.com/Badawy-tv/Badawy-tv.github.io" target="_blank">
+⭐ Star Us on GitHub
+</a>
+
+<a href="https://www.google.com/search?q=Ahmad+Badawy+TV+YouTube" target="_blank">
+⭐ Rate Us on Google
+</a>
+
+</div>
+
+
+<!-- ===== SUPPORT SECTION ===== -->
+<style>
+#supportBox{
+margin:40px auto;
+max-width:500px;
+padding:25px;
+background:#ffffff;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+text-align:center;
+}
+#supportBox a{
+display:block;
+margin:12px 0;
+padding:14px;
+text-decoration:none;
+color:#fff;
+border-radius:8px;
+font-weight:bold;
+}
+.mpesa{background:#2BB673;}
+.paypal{background:#0070ba;}
+.skrill{background:#862165;}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+/* ===== SCROLL PROGRESS BAR ===== */
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: gold;
+  z-index: 9999;
+}
+</style>
+
+<div id="supportBox">
+<h3>💚 Support Badawy TV</h3>
+
+<a class="mpesa" href="tel:*334#" >
+📱 Support via M-Pesa (Safaricom)
+</a>
+
+<a class="paypal" target="_blank"
+href="https://www.paypal.com/paypalme/badawytv76">
+💳 Support via PayPal
+</a>
+
+<a class="skrill" target="_blank"
+href="https://www.skrill.com/en/send-money/?recipient=badawytv76@gmail.com">
+💜 Support via Skrill
+</a>
+
+</div>
+
+
+<!-- ===== FINAL AUTO WELCOME CONTACT (CORRECTED) ===== -->
+<style>
+#contactLauncher{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#000;
+color:#fff;
+padding:15px 22px;
+border-radius:50px;
+cursor:pointer;
+z-index:9999;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+font-weight:bold;
+}
+
+#contactPopup{
+position:fixed;
+bottom:80px;
+right:20px;
+background:#ffffff;
+padding:20px;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+display:none;
+z-index:9999;
+width:260px;
+}
+
+#contactPopup a{
+display:block;
+margin:10px 0;
+padding:12px;
+text-decoration:none;
+color:#fff;
+border-radius:6px;
+font-weight:bold;
+text-align:center;
+}
+
+.whatsapp{background:#25D366;}
+.facebook{background:#1877F2;}
+.email{background:#007BFF;}
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #fff;
+  border-top: 6px solid gold;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+/* ===== SCROLL PROGRESS BAR ===== */
+#progressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: gold;
+  z-index: 9999;
+}
+</style>
+
+<div id="contactLauncher" onclick="toggleContact()">📩 Contact Us</div>
+
+<div id="contactPopup">
+
+<a class="whatsapp" target="_blank"
+href="https://wa.me/254716802090?text=Assalamu%20Alaikum%20wa%20Rahmatullahi%20wa%20Barakatuh.%0A%0AWelcome%20to%20Badawy%20TV%20🌙%0AWe%20are%20glad%20to%20have%20you%20following.%20How%20can%20we%20assist%20you%20today?">
+📱 WhatsApp
+</a>
+
+<a class="facebook" target="_blank"
+href="https://m.me/ahmed.badawy.1690?ref=Welcome%20to%20Badawy%20TV">
+💬 Facebook Messenger
+</a>
+
+<a class="email"
+href="mailto:badawytv76@gmail.com?subject=Welcome%20to%20Badawy%20TV&body=Assalamu%20Alaikum%20wa%20Rahmatullahi%20wa%20Barakatuh.%0A%0AWelcome%20to%20Badawy%20TV%20🌙%0AWe%20are%20glad%20to%20have%20you%20following.%0AHow%20can%20we%20assist%20you%20today?">
+📧 Email
+</a>
+
+</div>
+
+<script>
+function toggleContact(){
+var box=document.getElementById("contactPopup");
+box.style.display = box.style.display==="block" ? "none" : "block";
+}
+</script>
+
+
+<!-- ===== FOOTER COPYRIGHT ===== -->
+<footer style="
+background:#111;
+color:#fff;
+text-align:center;
+padding:20px;
+margin-top:50px;
+font-size:14px;
+">
+
+© 2026 Badawy TV. All Rights Reserved.
+
+</footer>
+
+
+<!-- ===== FIRST VISIT WELCOME ===== -->
+<style>
+#welcomePopup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#ffffff;
+padding:30px 40px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+border-radius:10px;
+z-index:10000;
+text-align:center;
+font-size:18px;
+display:none;
+animation:fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+</style>
+
+<div id="welcomePopup">
+<b>Welcome to Badawy TV</b><br><br>
+We are glad to have you following 🌙
+</div>
+
+<audio id="welcomeSound" preload="auto">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b48d5.mp3?filename=success-1-6297.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+window.addEventListener("load", function(){
+
+if(!localStorage.getItem("visitedBefore")){
+
+var popup=document.getElementById("welcomePopup");
+popup.style.display="block";
+
+document.getElementById("welcomeSound").play().catch(()=>{});
+
+setTimeout(function(){
+popup.style.display="none";
+},4000);
+
+localStorage.setItem("visitedBefore","yes");
+}
+
+});
+</script>
+
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<script>
+const firebaseConfig = {
   apiKey: "AIzaSyASNJLrmw3pk9ClzYeFUyu4fq_AqO4Wkjc",
   authDomain: "badawytv.firebaseapp.com",
   databaseURL: "https://badawytv-default-rtdb.firebaseio.com",
@@ -22,38 +1087,46 @@ firebase.initializeApp({
   storageBucket: "badawytv.firebasestorage.app",
   messagingSenderId: "290361356500",
   appId: "1:290361356500:web:c281156ffb95d1ad964b41"
-});
+};
+
+firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
-const postsContainer = document.getElementById("posts");
 
-db.ref("posts").on("value", snapshot => {
-  postsContainer.innerHTML = "";
+// LIVE Banner Listener
+db.ref("liveStatus").on("value", snapshot => {
+  const isLive = snapshot.val();
 
-  if (!snapshot.exists()) {
-    postsContainer.innerHTML = "<p style='text-align:center;'>No posts yet</p>";
-    return;
+  let banner = document.getElementById("liveBanner");
+
+  if (isLive) {
+    if (!banner) {
+      banner = document.createElement("div");
+      banner.id = "liveBanner";
+      banner.innerHTML = "🔴 WE ARE LIVE NOW!";
+      banner.style.position = "fixed";
+      banner.style.top = "0";
+      banner.style.left = "0";
+      banner.style.width = "100%";
+      banner.style.background = "red";
+      banner.style.color = "white";
+      banner.style.textAlign = "center";
+      banner.style.padding = "15px";
+      banner.style.fontWeight = "bold";
+      banner.style.zIndex = "9999";
+      document.body.appendChild(banner);
+    }
+  } else {
+    if (banner) banner.remove();
   }
+});
 
-  snapshot.forEach(child => {
-    const data = child.val();
-
-    if (data.type === "video") {
-      postsContainer.innerHTML += `
-        <video controls style="width:100%;max-width:600px;margin:20px auto;display:block;border-radius:12px;">
-          <source src="${data.url}" type="video/mp4">
-        </video>
-      `;
-    }
-
-    if (data.type === "image") {
-      postsContainer.innerHTML += `
-        <img src="${data.url}" style="width:100%;max-width:600px;margin:20px auto;display:block;border-radius:12px;">
-      `;
-    }
-  });
+// Notification Listener
+db.ref("announcement").on("value", snapshot => {
+  const message = snapshot.val();
+  if (message) {
+    alert(message);
+  }
 });
 </script>
 
-</body>
-</html>
