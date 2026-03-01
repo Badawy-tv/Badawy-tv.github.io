@@ -109,72 +109,6 @@ background:#0d9c4a;
 
 
 <div class="section">
-<h2 style="color:#0f9d58;">🕌 Next Prayer</h2>
-<div id="nextPrayerBox">Loading...</div>
-</div>
-
-<div id="sideMenu">
-<a href="#" onclick="mpesaPay()">📲 M-PESA</a>
-<a href="mailto:ahmedbadawy786@gmail.com">📧 Email</a>
-<a href="https://wa.me/254716802090" target="_blank">📱 WhatsApp</a>
-</div>
-
-<button id="islamBtn" onclick="openIslam()">🕌 Ask me about Islam</button>
-
-<script>
-function toggleMenu(){
-const menu=document.getElementById("sideMenu");
-menu.style.right=(menu.style.right==="0px")?"-260px":"0px";
-}
-
-function mpesaPay(){
-navigator.clipboard.writeText("+254716802090");
-alert("M-PESA number copied: +254716802090");
-window.open("https://www.safaricom.co.ke/m-pesa","_blank");
-}
-
-function openIslam(){
-window.open("https://islamqa.info/en","IslamQA","width=600,height=700,left=200,top=100,resizable=yes,scrollbars=yes");
-}
-
-async function loadNextPrayer(){
-const response=await fetch("https://api.aladhan.com/v1/timingsByCity?city=Mombasa&country=Kenya&method=2");
-const data=await response.json();
-const timings=data.data.timings;
-const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"];
-const now=new Date();
-let nextName="";
-let nextTime=null;
-for(let p of prayers){
-let [h,m]=timings[p].split(":");
-let d=new Date();
-d.setHours(h,m,0);
-if(d>now){nextName=p;nextTime=d;break;}
-}
-if(!nextTime){
-let [h,m]=timings["Fajr"].split(":");
-nextTime=new Date();
-nextTime.setDate(now.getDate()+1);
-nextTime.setHours(h,m,0);
-nextName="Fajr";
-}
-function update(){
-let diff=nextTime-new Date();
-let h=Math.floor(diff/(1000*60*60));
-let m=Math.floor((diff%(1000*60*60))/(1000*60));
-let s=Math.floor((diff%(1000*60))/1000);
-document.getElementById("nextPrayerBox").innerHTML="<strong>"+nextName+"</strong><br>⏳ "+h+"h "+m+"m "+s+"s";
-}
-update();
-setInterval(update,1000);
-}
-
-async function loadHijriCalendar(month){
-const today=new Date();
-const convert=await fetch(`https://api.aladhan.com/v1/gToH?date=${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}`);
-const convertData=await convert.json();
-const hijriYear=convertData.data.hijri.year;
-const response=await fetch(`https://api.aladhan.com/v1/hijriCalendarByCity?city=Mombasa&country=Kenya&method=2&month=${month}&year=${hijriYear}`);
 const data=await response.json();
 const days=data.data;
 let table="<table style="width:100%;border-collapse:collapse;background:#111;">";
@@ -195,11 +129,6 @@ document.getElementById("hijriCalendar").innerHTML=table;
 }
 
 document.addEventListener("DOMContentLoaded",function(){
-loadNextPrayer();
-loadHijriCalendar(1);
-document.getElementById("hijriMonth").addEventListener("change",function(){
-loadHijriCalendar(this.value);
-});
 });
 </script>
 
