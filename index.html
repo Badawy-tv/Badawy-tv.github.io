@@ -259,6 +259,21 @@ alert("M-PESA number copied: +254716802090");
 window.open("https://www.safaricom.co.ke/m-pesa","_blank");
 }
 </script>
+<!-- ISLAM ASSISTANT -->
+<button id="islamAskBtn" onclick="toggleIslamAsk()">🕌 Ask me about Islam</button>
+<div id="islamAskBox">
+<iframe src="https://islamqa.info/en/ask" width="100%" height="100%" style="border:none;"></iframe>
+</div>
+<style>
+#islamAskBtn{position:fixed;bottom:20px;left:20px;background:#0a7c3a;color:#fff;padding:12px 18px;border:none;border-radius:30px;font-size:14px;cursor:pointer;z-index:999;}
+#islamAskBox{position:fixed;bottom:80px;left:20px;width:350px;height:500px;background:#fff;border-radius:12px;overflow:hidden;display:none;z-index:999;}
+</style>
+<script>
+function toggleIslamAsk(){
+var box=document.getElementById("islamAskBox");
+box.style.display=(box.style.display==="block")?"none":"block";
+}
+</script>
 </body>
 </html>
 
