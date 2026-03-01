@@ -11,6 +11,7 @@ margin:0;
 font-family:Segoe UI, sans-serif;
 background:#0f0f0f;
 color:white;
+}
 
 header{
 padding:20px;
@@ -18,18 +19,26 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+}
 
 h1{margin:0;font-size:24px;}
 
-.menu-btn{font-size:28px;cursor:pointer;}
+.menu-btn{
+font-size:28px;
+cursor:pointer;
+}
 
-.section{padding:50px 20px;text-align:center;}
+.section{
+padding:50px 20px;
+text-align:center;
+}
 
 iframe{
 width:100%;
 height:350px;
 border-radius:12px;
 border:0;
+}
 
 #sideMenu{
 position:fixed;
@@ -41,6 +50,8 @@ background:#111;
 transition:0.3s;
 padding-top:60px;
 box-shadow:-2px 0 15px rgba(0,0,0,0.5);
+z-index:9999;
+}
 
 #sideMenu a{
 display:block;
@@ -48,56 +59,41 @@ padding:15px 20px;
 color:white;
 text-decoration:none;
 border-bottom:1px solid #222;
+}
 
-#sideMenu a:hover{background:#1f1f1f;}
+#sideMenu a:hover{
+background:#1f1f1f;
+}
 
-.table-wrap{overflow-x:auto;max-width:1000px;margin:auto;}
+#islamBtn{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#0a7c3a;
+color:#fff;
+padding:12px 18px;
+border:none;
+border-radius:30px;
+font-size:14px;
+cursor:pointer;
+z-index:9999;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
 
-table{
-width:100%;
-border-collapse:collapse;
-background:#111;
-box-shadow:0 0 15px rgba(15,157,88,0.2);
-
-th{
-background:#0f9d58;
-color:black;
-padding:10px;
-
-td{
-padding:8px;
-border-bottom:1px solid #222;
-#rightMenu, .right-menu, #menuButton {
-position: fixed !important;
-top: 20px !important;
-right: 20px !important;
-z-index: 9999 !important;
-#sideMenu {
-position: fixed !important;
-top: 0 !important;
-right: -260px;
-height: 100% !important;
-z-index: 9999 !important;
-.menu-btn {
-position: fixed !important;
-top: 20px !important;
-right: 20px !important;
-z-index: 10000 !important;
+#islamBtn:hover{
+background:#0d9c4a;
+}
 </style>
 </head>
 
 <body>
-<!-- PROFILE SECTION -->
-<div id="profile" style="text-align:center;padding:40px;background:#111;color:white;">
+
+<div style="text-align:center;padding:40px;background:#111;">
 <img src="profile.png" style="width:150px;height:150px;border-radius:50%;border:4px solid gold;box-shadow:0 0 15px gold;">
 <h2 style="margin-top:15px;">Ahmad Badawy</h2>
 <p>Founder of BADAWY TV</p>
 <p>📧 ahmedbadawy786@gmail.com</p>
 <p>📞 +254 716 802090</p>
-<div style="margin-top:20px;">
-<a href="https://youtube.com/@ahmadbadawytv?si=RjE40xUQKLmtWAbi" target="_blank" style="color:gold;">YouTube</a> | 
-<a href="https://www.facebook.com/ahmed.badawy.1690" target="_blank" style="color:gold;">Facebook</a>
-</div>
 </div>
 
 <header>
@@ -112,57 +108,32 @@ z-index: 10000 !important;
 
 <div class="section">
 <h2 style="color:#0f9d58;">🕌 Next Prayer</h2>
-<div id="nextPrayerBox" style="font-size:20px;margin-top:15px;">Loading...</div>
-</div>
-
-<div class="section">
-<h2 style="color:#0f9d58;">🌙 Islamic Prayer Calendar</h2>
-
-<select id="hijriMonth">
-<option value="1">Muharram</option>
-<option value="2">Safar</option>
-<option value="3">Rabi al-Awwal</option>
-<option value="4">Rabi al-Thani</option>
-<option value="5">Jumada al-Awwal</option>
-<option value="6">Jumada al-Thani</option>
-<option value="7">Rajab</option>
-<option value="8">Sha'ban</option>
-<option value="9">Ramadan</option>
-<option value="10">Shawwal</option>
-<option value="11">Dhul Qa'dah</option>
-<option value="12">Dhul Hijjah</option>
-</select>
-
-<div class="table-wrap">
-<div id="hijriCalendar"></div>
-</div>
+<div id="nextPrayerBox">Loading...</div>
 </div>
 
 <div id="sideMenu">
-<a href="#" onclick="toggleSupport()">💚 Support ▾</a>
-<div id="supportDrop" style="display:none; padding-left:15px;">
 <a href="#" onclick="mpesaPay()">📲 M-PESA</a>
-</div>
-<a href="mailto:ahmedbadawy786@gmail.com" target="_blank">📧 Email</a>
+<a href="mailto:ahmedbadawy786@gmail.com">📧 Email</a>
 <a href="https://wa.me/254716802090" target="_blank">📱 WhatsApp</a>
-<a href="https://www.facebook.com/ahmed.badawy.1690" target="_blank">📘 Facebook</a>
-<a href="https://youtube.com/@ahmadbadawytv?si=RjE40xUQKLmtWAbi" target="_blank">▶ YouTube</a>
 </div>
+
+<button id="islamBtn" onclick="openIslam()">🕌 Ask me about Islam</button>
 
 <script>
-function toggleSupport(){
-var x=document.getElementById("supportDrop");
-x.style.display=(x.style.display==="block")?"none":"block";
-
 function toggleMenu(){
-window.addEventListener("scroll", function(){
-var menu=document.getElementById("sideMenu");
-if(menu.style.right==="0px"){
-menu.style.right="-260px";
-});
-
 const menu=document.getElementById("sideMenu");
 menu.style.right=(menu.style.right==="0px")?"-260px":"0px";
+}
+
+function mpesaPay(){
+navigator.clipboard.writeText("+254716802090");
+alert("M-PESA number copied: +254716802090");
+window.open("https://www.safaricom.co.ke/m-pesa","_blank");
+}
+
+function openIslam(){
+window.open("https://islamqa.info/en","IslamQA","width=600,height=700,left=200,top=100,resizable=yes,scrollbars=yes");
+}
 
 async function loadNextPrayer(){
 const response=await fetch("https://api.aladhan.com/v1/timingsByCity?city=Mombasa&country=Kenya&method=2");
@@ -171,7 +142,6 @@ const timings=data.data.timings;
 
 const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"];
 const now=new Date();
-
 let nextName="";
 let nextTime=null;
 
@@ -180,6 +150,7 @@ let [h,m]=timings[p].split(":");
 let d=new Date();
 d.setHours(h,m,0);
 if(d>now){nextName=p;nextTime=d;break;}
+}
 
 if(!nextTime){
 let [h,m]=timings["Fajr"].split(":");
@@ -187,6 +158,7 @@ nextTime=new Date();
 nextTime.setDate(now.getDate()+1);
 nextTime.setHours(h,m,0);
 nextName="Fajr";
+}
 
 function update(){
 let diff=nextTime-new Date();
@@ -194,60 +166,13 @@ let h=Math.floor(diff/(1000*60*60));
 let m=Math.floor((diff%(1000*60*60))/(1000*60));
 let s=Math.floor((diff%(1000*60))/1000);
 document.getElementById("nextPrayerBox").innerHTML="<strong>"+nextName+"</strong><br>⏳ "+h+"h "+m+"m "+s+"s";
+}
 
 update();
 setInterval(update,1000);
-
-async function loadHijriCalendar(month){
-const today=new Date();
-const convert=await fetch(`https://api.aladhan.com/v1/gToH?date=${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}`);
-const convertData=await convert.json();
-const hijriYear=convertData.data.hijri.year;
-
-const response=await fetch(`https://api.aladhan.com/v1/hijriCalendarByCity?city=Mombasa&country=Kenya&method=2&month=${month}&year=${hijriYear}`);
-const data=await response.json();
-const days=data.data;
-
-let table="<table><tr><th>Hijri Date</th><th>Fajr</th><th>Dhuhr</th><th>Asr</th><th>Maghrib</th><th>Isha</th></tr>";
-
-days.forEach(day=>{
-let isFriday=day.date.gregorian.weekday.en==="Friday";
-table+=`<tr style="${isFriday?'background:#2a1f00;color:#ffd700;font-weight:bold;':''}">
-<td>${day.date.hijri.day} ${day.date.hijri.month.en}${isFriday?' 🌟 Jumu’ah':''</td>
-<td>${day.timings.Fajr.split(" ")[0]</td>
-<td>${day.timings.Dhuhr.split(" ")[0]</td>
-<td>${day.timings.Asr.split(" ")[0]</td>
-<td>${day.timings.Maghrib.split(" ")[0]</td>
-<td>${day.timings.Isha.split(" ")[0]</td>
-</tr>`;
-});
-
-table+="</table>";
-document.getElementById("hijriCalendar").innerHTML=table;
-
-document.getElementById("hijriMonth").addEventListener("change",function(){
-loadHijriCalendar(this.value);
-});
+}
 
 loadNextPrayer();
-loadHijriCalendar(1);
-</script>
-
-<script>
-function mpesaPay(){
-navigator.clipboard.writeText("+254716802090");
-alert("M-PESA number copied: +254716802090");
-window.open("https://www.safaricom.co.ke/m-pesa","_blank");
-</script>
-<button id="islamBtn" onclick="openIslam()">🕌 Ask me about Islam</button>
-<script>
-function openIslam(){
-window.open("https://islamqa.info/en","IslamQA","width=600,height=700,left=200,top=100,resizable=yes,scrollbars=yes");
-</script>
-<style>
-#islamBtn{position:fixed;bottom:20px;left:20px;background:#0a7c3a;color:#fff;padding:12px 18px;border:none;border-radius:30px;font-size:14px;cursor:pointer;z-index:9999;box-shadow:0 4px 10px rgba(0,0,0,0.3);}
-#islamBtn:hover{background:#0d9c4a;}
-</style>
 </script>
 
 </body>
