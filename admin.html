@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Badawy TV Admin</title>
+<title>Badawy TV Creator Studio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -10,71 +10,139 @@
 <style>
 body{
 margin:0;
-font-family:Arial;
-background:#0f2027;
-color:white;
+font-family:Segoe UI;
+background:#f4f6f9;
 }
 
-.container{
+.login-container{
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
+background:#0f2027;
 }
 
-.box{
+.login-box{
 background:#1c1c1c;
 padding:30px;
-border-radius:15px;
-width:90%;
-max-width:400px;
-box-shadow:0 0 20px rgba(0,0,0,0.6);
+border-radius:12px;
+width:350px;
+color:white;
 }
 
 input{
 width:100%;
-padding:12px;
+padding:10px;
 margin:10px 0;
-border-radius:8px;
+border-radius:6px;
 border:none;
-background:white;
-color:black;
-font-size:16px;
 }
 
 button{
-width:100%;
-padding:12px;
+padding:10px;
 border:none;
-border-radius:8px;
-background:#00c853;
-color:white;
-font-weight:bold;
+border-radius:6px;
 cursor:pointer;
+font-weight:bold;
 }
 
-#dashboard{
+.login-btn{
+background:#00c853;
+color:white;
+width:100%;
+}
+
+.dashboard{
 display:none;
-padding:30px;
+}
+
+.sidebar{
+width:220px;
+background:#1e1e2f;
+color:white;
+height:100vh;
+position:fixed;
+padding:20px;
+}
+
+.sidebar h2{
+margin-top:0;
+}
+
+.sidebar button{
+width:100%;
+margin:8px 0;
+background:#2c2c3e;
+color:white;
+}
+
+.content{
+margin-left:240px;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+margin-bottom:20px;
+}
+
+.logout-btn{
+background:#f44336;
+color:white;
 }
 </style>
 </head>
 <body>
 
-<div class="container" id="loginBox">
-<div class="box">
+<!-- LOGIN -->
+<div class="login-container" id="loginBox">
+<div class="login-box">
 <h2>Admin Login</h2>
-<input id="email" type="email" placeholder="Enter email">
-<input id="password" type="password" placeholder="Enter password">
-<button onclick="login()">Login</button>
+<input id="email" type="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+<button class="login-btn" onclick="login()">Login</button>
 <p id="msg"></p>
 </div>
 </div>
 
-<div id="dashboard">
-<h1>🚀 Welcome to Badawy TV Dashboard</h1>
-<p>You are successfully logged in.</p>
-<button onclick="logout()">Logout</button>
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+
+<div class="sidebar">
+<h2>Badawy TV</h2>
+<button onclick="showSection('home')">Dashboard</button>
+<button onclick="showSection('upload')">Upload Guide</button>
+<button onclick="showSection('live')">Live Control</button>
+<button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+<div class="content">
+
+<div id="home" class="card">
+<h2>📊 Overview</h2>
+<p>Welcome to Creator Studio.</p>
+<p>Use sidebar to manage content.</p>
+</div>
+
+<div id="upload" class="card" style="display:none;">
+<h2>📤 Upload Content</h2>
+<p>To upload a file:</p>
+<p>1. Copy file into /uploads folder in Termux</p>
+<p>2. Run git add .</p>
+<p>3. Run git commit -m "New post"</p>
+<p>4. Run git push</p>
+<p>Post will appear on homepage.</p>
+</div>
+
+<div id="live" class="card" style="display:none;">
+<h2>🔴 Live Control</h2>
+<p>Live toggle system can be connected next.</p>
+</div>
+
+</div>
 </div>
 
 <script>
@@ -105,6 +173,11 @@ function logout(){
 auth.signOut().then(()=>{
 location.reload();
 });
+}
+
+function showSection(id){
+document.querySelectorAll('.content .card').forEach(c=>c.style.display='none');
+document.getElementById(id).style.display='block';
 }
 </script>
 
