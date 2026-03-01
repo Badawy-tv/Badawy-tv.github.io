@@ -167,6 +167,13 @@ x.style.display=(x.style.display==="block")?"none":"block";
 }
 
 function toggleMenu(){
+window.addEventListener("scroll", function(){
+var menu=document.getElementById("sideMenu");
+if(menu.style.right==="0px"){
+menu.style.right="-260px";
+}
+});
+
 const menu=document.getElementById("sideMenu");
 menu.style.right=(menu.style.right==="0px")?"-260px":"0px";
 }
