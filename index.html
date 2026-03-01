@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>BADAWY TV</title>
+  <title>Badawy TV</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="margin:0;font-family:sans-serif;background:#f5f5f5;">
+<body style="margin:0;font-family:sans-serif;background:#f2f2f2;">
 
-<h2 style="text-align:center;padding:15px;">BADAWY TV POSTS</h2>
+<h2 style="text-align:center;padding:15px;">Badawy TV Posts</h2>
 
 <div id="posts" style="padding:15px;"></div>
 
@@ -30,74 +29,31 @@ const postsContainer = document.getElementById("posts");
 
 db.ref("posts").on("value", snapshot => {
   postsContainer.innerHTML = "";
+
+  if (!snapshot.exists()) {
+    postsContainer.innerHTML = "<p style='text-align:center;'>No posts yet</p>";
+    return;
+  }
+
   snapshot.forEach(child => {
     const data = child.val();
 
-    if (data.url) {
+    if (data.type === "video") {
+      postsContainer.innerHTML += `
+        <video controls style="width:100%;max-width:600px;margin:20px auto;display:block;border-radius:12px;">
+          <source src="${data.url}" type="video/mp4">
+        </video>
+      `;
+    }
 
-      if (data.type === "image") {
-        postsContainer.innerHTML += `
-          <img src="${data.url}"
-          style="width:100%;max-width:600px;margin:15px auto;display:block;border-radius:12px;">
-        `;
-      }
-
-      if (data.type === "video") {
-        postsContainer.innerHTML += `
-          <video controls
-          style="width:100%;max-width:600px;margin:15px auto;display:block;border-radius:12px;">
-            <source src="${data.url}" type="video/mp4">
-          </video>
-        `;
-      }
-
+    if (data.type === "image") {
+      postsContainer.innerHTML += `
+        <img src="${data.url}" style="width:100%;max-width:600px;margin:20px auto;display:block;border-radius:12px;">
+      `;
     }
   });
 });
 </script>
 
-<script>
-
-
-
-
-
-
-
-
-</script>
 </body>
 </html>
-
-<script>
-let pressTimer;
-document.addEventListener("DOMContentLoaded", function() {
-  const profileBtn = document.getElementById("profileBtn");
-  if (!profileBtn) return;
-
-  function goAdmin() {
-    window.location.href = "admin.html";
-  }
-
-  profileBtn.addEventListener("mousedown", function() {
-    pressTimer = setTimeout(goAdmin, 5000);
-  });
-
-  profileBtn.addEventListener("mouseup", function() {
-    clearTimeout(pressTimer);
-  });
-
-  profileBtn.addEventListener("mouseleave", function() {
-    clearTimeout(pressTimer);
-  });
-
-  profileBtn.addEventListener("touchstart", function() {
-    pressTimer = setTimeout(goAdmin, 5000);
-  });
-
-  profileBtn.addEventListener("touchend", function() {
-    clearTimeout(pressTimer);
-  });
-});
-</script>
-
