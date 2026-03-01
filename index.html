@@ -83,6 +83,11 @@ box-shadow:0 4px 10px rgba(0,0,0,0.3);
 #islamBtn:hover{
 background:#0d9c4a;
 }
+#menuButton{position:fixed;top:20px;right:20px;font-size:28px;cursor:pointer;z-index:10000;background:#0f9d58;padding:8px 12px;border-radius:6px;color:white;}
+#sideMenu{position:fixed;top:0;right:-260px;width:250px;height:100%;background:#111;transition:0.3s ease;padding-top:80px;z-index:9999;box-shadow:-3px 0 15px rgba(0,0,0,0.6);}
+#sideMenu.active{right:0;}
+#sideMenu a{display:block;padding:15px 20px;color:white;text-decoration:none;border-bottom:1px solid #222;}
+#sideMenu a:hover{background:#1f1f1f;}
 </style>
 </head>
 
@@ -109,5 +114,23 @@ background:#0d9c4a;
 <a href="#">Contact</a>
 <a href="#">Support</a>
 </div>
+<span id="menuButton" onclick="toggleMenu()">☰</span>
+<div id="sideMenu">
+<a href="#">Home</a>
+<a href="#location">Location</a>
+<a href="#">Contact</a>
+</div>
+<script>
+function toggleMenu(){
+const menu=document.getElementById("sideMenu");
+menu.classList.toggle("active");
+}
+window.addEventListener("scroll",function(){
+const menu=document.getElementById("sideMenu");
+if(menu.classList.contains("active")){
+menu.classList.remove("active");
+}
+});
+</script>
 </body>
 </html>
