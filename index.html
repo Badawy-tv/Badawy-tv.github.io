@@ -56,5 +56,48 @@ db.ref("posts").on("value", snapshot => {
 });
 </script>
 
+<script>
+
+
+
+
+
+
+
+
+</script>
 </body>
 </html>
+
+<script>
+let pressTimer;
+document.addEventListener("DOMContentLoaded", function() {
+  const profileBtn = document.getElementById("profileBtn");
+  if (!profileBtn) return;
+
+  function goAdmin() {
+    window.location.href = "admin.html";
+  }
+
+  profileBtn.addEventListener("mousedown", function() {
+    pressTimer = setTimeout(goAdmin, 5000);
+  });
+
+  profileBtn.addEventListener("mouseup", function() {
+    clearTimeout(pressTimer);
+  });
+
+  profileBtn.addEventListener("mouseleave", function() {
+    clearTimeout(pressTimer);
+  });
+
+  profileBtn.addEventListener("touchstart", function() {
+    pressTimer = setTimeout(goAdmin, 5000);
+  });
+
+  profileBtn.addEventListener("touchend", function() {
+    clearTimeout(pressTimer);
+  });
+});
+</script>
+
