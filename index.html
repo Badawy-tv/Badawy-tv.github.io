@@ -154,7 +154,7 @@ z-index: 10000 !important;
 <a href="https://wa.me/254716802090" target="_blank">📱 WhatsApp</a>
 <a href="https://www.facebook.com/ahmed.badawy.1690" target="_blank">📘 Facebook</a>
 <a href="https://youtube.com/@ahmadbadawytv?si=RjE40xUQKLmtWAbi" target="_blank">▶ YouTube</a>
-<a href="https://www.safaricom.co.ke/m-pesa" target="_blank">💰 M-Pesa</a>
+<a href="#" onclick="mpesaPay()" target="_blank">💰 M-Pesa</a>
 </div>
 
 <script>
@@ -237,6 +237,13 @@ loadNextPrayer();
 loadHijriCalendar(1);
 </script>
 
+<script>
+function mpesaPay(){
+navigator.clipboard.writeText("+254716802090");
+alert("M-PESA number copied: +254716802090");
+window.open("https://www.safaricom.co.ke/m-pesa","_blank");
+}
+</script>
 </body>
 </html>
 
