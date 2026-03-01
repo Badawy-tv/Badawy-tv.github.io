@@ -1,93 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Badawy TV Admin</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<title>Badawy TV Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0f2027;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+color:white;
+}
+
+.box{
+background:#1c1c1c;
+padding:30px;
+border-radius:15px;
+width:90%;
+max-width:400px;
+box-shadow:0 0 20px rgba(0,0,0,0.6);
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:none;
+background:white;
+color:black;   /* FIX: makes text visible */
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+background:#00c853;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#00a844;
+}
+</style>
 </head>
-<body style="font-family:Arial;background:#111;color:white;text-align:center;padding:20px;">
+<body>
 
-<h2>🚀 Badawy TV Admin Login</h2>
-
-<input id="email" placeholder="Admin Email" style="padding:10px;width:90%;max-width:300px;"><br><br>
-<input id="password" type="password" placeholder="Password" style="padding:10px;width:90%;max-width:300px;"><br><br>
-
-<button onclick="login()" style="padding:12px 20px;background:#00c853;color:white;border:none;border-radius:8px;">
-Login
-</button>
-
-<div id="panel" style="display:none;margin-top:30px;">
-
-<h3>Admin Control</h3>
-
-<button onclick="toggleLive()" style="padding:12px;margin:10px;background:red;color:white;border:none;border-radius:8px;">
-Toggle LIVE
-</button>
-
-<br>
-
-<input id="announcement" placeholder="Announcement..." style="padding:10px;width:90%;max-width:300px;"><br><br>
-
-<button onclick="sendAnnouncement()" style="padding:12px;background:orange;color:white;border:none;border-radius:8px;">
-Send Announcement
-</button>
-
-<br><br>
-
-<button onclick="logout()" style="padding:10px;background:#f44336;color:white;border:none;border-radius:8px;">
-Logout
-</button>
-
+<div class="box">
+<h2>Admin Login</h2>
+<input id="email" type="email" placeholder="Enter email">
+<input id="password" type="password" placeholder="Enter password">
+<button onclick="login()">Login</button>
+<p id="msg"></p>
 </div>
 
 <script>
-
 const firebaseConfig = {
-  apiKey: "AIzaSyASNJLrmw3pk9ClzYeFUyu4fq_AqO4Wkjc",
-  authDomain: "badawytv.firebaseapp.com",
-  databaseURL: "https://badawytv-default-rtdb.firebaseio.com",
-  projectId: "badawytv",
-  storageBucket: "badawytv.firebasestorage.app",
-  messagingSenderId: "290361356500",
-  appId: "1:290361356500:web:c281156ffb95d1ad964b41"
+apiKey: "AIzaSyASNJLrmw3pk9ClzYeFUyu4fq_AqO4Wkjc",
+authDomain: "badawytv.firebaseapp.com",
+projectId: "badawytv"
 };
 
 firebase.initializeApp(firebaseConfig);
-
 const auth = firebase.auth();
-const db = firebase.database();
 
 function login(){
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  auth.signInWithEmailAndPassword(email,password)
-    .then(()=>{
-      document.getElementById("panel").style.display="block";
-      alert("Login successful");
-    })
-    .catch(e=>alert("Login failed"));
+auth.signInWithEmailAndPassword(
+document.getElementById("email").value,
+document.getElementById("password").value
+)
+.then(()=>{
+document.getElementById("msg").innerText="Login successful";
+})
+.catch((error)=>{
+document.getElementById("msg").innerText=error.message;
+});
 }
-
-function toggleLive(){
-  db.ref("liveStatus").once("value").then(snapshot=>{
-    db.ref("liveStatus").set(!snapshot.val());
-  });
-}
-
-function sendAnnouncement(){
-  const msg = document.getElementById("announcement").value;
-  db.ref("announcement").set(msg);
-  alert("Sent");
-}
-
-function logout(){
-  auth.signOut();
-  document.getElementById("panel").style.display="none";
-}
-
 </script>
 
 </body>
