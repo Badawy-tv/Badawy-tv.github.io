@@ -3,65 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Badawy TV</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<title>BADAWY TV</title>
+
 <style>
-body{margin:0;font-family:'Poppins',sans-serif;background:#f5f7fa;color:#333}
-header{background:linear-gradient(135deg,#0f9d58,#00695c);color:white;text-align:center;padding:60px 20px}
-nav{background:#004d40;display:flex;justify-content:center;gap:30px;padding:15px;position:sticky;top:0}
-nav a{color:white;text-decoration:none;font-weight:500}
-nav a:hover{color:#ffd54f}
-.section{max-width:1000px;margin:40px auto;background:white;padding:30px;border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,0.08)}
-.section h2{text-align:center;margin-bottom:20px}
-img{width:100%;max-width:600px;display:block;margin:0 auto 20px auto;border-radius:12px}
-footer{background:#004d40;color:white;text-align:center;padding:20px;margin-top:40px}
+body{
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:#0f0f0f;
+  color:white;
+}
+
+header{
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+}
+
+h1{
+  margin:0;
+  font-size:28px;
+  letter-spacing:2px;
+}
+
+.menu-btn{
+  font-size:28px;
+  cursor:pointer;
+}
+
+.section{
+  padding:40px 20px;
+  text-align:center;
+}
+
+.card{
+  background:#1c1c1c;
+  padding:25px;
+  border-radius:12px;
+  max-width:800px;
+  margin:auto;
+  box-shadow:0 0 15px rgba(0,255,150,0.2);
+}
+
+iframe{
+  width:100%;
+  height:350px;
+  border-radius:12px;
+  border:0;
+}
+
+/* Right Slide Menu */
+#sideMenu{
+  position:fixed;
+  right:-300px;
+  top:0;
+  width:250px;
+  height:100%;
+  background:#111;
+  transition:0.3s;
+  padding-top:60px;
+  box-shadow:-2px 0 15px rgba(0,0,0,0.5);
+}
+
+#sideMenu a{
+  display:block;
+  padding:15px 20px;
+  color:white;
+  text-decoration:none;
+  border-bottom:1px solid #222;
+}
+
+#sideMenu a:hover{
+  background:#1f1f1f;
+}
+
 </style>
 </head>
+
 <body>
 
 <header>
-<h1>🕌 Badawy TV</h1>
-<p>Spreading Knowledge • Strengthening Imaan • Serving the Ummah</p>
+<h1>BADAWY TV</h1>
+<span class="menu-btn" onclick="openMenu()">☰</span>
 </header>
 
-<nav>
-<a href="#imam">Imam</a>
-<a href="#about">About</a>
-<a href="#prayer">Prayer Times</a>
-<a href="#contact">Contact</a>
-</nav>
-
-<div class="section" id="imam">
-<h2>Imam Ahmad Badawy Muhsin</h2>
-<img src="uploads/1772221087686.jpg">
+<div class="section">
+<div class="card">
+<h2>🕌 Ahmad Badawy Muhsin</h2>
 <p>
-🕌✨ Meet Ahmad Badawy Muhsin, the dedicated Imam of Masjid Aqswa in Kisauni, Mombasa 🇰🇪.
-A humble servant of Allah ﷻ and a guiding light in our community, known for powerful khutbahs and beautiful Qur’an recitation.
-<br><br>
-Through wisdom and sincerity, he inspires hearts and strengthens Imaan.
-<br><br>
-May Allah ﷻ grant him barakah and reward him abundantly. 🤲✨
+Meet Ahmad Badawy Muhsin, the dedicated Imam of Masjid Aqswa in Kisauni, Mombasa 🇰🇪.
+A humble servant of Allah ﷻ and guiding light in our community.
+Known for powerful khutbahs, beautiful Qur’an recitation and deep knowledge of the Deen.
+May Allah grant him barakah and reward him abundantly. 🤲
 </p>
 </div>
-
-<div class="section" id="about">
-<h2>About Masjid Aqswa</h2>
-<p>Located in Kisauni, Mombasa, Masjid Aqswa serves as a center of worship, knowledge, and unity for the Muslim community.</p>
 </div>
 
-<div class="section" id="prayer">
-<h2>Prayer Times</h2>
-<p>Prayer times for Mombasa will be updated soon inshaAllah.</p>
+<div class="section">
+<h2>📍 Our Location</h2>
+<iframe src="https://www.google.com/maps?q=-4.0297876,39.6843468&output=embed"></iframe>
 </div>
 
-<div class="section" id="contact">
-<h2>Contact</h2>
-<p>Reach us through our official communication channels.</p>
+<div id="sideMenu">
+<a href="mailto:ahmedbadawy786@gmail.com" target="_blank">📧 Email</a>
+<a href="https://wa.me/254716802090" target="_blank">📱 WhatsApp</a>
+<a href="https://www.facebook.com/ahmed.badawy.1690" target="_blank">📘 Facebook</a>
+<a href="https://youtube.com/@ahmadbadawytv?si=RjE40xUQKLmtWAbi" target="_blank">▶ YouTube</a>
 </div>
 
-<footer>
-© 2026 Badawy TV • All Rights Reserved
-</footer>
+<script>
+function openMenu(){
+  var menu=document.getElementById("sideMenu");
+  if(menu.style.right=="0px"){
+    menu.style.right="-300px";
+  }else{
+    menu.style.right="0px";
+  }
+}
+</script>
 
 </body>
 </html>
