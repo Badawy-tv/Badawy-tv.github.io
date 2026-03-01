@@ -204,10 +204,20 @@ window.onscroll = function() {
 <script src="admin.js"></script>
 <div id="posts" style="padding:20px;"></div>
 <script>
-const posts = [
-  "uploads/FILENAME",
-];
-posts.forEach(file=>{
+db.ref("posts").on("value", snapshot => {
+  const container = document.getElementById("posts");
+  container.innerHTML = "";
+  snapshot.forEach(child => {
+    const data = child.val();
+    if(data.type === "image"){
+      container.innerHTML += `<img src="${data.url}" style="width:100%;max-width:600px;margin:15px auto;display:block;border-radius:12px;">`;
+    } else if(data.type === "video"){
+      container.innerHTML += `<video controls style="width:100%;max-width:600px;margin:15px auto;display:block;border-radius:12px;"><source src="${data.url}" type="video/mp4"></video>`;
+    }
+  });
+});
+</script>
+<script>
 const ext=file.split(".").pop().toLowerCase();
 if(["jpg","jpeg","png"].includes(ext)){
 document.getElementById("posts").innerHTML+=`<img src="${file}" style="width:100%;max-width:600px;margin:15px auto;display:block;border-radius:12px;">`;
