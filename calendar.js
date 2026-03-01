@@ -4,47 +4,63 @@ const now = new Date();
 const month = now.getMonth() + 1;
 const year = now.getFullYear();
 
-fetch(`https://api.aladhan.com/v1/calendarByCity?city=Nairobi&country=Kenya&method=2&month=${month}&year=${year}`)
-.then(response => response.json())
-.then(result => {
+fetch(`https://api.aladhan.com/v1/timingsByCity?city=Nairobi&country=Kenya&method=2`)
+.then(res => res.json())
+.then(data => {
 
-if(!result || !result.data){
-document.getElementById("hijriCalendar").innerHTML = "Calendar failed to load.";
-return;
+let timings = data.data.timings;
+
+let prayers = {
+Fajr: timings.Fajr,
+Dhuhr: timings.Dhuhr,
+Asr: timings.Asr,
+Maghrib: timings.Maghrib,
+Isha: timings.Isha
+};
+
+function getNextPrayer(){
+let current = new Date();
+let todayDate = current.toISOString().split("T")[0];
+
+for(let name in prayers){
+let time = prayers[name].split(" ")[0];
+let prayerTime = new Date(todayDate + "T" + time);
+
+if(prayerTime > current){
+return {name, prayerTime};
+}
 }
 
-let today = now.getDate();
-let data = result.data;
+let fajrTime = prayers.Fajr.split(" ")[0];
+let tomorrow = new Date(current);
+tomorrow.setDate(tomorrow.getDate()+1);
+let tDate = tomorrow.toISOString().split("T")[0];
+return {name:"Fajr", prayerTime:new Date(tDate+"T"+fajrTime)};
+}
 
-let html = "<table style='width:100%;border-collapse:collapse;background:#111;color:white;'>";
+function updateCountdown(){
+let next = getNextPrayer();
+let nowTime = new Date();
+let diff = next.prayerTime - nowTime;
 
-html += "<tr style='background:black;color:gold;'>";
-html += "<th>Hijri</th><th>Fajr</th><th>Dhuhr</th><th>Asr</th><th>Maghrib</th><th>Isha</th>";
-html += "</tr>";
+let hours = Math.floor(diff / (1000*60*60));
+let minutes = Math.floor((diff % (1000*60*60))/(1000*60));
+let seconds = Math.floor((diff % (1000*60))/1000);
 
-data.forEach(day => {
+document.getElementById("nextPrayer").innerHTML =
+"Next Prayer: <b>"+ next.name +"</b> at "+ next.prayerTime.toLocaleTimeString();
 
-let gDay = parseInt(day.date.gregorian.day);
-let highlight = gDay === today ? "background:#0a7c3a;font-weight:bold;" : "";
+document.getElementById("countdown").innerHTML =
+hours+"h "+minutes+"m "+seconds+"s";
 
-html += `<tr style="${highlight}">`;
-html += `<td>${day.date.hijri.day}</td>`;
-html += `<td>${day.timings.Fajr.split(" ")[0]}</td>`;
-html += `<td>${day.timings.Dhuhr.split(" ")[0]}</td>`;
-html += `<td>${day.timings.Asr.split(" ")[0]}</td>`;
-html += `<td>${day.timings.Maghrib.split(" ")[0]}</td>`;
-html += `<td>${day.timings.Isha.split(" ")[0]}</td>`;
-html += "</tr>";
+}
 
-});
-
-html += "</table>";
-
-document.getElementById("hijriCalendar").innerHTML = html;
+setInterval(updateCountdown,1000);
+updateCountdown();
 
 })
-.catch(error=>{
-document.getElementById("hijriCalendar").innerHTML = "Unable to load Islamic calendar.";
+.catch(()=>{
+document.getElementById("nextPrayer").innerHTML="Unable to load prayer times.";
 });
 
 });
