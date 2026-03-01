@@ -202,6 +202,21 @@ window.onscroll = function() {
 <script src="notify.js"></script>
 <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js");}</script>
 <script src="admin.js"></script>
+<div id="posts" style="padding:20px;"></div>
+<script>
+const posts = [
+  "uploads/FILENAME",
+];
+posts.forEach(file=>{
+const ext=file.split(".").pop().toLowerCase();
+if(["jpg","jpeg","png"].includes(ext)){
+document.getElementById("posts").innerHTML+=`<img src="${file}" style="width:100%;max-width:600px;margin:15px auto;display:block;border-radius:12px;">`;
+}
+if(ext==="mp4"){
+document.getElementById("posts").innerHTML+=`<video controls style="width:100%;max-width:600px;margin:15px auto;display:block;border-radius:12px;"><source src="${file}" type="video/mp4"></video>`;
+}
+});
+</script>
 </body>
 </html>
 
