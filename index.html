@@ -218,10 +218,11 @@ async function loadHijriCalendar(month){
   </tr>`;
 
   days.forEach(day=>{
+    let isFriday = day.date.gregorian.weekday.en === "Friday";
     table += `
-    <tr style="border-bottom:1px solid #222;">
+    <tr style="border-bottom:1px solid #222;"+(isFriday?"background:#2a1f00;color:#ffd700;font-weight:bold;":"")>
       <td style="padding:10px;color:#0f9d58;">
-      ${day.date.hijri.day} ${day.date.hijri.month.en}
+      ${day.date.hijri.day} ${day.date.hijri.month.en} "+(isFriday?" 🌟 Jumu’ah Mubarak":"")+"
       </td>
       <td>${day.timings.Fajr.split(" ")[0]}</td>
       <td>${day.timings.Dhuhr.split(" ")[0]}</td>
