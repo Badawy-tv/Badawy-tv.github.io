@@ -12,11 +12,14 @@ body{
 margin:0;
 font-family:Arial;
 background:#0f2027;
+color:white;
+}
+
+.container{
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
-color:white;
 }
 
 .box{
@@ -35,7 +38,7 @@ margin:10px 0;
 border-radius:8px;
 border:none;
 background:white;
-color:black;   /* FIX: makes text visible */
+color:black;
 font-size:16px;
 }
 
@@ -50,19 +53,28 @@ font-weight:bold;
 cursor:pointer;
 }
 
-button:hover{
-background:#00a844;
+#dashboard{
+display:none;
+padding:30px;
 }
 </style>
 </head>
 <body>
 
+<div class="container" id="loginBox">
 <div class="box">
 <h2>Admin Login</h2>
 <input id="email" type="email" placeholder="Enter email">
 <input id="password" type="password" placeholder="Enter password">
 <button onclick="login()">Login</button>
 <p id="msg"></p>
+</div>
+</div>
+
+<div id="dashboard">
+<h1>🚀 Welcome to Badawy TV Dashboard</h1>
+<p>You are successfully logged in.</p>
+<button onclick="logout()">Logout</button>
 </div>
 
 <script>
@@ -81,10 +93,17 @@ document.getElementById("email").value,
 document.getElementById("password").value
 )
 .then(()=>{
-document.getElementById("msg").innerText="Login successful";
+document.getElementById("loginBox").style.display="none";
+document.getElementById("dashboard").style.display="block";
 })
 .catch((error)=>{
 document.getElementById("msg").innerText=error.message;
+});
+}
+
+function logout(){
+auth.signOut().then(()=>{
+location.reload();
 });
 }
 </script>
