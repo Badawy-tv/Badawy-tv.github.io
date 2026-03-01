@@ -7,180 +7,62 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-body{
-margin:0;
-font-family:Segoe UI, Arial;
-background:#f5f7fb;
-}
-
-/* LOGIN */
-.login-wrapper{
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
-
-.login-card{
-background:white;
-padding:40px;
-width:350px;
-border-radius:12px;
-box-shadow:0 4px 20px rgba(0,0,0,0.08);
-}
-
-.login-card h2{
-margin-top:0;
-}
-
-.login-card input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border-radius:8px;
-border:1px solid #ddd;
-font-size:15px;
-}
-
-.login-card button{
-width:100%;
-padding:12px;
-background:#1877f2;
-color:white;
-border:none;
-border-radius:8px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.login-card button:hover{
-background:#0f65d8;
-}
-
-/* DASHBOARD */
-.dashboard{
-display:none;
-}
-
-.topbar{
-height:60px;
-background:white;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 20px;
-box-shadow:0 2px 6px rgba(0,0,0,0.05);
-position:fixed;
-width:100%;
-z-index:10;
-}
-
-.sidebar{
-width:220px;
-background:white;
-height:100vh;
-position:fixed;
-top:60px;
-left:0;
-box-shadow:2px 0 6px rgba(0,0,0,0.05);
-padding-top:20px;
-}
-
-.sidebar button{
-display:block;
-width:100%;
-padding:12px 20px;
-border:none;
-background:none;
-text-align:left;
-cursor:pointer;
-font-size:15px;
-}
-
-.sidebar button:hover{
-background:#f0f2f5;
-}
-
-.content{
-margin-left:220px;
-margin-top:60px;
-padding:30px;
-}
-
-.card{
-background:white;
-padding:20px;
-border-radius:12px;
-box-shadow:0 4px 15px rgba(0,0,0,0.05);
-margin-bottom:20px;
-}
-
-.live-indicator{
-font-weight:bold;
-}
-
-.live-on{color:red;}
-.live-off{color:gray;}
-
-@media(max-width:768px){
-.sidebar{width:180px;}
-.content{margin-left:180px;}
-}
+body{margin:0;font-family:Segoe UI;background:#f5f7fb;}
+.topbar{height:60px;background:white;display:flex;align-items:center;justify-content:space-between;padding:0 20px;box-shadow:0 2px 6px rgba(0,0,0,0.05);}
+.sidebar{width:220px;background:white;height:100vh;position:fixed;top:60px;left:0;box-shadow:2px 0 6px rgba(0,0,0,0.05);padding-top:20px;}
+.sidebar button{display:block;width:100%;padding:12px 20px;border:none;background:none;text-align:left;cursor:pointer;font-size:15px;}
+.sidebar button:hover{background:#f0f2f5;}
+.content{margin-left:220px;margin-top:60px;padding:30px;}
+.card{background:white;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.05);margin-bottom:20px;}
+.login-wrapper{display:flex;justify-content:center;align-items:center;height:100vh;}
+.login-card{background:white;padding:40px;width:350px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+input,textarea{width:100%;padding:10px;margin:10px 0;border-radius:8px;border:1px solid #ddd;}
+button{padding:10px;border:none;border-radius:8px;background:#1877f2;color:white;font-weight:bold;cursor:pointer;}
+.dashboard{display:none;}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div class="login-wrapper" id="loginBox">
 <div class="login-card">
 <h2>Admin Login</h2>
 <form onsubmit="login(event)" autocomplete="on">
-<input id="email" type="email" name="email" placeholder="Email"
-autocomplete="email" required>
-<input id="password" type="password" name="password"
-placeholder="Password"
-autocomplete="current-password" required>
+<input id="email" type="email" autocomplete="email" required>
+<input id="password" type="password" autocomplete="current-password" required>
 <button type="submit">Login</button>
 </form>
 <p id="msg"></p>
 </div>
 </div>
 
-<!-- DASHBOARD -->
 <div class="dashboard" id="dashboard">
 
 <div class="topbar">
-<div><strong>Badawy TV Creator Studio</strong></div>
-<div id="liveTop" class="live-indicator"></div>
+<div><strong>Badawy TV Professional Dashboard</strong></div>
+<div id="liveTop"></div>
 </div>
 
 <div class="sidebar">
 <button onclick="showSection('overview')">Overview</button>
-<button onclick="showSection('live')">Live Control</button>
-<button onclick="showSection('announce')">Announcement</button>
+<button onclick="showSection('upload')">Upload Media</button>
 <button onclick="logout()">Logout</button>
 </div>
 
 <div class="content">
 
 <div id="overview" class="card">
-<h2>Dashboard Overview</h2>
-<p>Welcome back.</p>
-<p>Live Status: <span id="liveStatus"></span></p>
+<h2>Live Analytics</h2>
+<canvas id="liveChart"></canvas>
 </div>
 
-<div id="live" class="card" style="display:none;">
-<h2>Live Control</h2>
-<button onclick="toggleLive()">Toggle LIVE</button>
-</div>
-
-<div id="announce" class="card" style="display:none;">
-<h2>Send Announcement</h2>
-<textarea id="announcementText" style="width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;"></textarea>
-<br><br>
-<button onclick="sendAnnouncement()">Publish</button>
+<div id="upload" class="card" style="display:none;">
+<h2>Upload Photo</h2>
+<input type="file" id="fileInput" accept="image/*">
+<button onclick="uploadFile()">Upload</button>
+<p id="uploadStatus"></p>
 </div>
 
 </div>
@@ -198,24 +80,17 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
 
-/* AUTO LOGIN IF SESSION EXISTS */
 auth.onAuthStateChanged(user=>{
 if(user){
 loginBox.style.display="none";
 dashboard.style.display="block";
-loadData();
+loadAnalytics();
 }
 });
 
 function login(e){
 e.preventDefault();
-auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-.then(()=>{
-return auth.signInWithEmailAndPassword(
-email.value,
-password.value
-);
-})
+auth.signInWithEmailAndPassword(email.value,password.value)
 .catch(error=>msg.innerText=error.message);
 }
 
@@ -229,28 +104,37 @@ document.querySelectorAll('.content .card')
 document.getElementById(id).style.display='block';
 }
 
-function toggleLive(){
-db.ref("liveStatus").once("value").then(s=>{
-db.ref("liveStatus").set(!s.val());
-});
-}
-
-function sendAnnouncement(){
-db.ref("announcement").set(announcementText.value);
-alert("Announcement sent");
-announcementText.value="";
-}
-
-function loadData(){
+function loadAnalytics(){
 db.ref("liveStatus").on("value",snap=>{
-if(snap.val()){
-liveStatus.innerHTML="<span class='live-on'>LIVE</span>";
-liveTop.innerHTML="<span class='live-on'>● LIVE</span>";
-}else{
-liveStatus.innerHTML="<span class='live-off'>OFFLINE</span>";
-liveTop.innerHTML="<span class='live-off'>● OFFLINE</span>";
+const live = snap.val() ? 1 : 0;
+const offline = snap.val() ? 0 : 1;
+
+new Chart(document.getElementById('liveChart'),{
+type:'bar',
+data:{
+labels:['Live','Offline'],
+datasets:[{
+label:'Stream Status',
+data:[live,offline]
+}]
 }
 });
+});
+}
+
+function uploadFile(){
+const file = document.getElementById("fileInput").files[0];
+if(!file){return;}
+
+const reader = new FileReader();
+reader.onload = function(e){
+db.ref("posts").push({
+image:e.target.result,
+timestamp:Date.now()
+});
+uploadStatus.innerText="Uploaded successfully!";
+};
+reader.readAsDataURL(file);
 }
 </script>
 
