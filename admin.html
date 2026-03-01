@@ -7,21 +7,16 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 body{margin:0;font-family:Segoe UI;background:#f5f7fb;}
-.topbar{height:60px;background:white;display:flex;align-items:center;justify-content:space-between;padding:0 20px;box-shadow:0 2px 6px rgba(0,0,0,0.05);}
-.sidebar{width:220px;background:white;height:100vh;position:fixed;top:60px;left:0;box-shadow:2px 0 6px rgba(0,0,0,0.05);padding-top:20px;}
-.sidebar button{display:block;width:100%;padding:12px 20px;border:none;background:none;text-align:left;cursor:pointer;font-size:15px;}
-.sidebar button:hover{background:#f0f2f5;}
-.content{margin-left:220px;margin-top:60px;padding:30px;}
-.card{background:white;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.05);margin-bottom:20px;}
 .login-wrapper{display:flex;justify-content:center;align-items:center;height:100vh;}
 .login-card{background:white;padding:40px;width:350px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.08);}
 input,textarea{width:100%;padding:10px;margin:10px 0;border-radius:8px;border:1px solid #ddd;}
 button{padding:10px;border:none;border-radius:8px;background:#1877f2;color:white;font-weight:bold;cursor:pointer;}
-.dashboard{display:none;}
+.dashboard{display:none;padding:20px;}
+.card{background:white;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.05);margin-bottom:20px;}
+.post-preview img{width:100%;border-radius:8px;margin-top:10px;}
 </style>
 </head>
 <body>
@@ -40,32 +35,22 @@ button{padding:10px;border:none;border-radius:8px;background:#1877f2;color:white
 
 <div class="dashboard" id="dashboard">
 
-<div class="topbar">
-<div><strong>Badawy TV Professional Dashboard</strong></div>
-<div id="liveTop"></div>
-</div>
-
-<div class="sidebar">
-<button onclick="showSection('overview')">Overview</button>
-<button onclick="showSection('upload')">Upload Media</button>
-<button onclick="logout()">Logout</button>
-</div>
-
-<div class="content">
-
-<div id="overview" class="card">
-<h2>Live Analytics</h2>
-<canvas id="liveChart"></canvas>
-</div>
-
-<div id="upload" class="card" style="display:none;">
-<h2>Upload Photo</h2>
+<div class="card">
+<h2>Create New Post</h2>
 <input type="file" id="fileInput" accept="image/*">
-<button onclick="uploadFile()">Upload</button>
+<input type="text" id="title" placeholder="Post Title">
+<textarea id="description" placeholder="Post Description"></textarea>
+<button onclick="uploadPost()">Publish Post</button>
 <p id="uploadStatus"></p>
 </div>
 
+<div class="card">
+<h2>Uploaded Posts</h2>
+<div id="postsList"></div>
 </div>
+
+<button onclick="logout()">Logout</button>
+
 </div>
 
 <script>
@@ -84,7 +69,7 @@ auth.onAuthStateChanged(user=>{
 if(user){
 loginBox.style.display="none";
 dashboard.style.display="block";
-loadAnalytics();
+loadPosts();
 }
 });
 
@@ -98,43 +83,55 @@ function logout(){
 auth.signOut().then(()=>location.reload());
 }
 
-function showSection(id){
-document.querySelectorAll('.content .card')
-.forEach(c=>c.style.display='none');
-document.getElementById(id).style.display='block';
-}
-
-function loadAnalytics(){
-db.ref("liveStatus").on("value",snap=>{
-const live = snap.val() ? 1 : 0;
-const offline = snap.val() ? 0 : 1;
-
-new Chart(document.getElementById('liveChart'),{
-type:'bar',
-data:{
-labels:['Live','Offline'],
-datasets:[{
-label:'Stream Status',
-data:[live,offline]
-}]
-}
-});
-});
-}
-
-function uploadFile(){
+function uploadPost(){
 const file = document.getElementById("fileInput").files[0];
-if(!file){return;}
+const title = document.getElementById("title").value;
+const description = document.getElementById("description").value;
+
+if(!file || !title){
+uploadStatus.innerText="File and Title required.";
+return;
+}
+
+if(file.size > 1000000){
+uploadStatus.innerText="Image must be under 1MB.";
+return;
+}
+
+uploadStatus.innerText="Uploading...";
 
 const reader = new FileReader();
 reader.onload = function(e){
 db.ref("posts").push({
 image:e.target.result,
+title:title,
+description:description,
 timestamp:Date.now()
+}).then(()=>{
+uploadStatus.innerText="Post Published!";
+fileInput.value="";
+title.value="";
+description.value="";
 });
-uploadStatus.innerText="Uploaded successfully!";
 };
 reader.readAsDataURL(file);
+}
+
+function loadPosts(){
+db.ref("posts").on("value",snapshot=>{
+postsList.innerHTML="";
+snapshot.forEach(child=>{
+const post = child.val();
+postsList.innerHTML += `
+<div class="post-preview">
+<h3>${post.title}</h3>
+<p>${post.description}</p>
+<img src="${post.image}">
+<hr>
+</div>
+`;
+});
+});
 }
 </script>
 
