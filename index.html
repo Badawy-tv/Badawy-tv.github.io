@@ -9,8 +9,6 @@
 <meta charset="UTF-8">
 <title>BADAWY TV</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<meta name="description" content="BADAWY TV is an Islamic media platform based in Kisauni, Mombasa, Kenya providing accurate prayer times, Hijri calendar updates, authentic Tawheed teachings, Salah guidance, and community empowerment initiatives like Pwani One Shilling Foundation.">
-<meta name="keywords" content="Islamic teachings Mombasa, Prayer times Kisauni, Tawheed Kenya, Salah guidance Kenya, Masjid Aqswa Mombasa, Islamic media Kenya, BADAWY TV, Pwani One Shilling Foundation, Islamic lectures Kenya, Hijri calendar Kenya">
 <meta property="og:title" content="BADAWY TV | Islamic Teachings & Prayer Times - Mombasa, Kenya">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <meta property="og:description" content="Authentic Tawheed teachings, Salah guidance, accurate prayer times, and community empowerment from Kisauni, Mombasa.">
@@ -447,8 +445,9 @@ button{cursor:pointer;border:none;border-radius:8px;padding:8px 15px;margin:5px;
 <footer style="background:#111;color:white;text-align:center;padding:60px 20px;margin-top:40px;">
 <h3>BADAWY TV</h3>
 <p>Spreading authentic Islamic knowledge through modern media.</p>
-<div id="calendar" style="margin-top:20px;font-size:14px;"></div>
 <p style="margin-top:15px;font-size:14px;">© <span id="year"></span> BADAWY TV. All Rights Reserved.</p>
+<p style="margin-top:10px;font-size:14px;">© <span id="year"></span> BADAWY TV. All Rights Reserved.</p>
+
 </footer>
 <style>
 
@@ -456,7 +455,6 @@ button{cursor:pointer;border:none;border-radius:8px;padding:8px 15px;margin:5px;
 </style>
 
 <script>
-document.getElementById("year").textContent=new Date().getFullYear();
 function toggleMenu(){
 const menu=document.getElementById("sideMenu");
 menu.classList.toggle("active");
@@ -464,9 +462,14 @@ menu.classList.toggle("active");
 </script>
 
 <script>
-document.getElementById("year").textContent=new Date().getFullYear();
-const today=new Date();
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+var today=new Date();
 document.getElementById("calendar").innerHTML="📅 Today: "+today.toDateString();
+document.getElementById("year").textContent=today.getFullYear();
+});
 </script>
 
 </body>
