@@ -695,12 +695,16 @@ if(localStorage.getItem("theme")==="light"){document.body.classList.add("lightMo
 </style>
 <script>
 let scrollInterval;
-const speedMap = { slow:120, medium:60, fast:20 };
+<script>
+let scrollInterval;
+const speedMap={slow:120,medium:60,fast:20};
 function startAutoScroll(speed){
 clearInterval(scrollInterval);
-scrollInterval=setInterval(()=>{window.scrollBy(0,1);}, speedMap[speed] || 60);
+scrollInterval=setInterval(()=>window.scrollBy(0,1),speedMap[speed]||60);
 }
 function stopAutoScroll(){clearInterval(scrollInterval);}
+document.addEventListener("click",stopAutoScroll);
+document.addEventListener("touchstart",stopAutoScroll);
 </script>
 </body>
 </html>
