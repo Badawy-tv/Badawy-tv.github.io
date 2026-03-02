@@ -990,6 +990,22 @@ async function checkLive() {
 </script>
 
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const faders = document.querySelectorAll(".fade-up");
+  function reveal() {
+    const triggerBottom = window.innerHeight * 0.85;
+    faders.forEach(el => {
+      const boxTop = el.getBoundingClientRect().top;
+      if (boxTop < triggerBottom) {
+        el.classList.add("show");
+      }
+    });
+  }
+  window.addEventListener("scroll", reveal);
+  reveal();
+});
+</script>
 </body>
 </html>
 
