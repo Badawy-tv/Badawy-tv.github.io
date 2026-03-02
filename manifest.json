@@ -1,10 +1,10 @@
 {
   "name": "BADAWY TV",
-  "short_name": "BadawyTV",
+  "short_name": "BADAWY TV",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ff0000",
+  "background_color": "#000000",
+  "theme_color": "#8b6508",
   "icons": [
     {
       "src": "icon-192.png",
