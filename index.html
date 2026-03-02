@@ -710,11 +710,6 @@ navigator.geolocation.getCurrentPosition(pos=>{const b=bearing(pos.coords.latitu
 function o(e){let h=e.webkitCompassHeading?e.webkitCompassHeading:360-e.alpha;if(h!=null){document.getElementById("compass").style.transform="rotate("+(b-h)+"deg)";}}
 if(typeof DeviceOrientationEvent.requestPermission==="function"){DeviceOrientationEvent.requestPermission().then(p=>{if(p==="granted"){window.addEventListener("deviceorientation",o,true);}});}else{window.addEventListener("deviceorientation",o,true);}});
 </script>
-<footer style="background:#111;color:white;text-align:center;padding:60px 20px;margin-top:40px;">
-<h3>BADAWY TV</h3>
-<p>Spreading authentic Islamic knowledge through modern media.</p>
-<p style="margin-top:15px;font-size:14px;">© <span id="year"></span> BADAWY TV. All Rights Reserved.</p>
-</footer>
 <script src="script.min.js"></script>
 </html>
 
