@@ -1,3 +1,11 @@
+<nav style="position:fixed;top:0;left:0;width:100%;background:linear-gradient(135deg,#111,#1f1f1f);color:white;padding:18px 40px;display:flex;justify-content:space-between;align-items:center;z-index:6000;box-shadow:0 4px 15px rgba(0,0,0,0.4);">
+<div style="font-weight:700;font-size:18px;letter-spacing:2px;">BADAWY TV</div>
+<div style="display:flex;gap:25px;font-size:14px;">
+<a href="#" style="color:white;text-decoration:none;">Home</a>
+<a href="#calendar" style="color:white;text-decoration:none;">Calendar</a>
+<a href="#contact" style="color:white;text-decoration:none;">Contact</a>
+</div>
+</nav>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +91,7 @@ box-shadow:0 4px 10px rgba(0,0,0,0.3);
 #islamBtn:hover{
 background:#0d9c4a;
 }
-#menuButton{position:fixed;top:20px;right:20px;font-size:28px;cursor:pointer;z-index:10000;background:#0f9d58;padding:8px 12px;border-radius:6px;color:white;}
+#menuButton{position:fixed;top:100px;right:20px;font-size:28px;cursor:pointer;z-index:10000;background:#0f9d58;padding:8px 12px;border-radius:6px;color:white;}
 #sideMenu{position:fixed;top:0;right:-260px;width:250px;height:100%;background:#111;transition:0.3s ease;padding-top:80px;z-index:9999;box-shadow:-3px 0 15px rgba(0,0,0,0.6);}
 #sideMenu.active{right:0;}
 #sideMenu a{display:block;padding:15px 20px;color:white;text-decoration:none;border-bottom:1px solid #222;}
@@ -152,7 +160,7 @@ menu.classList.remove("active");
 </div>
 <script src="calendar.js"></script>
 
-<div id="nextPrayerBox" style="position:fixed;top:20px;left:20px;background:linear-gradient(135deg,#1e1e1e,#2e2e2e);color:white;padding:18px 22px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.6);font-family:Segoe UI, sans-serif;z-index:9999;">
+<div id="nextPrayerBox" style="position:fixed;top:100px;left:20px;background:linear-gradient(135deg,#1e1e1e,#2e2e2e);color:white;padding:18px 22px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.6);font-family:Segoe UI, sans-serif;z-index:9999;">
 <div style="font-size:12px;letter-spacing:1px;opacity:0.7;">NEXT PRAYER</div>
 <div id="npName" style="font-size:22px;font-weight:bold;margin-top:6px;"></div>
 <div id="npTimer" style="font-size:16px;margin-top:6px;color:#00ffcc;"></div>
