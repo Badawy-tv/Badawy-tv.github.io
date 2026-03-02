@@ -19,6 +19,7 @@ gtag("config", "G-FS9CWPJWZS");
 <meta name="description" content="BADAWY TV is an Islamic media platform based in Kisauni, Mombasa, Kenya providing accurate prayer times, Hijri calendar updates, authentic Tawheed teachings, Salah guidance, and community empowerment initiatives like Pwani One Shilling Foundation.">
 <meta name="keywords" content="Islamic teachings Mombasa, Prayer times Kisauni, Tawheed Kenya, Salah guidance Kenya, Masjid Aqswa Mombasa, Islamic media Kenya, BADAWY TV, Pwani One Shilling Foundation, Islamic lectures Kenya, Hijri calendar Kenya">
 <meta property="og:title" content="BADAWY TV | Islamic Teachings & Prayer Times - Mombasa, Kenya">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <meta property="og:description" content="Authentic Tawheed teachings, Salah guidance, accurate prayer times, and community empowerment from Kisauni, Mombasa.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://badawy-tv.github.io/">
@@ -552,6 +553,16 @@ document.getElementById("articleSearch").addEventListener("keyup", function(){
 let filter=this.value.toLowerCase();
 let articles=document.querySelectorAll(".article");
 articles.forEach(a=>{
+<section style="text-align:center;padding:40px 20px;background:#111;color:white;">
+<h3 style="margin-bottom:20px;font-size:22px;">Connect With Us</h3>
+<div style="font-size:28px;">
+<a href="https://wa.me/254716802090" target="_blank" style="margin:0 15px;color:#25D366;"><i class="fab fa-whatsapp"></i></a>
+<a href="https://www.facebook.com/ahmed.badawy.1690" target="_blank" style="margin:0 15px;color:#1877F2;"><i class="fab fa-facebook"></i></a>
+<a href="https://vm.tiktok.com/ZS9eE4LFgP7Ck-tMeUO/" target="_blank" style="margin:0 15px;color:#fff;"><i class="fab fa-tiktok"></i></a>
+<a href="https://youtube.com/@ahmadbadawytv?si=mM0ZjI-JTJy0qgMw" target="_blank" style="margin:0 15px;color:#FF0000;"><i class="fab fa-youtube"></i></a>
+<a href="mailto:ahmedbadawy786@gmail.com" target="_blank" style="margin:0 15px;color:#ccc;"><i class="fas fa-envelope"></i></a>
+</div>
+</section>
 a.style.display=a.innerText.toLowerCase().includes(filter)?"block":"none";
 });
 });
