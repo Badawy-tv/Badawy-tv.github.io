@@ -694,3 +694,55 @@ Lipa na M-PESA
 </footer>
 <script src="script.min.js"></script>
 </html>
+
+<!-- ================= LIVE STREAM SECTION ================= -->
+<section id="live-section" style="display:none;padding:60px 20px;text-align:center;background:#000;color:#fff;">
+  <h2 style="font-size:34px;margin-bottom:25px;">
+    🔴 LIVE NOW – Ahmad Badawy TV
+  </h2>
+  <div id="live-player"></div>
+</section>
+
+<script>
+const API_KEY = "AIzaSyDDo1NgqScqlfr-3OwKB-b6NnE-0BExBRk";
+const CHANNEL_HANDLE = "@ahmadbadawytv";
+
+async function getChannelId() {
+  const res = await fetch(
+    `https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=${CHANNEL_HANDLE}&key=${API_KEY}`
+  );
+  const data = await res.json();
+  return data.items[0].snippet.channelId;
+}
+
+async function checkLive() {
+  try {
+    const channelId = await getChannelId();
+
+    const liveRes = await fetch(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&eventType=live&type=video&key=${API_KEY}`
+    );
+
+    const liveData = await liveRes.json();
+
+    if (liveData.items && liveData.items.length > 0) {
+      const liveVideoId = liveData.items[0].id.videoId;
+
+      document.getElementById("live-section").style.display = "block";
+      document.getElementById("live-player").innerHTML =
+        `<iframe width="100%" height="500"
+          src="https://www.youtube.com/embed/${liveVideoId}?autoplay=1"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>`;
+    }
+  } catch (err) {
+    console.log("Live check failed:", err);
+  }
+}
+
+checkLive();
+setInterval(checkLive, 60000);
+</script>
+
