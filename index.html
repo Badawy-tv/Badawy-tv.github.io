@@ -690,9 +690,26 @@ Lipa na M-PESA
 <!-- QIBLA WILL BE INSERTED HERE -->
 
 <!-- ================= REAL QIBLA COMPASS ================= -->
-PASTE_QIBLA_CODE_HERE
 
 
+<!-- ================= REAL HARDWARE QIBLA COMPASS ================= -->
+<section id="qibla-section" style="padding:80px 20px;text-align:center;background:radial-gradient(circle at top,#101820,#000);color:white;">
+<h2>🕋 Real Qibla Compass</h2>
+<p>Enable Location & Motion for accurate alignment</p>
+<div style="position:relative;width:300px;height:300px;margin:40px auto;border:8px solid gold;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 50px rgba(255,215,0,0.4);" id="compass">
+<div style="width:6px;height:130px;background:gold;border-radius:6px;position:absolute;top:35px;"></div>
+<div style="position:absolute;bottom:25px;font-size:42px;">🕋</div>
+</div>
+<div id="qibla-info" style="margin-top:20px;font-size:18px;">Initializing sensors...</div>
+</section>
+<script>
+const KAABA_LAT=21.4225, KAABA_LON=39.8262;
+function r(d){return d*Math.PI/180;} function d(r){return r*180/Math.PI;}
+function bearing(lat,lon){const y=Math.sin(r(KAABA_LON-lon))*Math.cos(r(KAABA_LAT));const x=Math.cos(r(lat))*Math.sin(r(KAABA_LAT))-Math.sin(r(lat))*Math.cos(r(KAABA_LAT))*Math.cos(r(KAABA_LON-lon));return (d(Math.atan2(y,x))+360)%360;}
+navigator.geolocation.getCurrentPosition(pos=>{const b=bearing(pos.coords.latitude,pos.coords.longitude);document.getElementById("qibla-info").innerText="Qibla Bearing: "+b.toFixed(2)+"°";
+function o(e){let h=e.webkitCompassHeading?e.webkitCompassHeading:360-e.alpha;if(h!=null){document.getElementById("compass").style.transform="rotate("+(b-h)+"deg)";}}
+if(typeof DeviceOrientationEvent.requestPermission==="function"){DeviceOrientationEvent.requestPermission().then(p=>{if(p==="granted"){window.addEventListener("deviceorientation",o,true);}});}else{window.addEventListener("deviceorientation",o,true);}});
+</script>
 <footer style="background:#111;color:white;text-align:center;padding:60px 20px;margin-top:40px;">
 <h3>BADAWY TV</h3>
 <p>Spreading authentic Islamic knowledge through modern media.</p>
