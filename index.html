@@ -189,6 +189,42 @@ background:rgba(255,255,255,0.1);
 #articles{display:grid;grid-template-columns:1fr 1fr;gap:25px;}
 .featured{grid-column:span 2;}
 }
+.site-footer{
+background:var(--dark-main);
+color:white;
+padding:50px 20px;
+margin-top:auto;
+}
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:30px;
+max-width:1100px;
+margin:auto;
+text-align:left;
+}
+.site-footer h3,.site-footer h4{
+color:var(--primary-gold);
+margin-bottom:10px;
+}
+.site-footer a{
+color:white;
+text-decoration:none;
+font-size:14px;
+}
+.site-footer a:hover{color:var(--primary-gold);}
+.footer-quote{
+text-align:center;
+margin-top:40px;
+font-style:italic;
+opacity:0.9;
+}
+.copyright{
+text-align:center;
+margin-top:15px;
+font-size:14px;
+opacity:0.7;
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -373,6 +409,42 @@ background:rgba(255,255,255,0.1);
 #articles{display:grid;grid-template-columns:1fr 1fr;gap:25px;}
 .featured{grid-column:span 2;}
 }
+.site-footer{
+background:var(--dark-main);
+color:white;
+padding:50px 20px;
+margin-top:auto;
+}
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:30px;
+max-width:1100px;
+margin:auto;
+text-align:left;
+}
+.site-footer h3,.site-footer h4{
+color:var(--primary-gold);
+margin-bottom:10px;
+}
+.site-footer a{
+color:white;
+text-decoration:none;
+font-size:14px;
+}
+.site-footer a:hover{color:var(--primary-gold);}
+.footer-quote{
+text-align:center;
+margin-top:40px;
+font-style:italic;
+opacity:0.9;
+}
+.copyright{
+text-align:center;
+margin-top:15px;
+font-size:14px;
+opacity:0.7;
+}
 </style>
 
 <div class="section">
@@ -403,5 +475,6 @@ document.getElementById("menuToggle").onclick=function(){
 nav.classList.toggle("showNav");
 };
 </script>
+<script>document.getElementById("year").textContent=new Date().getFullYear();</script>
 </body>
 </html>
