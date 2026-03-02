@@ -225,6 +225,8 @@ margin-top:15px;
 font-size:14px;
 opacity:0.7;
 }
+.footer-content{max-width:1100px;margin:auto;text-align:center;padding:40px 20px;}
+.site-footer{background:#111;color:white;margin-top:auto;}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -445,6 +447,8 @@ margin-top:15px;
 font-size:14px;
 opacity:0.7;
 }
+.footer-content{max-width:1100px;margin:auto;text-align:center;padding:40px 20px;}
+.site-footer{background:#111;color:white;margin-top:auto;}
 </style>
 
 <div class="section">
@@ -478,3 +482,25 @@ nav.classList.toggle("showNav");
 <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
 </body>
 </html>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <h3>BADAWY TV</h3>
+    <p>Spreading authentic Islamic knowledge through modern media.</p>
+
+    <p class="footer-quote">
+      “And whoever relies upon Allah – then He is sufficient for him.”
+      (Qur'an 65:3)
+    </p>
+
+    <p class="copyright">
+      © <span id="year"></span> BADAWY TV. All Rights Reserved.
+    </p>
+  </div>
+</footer>
+
+<script>
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+</script>
+
