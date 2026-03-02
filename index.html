@@ -290,14 +290,17 @@ button{cursor:pointer;border:none;border-radius:8px;padding:8px 15px;margin:5px;
 .premium-card{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.4);}
 
 /* ===== MODERN THEME SWITCH ===== */
+
+/* ===== CLEAN MODERN THEME SWITCH ===== */
+.theme-container{display:flex;justify-content:center;margin:20px 0;}
 .theme-switch{position:relative;display:inline-block;width:60px;height:30px;}
-.theme-switch input{display:none;}
-.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#444;border-radius:34px;transition:.4s;}
-.slider:before{position:absolute;content:"";height:22px;width:22px;left:4px;bottom:4px;background:white;border-radius:50%;transition:.4s;}
+.theme-switch input{opacity:0;width:0;height:0;}
+.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#555;border-radius:34px;transition:0.4s;}
+.slider:before{position:absolute;content:"";height:22px;width:22px;left:4px;bottom:4px;background:white;border-radius:50%;transition:0.4s;}
 input:checked + .slider{background:#00a651;}
 input:checked + .slider:before{transform:translateX(30px);}
-.lightMode{background:white;color:black;}
-.lightMode footer{background:#f5f5f5;color:black;}
+.lightMode{background:#ffffff;color:#000000;}
+.lightMode footer{background:#f5f5f5;color:#000000;}
 
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700https://fonts.googleapis.com/css2https://fonts.googleapis.com/css2display=swap?family=Poppins:wght@400;600;700&display=swapdisplay=swap" rel="stylesheet">
@@ -404,9 +407,7 @@ input:checked + .slider:before{transform:translateX(30px);}
 
 
 <div style="text-align:center;margin:15px 0;">
-<label class="theme-switch">
 <input type="checkbox" id="themeToggle">
-<span class="slider"></span>
 </label>
 </div>
 
@@ -627,14 +628,17 @@ button{cursor:pointer;border:none;border-radius:8px;padding:8px 15px;margin:5px;
 .premium-card{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.4);}
 
 /* ===== MODERN THEME SWITCH ===== */
+
+/* ===== CLEAN MODERN THEME SWITCH ===== */
+.theme-container{display:flex;justify-content:center;margin:20px 0;}
 .theme-switch{position:relative;display:inline-block;width:60px;height:30px;}
-.theme-switch input{display:none;}
-.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#444;border-radius:34px;transition:.4s;}
-.slider:before{position:absolute;content:"";height:22px;width:22px;left:4px;bottom:4px;background:white;border-radius:50%;transition:.4s;}
+.theme-switch input{opacity:0;width:0;height:0;}
+.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#555;border-radius:34px;transition:0.4s;}
+.slider:before{position:absolute;content:"";height:22px;width:22px;left:4px;bottom:4px;background:white;border-radius:50%;transition:0.4s;}
 input:checked + .slider{background:#00a651;}
 input:checked + .slider:before{transform:translateX(30px);}
-.lightMode{background:white;color:black;}
-.lightMode footer{background:#f5f5f5;color:black;}
+.lightMode{background:#ffffff;color:#000000;}
+.lightMode footer{background:#f5f5f5;color:#000000;}
 
 </style>
 
@@ -705,23 +709,21 @@ if ("serviceWorker" in navigator) {
 <p style="margin-top:15px;font-size:14px;">© <span id="year"></span> BADAWY TV. All Rights Reserved.</p>
 </footer>
 <script>
-document.body.classList.toggle("lightMode");
-localStorage.setItem("theme",document.body.classList.contains("lightMode")?"light":"dark");
 }
-if(localStorage.getItem("theme")==="light"){document.body.classList.add("lightMode");}
 </script>
 <style>
-.lightMode{background:white;color:black;}
-.lightMode footer{background:#f5f5f5;color:black;}
 /* ===== MODERN THEME SWITCH ===== */
+
+/* ===== CLEAN MODERN THEME SWITCH ===== */
+.theme-container{display:flex;justify-content:center;margin:20px 0;}
 .theme-switch{position:relative;display:inline-block;width:60px;height:30px;}
-.theme-switch input{display:none;}
-.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#444;border-radius:34px;transition:.4s;}
-.slider:before{position:absolute;content:"";height:22px;width:22px;left:4px;bottom:4px;background:white;border-radius:50%;transition:.4s;}
+.theme-switch input{opacity:0;width:0;height:0;}
+.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#555;border-radius:34px;transition:0.4s;}
+.slider:before{position:absolute;content:"";height:22px;width:22px;left:4px;bottom:4px;background:white;border-radius:50%;transition:0.4s;}
 input:checked + .slider{background:#00a651;}
 input:checked + .slider:before{transform:translateX(30px);}
-.lightMode{background:white;color:black;}
-.lightMode footer{background:#f5f5f5;color:black;}
+.lightMode{background:#ffffff;color:#000000;}
+.lightMode footer{background:#f5f5f5;color:#000000;}
 
 </style>
 <script>
@@ -729,11 +731,8 @@ input:checked + .slider:before{transform:translateX(30px);}
 <script>
 const toggle=document.getElementById("themeToggle");
 toggle.addEventListener("change",()=>{
-document.body.classList.toggle("lightMode");
-localStorage.setItem("theme",document.body.classList.contains("lightMode")?"light":"dark");
 });
 if(localStorage.getItem("theme")==="light"){
-document.body.classList.add("lightMode");
 toggle.checked=true;
 }
 </script>
