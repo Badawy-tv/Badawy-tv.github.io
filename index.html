@@ -406,9 +406,6 @@ input:checked + .slider:before{transform:translateX(30px);}
 </div>
 
 
-<div style="text-align:center;margin:15px 0;">
-<input type="checkbox" id="themeToggle">
-</label>
 </div>
 
 
@@ -421,6 +418,14 @@ input:checked + .slider:before{transform:translateX(30px);}
 </div>
 <span id="menuButton" onclick="toggleMenu()">☰</span>
 <div id="sideMenu">
+<div class="theme-container">
+<label class="theme-switch">
+<input type="checkbox" id="themeToggle">
+<span class="slider"></span>
+</label>
+</div>
+<hr style="margin:15px 0;">
+
 <hr style="margin:15px 0;">
 <hr style="margin:15px 0;">
 
@@ -729,7 +734,6 @@ input:checked + .slider:before{transform:translateX(30px);}
 <script>
 <script>
 <script>
-const toggle=document.getElementById("themeToggle");
 toggle.addEventListener("change",()=>{
 });
 if(localStorage.getItem("theme")==="light"){
