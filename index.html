@@ -365,6 +365,12 @@ section {
   margin-right: auto;
 }
 
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
 /* ===== END BRAND SYSTEM ===== */
 
 </style>
@@ -443,6 +449,35 @@ section {
   </div>
 </section>
 <!-- ===== END HERO SECTION ===== -->
+
+<!-- ===== FEATURED ARTICLES ===== -->
+<section id="articles">
+  <div class="container">
+    <h2 style="text-align:center;margin-bottom:50px;">Featured Articles</h2>
+    <div class="articles-grid">
+      <div class="card">
+        <img src="images/mosque.jpg" style="width:100%;border-radius:10px;margin-bottom:15px;">
+        <h3>The Importance of Salah</h3>
+        <p>Discover the spiritual and transformative power of daily prayer in the life of a believer.</p>
+        <a href="#" class="btn-primary">Read More</a>
+      </div>
+      <div class="card">
+        <img src="images/mosque.jpg" style="width:100%;border-radius:10px;margin-bottom:15px;">
+        <h3>Understanding Tawheed</h3>
+        <p>An essential reflection on the oneness of Allah and its role in strengthening faith.</p>
+        <a href="#" class="btn-primary">Read More</a>
+      </div>
+      <div class="card">
+        <img src="images/mosque.jpg" style="width:100%;border-radius:10px;margin-bottom:15px;">
+        <h3>Zakat and Social Justice</h3>
+        <p>How Islamic charity builds balanced communities and purifies wealth.</p>
+        <a href="#" class="btn-primary">Read More</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ===== END FEATURED ARTICLES ===== -->
+
 
 <main>
 <div id="mobileNav" class="mobile-nav">
@@ -758,6 +793,12 @@ section {
   color: #e9f5ee;
   margin-left: auto;
   margin-right: auto;
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
 }
 
 /* ===== END BRAND SYSTEM ===== */
