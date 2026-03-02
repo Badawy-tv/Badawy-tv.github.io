@@ -5,12 +5,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FS9CWPJWZS"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag("js", new Date());
-gtag("config", "G-FS9CWPJWZS");
-</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>BADAWY TV</title>
@@ -411,18 +405,6 @@ html,body{width:100%;max-width:100%;overflow-x:hidden;}
 <a href="mailto:ahmedbadawy786@gmail.com"><i class="fas fa-envelope"></i> Email</a>
 <a href="tel:+254716802090"><i class="fas fa-phone"></i> Call</a>
 </div>
-<script>
-function toggleMenu(){
-const menu=document.getElementById("sideMenu");
-menu.classList.toggle("active");
-}
-window.addEventListener("scroll",function(){
-const menu=document.getElementById("sideMenu");
-if(menu.classList.contains("active")){
-menu.classList.remove("active");
-}
-});
-</script>
 <a href="https://islamqa.info/en" target="_blank" id="islamAskBtn">🕌 Ask About Islam</a>
 <style>
 #islamAskBtn{position:fixed;bottom:20px;right:20px;background:#0a7c3a;color:white;padding:12px 18px;border-radius:15px;text-decoration:none;z-index:10000;box-shadow:0 4px 10px rgba(0,0,0,0.4);}
@@ -615,33 +597,6 @@ html,body{width:100%;max-width:100%;overflow-x:hidden;}
 </div>
 <script src="nextprayer.js"></script>
 <script src="cookies.js"></script>
-<script>
-document.getElementById("articleSearch").addEventListener("keyup", function(){
-let filter=this.value.toLowerCase();
-let articles=document.querySelectorAll(".article");
-articles.forEach(a=>{
-a.style.display=a.innerText.toLowerCase().includes(filter)?"block":"none";
-});
-});
-</script>
-<script>
-const nav=document.getElementById("mobileNav");
-document.getElementById("menuToggle").onclick=function(){
-nav.classList.toggle("showNav");
-};
-</script>
-<script>document.getElementById("year").textContent=new Date().getFullYear();</script>
-<script>
-
-if ("serviceWorker" in navigator) {
-
-  navigator.serviceWorker.register("/service-worker.js")
-
-    .then(() => console.log("Service Worker Registered"));
-
-}
-
-</script>
 <section style="padding:80px 20px;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;text-align:center;">
 <h2 style="font-size:34px;margin-bottom:15px;">Pwani One Shilling Foundation</h2>
 <p style="max-width:850px;margin:0 auto 25px;line-height:1.9;font-size:17px;">Pwani One Shilling Foundation is a Mombasa-based community empowerment initiative dedicated to supporting the needy through collective contribution.</p>
@@ -687,5 +642,6 @@ Lipa na M-PESA
 <p>Spreading authentic Islamic knowledge through modern media.</p>
 <p style="margin-top:15px;font-size:14px;">© <span id="year"></span> BADAWY TV. All Rights Reserved.</p>
 </footer>
+<script src="script.min.js"></script>
 </body>
 </html>
