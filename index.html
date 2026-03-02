@@ -746,3 +746,120 @@ checkLive();
 setInterval(checkLive, 60000);
 </script>
 
+
+<!-- ================= REAL QIBLA COMPASS ================= -->
+<style>
+#qibla-section{
+  padding:80px 20px;
+  text-align:center;
+  background:radial-gradient(circle at top,#0f2027,#203a43,#000);
+  color:white;
+}
+.qibla-container{
+  position:relative;
+  width:280px;
+  height:280px;
+  margin:40px auto;
+}
+.qibla-circle{
+  width:100%;
+  height:100%;
+  border:10px solid gold;
+  border-radius:50%;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:transform 0.2s linear;
+  box-shadow:0 0 40px rgba(255,215,0,0.3);
+}
+.kaaba-arrow{
+  width:8px;
+  height:120px;
+  background:gold;
+  position:absolute;
+  top:30px;
+  border-radius:5px;
+}
+.kaaba-icon{
+  position:absolute;
+  bottom:20px;
+  font-size:40px;
+}
+.qibla-label{
+  font-size:20px;
+  margin-top:20px;
+  letter-spacing:1px;
+}
+</style>
+
+<section id="qibla-section">
+  <h2>🕋 Qibla Direction Compass</h2>
+  <p>Allow location & motion access for accurate alignment</p>
+
+  <div class="qibla-container">
+    <div class="qibla-circle" id="qibla-circle">
+      <div class="kaaba-arrow"></div>
+      <div class="kaaba-icon">🕋</div>
+    </div>
+  </div>
+
+  <div class="qibla-label" id="qibla-degree">Calculating direction...</div>
+</section>
+
+<script>
+const KAABA_LAT = 21.4225;
+const KAABA_LON = 39.8262;
+
+function toRadians(deg){ return deg * Math.PI/180; }
+function toDegrees(rad){ return rad * 180/Math.PI; }
+
+function calculateQibla(lat, lon){
+  const dLon = toRadians(KAABA_LON - lon);
+  const lat1 = toRadians(lat);
+  const lat2 = toRadians(KAABA_LAT);
+
+  const y = Math.sin(dLon) * Math.cos(lat2);
+  const x = Math.cos(lat1)*Math.sin(lat2) -
+            Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
+
+  let brng = toDegrees(Math.atan2(y, x));
+  return (brng + 360) % 360;
+}
+
+navigator.geolocation.getCurrentPosition(position=>{
+  const userLat = position.coords.latitude;
+  const userLon = position.coords.longitude;
+
+  const qiblaDirection = calculateQibla(userLat,userLon);
+
+  document.getElementById("qibla-degree").innerText =
+    "Qibla Direction: " + qiblaDirection.toFixed(2) + "°";
+
+  function initCompass(){
+    window.addEventListener("deviceorientation", event=>{
+      let heading = event.alpha;
+      if(heading !== null){
+        let rotation = qiblaDirection - heading;
+        document.getElementById("qibla-circle")
+          .style.transform = "rotate(" + rotation + "deg)";
+      }
+    }, true);
+  }
+
+  if(typeof DeviceOrientationEvent.requestPermission==="function"){
+    DeviceOrientationEvent.requestPermission()
+      .then(permissionState=>{
+        if(permissionState==="granted"){ initCompass(); }
+      })
+      .catch(console.error);
+  } else {
+    initCompass();
+  }
+
+}, error=>{
+  document.getElementById("qibla-degree").innerText =
+    "Location permission required.";
+});
+</script>
+
