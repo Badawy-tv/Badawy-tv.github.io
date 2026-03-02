@@ -764,22 +764,6 @@ async function checkLive() {
 
 <!-- ================= BADAWY ACADEMY SYSTEM ================= -->
 <section id="badawy-academy" style="margin:60px 0;padding:40px;background:linear-gradient(135deg,#f0f4f8,#d9e2ec);border-radius:12px;">
-  <h2 style="text-align:center;font-size:28px;margin-bottom:10px;">🎓 Badawy Academy</h2>
-  <p style="text-align:center;margin-bottom:30px;">Test your Islamic knowledge and earn your official certificate.</p>
-
-  <div id="academy-container" style="max-width:700px;margin:auto;background:white;padding:30px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-    
-    <div id="student-area">
-      <label><strong>Enter Your Full Name:</strong></label>
-      <input type="text" id="studentName" placeholder="Your name here..." style="width:100%;padding:10px;margin:10px 0;border-radius:6px;border:1px solid #ccc;">
-      <button onclick="startQuiz()" style="padding:10px 20px;background:#0a7d4f;color:white;border:none;border-radius:6px;cursor:pointer;">Start Quiz</button>
-    </div>
-
-    <div id="quiz-area" style="display:none;"></div>
-
-    <div id="result-area" style="display:none;margin-top:20px;"></div>
-
-    <canvas id="certificateCanvas" width="800" height="600" style="display:none;"></canvas>
   </div>
 </section>
 
@@ -855,28 +839,3 @@ function generateCertificate(){
   ctx.fillStyle = "#0a7d4f";
   ctx.font = "40px Arial";
   ctx.textAlign = "center";
-  ctx.fillText("Badawy Academy Certificate",400,100);
-
-  ctx.font = "24px Arial";
-  ctx.fillStyle = "#000";
-  ctx.fillText("This certifies that",400,200);
-
-  ctx.font = "30px Arial";
-  ctx.fillText(student,400,260);
-
-  ctx.font = "24px Arial";
-  ctx.fillText("has successfully completed the Islamic Knowledge Quiz",400,320);
-
-  ctx.fillText("Score: "+score+"/"+questions.length,400,380);
-
-  ctx.fillText("Date: "+new Date().toLocaleDateString(),400,440);
-
-  const link = document.createElement("a");
-  link.download = "Badawy_Academy_Certificate.png";
-  link.href = canvas.toDataURL();
-  link.click();
-}
-</script>
-
-<!-- ================= END BADAWY ACADEMY SYSTEM ================= -->
-
