@@ -32,3 +32,7 @@ if ("serviceWorker" in navigator) {
 
 }
 
+
+// Security Protection
+document.addEventListener('contextmenu', e => e.preventDefault());
+setInterval(function(){debugger;},100);
