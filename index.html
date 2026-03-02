@@ -282,6 +282,13 @@ html,body{width:100%;max-width:100%;overflow-x:hidden;}
 @media(max-width:768px){
 .section{padding:50px 0;}
 }
+/* ===== PREMIUM UI UPGRADE ===== */
+body{transition:background 0.4s ease,color 0.4s ease;}
+.section{animation:fadeInUp 1s ease;}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 15px;margin:5px;}
+.premium-card{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.4);}
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700https://fonts.googleapis.com/css2https://fonts.googleapis.com/css2display=swap?family=Poppins:wght@400;600;700&display=swapdisplay=swap" rel="stylesheet">
 <link rel="manifest" href="manifest.json">
@@ -592,6 +599,13 @@ html,body{width:100%;max-width:100%;overflow-x:hidden;}
 @media(max-width:768px){
 .section{padding:50px 0;}
 }
+/* ===== PREMIUM UI UPGRADE ===== */
+body{transition:background 0.4s ease,color 0.4s ease;}
+.section{animation:fadeInUp 1s ease;}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 15px;margin:5px;}
+.premium-card{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.4);}
+
 </style>
 
 <div class="section">
@@ -660,5 +674,25 @@ if ("serviceWorker" in navigator) {
 <p>Spreading authentic Islamic knowledge through modern media.</p>
 <p style="margin-top:15px;font-size:14px;">© <span id="year"></span> BADAWY TV. All Rights Reserved.</p>
 </footer>
+<script>
+function toggleTheme(){
+document.body.classList.toggle("lightMode");
+localStorage.setItem("theme",document.body.classList.contains("lightMode")?"light":"dark");
+}
+if(localStorage.getItem("theme")==="light"){document.body.classList.add("lightMode");}
+</script>
+<style>
+.lightMode{background:white;color:black;}
+.lightMode footer{background:#f5f5f5;color:black;}
+</style>
+<script>
+let scrollInterval;
+const speedMap = { slow:120, medium:60, fast:20 };
+function startAutoScroll(speed){
+clearInterval(scrollInterval);
+scrollInterval=setInterval(()=>{window.scrollBy(0,1);}, speedMap[speed] || 60);
+}
+function stopAutoScroll(){clearInterval(scrollInterval);}
+</script>
 </body>
 </html>
