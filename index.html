@@ -139,6 +139,14 @@ margin-right:6px;
   font-size:15px;
   color:#444;
 }
+.featured {
+background:var(--dark-main);
+color:white;
+padding:30px;
+border-radius:10px;
+margin:30px 0;
+text-align:center;
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -152,18 +160,27 @@ margin-right:6px;
 </section>
 <section class="section" id="articles">
 <h2>Islamic Articles</h2>
+<input type="text" id="articleSearch" placeholder="Search articles..." style="padding:10px;width:100%;max-width:400px;margin:20px 0;border:1px solid #ccc;border-radius:6px;">
+<div class="featured">
+<h3>Featured: How to Pray Correctly</h3>
+<p>Learn the correct method of Salah according to authentic Islamic teachings.</p>
+<a href="salah.html" style="color:white;font-weight:600;">Read Featured Article →</a>
+</div>
 <div class="article">
 <h3>How to Pray Correctly (Salah)</h3>
+<p style="font-size:13px;color:#777;margin-top:5px;">By BADAWY TV • February 2026</p>
 <p><a href="salah.html" style="color:var(--primary-gold);font-weight:600;">Read More →</a></p>
 <p>Salah is the second pillar of Islam and was made obligatory during the Night Journey (Isra and Mi’raj). Muslims pray five times daily: Fajr, Dhuhr, Asr, Maghrib, and Isha. Each prayer includes specific units (rak‘ah) and recitation of Surah Al-Fatihah in every unit. Proper prayer requires purification (wudu), facing the Qiblah, and observing humility and concentration (khushu’).</p>
 </div>
 <div class="article">
 <h3>Understanding Tawheed</h3>
+<p style="font-size:13px;color:#777;margin-top:5px;">By BADAWY TV • February 2026</p>
 <p><a href="tawheed.html" style="color:var(--primary-gold);font-weight:600;">Read More →</a></p>
 <p>Tawheed means affirming the Oneness of Allah in Lordship (Rububiyyah), Worship (Uluhiyyah), and His Names and Attributes (Asma wa Sifat). It is the core message of all Prophets. Associating partners with Allah (shirk) is the gravest sin in Islam.</p>
 </div>
 <div class="article">
 <h3>Common Misconceptions in Islam</h3>
+<p><a href="misconceptions.html" style="color:var(--primary-gold);font-weight:600;">Read More →</a></p>
 <p>Islam promotes justice, mercy, and balance. The Qur’an emphasizes that there is no compulsion in religion (Qur’an 2:256). Misconceptions often arise from cultural practices or misinformation rather than authentic Islamic teachings.</p>
 </div>
 </section>
@@ -260,6 +277,14 @@ margin-right:6px;
   font-size:15px;
   color:#444;
 }
+.featured {
+background:var(--dark-main);
+color:white;
+padding:30px;
+border-radius:10px;
+margin:30px 0;
+text-align:center;
+}
 </style>
 
 <div class="section">
@@ -275,5 +300,14 @@ margin-right:6px;
 </div>
 <script src="nextprayer.js"></script>
 <script src="cookies.js"></script>
+<script>
+document.getElementById("articleSearch").addEventListener("keyup", function(){
+let filter=this.value.toLowerCase();
+let articles=document.querySelectorAll(".article");
+articles.forEach(a=>{
+a.style.display=a.innerText.toLowerCase().includes(filter)?"block":"none";
+});
+});
+</script>
 </body>
 </html>
