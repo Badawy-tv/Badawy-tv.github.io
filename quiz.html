@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Islamic Quiz | Badawy TV</title>
+<style>
+body{font-family:sans-serif;background:#f4f4f4;padding:40px}
+.card{background:#fff;padding:25px;border-radius:10px;max-width:600px;margin:auto;box-shadow:0 5px 20px rgba(0,0,0,0.1)}
+button{padding:10px 15px;margin-top:15px;border:none;background:#0a7d5e;color:white;border-radius:8px}
+</style>
+</head>
+<body>
+<div class="card">
+<h2>Test Your Knowledge of Salah</h2>
+<p>How many obligatory prayers are there daily?</p>
+<button onclick="check(5)">5</button>
+<button onclick="check(3)">3</button>
+<button onclick="check(7)">7</button>
+<p id="result"></p>
+</div>
+<script>
+function check(ans){
+if(ans==5){document.getElementById("result").innerHTML="Correct ✅";}
+else{document.getElementById("result").innerHTML="Incorrect ❌";}
+}
+</script>
+</body>
+</html>
