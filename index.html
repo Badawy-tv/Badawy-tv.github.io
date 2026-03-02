@@ -761,3 +761,122 @@ async function checkLive() {
 
 </body>
 </html>
+
+<!-- ================= BADAWY ACADEMY SYSTEM ================= -->
+<section id="badawy-academy" style="margin:60px 0;padding:40px;background:linear-gradient(135deg,#f0f4f8,#d9e2ec);border-radius:12px;">
+  <h2 style="text-align:center;font-size:28px;margin-bottom:10px;">🎓 Badawy Academy</h2>
+  <p style="text-align:center;margin-bottom:30px;">Test your Islamic knowledge and earn your official certificate.</p>
+
+  <div id="academy-container" style="max-width:700px;margin:auto;background:white;padding:30px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+    
+    <div id="student-area">
+      <label><strong>Enter Your Full Name:</strong></label>
+      <input type="text" id="studentName" placeholder="Your name here..." style="width:100%;padding:10px;margin:10px 0;border-radius:6px;border:1px solid #ccc;">
+      <button onclick="startQuiz()" style="padding:10px 20px;background:#0a7d4f;color:white;border:none;border-radius:6px;cursor:pointer;">Start Quiz</button>
+    </div>
+
+    <div id="quiz-area" style="display:none;"></div>
+
+    <div id="result-area" style="display:none;margin-top:20px;"></div>
+
+    <canvas id="certificateCanvas" width="800" height="600" style="display:none;"></canvas>
+  </div>
+</section>
+
+<script>
+const questions = [
+  {q:"How many pillars are in Islam?",a:["3","4","5","6"],correct:2},
+  {q:"How many daily prayers are obligatory?",a:["3","5","7","2"],correct:1},
+  {q:"Which month is Ramadan?",a:["1st","9th","12th","6th"],correct:1},
+  {q:"What is the holy book of Islam?",a:["Bible","Torah","Quran","Zabur"],correct:2},
+  {q:"Where is the Kaaba located?",a:["Madinah","Jerusalem","Makkah","Cairo"],correct:2}
+];
+
+let currentQuestion = 0;
+let score = 0;
+let student = "";
+
+function startQuiz(){
+  student = document.getElementById("studentName").value.trim();
+  if(student === ""){
+    alert("Please enter your name.");
+    return;
+  }
+  document.getElementById("student-area").style.display="none";
+  document.getElementById("quiz-area").style.display="block";
+  loadQuestion();
+}
+
+function loadQuestion(){
+  const quizArea = document.getElementById("quiz-area");
+  if(currentQuestion >= questions.length){
+    finishQuiz();
+    return;
+  }
+  const q = questions[currentQuestion];
+  let html = "<h3>"+q.q+"</h3>";
+  q.a.forEach((option,index)=>{
+    html += `<button onclick="checkAnswer(${index})" style="display:block;width:100%;margin:8px 0;padding:10px;border-radius:6px;border:1px solid #0a7d4f;background:#f8fafc;cursor:pointer;">${option}</button>`;
+  });
+  quizArea.innerHTML = html;
+}
+
+function checkAnswer(index){
+  if(index === questions[currentQuestion].correct){
+    score++;
+  }
+  currentQuestion++;
+  loadQuestion();
+}
+
+function finishQuiz(){
+  document.getElementById("quiz-area").style.display="none";
+  const resultArea = document.getElementById("result-area");
+  resultArea.style.display="block";
+
+  let percentage = Math.round((score/questions.length)*100);
+  let status = percentage >= 70 ? "PASSED" : "FAILED";
+
+  resultArea.innerHTML = `
+    <h3>Your Score: ${score}/${questions.length}</h3>
+    <h3>Percentage: ${percentage}%</h3>
+    <h3>Status: ${status}</h3>
+    ${percentage >= 70 ? '<button onclick="generateCertificate()" style="margin-top:15px;padding:10px 20px;background:#0a7d4f;color:white;border:none;border-radius:6px;cursor:pointer;">Download Certificate</button>' : ''}
+  `;
+}
+
+function generateCertificate(){
+  const canvas = document.getElementById("certificateCanvas");
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle = "#0a7d4f";
+  ctx.font = "40px Arial";
+  ctx.textAlign = "center";
+  ctx.fillText("Badawy Academy Certificate",400,100);
+
+  ctx.font = "24px Arial";
+  ctx.fillStyle = "#000";
+  ctx.fillText("This certifies that",400,200);
+
+  ctx.font = "30px Arial";
+  ctx.fillText(student,400,260);
+
+  ctx.font = "24px Arial";
+  ctx.fillText("has successfully completed the Islamic Knowledge Quiz",400,320);
+
+  ctx.fillText("Score: "+score+"/"+questions.length,400,380);
+
+  ctx.fillText("Date: "+new Date().toLocaleDateString(),400,440);
+
+  const link = document.createElement("a");
+  link.download = "Badawy_Academy_Certificate.png";
+  link.href = canvas.toDataURL();
+  link.click();
+}
+</script>
+
+<!-- ================= END BADAWY ACADEMY SYSTEM ================= -->
+
