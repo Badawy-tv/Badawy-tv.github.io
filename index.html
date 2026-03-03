@@ -1027,3 +1027,18 @@ function generateCertificate(){
   ctx.fillStyle = "#0a7d4f";
   ctx.font = "40px Arial";
   ctx.textAlign = "center";
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(function(registration) {
+        console.log('ServiceWorker registered');
+      })
+      .catch(function(error) {
+        console.log('ServiceWorker registration failed:', error);
+      });
+  });
+}
+</script>
+
