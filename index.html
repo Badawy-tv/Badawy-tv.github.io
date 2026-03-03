@@ -951,6 +951,20 @@ document.addEventListener("DOMContentLoaded", function() {
   reveal();
 });
 </script>
+<script>
+
+if ("serviceWorker" in navigator) {
+
+  window.addEventListener("load", function() {
+
+    navigator.serviceWorker.register("/service-worker.js");
+
+  });
+
+}
+
+</script>
+
 </body>
 </html>
 
@@ -1029,16 +1043,4 @@ function generateCertificate(){
   ctx.textAlign = "center";
 
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(function(registration) {
-        console.log('ServiceWorker registered');
-      })
-      .catch(function(error) {
-        console.log('ServiceWorker registration failed:', error);
-      });
-  });
-}
-</script>
 
