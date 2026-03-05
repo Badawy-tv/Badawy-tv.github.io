@@ -1,3 +1,8 @@
+const surahTitle=document.getElementById("surah-title");
+const surahMeta=document.getElementById("surah-meta");
+const prevBtn=document.getElementById("prev-surah");
+const nextBtn=document.getElementById("next-surah");
+
 
 const surahSelect = document.getElementById("surah-select");
 const versesContainer = document.getElementById("verses");
@@ -48,6 +53,10 @@ fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/en.sahih`)
 
 const arabic = data[0].data.ayahs;
 const translation = data[1].data.ayahs;
+const surah = data[0].data.surah;
+if(surahTitle){surahTitle.innerText = surah.englishName + " (" + surah.name + ")";}
+if(surahMeta){surahMeta.innerText = surah.revelationType + " • " + surah.numberOfAyahs + " Ayahs";}
+
 
 versesContainer.innerHTML = "";
 
