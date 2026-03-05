@@ -369,3 +369,39 @@ cursor:pointer;
 font-weight:bold;
 }
 
+
+/* =========================
+   Ramadan Donation Bar
+========================= */
+
+.ramadan-bar{
+position:fixed;
+top:-120px;
+left:0;
+width:100%;
+background:linear-gradient(90deg,#0a7a4b,#0c9a5e);
+color:white;
+text-align:center;
+padding:16px;
+font-size:16px;
+font-weight:500;
+z-index:9999;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+transition:top 0.6s ease;
+}
+
+.ramadan-bar button{
+margin-left:15px;
+padding:8px 16px;
+background:white;
+color:#0a7a4b;
+border:none;
+border-radius:6px;
+font-weight:600;
+cursor:pointer;
+}
+
+.ramadan-bar button:hover{
+background:#f0f0f0;
+}
+
