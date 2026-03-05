@@ -2,16 +2,16 @@ const container = document.getElementById("youtube-videos");
 
 const videos = [
 {
-title: "Tawheed Lecture",
-id: "dQw4w9WgXcQ"
+title: "Live Stream - Ahmad Badawy TV",
+id: "live_stream?channel=UC4R8DWoMoI7CAwX8_LjQHig"
 },
 {
-title: "Importance of Salah",
-id: "M7lc1UVf-VE"
+title: "Islamic Lecture",
+id: "live_stream?channel=UC4R8DWoMoI7CAwX8_LjQHig"
 },
 {
-title: "Lessons from Seerah",
-id: "ysz5S6PUM-U"
+title: "Islamic Reminder",
+id: "live_stream?channel=UC4R8DWoMoI7CAwX8_LjQHig"
 }
 ];
 
