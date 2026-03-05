@@ -7,16 +7,114 @@
 <link rel="stylesheet" href="../assets/css/layout.css">
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/responsive.css">
+
+<style>
+.article-search{
+margin:20px 0;
+text-align:center;
+}
+
+.article-search input{
+padding:10px;
+width:300px;
+max-width:90%;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+.article-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+margin-top:30px;
+}
+
+.article-card{
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.article-card h3{
+margin-top:0;
+}
+
+.article-card p{
+font-size:14px;
+}
+
+.article-card a{
+display:inline-block;
+margin-top:10px;
+padding:8px 12px;
+background:#0a7d3b;
+color:#fff;
+text-decoration:none;
+border-radius:5px;
+}
+
+@media (prefers-color-scheme: dark){
+.article-card{
+background:#1e1e1e;
+color:#eee;
+}
+}
+</style>
+
 </head>
 
 <body>
 
-<h1>Islamic Articles</h1>
+<h1 style="text-align:center;">📚 Islamic Articles</h1>
+<p style="text-align:center;">Read beneficial Islamic knowledge and reflections.</p>
 
-<p>Read beneficial Islamic knowledge and reflections.</p>
+<div class="article-search">
+<input type="text" id="articleSearch" placeholder="Search articles...">
+</div>
+
+<div class="article-grid" id="articleGrid">
+
+<div class="article-card">
+<h3>Tawheed – The Oneness of Allah</h3>
+<p>The foundation of Islamic belief and the essence of faith.</p>
+<a href="#">Read Article</a>
+</div>
+
+<div class="article-card">
+<h3>The Importance of Salah</h3>
+<p>Understanding why prayer is the pillar of Islam.</p>
+<a href="#">Read Article</a>
+</div>
+
+<div class="article-card">
+<h3>Lessons from the Seerah</h3>
+<p>Powerful lessons from the life of Prophet Muhammad ﷺ.</p>
+<a href="#">Read Article</a>
+</div>
+
+<div class="article-card">
+<h3>Patience in Islam</h3>
+<p>How sabr strengthens a believer during hardship.</p>
+<a href="#">Read Article</a>
+</div>
+
+</div>
+
+<script>
+const search=document.getElementById("articleSearch");
+search.addEventListener("keyup",function(){
+const filter=search.value.toLowerCase();
+const cards=document.querySelectorAll(".article-card");
+
+cards.forEach(card=>{
+const text=card.innerText.toLowerCase();
+card.style.display=text.includes(filter)?"block":"none";
+});
+});
+</script>
 
 <script src="../assets/js/components.js"></script>
 
-<script src="/assets/js/youtube-topic-loader.js"></script>
 </body>
 </html>
