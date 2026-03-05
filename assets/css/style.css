@@ -426,3 +426,36 @@ text-decoration:none;
 text-decoration:underline;
 }
 
+
+.live-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
+margin-top:20px;
+}
+
+.live-video-card iframe{
+width:100%;
+height:200px;
+border-radius:10px;
+}
+
+.live-video-card p{
+font-size:14px;
+margin-top:6px;
+}
+
+.live-notice{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#e53935;
+color:#fff;
+padding:14px 20px;
+border-radius:8px;
+font-weight:bold;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+cursor:pointer;
+z-index:9999;
+}
+
