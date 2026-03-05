@@ -45,7 +45,7 @@ versesContainer.innerHTML = "Loading...";
 Promise.all([
 
 fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/quran-uthmani`),
-fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/en.sahih`)
+fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/en.asad`)
 
 ])
 .then(res => Promise.all(res.map(r=>r.json())))
@@ -70,7 +70,9 @@ const audioURL =
 div.innerHTML =
 
 `
-<div class="arabic">
+<div class="arabic" onclick="this.classList.toggle("word-mode")">
+${ayah.text} (${ayah.numberInSurah})
+</div>
 ${ayah.text} (${ayah.numberInSurah})
 </div>
 
@@ -79,6 +81,10 @@ ${translation[index].text}
 </div>
 
 <audio controls src="${audioURL}"></audio>
+<button class="tafsir-btn">📖 Tafsir</button>
+<button class="bookmark-btn">⭐ Bookmark</button>
+<br><a download href="${audioURL}">⬇ Download</a>
+
 `;
 
 versesContainer.appendChild(div);
@@ -98,6 +104,8 @@ let i=0;
 function playNext(){
 if(i>=audios.length) return;
 audios[i].play().catch(()=>{});
+audios[i].closest(".ayah").scrollIntoView({behavior:"smooth",block:"center"});
+
 audios[i].onended=()=>{i++;playNext();};
 }
 playNext();
@@ -107,3 +115,38 @@ playNext();
 playNext();
 });
 }
+const repeatBtn=document.getElementById("repeat-ayah");
+let repeatMode=false;
+if(repeatBtn){repeatBtn.onclick=()=>{repeatMode=!repeatMode;repeatBtn.style.background=repeatMode?"#4caf50":""}}
+
+
+
+document.addEventListener("click",function(e){
+if(e.target.classList.contains("bookmark-btn")){
+const ayah=e.target.closest(".ayah").innerText;
+let bookmarks=JSON.parse(localStorage.getItem("quranBookmarks")||"[]");
+bookmarks.push(ayah);
+localStorage.setItem("quranBookmarks",JSON.stringify(bookmarks));
+alert("Ayah bookmarked");
+}
+});
+
+
+
+function updateKhatmProgress(surah){
+let read=JSON.parse(localStorage.getItem("khatm")||"[]");
+if(!read.includes(surah)){
+read.push(surah);
+localStorage.setItem("khatm",JSON.stringify(read));
+}
+document.getElementById("khatm-progress").innerText="Progress: "+read.length+" / 114 Surahs";
+}
+
+
+
+document.addEventListener("click",function(e){
+if(e.target.classList.contains("tafsir-btn")){
+alert("Tafsir feature loading soon — preparing full Tafsir API integration.");
+}
+});
+

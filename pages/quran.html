@@ -70,6 +70,43 @@ padding-left:10px;
 background:#f0f7ff;
 transition:0.2s;
 }
+body.dark-mode{background:#0b0b0b;color:#eee;}
+.dark-mode .ayah{border-bottom:1px solid #333;}
+.dark-mode .translation{color:#bbb;}
+.dark-mode .quran-container{background:#111;border-radius:10px;}
+
+.word-mode{color:#2e7d32;font-size:32px}
+
+.ayah{
+background:#fafafa;
+padding:20px;
+border-radius:10px;
+margin-bottom:20px;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+transition:all 0.3s ease;
+}
+.ayah:hover{
+background:#f1f8e9;
+transform:scale(1.01);
+}
+.arabic{
+font-size:32px;
+text-align:right;
+line-height:2.2;
+direction:rtl;
+}
+.translation{
+font-size:17px;
+margin-top:10px;
+color:#444;
+line-height:1.6;
+}
+.quran-container{
+max-width:1000px;
+margin:auto;
+padding:30px;
+}
+
 </style>
 
 </head>
@@ -81,6 +118,8 @@ transition:0.2s;
 <div class="quran-container">
 
 <h1>📖 Holy Quran</h1>
+<button id="night-toggle" style="margin-left:10px">🌙 Night Mode</button>
+
 <p>Read, listen and reflect upon the Quran.</p>
 
 <div class="quran-controls">
@@ -99,6 +138,8 @@ transition:0.2s;
 
 <button id="load-surah">Load</button>
  <button id="play-surah">▶ Play Surah</button>
+<button id="repeat-ayah">🔁 Repeat Ayah</button>
+
 
 </div>
 
@@ -108,12 +149,15 @@ transition:0.2s;
 <button id="prev-surah">⬅ Previous</button>
 <button id="next-surah">Next ➡</button>
 </div>
+<div id="khatm-progress" style="margin:10px 0;font-weight:bold">Progress: 0 Surahs read</div>
 <div id="verses"></div>
 
 </div>
 
 <script src="../assets/js/quran-reader.js"></script>
 <script src="../assets/js/components.js"></script>
+document.getElementById("night-toggle").onclick=function(){document.body.classList.toggle("dark-mode")}
+
 
 </body>
 </html>
