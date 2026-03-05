@@ -1,0 +1,16 @@
+
+setTimeout(function(){
+
+let bar=document.createElement("div");
+bar.className="ramadan-bar";
+
+bar.innerHTML="🤲 Support Dawah & Help the Needy — Donate via M-Pesa <button onclick='window.location=\"pages/donate.html\"'>Donate</button>";
+
+document.body.appendChild(bar);
+
+setTimeout(function(){
+bar.style.top="0";
+},500);
+
+},8000);
+
