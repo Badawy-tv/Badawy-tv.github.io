@@ -1,56 +1,85 @@
+
 const surahSelect = document.getElementById("surah-select");
-const quranText = document.getElementById("quran-text");
-const translation = document.getElementById("quran-translation");
-const audio = document.getElementById("quran-audio");
+const versesContainer = document.getElementById("verses");
+const loadButton = document.getElementById("load-surah");
+const ayahInput = document.getElementById("ayah-input");
+const reciterSelect = document.getElementById("reciter-select");
+
+let currentReciter = reciterSelect.value;
+
+reciterSelect.addEventListener("change", () => {
+currentReciter = reciterSelect.value;
+});
 
 fetch("https://api.alquran.cloud/v1/surah")
-.then(r=>r.json())
-.then(data=>{
-data.data.forEach(s=>{
-let o=document.createElement("option");
-o.value=s.number;
-o.text=s.number+" - "+s.englishName;
-surahSelect.appendChild(o);
-});
-});
+.then(res => res.json())
+.then(data => {
 
-surahSelect.addEventListener("change",function(){
+data.data.forEach(surah => {
 
-quranText.innerHTML="Loading...";
-translation.innerHTML="";
+const option = document.createElement("option");
 
-fetch("https://api.alquran.cloud/v1/surah/"+this.value+"/ar.alafasy")
-.then(r=>r.json())
-.then(data=>{
+option.value = surah.number;
+option.textContent = surah.number + " - " + surah.englishName;
 
-quranText.innerHTML="";
-translation.innerHTML="";
-
-data.data.ayahs.forEach(a=>{
-
-let arab=document.createElement("p");
-arab.style.fontSize="24px";
-arab.style.direction="rtl";
-arab.innerHTML=a.text;
-quranText.appendChild(arab);
-
-});
-
-audio.src=data.data.ayahs[0].audio;
-
-});
-
-fetch("https://api.alquran.cloud/v1/surah/"+this.value+"/en.sahih")
-.then(r=>r.json())
-.then(data=>{
-
-data.data.ayahs.forEach(a=>{
-let t=document.createElement("p");
-t.style.color="#444";
-t.innerHTML=a.numberInSurah+". "+a.text;
-translation.appendChild(t);
-});
+surahSelect.appendChild(option);
 
 });
 
 });
+
+loadButton.addEventListener("click", loadSurah);
+
+function loadSurah(){
+
+const surahNumber = surahSelect.value;
+const ayahNumber = ayahInput.value;
+
+versesContainer.innerHTML = "Loading...";
+
+Promise.all([
+
+fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/quran-uthmani`),
+fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/en.sahih`)
+
+])
+.then(res => Promise.all(res.map(r=>r.json())))
+.then(data => {
+
+const arabic = data[0].data.ayahs;
+const translation = data[1].data.ayahs;
+
+versesContainer.innerHTML = "";
+
+arabic.forEach((ayah,index)=>{
+
+if(ayahNumber && ayah.numberInSurah != ayahNumber) return;
+
+const div = document.createElement("div");
+div.className="ayah";
+
+const audioURL =
+`https://cdn.islamic.network/quran/audio/128/${currentReciter}/${ayah.number}.mp3`;
+
+div.innerHTML =
+
+`
+<div class="arabic">
+${ayah.text} (${ayah.numberInSurah})
+</div>
+
+<div class="translation">
+${translation[index].text}
+</div>
+
+<audio controls src="${audioURL}"></audio>
+`;
+
+versesContainer.appendChild(div);
+
+});
+
+});
+
+}
+
