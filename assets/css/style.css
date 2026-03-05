@@ -405,3 +405,24 @@ cursor:pointer;
 background:#f0f0f0;
 }
 
+
+.yt-channel-card{
+margin-top:25px;
+padding:20px;
+background:#ffffff;
+border-radius:12px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+text-align:center;
+}
+
+.yt-channel-card a{
+font-size:18px;
+font-weight:bold;
+color:#0a7a4b;
+text-decoration:none;
+}
+
+.yt-channel-card a:hover{
+text-decoration:underline;
+}
+
