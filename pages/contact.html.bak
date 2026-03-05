@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Donate | Badawy TV</title>
+<title>Contact | Badawy TV</title>
 
 <link rel="stylesheet" href="../assets/css/layout.css">
 <link rel="stylesheet" href="../assets/css/style.css">
@@ -11,12 +11,11 @@
 
 <body>
 
-<h1>Support the Dawah</h1>
+<h1>Contact Badawy TV</h1>
 
-<p>Your donations help spread Islamic knowledge.</p>
+<p>Email: contact@badawytv.com</p>
 
 <script src="../assets/js/components.js"></script>
 
-<script src="/assets/js/youtube-topic-loader.js"></script>
 </body>
 </html>

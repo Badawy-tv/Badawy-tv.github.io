@@ -3,15 +3,12 @@ const videoContainer = document.getElementById("video-library");
 const videos = [
 {
 title: "Friday Khutbah",
-embed: "https://www.youtube.com/embed/dQw4w9WgXcQ"
 },
 {
 title: "Importance of Salah",
-embed: "https://www.youtube.com/embed/dQw4w9WgXcQ"
 },
 {
 title: "Understanding Tawheed",
-embed: "https://www.youtube.com/embed/dQw4w9WgXcQ"
 }
 ];
 

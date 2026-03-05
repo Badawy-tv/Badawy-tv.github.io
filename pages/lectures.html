@@ -26,7 +26,31 @@ frameborder="0" allowfullscreen></iframe>
 </div>
 
 <script src="../assets/js/components.js"></script>
-<script src="../assets/js/youtube-loader.js"></script>
 
+<script src="/assets/js/youtube-topic-loader.js"></script>
+  <h2>Salah Lectures</h2>
+  <div id="salahVideos"></div>
+
+  <h2>Tawheed Lectures</h2>
+  <div id="tawheedVideos"></div>
+
+  <h2>Seerah Lectures</h2>
+  <div id="seerahVideos"></div>
+
+  <script>
+  (function(){
+    if (typeof loadTopicVideos !== "undefined"){
+      loadTopicVideos("salah","salahVideos",8);
+      loadTopicVideos("tawheed","tawheedVideos",8);
+      loadTopicVideos("seerah","seerahVideos",8);
+    } else {
+      document.addEventListener(DOMContentLoaded, function(){
+        loadTopicVideos("salah","salahVideos",8);
+        loadTopicVideos("tawheed","tawheedVideos",8);
+        loadTopicVideos("seerah","seerahVideos",8);
+      });
+    }
+  })();
+  </script>
 </body>
 </html>
