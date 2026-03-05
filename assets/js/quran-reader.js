@@ -34,8 +34,9 @@ surahSelect.appendChild(option);
 loadButton.addEventListener("click", loadSurah);
 
 function loadSurah(){
+    versesContainer.innerHTML = "Loading...";
 
-const surahNumber = surahSelect.value;
+const surahNumber = parseInt(surahSelect.value);
 versesContainer.innerHTML="Loading Quran...";
 const ayahNumber = ayahInput.value;
 
