@@ -93,13 +93,16 @@ const playSurahBtn=document.getElementById("play-surah");
 if(playSurahBtn){
 playSurahBtn.addEventListener("click",()=>{
 const audios=[...document.querySelectorAll(".ayah audio")];
+if(audios.length===0){alert("Load a Surah first");return;}
 let i=0;
 function playNext(){
 if(i>=audios.length) return;
-audios[i].play();
-        document.querySelectorAll(".ayah").forEach(a=>a.classList.remove("playing")); audios[i].closest(".ayah").classList.add("playing");
-        audios[i].closest(".ayah").scrollIntoView({behavior:"smooth",block:"center"});
+audios[i].play().catch(()=>{});
 audios[i].onended=()=>{i++;playNext();};
+}
+playNext();
+});
+}
 }
 playNext();
 });
