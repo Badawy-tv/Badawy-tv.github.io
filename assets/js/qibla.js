@@ -1,0 +1,30 @@
+const kaabaLat = 21.4225;
+const kaabaLng = 39.8262;
+
+function getQiblaDirection(lat, lng) {
+const phiK = kaabaLat * Math.PI / 180;
+const lambdaK = kaabaLng * Math.PI / 180;
+const phi = lat * Math.PI / 180;
+const lambda = lng * Math.PI / 180;
+
+const qibla =
+Math.atan2(
+Math.sin(lambdaK - lambda),
+Math.cos(phi) * Math.tan(phiK) -
+Math.sin(phi) * Math.cos(lambdaK - lambda)
+);
+
+return (qibla * 180 / Math.PI + 360) % 360;
+}
+
+navigator.geolocation.getCurrentPosition(position => {
+const lat = position.coords.latitude;
+const lng = position.coords.longitude;
+
+const direction = getQiblaDirection(lat, lng);
+
+const el = document.getElementById("qibla-direction");
+if(el){
+el.innerText = "Qibla Direction: " + direction.toFixed(2) + "°";
+}
+});

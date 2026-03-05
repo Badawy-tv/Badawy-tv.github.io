@@ -1,0 +1,285 @@
+/* ===== BADAWY TV LAYOUT ENGINE ===== */
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:20px;
+}
+
+.grid{
+display:grid;
+gap:30px;
+}
+
+.grid-3{
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+}
+
+.grid-2{
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+}
+
+.section{
+padding:60px 0;
+}
+
+.center{
+text-align:center;
+}
+
+.btn{
+display:inline-block;
+padding:12px 20px;
+border-radius:6px;
+text-decoration:none;
+font-weight:600;
+}
+
+.btn-primary{
+background:#0c7a43;
+color:white;
+}
+
+.btn-secondary{
+background:#c8a45d;
+color:white;
+}
+
+.btn-outline{
+border:2px solid #0c7a43;
+color:#0c7a43;
+}
+
+.card{
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+padding:20px;
+}
+
+.card img{
+width:100%;
+border-radius:8px;
+}
+
+/* ===== HEADER ===== */
+
+.site-header{
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.nav-wrapper{
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.nav a{
+margin-left:20px;
+text-decoration:none;
+color:#333;
+font-weight:500;
+}
+
+.nav a:hover{
+color:#0c7a43;
+}
+
+.logo{
+font-size:20px;
+color:#0c7a43;
+}
+
+
+/* ===== HERO SECTION ===== */
+
+.hero{
+background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url("../assets/images/mosque.jpg");
+background-size:cover;
+background-position:center;
+height:90vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-size:48px;
+margin-bottom:20px;
+}
+
+.hero .lead{
+font-size:20px;
+margin-bottom:30px;
+}
+
+.hero-ctas a{
+margin:10px;
+}
+
+
+/* LIVE TV SECTION */
+
+.live-tv{
+margin-top:60px;
+text-align:center;
+}
+
+.live-tv h2{
+font-size:28px;
+margin-bottom:20px;
+}
+
+.live-player{
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+
+/* FEATURED LECTURES */
+
+.lectures{
+margin-top:80px;
+}
+
+.lecture-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+margin-top:30px;
+}
+
+.lecture-card{
+background:#fff;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+padding-bottom:20px;
+text-align:center;
+}
+
+.lecture-card img{
+width:100%;
+height:160px;
+object-fit:cover;
+}
+
+.lecture-card h3{
+margin-top:15px;
+font-size:20px;
+}
+
+.lecture-card p{
+padding:10px 20px;
+font-size:14px;
+color:#555;
+}
+
+
+/* =========================
+   Featured Lectures
+========================= */
+
+.lectures{
+padding:60px 0;
+}
+
+.lecture-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+}
+
+.lecture-card{
+background:#ffffff;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.lecture-card:hover{
+transform:translateY(-5px);
+}
+
+.lecture-card img{
+width:100%;
+height:180px;
+object-fit:cover;
+}
+
+.lecture-card h3{
+padding:15px;
+font-size:18px;
+}
+
+.lecture-card p{
+padding:0 15px 15px;
+font-size:14px;
+color:#555;
+}
+
+.lecture-card .btn{
+margin:15px;
+display:inline-block;
+}
+
+
+/* Tasbeeh System */
+
+.tasbeeh{
+text-align:center;
+padding:40px 20px;
+background:#f8f8f8;
+border-radius:10px;
+margin-top:30px;
+}
+
+.tasbeeh-box{
+margin-top:20px;
+}
+
+#tasbeeh-count{
+font-size:48px;
+color:#0a7c3b;
+margin-bottom:20px;
+}
+
+.tasbeeh button{
+margin:5px;
+padding:12px 20px;
+font-size:16px;
+}
+
+
+/* Dark Mode */
+
+.dark-mode{
+background:#121212;
+color:#f1f1f1;
+}
+
+.dark-mode header{
+background:#1e1e1e;
+}
+
+.dark-mode section{
+background:#1e1e1e;
+border-radius:10px;
+padding:20px;
+margin-bottom:20px;
+}
+
+.dark-mode .btn{
+background:#0a7c3b;
+color:white;
+}
+
