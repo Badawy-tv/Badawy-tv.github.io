@@ -2,42 +2,38 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Islamic Lectures | Badawy TV</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lectures - Badawy TV</title>
 
 <style>
 body{
-font-family:Arial;
-background:#f4f4f4;
-margin:0;
-padding:20px;
+font-family:Arial, sans-serif;
+background:#0f172a;
+color:white;
+padding:40px;
 }
 
 h1{
 text-align:center;
+margin-bottom:40px;
 }
 
-.section{
-margin-top:40px;
+h2{
+margin-top:50px;
+margin-bottom:20px;
 }
 
-.grid{
+.video-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:20px;
 }
 
-.video-card{
-background:#fff;
-padding:10px;
-border-radius:8px;
-box-shadow:0 2px 6px rgba(0,0,0,0.2);
-}
-
 iframe{
 width:100%;
-height:200px;
+height:250px;
 border:none;
+border-radius:10px;
 }
 </style>
 </head>
@@ -46,86 +42,41 @@ border:none;
 
 <h1>Islamic Lectures</h1>
 
-<div class="section">
 <h2>Salah Lectures</h2>
-<div class="grid">
+<div id="salah-videos" class="video-grid"></div>
 
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/karSYnhOGfI" allowfullscreen></iframe>
-<p>Importance of Salah</p>
-</div>
-
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/QEDbSnfWCOk" allowfullscreen></iframe>
-<p>How to Pray</p>
-</div>
-
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/4m8jY8K0M3E" allowfullscreen></iframe>
-<p>Fiqh of Salah</p>
-</div>
-
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/2dS5F9mQ2uE" allowfullscreen></iframe>
-<p>Secrets of Khushu</p>
-</div>
-
-</div>
-</div>
-
-<div class="section">
 <h2>Tawheed Lectures</h2>
-<div class="grid">
+<div id="tawheed-videos" class="video-grid"></div>
 
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/iY-xSlzqBH4" allowfullscreen></iframe>
-<p>Understanding Tawheed</p>
-</div>
-
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/ik8290WI_oE" allowfullscreen></iframe>
-<p>Pure Monotheism</p>
-</div>
-
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/b2bHeM9p7C4" allowfullscreen></iframe>
-<p>Why Tawheed Matters</p>
-</div>
-
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/kQdH5h0X0kY" allowfullscreen></iframe>
-<p>Shirk vs Tawheed</p>
-</div>
-
-</div>
-</div>
-
-<div class="section">
 <h2>Seerah Lectures</h2>
-<div class="grid">
+<div id="seerah-videos" class="video-grid"></div>
 
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/iri2l6pAHiY" allowfullscreen></iframe>
-<p>Life of Prophet Muhammad</p>
-</div>
+<script>
 
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/X1PxrQ9s6gE" allowfullscreen></iframe>
-<p>Early Life of the Prophet</p>
-</div>
+const API_KEY="AIzaSyCiv6whXRujv8cwN-1qfqThbC_FDeYknZE"
 
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/hF9J5vK8B9M" allowfullscreen></iframe>
-<p>Lessons from Seerah</p>
-</div>
+async function loadVideos(query,container){
 
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/syE-bhpoFCc" allowfullscreen></iframe>
-<p>Character of the Prophet</p>
-</div>
+const url=`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=4&q=${query}&key=${API_KEY}`
 
-</div>
-</div>
+const res=await fetch(url)
+const data=await res.json()
+
+const box=document.getElementById(container)
+
+data.items.forEach(v=>{
+box.innerHTML+=`
+<iframe src="https://www.youtube.com/embed/${v.id.videoId}" allowfullscreen></iframe>
+`
+})
+
+}
+
+loadVideos("how to pray salah islam lecture","salah-videos")
+loadVideos("tawheed islam lecture","tawheed-videos")
+loadVideos("seerah prophet muhammad lecture","seerah-videos")
+
+</script>
 
 </body>
 </html>
