@@ -1,82 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lectures - Badawy TV</title>
-
-<style>
-body{
-font-family:Arial, sans-serif;
-background:#0f172a;
-color:white;
-padding:40px;
-}
-
-h1{
-text-align:center;
-margin-bottom:40px;
-}
-
-h2{
-margin-top:50px;
-margin-bottom:20px;
-}
-
-.video-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:20px;
-}
-
-iframe{
-width:100%;
-height:250px;
-border:none;
-border-radius:10px;
-}
-</style>
-</head>
-
-<body>
-
-<h1>Islamic Lectures</h1>
-
 <h2>Salah Lectures</h2>
-<div id="salah-videos" class="video-grid"></div>
-
+<iframe width="350" height="200" src="https://www.youtube.com/embed/j0xitQtLljg" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/l-M8yjw46g8" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/tgxoPL0qVkg" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/d5Vzb8toP3k" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/vFiwjrTsq6M" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/JW4d1iAqd1E" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/zMvzuhUdZTM" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/Zn514KzS-nI" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/heOgeW9LSBc" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/xMq4dXDr7x8" frameborder="0" allowfullscreen></iframe>
 <h2>Tawheed Lectures</h2>
-<div id="tawheed-videos" class="video-grid"></div>
-
+<iframe width="350" height="200" src="https://www.youtube.com/embed/NDIsWxn42k0" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/ixBQ3mNpgpA" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/J9jMcw2ZziQ" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/Abz1zvuslv0" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/l1HW2gAty6U" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/5kh-GUoNYnA" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/slg-G6tcP_0" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/TEqJJimedTQ" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/cMG13_2y5e0" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/rfaJMZcuC3w" frameborder="0" allowfullscreen></iframe>
 <h2>Seerah Lectures</h2>
-<div id="seerah-videos" class="video-grid"></div>
-
-<script>
-
-const API_KEY="AIzaSyCiv6whXRujv8cwN-1qfqThbC_FDeYknZE"
-
-async function loadVideos(query,container){
-
-const url=`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=4&q=${query}&key=${API_KEY}`
-
-const res=await fetch(url)
-const data=await res.json()
-
-const box=document.getElementById(container)
-
-data.items.forEach(v=>{
-box.innerHTML+=`
-<iframe src="https://www.youtube.com/embed/${v.id.videoId}" allowfullscreen></iframe>
-`
-})
-
-}
-
-loadVideos("how to pray salah islam lecture","salah-videos")
-loadVideos("tawheed islam lecture","tawheed-videos")
-loadVideos("seerah prophet muhammad lecture","seerah-videos")
-
-</script>
-
-</body>
-</html>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/PSvCsq6zjwU" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/gRBTQKlfC78" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/xOgJZKEDVi4" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/GOPiPx5tvB0" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/x0f_VO0Weu4" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/7CvVWsfDKZk" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/uCZtTBd1r_8" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/NwoyIUuum5Q" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/zIw5sJlnjcM" frameborder="0" allowfullscreen></iframe>
+<iframe width="350" height="200" src="https://www.youtube.com/embed/atETg3tpDOg" frameborder="0" allowfullscreen></iframe>
