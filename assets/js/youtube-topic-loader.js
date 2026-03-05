@@ -8,7 +8,7 @@ async function loadTopicVideos(topic, containerId, limit=8) {
     const res = await fetch('/data/videos.json', {cache: "no-store"});
     if (!res.ok) { console.warn("Could not load /data/videos.json:", res.status); return; }
     const videos = await res.json();
-    const filtered = videos.filter(v => (v.title||"").toLowerCase().includes(topic)).slice(0,limit);
+    const filtered = videos.filter(v => (v.topic||"").toLowerCase()===topic).slice(0,limit);
     const container = document.getElementById(containerId);
     if (!container) return;
     container.innerHTML = "";
