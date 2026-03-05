@@ -1,5 +1,3 @@
-const surahTitle=document.getElementById("surah-title");
-const surahMeta=document.getElementById("surah-meta");
 const prevBtn=document.getElementById("prev-surah");
 const nextBtn=document.getElementById("next-surah");
 
@@ -38,6 +36,7 @@ loadButton.addEventListener("click", loadSurah);
 function loadSurah(){
 
 const surahNumber = surahSelect.value;
+versesContainer.innerHTML="Loading Quran...";
 const ayahNumber = ayahInput.value;
 
 versesContainer.innerHTML = "Loading...";
@@ -53,12 +52,9 @@ fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/en.sahih`)
 
 const arabic = data[0].data.ayahs;
 const translation = data[1].data.ayahs;
-const surah = data[0].data;
-if(surahTitle){surahTitle.innerText = surah.englishName + " (" + surah.name + ")";}
-if(surahMeta){surahMeta.innerText = surah.revelationType + " • " + surah.ayahs.length + " Ayahs";}
 
 
-versesContainer.innerHTML = "";
+versesContainer.innerHTML="";
 
 arabic.forEach((ayah,index)=>{
 
