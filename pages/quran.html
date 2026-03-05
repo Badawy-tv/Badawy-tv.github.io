@@ -21,6 +21,7 @@ padding:30px;
 }
 
 .quran-controls{
+<button id="night-toggle">🌙 Night Mode</button>
 position:sticky; top:0; background:white; z-index:100; padding:10px 0;
 display:flex;
 flex-wrap:wrap;
@@ -107,6 +108,26 @@ margin:auto;
 padding:30px;
 }
 
+.dark-mode{
+background:#0d1117;
+color:#e6edf3;
+}
+.dark-mode .ayah{
+background:#161b22;
+border:1px solid #30363d;
+}
+.dark-mode .translation{
+color:#c9d1d9;
+}
+.dark-mode .arabic{
+color:#f0f6fc;
+}
+.dark-mode button{
+background:#21262d;
+color:#e6edf3;
+border:1px solid #30363d;
+}
+
 </style>
 
 </head>
@@ -118,7 +139,6 @@ padding:30px;
 <div class="quran-container">
 
 <h1>📖 Holy Quran</h1>
-<button id="night-toggle" style="margin-left:10px">🌙 Night Mode</button>
 
 <p>Read, listen and reflect upon the Quran.</p>
 
@@ -156,8 +176,8 @@ padding:30px;
 
 <script src="../assets/js/quran-reader.js"></script>
 <script src="../assets/js/components.js"></script>
-document.getElementById("night-toggle").onclick=function(){document.body.classList.toggle("dark-mode")}
 
 
+<script>var b=document.getElementById("night-toggle");if(b){b.onclick=function(){document.body.classList.toggle("dark-mode");};}</script>
 </body>
 </html>
