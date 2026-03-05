@@ -92,3 +92,16 @@ versesContainer.appendChild(div);
 
 }
 
+const playSurahBtn=document.getElementById("play-surah");
+if(playSurahBtn){
+playSurahBtn.addEventListener("click",()=>{
+const audios=[...document.querySelectorAll("audio")];
+let i=0;
+function playNext(){
+if(i>=audios.length) return;
+audios[i].play();
+audios[i].onended=()=>{i++;playNext();};
+}
+playNext();
+});
+}
