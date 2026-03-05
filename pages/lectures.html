@@ -39,18 +39,10 @@ frameborder="0" allowfullscreen></iframe>
 
   <script>
   (function(){
-    if (typeof loadTopicVideos !== "undefined"){
-      loadTopicVideos("salah","salahVideos",8);
-      loadTopicVideos("tawheed","tawheedVideos",8);
-      loadTopicVideos("seerah","seerahVideos",8);
-    } else {
-      document.addEventListener("DOMContentLoaded", function(){
-        loadTopicVideos("salah","salahVideos",8);
-        loadTopicVideos("tawheed","tawheedVideos",8);
-        loadTopicVideos("seerah","seerahVideos",8);
       });
     }
   })();
   </script>
+<script>document.addEventListener("DOMContentLoaded",function(){loadTopicVideos("salah","salahVideos",8);loadTopicVideos("tawheed","tawheedVideos",8);loadTopicVideos("seerah","seerahVideos",8);});</script>
 </body>
 </html>
