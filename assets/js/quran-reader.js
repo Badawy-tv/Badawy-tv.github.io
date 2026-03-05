@@ -53,9 +53,9 @@ fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/en.sahih`)
 
 const arabic = data[0].data.ayahs;
 const translation = data[1].data.ayahs;
-const surah = data[0].data.surah;
+const surah = data[0].data;
 if(surahTitle){surahTitle.innerText = surah.englishName + " (" + surah.name + ")";}
-if(surahMeta){surahMeta.innerText = surah.revelationType + " • " + surah.numberOfAyahs + " Ayahs";}
+if(surahMeta){surahMeta.innerText = surah.revelationType + " • " + surah.ayahs.length + " Ayahs";}
 
 
 versesContainer.innerHTML = "";
