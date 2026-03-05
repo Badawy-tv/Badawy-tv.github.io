@@ -1,39 +1,54 @@
 const surahSelect = document.getElementById("surah-select");
 const quranText = document.getElementById("quran-text");
+const translation = document.getElementById("quran-translation");
+const audio = document.getElementById("quran-audio");
 
 fetch("https://api.alquran.cloud/v1/surah")
-.then(res => res.json())
-.then(data => {
+.then(r=>r.json())
+.then(data=>{
+data.data.forEach(s=>{
+let o=document.createElement("option");
+o.value=s.number;
+o.text=s.number+" - "+s.englishName;
+surahSelect.appendChild(o);
+});
+});
 
-data.data.forEach(surah => {
+surahSelect.addEventListener("change",function(){
 
-let option = document.createElement("option");
+quranText.innerHTML="Loading...";
+translation.innerHTML="";
 
-option.value = surah.number;
-option.text = surah.number + ". " + surah.englishName;
+fetch("https://api.alquran.cloud/v1/surah/"+this.value+"/ar.alafasy")
+.then(r=>r.json())
+.then(data=>{
 
-surahSelect.appendChild(option);
+quranText.innerHTML="";
+translation.innerHTML="";
+
+data.data.ayahs.forEach(a=>{
+
+let arab=document.createElement("p");
+arab.style.fontSize="24px";
+arab.style.direction="rtl";
+arab.innerHTML=a.text;
+quranText.appendChild(arab);
 
 });
 
+audio.src=data.data.ayahs[0].audio;
+
 });
 
-surahSelect.addEventListener("change", function(){
+fetch("https://api.alquran.cloud/v1/surah/"+this.value+"/en.sahih")
+.then(r=>r.json())
+.then(data=>{
 
-fetch("https://api.alquran.cloud/v1/surah/" + this.value)
-.then(res => res.json())
-.then(data => {
-
-quranText.innerHTML = "";
-
-data.data.ayahs.forEach(ayah => {
-
-let p = document.createElement("p");
-
-p.innerHTML = ayah.numberInSurah + ". " + ayah.text;
-
-quranText.appendChild(p);
-
+data.data.ayahs.forEach(a=>{
+let t=document.createElement("p");
+t.style.color="#444";
+t.innerHTML=a.numberInSurah+". "+a.text;
+translation.appendChild(t);
 });
 
 });
