@@ -263,3 +263,23 @@ right:12px;
 font-size:20px;
 cursor:pointer;
 }
+
+.dawah-section{
+text-align:center;
+padding:60px 20px;
+background:#f7f7f7;
+margin-top:60px;
+}
+
+.dawah-section h2{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.dawah-section p{
+max-width:600px;
+margin:auto;
+margin-bottom:20px;
+font-size:16px;
+}
+
