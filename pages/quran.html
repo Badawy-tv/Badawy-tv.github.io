@@ -143,16 +143,14 @@ quranText.appendChild(div)
 }
 
 function playAyah(surah,ayah){
-
 let rec=reciter.value
-
-let num=String(ayah).padStart(3,"0")
-
-let url="https://cdn.islamic.network/quran/audio/128/"+rec+"/"+surah+num+".mp3"
-
-player.src=url
+let url="https://api.alquran.cloud/v1/ayah/"+surah+":"+ayah+"/"+rec
+fetch(url)
+.then(r=>r.json())
+.then(data=>{
+player.src=data.data.audio
 player.play()
-
+})
 }
 
 search.oninput=function(){
