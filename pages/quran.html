@@ -109,6 +109,7 @@ const quranText=document.getElementById("quranText")
 const player=document.getElementById("player")
 const reciter=document.getElementById("reciter")
 const search=document.getElementById("search")
+const ayahSelect=document.getElementById("ayah"); ayahSelect.onchange=()=>{currentAyah=ayahSelect.value;playAyah(currentSurah,currentAyah)}
 
 fetch("https://api.alquran.cloud/v1/surah")
 .then(r=>r.json())
@@ -135,6 +136,7 @@ quranText.innerHTML=""
 if(num!=1 && num!=9){quranText.innerHTML+="<div style='text-align:center;font-size:26px;margin-bottom:15px;'>﷽</div>"}
 
 data.data.ayahs.forEach(a=>{
+ayahSelect.innerHTML=""; data.data.ayahs.forEach(a=>{let opt=document.createElement("option");opt.value=a.numberInSurah;opt.text="Ayah "+a.numberInSurah;ayahSelect.appendChild(opt)})
 
 let div=document.createElement("div")
 div.className="ayah"
