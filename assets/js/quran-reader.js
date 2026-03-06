@@ -11,14 +11,12 @@ player.src = "https://cdn.islamic.network/quran/audio/128/" + reciter + "/" + su
 player.play();
 }
 
-window.playAyah = playAyah;
-
 async function loadSurahList(){
-
+try{
 const res = await fetch("https://api.alquran.cloud/v1/surah");
 const json = await res.json();
 
-surahSelect.innerHTML = '<option value="">Select Surah</option>';
+surahSelect.innerHTML = "<option value=''>Select Surah</option>";
 
 json.data.forEach(surah=>{
 const opt = document.createElement("option");
@@ -27,35 +25,40 @@ opt.textContent = surah.number + " - " + surah.englishName;
 surahSelect.appendChild(opt);
 });
 
+}catch(e){
+console.error("Surah list error:", e);
+}
 }
 
-async function loadSurah(){
+window.loadSurah = async function(){
 
 const surahNumber = surahSelect.value;
 if(!surahNumber) return;
 
-const res = await fetch("https://api.alquran.cloud/v1/surah/"+surahNumber+"/editions/quran-uthmani,en.sahih");
+try{
+
+const res = await fetch("https://api.alquran.cloud/v1/surah/" + surahNumber);
 const json = await res.json();
 
 quranText.innerHTML = "";
 
-const arabic = json.data[0].ayahs;
-const english = json.data[1].ayahs;
+json.data.ayahs.forEach(ayah=>{
 
-arabic.forEach((ayah,i)=>{
+const ayahDiv = document.createElement("div");
+ayahDiv.className = "ayah";
 
-const div = document.createElement("div");
-div.className = "ayah";
+ayahDiv.innerHTML =
+'<button class="ayah-play" onclick="playAyah('+surahNumber+','+ayah.numberInSurah+')">▶</button>' +
+'<span class="ayah-number">'+ayah.numberInSurah+'</span>' +
+'<div class="ayah-ar">'+ayah.text+'</div>';
 
-div.innerHTML = `
-<button onclick="playAyah(${surahNumber},${ayah.numberInSurah})">▶</button>
-<div class="ayah-ar">${ayah.text}</div>
-<div class="ayah-en">${english[i].text}</div>
-`;
-
-quranText.appendChild(div);
+quranText.appendChild(ayahDiv);
 
 });
+
+}catch(e){
+console.error("Surah load error:", e);
+}
 
 }
 
