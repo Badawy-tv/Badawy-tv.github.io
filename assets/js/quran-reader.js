@@ -7,6 +7,8 @@ const quranText = document.getElementById("quranText");
 
 async function loadSurahList(){
 
+try{
+
 const response = await fetch("https://api.alquran.cloud/v1/surah");
 const data = await response.json();
 
@@ -23,11 +25,19 @@ surahSelect.appendChild(option);
 
 });
 
+}catch(err){
+
+console.error(err);
+
 }
 
-/* Load Surah Ayahs */
+}
 
-async function loadSurah(){
+/* Load Surah */
+
+window.loadSurah = async function(){
+
+try{
 
 const surahNumber = surahSelect.value;
 
@@ -38,26 +48,25 @@ quranText.innerHTML = "";
 
 data.data.ayahs.forEach(ayah => {
 
-let ayahBlock = document.createElement("div");
+let div = document.createElement("div");
 
-ayahBlock.className = "ayah";
+div.className = "ayah";
 
-ayahBlock.innerHTML = `
-${ayah.text}
-<span class="ayah-number">${ayah.numberInSurah}</span>
-`;
+div.innerHTML = ayah.text + " <span class='ayah-number'>" + ayah.numberInSurah + "</span>";
 
-quranText.appendChild(ayahBlock);
+quranText.appendChild(div);
 
 });
 
+}catch(err){
+
+console.error(err);
+
 }
 
-/* Make button work */
+}
 
-document.querySelector(".quran-controls button").onclick = loadSurah;
-
-/* Initialize */
+/* Start */
 
 loadSurahList();
 
