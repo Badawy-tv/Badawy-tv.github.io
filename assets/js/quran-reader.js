@@ -1,20 +1,20 @@
-function playAyah(surah, ayah){
-const reciter=document.getElementById("reciterSelect").value;
-const player=document.getElementById("quranPlayer");
-const ayahNum=String(ayah).padStart(3,"0");
-player.src="https://cdn.islamic.network/quran/audio/128/"+reciter+"/"+surah+ayahNum+".mp3";
-player.play();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function(){
 
 const surahSelect=document.getElementById("surahSelect");
 const quranText=document.getElementById("quranText");
 const player=document.getElementById("quranPlayer");
 
-/* Load Surah List */
+function playAyah(surah,ayah){
+const reciter=document.getElementById("reciterSelect").value;
+const ayahNum=String(ayah).padStart(3,"0");
+player.src="https://cdn.islamic.network/quran/audio/128/"+reciter+"/"+surah+ayahNum+".mp3";
+player.play();
+}
+
+window.playAyah=playAyah;
+
 async function loadSurahList(){
-try{
+
 const res=await fetch("https://api.alquran.cloud/v1/surah");
 const data=await res.json();
 
@@ -27,21 +27,12 @@ opt.textContent=surah.number+" - "+surah.englishName;
 surahSelect.appendChild(opt);
 });
 
-}catch(e){
-console.error("Surah list error:",e);
-}
 }
 
-/* Load Selected Surah */
 async function loadSurah(){
+
 const surahNumber=surahSelect.value;
 if(!surahNumber) return;
-
-try{
-const reciter=document.getElementById("reciterSelect").value;
-
-const audioURL="https://cdn.islamic.network/quran/audio-surah/128/"+reciter+"/"+surahNumber+".mp3";
-player.src=audioURL;
 
 const res=await fetch("https://api.alquran.cloud/v1/surah/"+surahNumber+"/editions/quran-uthmani,en.sahih");
 const json=await res.json();
@@ -52,26 +43,24 @@ const arabic=json.data[0].ayahs;
 const english=json.data[1].ayahs;
 
 arabic.forEach((ayah,i)=>{
-const ayahDiv=document.createElement("div");
-ayahDiv.className="ayah";
 
-ayahDiv.innerHTML=`
-<button class="ayah-play" onclick="playAyah(${surahNumber},${ayah.numberInSurah})">▶</button>
+const div=document.createElement("div");
+div.className="ayah";
+
+div.innerHTML=`
+<button onclick="playAyah(${surahNumber},${ayah.numberInSurah})">▶</button>
 <div class="ayah-ar">${ayah.text}</div>
 <div class="ayah-en">${english[i].text}</div>
 `;
 
-quranText.appendChild(ayahDiv);
+quranText.appendChild(div);
+
 });
 
-}catch(e){
-console.error("Surah load error:",e);
-}
 }
 
 surahSelect.addEventListener("change",loadSurah);
 
-/* Start */
 loadSurahList();
 
 });
