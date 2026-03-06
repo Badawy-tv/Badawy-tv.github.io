@@ -48,7 +48,7 @@ const ayahDiv = document.createElement("div");
 ayahDiv.className = "ayah";
 
 ayahDiv.innerHTML =
-'<button class="ayah-play" onclick="playAyah('+surahNumber+','+ayah.numberInSurah+')">▶</button>' +
+'<button class="ayah-play" onclick="window.playAyah('+surahNumber+','+ayah.numberInSurah+')">▶</button>' +
 '<span class="ayah-number">'+ayah.numberInSurah+'</span>' +
 '<div class="ayah-ar">'+ayah.text+'</div>';
 
