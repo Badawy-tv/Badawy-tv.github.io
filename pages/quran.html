@@ -1,4 +1,3 @@
-let currentSurah=1; let currentAyah=1;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +6,7 @@ let currentSurah=1; let currentAyah=1;
 <title>Quran | Badawy TV</title>
 
 <style>
-body{
-margin:0;
-font-family:serif;
-background:#e9e4d4;
-}
+body{margin:0;font-family:serif;background:#e9e4d4;}
 
 .book{
 width:95%;
@@ -24,12 +19,7 @@ box-shadow:0 10px 25px rgba(0,0,0,0.2);
 padding:20px;
 }
 
-.controls{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-bottom:15px;
-}
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:15px;}
 
 select,input,button{
 padding:8px;
@@ -44,32 +34,20 @@ text-align:right;
 direction:rtl;
 }
 
-.ayah{
-padding:8px;
-border-radius:6px;
-}
+.ayah{padding:8px;border-radius:6px;}
 
-.ayah:hover{
+.ayah:hover{background:#f2efe4;}
+
+.play{cursor:pointer;font-size:16px;margin-left:10px;}
+
 .playing{
-background:#ffeaa7;
-}
-background:#f2efe4;
-}
-
-.play{
-cursor:pointer;
-font-size:16px;
-margin-left:10px;
+background:#d6f5d6;
+border-left:4px solid #2e7d32;
 }
 
-.dark{
-background:#121212;
-color:#eee;
-}
+.dark{background:#121212;color:#eee;}
 
-.dark .book{
-background:#1e1e1e;
-}
+.dark .book{background:#1e1e1e;}
 </style>
 </head>
 
@@ -89,9 +67,15 @@ background:#1e1e1e;
 <option value="ar.husary">Husary</option>
 </select>
 
+<select id="repeat">
+<option value="1">Repeat 1x</option>
+<option value="3">Repeat 3x</option>
+<option value="5">Repeat 5x</option>
+<option value="10">Repeat 10x</option>
+</select>
+
 <input type="text" id="search" placeholder="Search Quran">
 
-<select id="repeat"><option value="1">Repeat 1x</option><option value="3">Repeat 3x</option><option value="5">Repeat 5x</option><option value="10">Repeat 10x</option></select>
 <button onclick="toggleDark()">🌙 Night</button>
 
 </div>
@@ -109,7 +93,11 @@ const quranText=document.getElementById("quranText")
 const player=document.getElementById("player")
 const reciter=document.getElementById("reciter")
 const search=document.getElementById("search")
-const ayahSelect=document.getElementById("ayah"); ayahSelect.onchange=()=>{currentAyah=ayahSelect.value;playAyah(currentSurah,currentAyah)}
+const repeat=document.getElementById("repeat")
+
+let currentSurah=1
+let currentAyah=1
+let repeatCount=1
 
 fetch("https://api.alquran.cloud/v1/surah")
 .then(r=>r.json())
@@ -126,6 +114,7 @@ loadSurah(1)
 surahSelect.onchange=()=>loadSurah(surahSelect.value)
 
 function loadSurah(num){
+
 currentSurah=num
 
 fetch("https://api.alquran.cloud/v1/surah/"+num)
@@ -133,13 +122,12 @@ fetch("https://api.alquran.cloud/v1/surah/"+num)
 .then(data=>{
 
 quranText.innerHTML=""
-if(num!=1 && num!=9){quranText.innerHTML+="<div style='text-align:center;font-size:26px;margin-bottom:15px;'>﷽</div>"}
 
 data.data.ayahs.forEach(a=>{
-ayahSelect.innerHTML=""; data.data.ayahs.forEach(a=>{let opt=document.createElement("option");opt.value=a.numberInSurah;opt.text="Ayah "+a.numberInSurah;ayahSelect.appendChild(opt)})
 
 let div=document.createElement("div")
 div.className="ayah"
+div.id="ayah-"+a.numberInSurah
 
 div.innerHTML='<span class="play" onclick="playAyah('+num+','+a.numberInSurah+')">▶</span>'+a.text+" ("+a.numberInSurah+")"
 
@@ -152,25 +140,49 @@ quranText.appendChild(div)
 }
 
 function playAyah(surah,ayah){
+
+currentSurah=surah
 currentAyah=ayah
+repeatCount=repeat.value
+
 let rec=reciter.value
 let url="https://api.alquran.cloud/v1/ayah/"+surah+":"+ayah+"/"+rec
+
 fetch(url)
 .then(r=>r.json())
 .then(data=>{
-document.querySelectorAll(".ayah").forEach(a=>a.classList.remove("playing"))
-let ayahDiv=document.querySelectorAll(".ayah")[ayah-1]
-if(ayahDiv) ayahDiv.classList.add("playing")
-ayahDiv.scrollIntoView({behavior:"smooth",block:"center"});
+
 player.src=data.data.audio
 player.play()
-let r=document.getElementById("repeat").value; if(r>1){setTimeout(()=>{playAyah(surah,ayah)},2000);}
-player.onended=function(){
-currentAyah++
-playAyah(currentSurah,currentAyah)
+
+document.querySelectorAll(".ayah").forEach(a=>a.classList.remove("playing"))
+
+let ayahDiv=document.getElementById("ayah-"+ayah)
+
+if(ayahDiv){
+ayahDiv.classList.add("playing")
+ayahDiv.scrollIntoView({behavior:"smooth",block:"center"})
 }
+
 })
+
 }
+
+player.onended=function(){
+
+if(repeatCount>1){
+repeatCount--
+playAyah(currentSurah,currentAyah)
+return
+}
+
+let next=currentAyah+1
+let nextAyah=document.getElementById("ayah-"+next)
+
+if(nextAyah){
+playAyah(currentSurah,next)
+}
+
 }
 
 search.oninput=function(){
