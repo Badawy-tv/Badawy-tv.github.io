@@ -1,98 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+<link rel="manifest" href="../manifest.json">
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Quran Reader | Badawy TV</title>
+<title>Holy Quran | Badawy TV</title>
 
-<link rel="stylesheet" href="../assets/css/layout.css">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/responsive.css">
+<link rel="stylesheet" href="../assets/css/mushaf.css">
 
-<style>
-
-.quran-container{
-max-width:900px;
-margin:auto;
-padding:30px;
-}
-
-.quran-controls{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-bottom:20px;
-}
-
-.quran-controls select,
-.quran-controls input{
-padding:10px;
-border-radius:6px;
-border:1px solid #ccc;
-}
-
-.ayah{
-margin-bottom:22px;
-padding-bottom:12px;
-border-bottom:1px solid #eee;
-}
-
-.arabic{
-font-size:28px;
-text-align:right;
-font-family:'Scheherazade', serif;
-line-height:1.9;
-}
-
-.translation{
-font-size:16px;
-color:#444;
-margin-top:6px;
-}
-
-audio{
-margin-top:6px;
-width:100%;
-}
-
-</style>
+<script src="../assets/js/pageflip.js"></script>
+<script src="../assets/js/quran-reader.js"></script>
+<script src="../assets/js/quran-search.js"></script>
 
 </head>
 
 <body>
 
-<div id="header"></div>
+<div class="controls">
 
-<div class="quran-container">
+<button onclick="prevPage()">⬅</button>
+<button onclick="nextPage()">➡</button>
 
-<h1>📖 Holy Quran</h1>
-<p>Read, listen and reflect upon the Quran.</p>
-
-<div class="quran-controls">
-
-<select id="surah-select"></select>
-
-<select id="reciter-select">
-
-<option value="ar.alafasy">Mishary Alafasy</option>
-<option value="ar.abdurrahmaansudais">Abdul Rahman Al-Sudais</option>
-<option value="ar.husary">Mahmoud Khalil Al-Husary</option>
-
-</select>
-
-<input type="number" id="ayah-input" placeholder="Ayah #" min="1">
-
-<button id="load-surah">Load</button>
+<input id="search" placeholder="Search Quran">
 
 </div>
 
-<div id="verses"></div>
+<div id="book"></div>
 
-</div>
+<script>
 
-<script src="../assets/js/quran-reader.js"></script>
-<script src="../assets/js/components.js"></script>
+const book=document.getElementById("book")
 
+for(let i=1;i<=604;i++){
+
+let p=document.createElement("div")
+p.className="page"
+
+let img=document.createElement("img")
+img.src="../assets/quran/pages/"+String(i).padStart(3,"0")+".jpg"
+
+p.appendChild(img)
+
+book.appendChild(p)
+
+}
+
+const flip=new St.PageFlip(book,{
+width:550,
+height:800,
+size:"stretch",
+maxShadowOpacity:0.5,
+showCover:true,
+mobileScrollSupport:true
+})
+
+flip.loadFromHTML(document.querySelectorAll(".page"))
+
+function nextPage(){
+flip.flipNext()
+}
+
+function prevPage(){
+flip.flipPrev()
+}
+
+</script>
+
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("../service-worker.js")}</script>
 </body>
 </html>
