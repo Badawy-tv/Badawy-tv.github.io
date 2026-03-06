@@ -2,6 +2,7 @@ function playAyah(surah,ayah){const reciter=document.getElementById("reciterSele
 document.addEventListener("DOMContentLoaded", () => {
 
 const surahSelect = document.getElementById("surahSelect");
+surahSelect.addEventListener("change", loadSurah);
 const quranText = document.getElementById("quranText");
 const player = document.getElementById("quranPlayer");
 /* Load Surah List */
@@ -9,6 +10,7 @@ async function loadSurahList(){
 const res = await fetch("https://api.alquran.cloud/v1/surah");
 const data = await res.json();
 const surahSelect = document.getElementById("surahSelect");
+surahSelect.addEventListener("change", loadSurah);
 surahSelect.innerHTML = "<option value="">Select Surah</option>";
 data.data.forEach(surah=>{
 const opt=document.createElement("option");
@@ -41,4 +43,4 @@ quranText.appendChild(ayahDiv);
 console.error("Surah load error:",e);
 };
 /* Start */
-loadSurahList(); setTimeout(()=>{loadSurah()},500);
+loadSurahList();
