@@ -43,25 +43,22 @@ const surahNumber = surahSelect.value;
 
 if(!surahNumber) return;
 
-const res = await fetch("https://api.alquran.cloud/v1/surah/" + surahNumber + "/quran-uthmani");
+const res = await fetch("https://api.alquran.cloud/v1/surah/" + surahNumber + "/editions/quran-uthmani,en.sahih");
 const json = await res.json();
 
 quranText.innerHTML = "";
 
-json.data.ayahs.forEach(ayah => {
+const arabic = json.data[0].ayahs;
+const english = json.data[1].ayahs;
 
-const ayahDiv = document.createElement("div");
-
-ayahDiv.className = "ayah";
-
-ayahDiv.innerHTML =
-ayah.text +
-' <span class="ayah-number">' +
-ayah.numberInSurah +
-"</span>";
-
+arabic.forEach((ayah,i)=>{
+const ayahDiv=document.createElement("div");
+ayahDiv.className="ayah";
+ayahDiv.innerHTML=`
+<div class="ayah-ar">${ayah.text}</div>
+<div class="ayah-en">${english[i].text}</div>
+<span class="ayah-number">${ayah.numberInSurah}</span>`;
 quranText.appendChild(ayahDiv);
-
 });
 
 }catch(e){
