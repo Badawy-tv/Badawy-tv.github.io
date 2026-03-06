@@ -1,18 +1,15 @@
-function generateCertID(){
-return "BAD-"+Math.floor(100000 + Math.random()*900000);
-}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Badawy Islamic Academy Certificate</title>
-<p><strong>Certificate ID:</strong> <span id="certID"></span></p>
-<p><strong>Date Issued:</strong> <span id="issueDate"></span></p>
-
-
 <style>
+body{
+background:#f4f4f4;
+margin:0;
+padding:0;
+}
 .certificate{
 border:12px solid #caa84c;
 padding:50px;
@@ -22,124 +19,12 @@ text-align:center;
 background:#fffdf7;
 font-family:serif;
 }
-.cert-title{
-font-size:40px;
-font-weight:bold;
-margin-bottom:20px;
-}
 .cert-arabic{
 font-size:32px;
 direction:rtl;
 margin-bottom:20px;
 font-family:"Amiri",serif;
 }
-.cert-body{
-font-size:20px;
-margin-top:30px;
-line-height:1.7;
-}
-.signatures{
-display:flex;
-justify-content:space-between;
-margin-top:60px;
-}
-.sign-box{
-text-align:center;
-width:40%;
-}
-.stamp{
-margin-top:40px;
-font-size:18px;
-font-weight:bold;
-color:#1a7f37;
-}
-
-body{
-background:#f4f4f4;
-font-family:serif;
-text-align:center;
-padding:40px;
-}
-
-
-<div class="certificate">
-
-<div class="title">Badawy Islamic Academy</div>
-<p><strong>Date Issued:</strong> <span id="issueDate"></span></p>
-
-<div class="subtitle">Certificate of Completion</div>
-
-<p>This certifies that</p>
-
-<div class="name" id="studentName"></div>
-
-<p>has successfully completed the course</p>
-
-<div class="course" id="courseName"></div>
-document.getElementById("certID").innerText = certID;
-document.getElementById("issueDate").innerText = new Date().toLocaleDateString();
-
-
-<div class="verify">
-Verification ID: <span id="verifyID"></span>
-<div style="display:flex;justify-content:space-between;margin-top:60px;align-items:center;">
-<div style="text-align:center;">
-<img src="assets/signatures/sheikh-signature.png" style="height:60px;"><br>
-<span>Sheikh / Instructor</span>
-</div>
-<div style="text-align:center;">
-<img src="assets/stamp/badawy-stamp.png" style="height:80px;"><br>
-<span>Official Stamp</span>
-</div>
-<div style="text-align:center;">
-<img src="assets/signatures/director-signature.png" style="height:60px;"><br>
-<span>Director</span>
-</div>
-</div>
-</div>
-
-<div class="stamp">
-Official Seal – Badawy Islamic Academy
-<p><strong>Date Issued:</strong> <span id="issueDate"></span></p>
-
-</div>
-
-<div class="signatures">
-
-<div class="sign">
-_________________________<br>
-Sheikh
-</div>
-
-<div class="sign">
-_________________________<br>
-Director
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-const params = new URLSearchParams(window.location.search);
-const certID = generateCertID();
-const issueDate = new Date().toLocaleDateString();
-
-
-const name = params.get("name") || "Student";
-const course = params.get("course") || "Course";
-
-document.getElementById("studentName").innerText = name;
-document.getElementById("courseName").innerText = course.toUpperCase();
-document.getElementById("certID").innerText = certID;
-document.getElementById("issueDate").innerText = new Date().toLocaleDateString();
-
-
-const verificationID = "BDA-" + Date.now();
-document.getElementById("verifyID").innerText = verificationID;
-
-</script>
-
-</body>
-</html>
+</style>
+</head>
+<body>
