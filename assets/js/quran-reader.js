@@ -74,6 +74,6 @@ console.error("Surah load error:",e);
 
 /* Start */
 
-loadSurahList();
+loadSurahList(); setTimeout(()=>{loadSurah()},500);
 
 });
