@@ -70,10 +70,8 @@ const audioURL =
 div.innerHTML =
 
 `
-<div class="arabic" onclick="this.classList.toggle("word-mode")">
-${ayah.text} (${ayah.numberInSurah})
+<div class="arabic" onclick="this.classList.toggle('word-mode')">
 </div>
-${ayah.text} (${ayah.numberInSurah})
 </div>
 
 <div class="translation">
