@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Quran | BADAWY TV</title>
+
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<style>
+
+/* Page */
+
+body{
+background:#f4f6f8;
+font-family:Arial, sans-serif;
+margin:0;
+}
+
+/* Main Container */
+
+.quran-page{
+max-width:1100px;
+margin:auto;
+padding:30px 20px;
+}
+
+/* Header */
+
+.quran-header{
+margin-bottom:25px;
+}
+
+.quran-header h1{
+margin:0;
+font-size:32px;
+}
+
+/* Controls Panel */
+
+.quran-controls{
+background:white;
+padding:15px;
+border-radius:10px;
+margin-bottom:25px;
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.quran-controls select,
+.quran-controls input,
+.quran-controls button{
+
+padding:10px;
+font-size:15px;
+border-radius:6px;
+border:1px solid #ddd;
+}
+
+/* Quran Reading Area */
+
+.quran-reader{
+
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+
+}
+
+/* Ayah */
+
+.ayah{
+
+direction:rtl;
+text-align:right;
+font-family:"Amiri",serif;
+font-size:30px;
+line-height:2.2;
+padding:18px;
+border-bottom:1px solid #eee;
+
+}
+
+.ayah:last-child{
+border-bottom:none;
+}
+
+/* Ayah number */
+
+.ayah-number{
+
+background:#0a7c5a;
+color:white;
+border-radius:50%;
+padding:4px 10px;
+font-size:14px;
+margin-left:8px;
+
+}
+
+/* Translation */
+
+.translation{
+
+direction:ltr;
+font-size:16px;
+margin-top:8px;
+color:#555;
+
+}
+
+/* Responsive */
+
+@media(max-width:700px){
+
+.ayah{
+font-size:24px;
+}
+
+.quran-reader{
+padding:20px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="quran-page">
+
+<div class="quran-header">
+<h1>📖 Quran Reader</h1>
+<p>Read the Holy Quran on BADAWY TV</p>
+</div>
+
+<!-- Controls -->
+
+<div class="quran-controls">
+
+<select id="surahSelect">
+<option>Select Surah</option>
+</select>
+
+<select id="translationSelect">
+<option>Translation</option>
+</select>
+
+<select id="reciterSelect">
+<option>Reciter</option>
+</select>
+
+<input type="text" placeholder="Search Quran">
+
+<button>Load</button>
+
+</div>
+
+<!-- Quran Reader -->
+
+<div class="quran-reader">
+
+<div id="quranText"></div>
+
+</div>
+
+</div>
+
+<script src="../assets/js/quran-reader.js"></script>
+
+</body>
+</html>
