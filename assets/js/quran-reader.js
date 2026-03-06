@@ -1,9 +1,10 @@
-const surahSelect = document.getElementById("surahSelect");
-const quranText = document.getElementById("quranText");
+document.addEventListener("DOMContentLoaded", function(){
 
-/* Load Surah List */
+const surahSelect = document.getElementById("surahSelect");
 
 async function loadSurahList(){
+
+try{
 
 const response = await fetch("https://api.alquran.cloud/v1/surah");
 const data = await response.json();
@@ -21,8 +22,14 @@ surahSelect.appendChild(option);
 
 });
 
+}catch(err){
+
+console.error("Surah loading failed",err);
+
 }
 
-/* Initialize */
+}
 
 loadSurahList();
+
+});
