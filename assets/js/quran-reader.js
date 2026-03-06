@@ -64,6 +64,5 @@ console.error("Surah load error:", e);
 
 surahSelect.addEventListener("change", loadSurah);
 
-loadSurahList();
 
 });
