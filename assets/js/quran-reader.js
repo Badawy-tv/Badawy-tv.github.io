@@ -43,7 +43,8 @@ const surahNumber = surahSelect.value;
 
 if(!surahNumber) return;
 
-const res = await fetch("https://api.alquran.cloud/v1/surah/" + surahNumber + "/editions/quran-uthmani,en.sahih");
+const reciter = document.getElementById("reciterSelect").value;
+const res = await fetch("https://api.alquran.cloud/v1/surah/" + surahNumber + "/editions/quran-uthmani,en.sahih," + reciter);
 const json = await res.json();
 
 quranText.innerHTML = "";
