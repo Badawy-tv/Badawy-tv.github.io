@@ -56,7 +56,7 @@ const ayahDiv=document.createElement("div");
 ayahDiv.className="ayah";
 ayahDiv.innerHTML=`
 <div class="ayah-ar">${ayah.text}</div>
-<div class="ayah-en">${english[i].text}</div>
+<div class="ayah-en">${english[i] ? english[i].text : ""}</div>
 <span class="ayah-number">${ayah.numberInSurah}</span>`;
 quranText.appendChild(ayahDiv);
 });
