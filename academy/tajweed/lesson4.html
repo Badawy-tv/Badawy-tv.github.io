@@ -14,5 +14,40 @@
 
 <a href="index.html">⬅ Back to course</a>
 
+<script type="module">
+
+import { markLessonComplete } from "../js/course-progress.js";
+
+
+
+const btn = document.createElement("button");
+
+btn.innerText = "✓ Mark Lesson Completed";
+
+btn.style.padding = "12px 20px";
+
+btn.style.marginTop = "20px";
+
+btn.style.fontSize = "16px";
+
+btn.style.cursor = "pointer";
+
+
+
+const path = window.location.pathname.split("/");
+
+const course = path[path.length-2];
+
+const lesson = path[path.length-1].replace(".html","");
+
+
+
+btn.onclick = () => markLessonComplete(course, lesson);
+
+
+
+document.body.appendChild(btn);
+
+</script>
 </body>
 </html>
