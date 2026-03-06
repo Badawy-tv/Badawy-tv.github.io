@@ -125,7 +125,6 @@ loadSurah(1)
 surahSelect.onchange=()=>loadSurah(surahSelect.value)
 
 function loadSurah(num){
-document.querySelector("h2").innerText="📖 Surah "+num
 currentSurah=num
 
 fetch("https://api.alquran.cloud/v1/surah/"+num)
