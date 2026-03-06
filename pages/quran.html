@@ -151,6 +151,24 @@ color:#000;
 background:#fff;
 }
 
+.word{
+display:inline-block;
+margin:4px;
+padding:4px 6px;
+border-radius:4px;
+cursor:pointer;
+transition:0.2s;
+}
+.word:hover{
+background:#e8f5e9;
+}
+.word-translation{
+display:block;
+font-size:13px;
+color:#777;
+text-align:center;
+}
+
 </style>
 
 </head>
@@ -170,6 +188,11 @@ background:#fff;
 <select id="surah-select"></select>
 
 <select id="reciter-select">
+<select id="translation-select">
+<option value="en.sahih">Sahih International</option>
+<option value="en.pickthall">Pickthall</option>
+<option value="en.yusufali">Yusuf Ali</option>
+</select>
 
 <option value="ar.alafasy">Mishary Alafasy</option>
 <option value="ar.abdurrahmaansudais">Abdul Rahman Al-Sudais</option>
