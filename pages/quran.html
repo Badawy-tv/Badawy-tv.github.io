@@ -1,172 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quran | Badawy TV</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<style>
-body{
-margin:0;
-font-family:serif;
-background:#e9e4d4;
-}
+<title>Holy Quran | Badawy TV</title>
 
-.book{
-width:95%;
-max-width:1000px;
-margin:auto;
-margin-top:20px;
-background:#fdfbf5;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.2);
-padding:20px;
-}
+<link rel="stylesheet" href="../assets/css/mushaf.css">
 
-.controls{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-bottom:15px;
-}
+<script src="../assets/js/pageflip.js"></script>
+<script src="../assets/js/quran-search.js"></script>
 
-select,input,button{
-padding:8px;
-border-radius:6px;
-border:1px solid #ccc;
-}
-
-#quranText{
-font-size:28px;
-line-height:2.2;
-text-align:right;
-direction:rtl;
-}
-
-.ayah{
-padding:8px;
-border-radius:6px;
-}
-
-.ayah:hover{
-background:#f2efe4;
-}
-
-.play{
-cursor:pointer;
-font-size:16px;
-margin-left:10px;
-}
-
-.dark{
-background:#121212;
-color:#eee;
-}
-
-.dark .book{
-background:#1e1e1e;
-}
-</style>
 </head>
 
 <body>
 
-<div class="book">
-
-<h2 style="text-align:center;">📖 Holy Quran</h2>
-
 <div class="controls">
 
-<select id="surah"></select>
+<button onclick="prevPage()">⬅</button>
+<button onclick="nextPage()">➡</button>
 
-<select id="reciter">
-<option value="ar.alafasy">Mishary Alafasy</option>
-<option value="ar.abdurrahmaansudais">Sudais</option>
-<option value="ar.husary">Husary</option>
-</select>
-
-<input type="text" id="search" placeholder="Search Quran">
-
-<button onclick="toggleDark()">🌙 Night</button>
+<input id="search" placeholder="Search Quran">
 
 </div>
 
-<audio id="player" controls style="width:100%"></audio>
-
-<div id="quranText"></div>
-
-</div>
+<div id="book"></div>
 
 <script>
 
-const surahSelect=document.getElementById("surah")
-const quranText=document.getElementById("quranText")
-const player=document.getElementById("player")
-const reciter=document.getElementById("reciter")
-const search=document.getElementById("search")
+const book=document.getElementById("book")
 
-fetch("https://api.alquran.cloud/v1/surah")
-.then(r=>r.json())
-.then(data=>{
-data.data.forEach(s=>{
-let o=document.createElement("option")
-o.value=s.number
-o.text=s.number+". "+s.englishName
-surahSelect.appendChild(o)
-})
-loadSurah(1)
-})
+for(let i=1;i<=604;i++){
 
-surahSelect.onchange=()=>loadSurah(surahSelect.value)
+let p=document.createElement("div")
+p.className="page"
 
-function loadSurah(num){
+let img=document.createElement("img")
+img.src="../assets/quran/pages/"+String(i).padStart(3,"0")+".jpg"
 
-fetch("https://api.alquran.cloud/v1/surah/"+num)
-.then(r=>r.json())
-.then(data=>{
+p.appendChild(img)
 
-quranText.innerHTML=""
-
-data.data.ayahs.forEach(a=>{
-
-let div=document.createElement("div")
-div.className="ayah"
-
-div.innerHTML='<span class="play" onclick="playAyah('+num+','+a.numberInSurah+')">▶</span>'+a.text+" ("+a.numberInSurah+")"
-
-quranText.appendChild(div)
-
-})
-
-})
+book.appendChild(p)
 
 }
 
-function playAyah(surah,ayah){
-
-let rec=reciter.value
-
-let num=String(ayah).padStart(3,"0")
-
-let url="https://cdn.islamic.network/quran/audio/128/"+rec+"/"+surah+num+".mp3"
-
-player.src=url
-player.play()
-
-}
-
-search.oninput=function(){
-
-let t=this.value.toLowerCase()
-
-document.querySelectorAll(".ayah").forEach(a=>{
-a.style.display=a.innerText.toLowerCase().includes(t)?"block":"none"
+const flip=new St.PageFlip(book,{
+width:550,
+height:800,
+size:"stretch",
+maxShadowOpacity:0.5,
+showCover:true,
+mobileScrollSupport:true
 })
 
+flip.loadFromHTML(document.querySelectorAll(".page"))
+
+function nextPage(){
+flip.flipNext()
 }
 
-function toggleDark(){
-document.body.classList.toggle("dark")
+function prevPage(){
+flip.flipPrev()
 }
 
 </script>
