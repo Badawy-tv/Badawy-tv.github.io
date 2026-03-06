@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Quran Reader | BADAWY TV</title>
 
 <link rel="stylesheet" href="../assets/css/style.css">
@@ -10,43 +12,93 @@
 <link rel="stylesheet" href="../assets/css/responsive.css">
 
 <style>
-.quran-container{ max-width:900px; margin:auto; padding:20px; }
-.quran-controls{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; align-items:center; }
-.quran-controls select, .quran-controls button{ padding:8px 12px; border-radius:6px; border:1px solid #ccc; font-size:14px; }
-.quran-controls select{ min-width:150px; }
-.ayah{ margin-bottom:20px; }
-.ayah-ar{ font-size:28px; text-align:right; line-height:2; direction:rtl; font-family: 'Scheherazade New', serif; }
-.ayah-en{ font-size:16px; color:#555; margin-top:5px; text-align:left; direction:ltr; }
-.ayah-number{ font-size:14px; color:#666; margin-left:10px; display:inline-block; vertical-align:middle; }
-.ayah-play{ margin-right:8px; padding:4px 8px; border-radius:6px; border:1px solid #ccc; background:#f5f5f5; cursor:pointer; }
-audio#quranPlayer{ width:100%; margin:16px 0; }
+
+.quran-container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.quran-controls{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:20px;
+}
+
+.quran-controls select,
+.quran-controls button{
+padding:10px;
+font-size:15px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+.quran-controls select{
+min-width:160px;
+}
+
+.ayah{
+background:#fafafa;
+padding:15px;
+border-radius:8px;
+margin-bottom:15px;
+}
+
+.ayah-ar{
+font-size:28px;
+text-align:right;
+line-height:2;
+}
+
+.ayah-en{
+font-size:16px;
+text-align:left;
+color:#555;
+margin-top:6px;
+}
+
+.ayah-number{
+font-size:13px;
+color:#777;
+}
+
+.ayah-play{
+margin-right:10px;
+cursor:pointer;
+}
+
 </style>
 
 </head>
+
 <body>
 
 <div class="quran-container">
 
-  <h1>Quran Reader</h1>
+<h1>Quran Reader</h1>
 
-  <div class="quran-controls">
-    <select id="surahSelect"></select>
+<div class="quran-controls">
 
-    <select id="reciterSelect">
-      <option value="ar.alafasy">Mishary Alafasy</option>
-      <option value="ar.abdurrahmaansudais">Abdul Rahman Sudais</option>
-      <option value="ar.husary">Mahmoud Al-Husary</option>
-    </select>
+<select id="surahSelect"></select>
 
-    <button onclick="loadSurah()">Load Surah</button>
-  </div>
+<select id="reciterSelect">
+<option value="ar.alafasy">Mishary Alafasy</option>
+<option value="ar.abdurrahmaansudais">Abdul Rahman Sudais</option>
+<option value="ar.husary">Mahmoud Al-Husary</option>
+</select>
 
-  <audio id="quranPlayer" controls></audio>
+<button onclick="loadSurah()">Load Surah</button>
 
-  <div id="quranText"></div>
+</div>
+
+<audio id="quranPlayer" controls style="width:100%;margin-bottom:20px;"></audio>
+
+<div id="quranText"></div>
 
 </div>
 
 <script src="../assets/js/quran-reader.js"></script>
+
 </body>
 </html>
