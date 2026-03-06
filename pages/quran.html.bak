@@ -1,183 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quran Reader | BADAWY TV</title>
 
-<title>Quran Reader | Badawy TV</title>
-<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="../assets/css/layout.css">
 <link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/layout.css">
 <link rel="stylesheet" href="../assets/css/responsive.css">
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap");
 
 .quran-container{
 max-width:900px;
 margin:auto;
-padding:30px;
+padding:20px;
 }
 
 .quran-controls{
-<button id="night-toggle">🌙 Night Mode</button>
-position:sticky; top:0; background:white; z-index:100; padding:10px 0;
 display:flex;
-flex-wrap:wrap;
 gap:10px;
 margin-bottom:20px;
 }
 
 .quran-controls select,
-.quran-controls input{
+.quran-controls button{
 padding:10px;
+font-size:16px;
+}
+
+.ayah{
+.ayah-ar{font-size:28px;text-align:right;line-height:2;}
+.ayah-en{font-size:16px;text-align:left;color:#555;margin-top:5px;}
+margin-bottom:15px;
+font-size:26px;
+text-align:right;
+line-height:2;
+margin-bottom:10px;
+}
+
+.ayah-number{
+font-size:14px;
+color:#666;
+margin-left:10px;
+}
+
+.quran-controls{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin:20px 0;
+}
+.quran-controls select,.quran-controls button{
+padding:8px 12px;
 border-radius:6px;
 border:1px solid #ccc;
+font-size:14px;
 }
-
-.ayah{
-background:#fafafa; padding:14px; border-radius:8px;
-margin-bottom:22px;
-padding-bottom:12px;
-border-bottom:1px solid #eee;
-}
-
-.arabic{
-font-size:28px;
-text-align:right;
-font-family:'Scheherazade New', serif;
-line-height:1.9;
-}
-
-.translation{
-font-size:16px;
-color:#444;
-margin-top:6px;
-}
-
-audio{
-margin-top:6px;
-width:100%;
-}
-
-.ayah:hover{
-.ayah.playing{background:#e8f4ff;border-left:4px solid #2b7cff;padding-left:10px;}
-.ayah.playing{
-background:#f0f7ff;
-border-left:4px solid #2c7be5;
-padding-left:10px;
-}
-background:#f0f7ff;
-transition:0.2s;
-}
-body.dark-mode{background:#0b0b0b;color:#eee;}
-.dark-mode .ayah{border-bottom:1px solid #333;}
-.dark-mode .translation{color:#bbb;}
-.dark-mode .quran-container{background:#111;border-radius:10px;}
-
-.word-mode{color:#2e7d32;font-size:32px}
-
-.ayah{
-background:#fafafa;
-padding:20px;
-border-radius:10px;
-margin-bottom:20px;
-box-shadow:0 2px 6px rgba(0,0,0,0.05);
-transition:all 0.3s ease;
-}
-.ayah:hover{
-background:#f1f8e9;
-transform:scale(1.01);
-}
-.arabic{
-font-size:32px;
-text-align:right;
-line-height:2.2;
-direction:rtl;
-}
-.translation{
-font-size:17px;
-margin-top:10px;
-color:#444;
-line-height:1.6;
-}
-.quran-container{
-max-width:1000px;
-margin:auto;
-padding:30px;
-}
-
-.dark-mode{
-background:#0d1117;
-color:#e6edf3;
-}
-.dark-mode .ayah{
-background:#161b22;
-border:1px solid #30363d;
-}
-.dark-mode .translation{
-color:#c9d1d9;
-}
-.dark-mode .arabic{
-color:#f0f6fc;
-}
-.dark-mode button{
-background:#21262d;
-color:#e6edf3;
-border:1px solid #30363d;
+.quran-controls select{
+min-width:150px;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div id="header"></div>
-
 <div class="quran-container">
 
-<h1>📖 Holy Quran</h1>
-
-<p>Read, listen and reflect upon the Quran.</p>
+<h1>Quran Reader</h1>
 
 <div class="quran-controls">
 
-<select id="surah-select"></select>
-
-<select id="reciter-select">
-
-<option value="ar.alafasy">Mishary Alafasy</option>
-<option value="ar.abdurrahmaansudais">Abdul Rahman Al-Sudais</option>
-<option value="ar.husary">Mahmoud Khalil Al-Husary</option>
-
+<select id="surahSelect"></select>
+<select id="reciterSelect">
+<option value="ar.abdurrahmaansudais">Sudais</option>
+<option value="ar.husary">Husary</option>
 </select>
-
-<input type="number" id="ayah-input" placeholder="Ayah #" min="1">
-
-<button id="load-surah">Load</button>
- <button id="play-surah">▶ Play Surah</button>
-<button id="repeat-ayah">🔁 Repeat Ayah</button>
-
+<div id="quranText"></div>
+<audio id="quranPlayer" controls></audio>
+<button onclick="loadSurah()">Load Surah</button>
+<select id="reciterSelect"><option value="ar.alafasy">Mishary Alafasy</option><option value="ar.abdurrahmaansudais">Abdul Rahman Sudais</option><option value="ar.husary">Mahmoud Al-Husary</option></select>
+<audio id="quranPlayer" controls style="width:100%;margin-top:15px;"></audio>
 
 </div>
 
-<div id="surah-info" style="margin:20px 0;padding:15px;border:1px solid #eee;border-radius:8px;background:#fafafa">
-<h2 id="surah-title"></h2>
-<p id="surah-meta"></p>
-<button id="prev-surah">⬅ Previous</button>
-<button id="next-surah">Next ➡</button>
-</div>
-<div id="khatm-progress" style="margin:10px 0;font-weight:bold">Progress: 0 Surahs read</div>
-<div id="verses"></div>
+<div id="quranText"></div>
 
 </div>
 
 <script src="../assets/js/quran-reader.js"></script>
-<script src="../assets/js/components.js"></script>
 
-
-<script>var b=document.getElementById("night-toggle");if(b){b.onclick=function(){document.body.classList.toggle("dark-mode");};}</script>
 </body>
 </html>
