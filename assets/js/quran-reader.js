@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const surahSelect = document.getElementById("surahSelect");
 const quranText = document.getElementById("quranText");
+const player = document.getElementById("quranPlayer");
 
 /* Load Surah List */
 
@@ -44,6 +45,7 @@ const surahNumber = surahSelect.value;
 if(!surahNumber) return;
 
 const reciter = document.getElementById("reciterSelect").value;
+const audioURL="https://cdn.islamic.network/quran/audio-surah/128/"+reciter+"/"+surahNumber+".mp3"; player.src=audioURL;
 const res = await fetch("https://api.alquran.cloud/v1/surah/" + surahNumber + "/editions/quran-uthmani,en.sahih," + reciter);
 const json = await res.json();
 
