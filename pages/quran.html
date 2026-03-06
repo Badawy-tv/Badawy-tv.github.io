@@ -1,72 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="manifest" href="../manifest.json">
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<script src="../assets/quran/js/pageflip.js"></script>
-
 <title>Holy Quran | Badawy TV</title>
-
 
 <script src="../assets/js/quran-reader.js"></script>
 <script src="../assets/js/quran-search.js"></script>
+
+<style>
+body{
+font-family:sans-serif;
+background:#f4f4f4;
+margin:0;
+padding:20px;
+}
+
+.controls{
+margin-bottom:20px;
+}
+
+.ayah{
+background:white;
+padding:20px;
+margin-bottom:15px;
+border-radius:10px;
+font-size:22px;
+direction:rtl;
+}
+</style>
 
 </head>
 
 <body>
 
 <div class="controls">
-
-<button onclick="prevPage()">⬅</button>
-<button onclick="nextPage()">➡</button>
-
 <input id="search" placeholder="Search Quran">
-
 </div>
 
-<div id="book"></div>
+<div id="quran"></div>
 
-<script>
-
-const book=document.getElementById("book")
-
-for(let i=1;i<=604;i++){
-
-let p=document.createElement("div")
-p.className="page"
-
-let img=document.createElement("img")
-img.src="../assets/quran/pages/"+String(i).padStart(3,"0")+".jpg"
-
-p.appendChild(img)
-
-book.appendChild(p)
-
-}
-
-const flip=new St.PageFlip(book,{
-width:550,
-height:800,
-size:"stretch",
-maxShadowOpacity:0.5,
-showCover:true,
-mobileScrollSupport:true
-})
-
-flip.loadFromHTML(document.querySelectorAll(".page"))
-
-function nextPage(){
-flip.flipNext()
-}
-
-function prevPage(){
-flip.flipPrev()
-}
-
-</script>
-
-<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("../service-worker.js")}</script>
 </body>
 </html>
