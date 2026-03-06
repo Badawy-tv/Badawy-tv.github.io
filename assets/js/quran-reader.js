@@ -6,16 +6,17 @@ const quranText = document.getElementById("quranText");
 const player = document.getElementById("quranPlayer");
 /* Load Surah List */
 async function loadSurahList(){
-try{
 const res = await fetch("https://api.alquran.cloud/v1/surah");
-const json = await res.json();
-surahSelect.innerHTML = "";
-json.data.forEach(surah => {
-let opt = document.createElement("option");
-opt.value = surah.number;
-opt.textContent = surah.number + ". " + surah.englishName;
+const data = await res.json();
+const surahSelect = document.getElementById("surahSelect");
+surahSelect.innerHTML = "<option value="">Select Surah</option>";
+data.data.forEach(surah=>{
+const opt=document.createElement("option");
+opt.value=surah.number;
+opt.textContent=surah.number+" - "+surah.englishName;
 surahSelect.appendChild(opt);
 });
+}
 }catch(e){
 console.error("Surah list error:",e);
 }
