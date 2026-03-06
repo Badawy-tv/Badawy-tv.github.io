@@ -336,3 +336,47 @@ animation:navscroll 35s linear infinite;
 .main-nav:hover{animation-play-state:paused;}
 .main-nav a:hover{animation-play-state:paused;}
 
+
+/* ===== NAVBAR FIX ===== */
+
+.site-header{
+height:50px !important;
+min-height:50px !important;
+padding:4px 12px !important;
+display:flex;
+align-items:center;
+overflow:hidden;
+}
+
+/* brand area small */
+.brand{
+flex:0 0 auto;
+margin-right:10px;
+}
+
+/* navigation container */
+.main-nav{
+flex:1;
+display:flex;
+gap:25px;
+white-space:nowrap;
+animation:navmove 40s linear infinite;
+}
+
+/* navigation links */
+.main-nav a{
+font-size:14px;
+padding:4px 6px;
+}
+
+/* moving effect */
+@keyframes navmove{
+0%{transform:translateX(100%)}
+100%{transform:translateX(-100%)}
+}
+
+/* pause on hover */
+.main-nav:hover{
+animation-play-state:paused;
+}
+
