@@ -283,3 +283,30 @@ background:#0a7c3b;
 color:white;
 }
 
+/* Compact header */
+.site-header{padding:6px 12px;min-height:48px;}
+
+/* Moving navbar */
+.main-nav{
+display:flex;
+gap:30px;
+overflow:hidden;
+white-space:nowrap;
+position:relative;
+}
+
+.main-nav a{
+display:inline-block;
+padding:4px 10px;
+animation:navmove 25s linear infinite;
+}
+
+@keyframes navmove{
+0%{transform:translateX(120vw);}
+100%{transform:translateX(-120vw);}
+}
+
+/* Pause animation */
+.main-nav:hover a{animation-play-state:paused;}
+.main-nav a:active{animation-play-state:paused;}
+
