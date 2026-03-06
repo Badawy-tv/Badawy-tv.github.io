@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", () => {
 
 const surahSelect = document.getElementById("surahSelect");
 const quranText = document.getElementById("quranText");
@@ -9,31 +9,31 @@ async function loadSurahList(){
 
 try{
 
-const response = await fetch("https://api.alquran.cloud/v1/surah");
-const data = await response.json();
+const res = await fetch("https://api.alquran.cloud/v1/surah");
+const json = await res.json();
 
 surahSelect.innerHTML = "";
 
-data.data.forEach(surah => {
+json.data.forEach(surah => {
 
-let option = document.createElement("option");
+let opt = document.createElement("option");
 
-option.value = surah.number;
-option.textContent = surah.number + ". " + surah.englishName;
+opt.value = surah.number;
+opt.textContent = surah.number + ". " + surah.englishName;
 
-surahSelect.appendChild(option);
+surahSelect.appendChild(opt);
 
 });
 
-}catch(err){
+}catch(e){
 
-console.error(err);
-
-}
+console.error("Surah list error:",e);
 
 }
 
-/* Load Surah */
+}
+
+/* Load Selected Surah */
 
 window.loadSurah = async function(){
 
@@ -41,30 +41,36 @@ try{
 
 const surahNumber = surahSelect.value;
 
-const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/quran-uthmani`);
-const data = await response.json();
+if(!surahNumber) return;
+
+const res = await fetch("https://api.alquran.cloud/v1/surah/" + surahNumber + "/quran-uthmani");
+const json = await res.json();
 
 quranText.innerHTML = "";
 
-data.data.ayahs.forEach(ayah => {
+json.data.ayahs.forEach(ayah => {
 
-let div = document.createElement("div");
+const ayahDiv = document.createElement("div");
 
-div.className = "ayah";
+ayahDiv.className = "ayah";
 
-div.innerHTML = ayah.text + " <span class='ayah-number'>" + ayah.numberInSurah + "</span>";
+ayahDiv.innerHTML =
+ayah.text +
+' <span class="ayah-number">' +
+ayah.numberInSurah +
+"</span>";
 
-quranText.appendChild(div);
+quranText.appendChild(ayahDiv);
 
 });
 
-}catch(err){
+}catch(e){
 
-console.error(err);
-
-}
+console.error("Surah load error:",e);
 
 }
+
+};
 
 /* Start */
 
