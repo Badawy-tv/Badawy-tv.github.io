@@ -1,3 +1,166 @@
-# <-- NOW PASTE the ENTIRE HTML you copied from the canvas (Pages/quran). 
-# After the paste finishes, on a fresh new line type exactly:
-# EOF
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quran • Badawy TV</title>
+
+<style>
+
+body{
+margin:0;
+background:#0f172a;
+font-family:serif;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+}
+
+#book{
+width:900px;
+height:600px;
+background:#f8f5e4;
+border-radius:10px;
+box-shadow:0 0 40px rgba(0,0,0,.6);
+display:flex;
+overflow:hidden;
+position:relative;
+}
+
+.page{
+width:50%;
+padding:40px;
+overflow:auto;
+font-size:28px;
+line-height:2;
+}
+
+.left{
+border-right:1px solid #ccc;
+}
+
+.ayah{
+cursor:pointer;
+padding:10px;
+border-radius:8px;
+transition:.3s;
+}
+
+.ayah:hover{
+background:#eee;
+}
+
+.active{
+background:#ffeaa7;
+}
+
+.controls{
+position:absolute;
+bottom:10px;
+left:0;
+right:0;
+text-align:center;
+}
+
+button{
+padding:10px 20px;
+font-size:18px;
+border:none;
+border-radius:6px;
+background:#0ea5e9;
+color:white;
+cursor:pointer;
+margin:5px;
+}
+
+button:hover{
+background:#0284c7;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="book">
+
+<div class="page left" id="leftPage"></div>
+<div class="page" id="rightPage"></div>
+
+<div class="controls">
+<button onclick="playAll()">▶ Play</button>
+<button onclick="stopAll()">⏹ Stop</button>
+</div>
+
+</div>
+
+<script>
+
+const ayahs=[
+"بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+"الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+"الرَّحْمَٰنِ الرَّحِيمِ",
+"مَالِكِ يَوْمِ الدِّينِ",
+"إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
+"اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ",
+"صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ"
+];
+
+const left=document.getElementById("leftPage");
+const right=document.getElementById("rightPage");
+
+ayahs.forEach((a,i)=>{
+
+const el=document.createElement("div");
+el.className="ayah";
+el.innerText=a;
+el.onclick=()=>playAyah(i);
+
+if(i<4) left.appendChild(el);
+else right.appendChild(el);
+
+});
+
+let audio;
+let current=0;
+
+function playAyah(i){
+
+stopAll();
+
+current=i;
+
+document.querySelectorAll(".ayah").forEach(x=>x.classList.remove("active"));
+
+const el=document.querySelectorAll(".ayah")[i];
+el.classList.add("active");
+
+audio=new Audio("https://everyayah.com/data/Alafasy_64kbps/00100"+(i+1)+".mp3");
+
+audio.play();
+
+audio.onended=()=>{
+
+let next=i+1;
+
+if(next<ayahs.length){
+playAyah(next);
+}
+
+};
+
+}
+
+function playAll(){
+playAyah(0);
+}
+
+function stopAll(){
+if(audio) audio.pause();
+}
+
+</script>
+
+</body>
+</html>
