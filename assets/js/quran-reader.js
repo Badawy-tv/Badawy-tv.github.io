@@ -1,11 +1,28 @@
-document.getElementById("quranText").innerHTML = `
-<div class="ayah">
-بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-<span class="ayah-number">1</span>
+const surahSelect = document.getElementById("surahSelect");
+const quranText = document.getElementById("quranText");
 
-<div class="translation">
-In the name of Allah, the Most Gracious, the Most Merciful.
-</div>
+/* Load Surah List */
 
-</div>
-`
+async function loadSurahList(){
+
+const response = await fetch("https://api.alquran.cloud/v1/surah");
+const data = await response.json();
+
+surahSelect.innerHTML = "";
+
+data.data.forEach(surah => {
+
+let option = document.createElement("option");
+
+option.value = surah.number;
+option.textContent = surah.number + ". " + surah.englishName;
+
+surahSelect.appendChild(option);
+
+});
+
+}
+
+/* Initialize */
+
+loadSurahList();
