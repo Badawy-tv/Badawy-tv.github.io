@@ -1,4 +1,3 @@
-window.repeatMode=false;
 const prevBtn=document.getElementById("prev-surah");
 const nextBtn=document.getElementById("next-surah");
 
@@ -71,8 +70,10 @@ const audioURL =
 div.innerHTML =
 
 `
-<div class="arabic" onclick="this.classList.toggle('word-mode')">
+<div class="arabic" onclick="this.classList.toggle("word-mode")">
+${ayah.text} (${ayah.numberInSurah})
 </div>
+${ayah.text} (${ayah.numberInSurah})
 </div>
 
 <div class="translation">
@@ -80,7 +81,6 @@ ${translation[index].text}
 </div>
 
 <audio controls src="${audioURL}"></audio>
-onended="if(window.repeatMode){this.currentTime=0;this.play();}"
 <button class="tafsir-btn">📖 Tafsir</button>
 <button class="bookmark-btn">⭐ Bookmark</button>
 <br><a download href="${audioURL}">⬇ Download</a>
@@ -116,8 +116,8 @@ playNext();
 });
 }
 const repeatBtn=document.getElementById("repeat-ayah");
-const repeatBtn=document.getElementById("repeat-ayah");
-if(repeatBtn){repeatBtn.onclick=()=>{window.repeatMode=!window.repeatMode;repeatBtn.style.background=window.repeatMode?"#4caf50":""}}
+let repeatMode=false;
+if(repeatBtn){repeatBtn.onclick=()=>{repeatMode=!repeatMode;repeatBtn.style.background=repeatMode?"#4caf50":""}}
 
 
 
