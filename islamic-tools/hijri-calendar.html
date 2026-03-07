@@ -8,11 +8,12 @@
 <link rel="stylesheet" href="css/tools.css">
 
 <style>
+
 body{
 font-family:Arial, sans-serif;
 background:#f4f4f4;
 margin:0;
-padding:20px;
+padding:15px;
 }
 
 .calendar{
@@ -53,13 +54,12 @@ background:#eee;
 background:#4caf50;
 color:white;
 font-weight:bold;
-border-radius:5px;
 }
 
 .months{
 margin-top:25px;
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
 gap:10px;
 }
 
@@ -70,11 +70,32 @@ color:white;
 border:none;
 border-radius:6px;
 cursor:pointer;
+font-size:14px;
 }
 
 .month-btn:hover{
 background:#4b3db5;
 }
+
+/* MOBILE OPTIMIZATION */
+
+@media(max-width:600px){
+
+th,td{
+padding:6px;
+font-size:12px;
+}
+
+h1{
+font-size:20px;
+}
+
+#monthTitle{
+font-size:18px;
+}
+
+}
+
 </style>
 </head>
 
@@ -123,38 +144,32 @@ const hijriMonths=[
 "Dhul-Hijjah"
 ];
 
-function getHijriDate(){
-const today=new Date();
-const hijri=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{
-day:'numeric',
-month:'long',
-year:'numeric'
-}).format(today);
+let currentDay;
+let currentMonth;
+let currentYear;
 
-return hijri;
-}
-
-function buildCalendar(){
+function getHijriToday(){
 
 const today=new Date();
-const formatter=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{
+
+const parts=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{
 day:'numeric',
 month:'numeric',
 year:'numeric'
-});
-
-const parts=formatter.formatToParts(today);
-
-let hDay,hMonth,hYear;
+}).formatToParts(today);
 
 parts.forEach(p=>{
-if(p.type==="day")hDay=parseInt(p.value);
-if(p.type==="month")hMonth=parseInt(p.value);
-if(p.type==="year")hYear=p.value;
+if(p.type==="day") currentDay=parseInt(p.value);
+if(p.type==="month") currentMonth=parseInt(p.value);
+if(p.type==="year") currentYear=p.value;
 });
 
+}
+
+function buildCalendar(month){
+
 document.getElementById("monthTitle").innerText=
-hijriMonths[hMonth-1]+" "+hYear+" AH";
+hijriMonths[month-1]+" "+currentYear+" AH";
 
 const days=30;
 
@@ -168,15 +183,17 @@ for(let i=1;i<=days;i++){
 let cell=document.createElement("td");
 cell.innerText=i;
 
-if(i===hDay){
+if(month===currentMonth && i===currentDay){
 cell.className="today";
 }
 
 row.appendChild(cell);
 
 if(row.children.length===7){
+
 tbody.appendChild(row);
 row=document.createElement("tr");
+
 }
 
 }
@@ -196,7 +213,9 @@ btn.className="month-btn";
 btn.innerText=m;
 
 btn.onclick=()=>{
-document.getElementById("monthTitle").innerText=m;
+
+buildCalendar(i+1);
+
 };
 
 container.appendChild(btn);
@@ -205,7 +224,10 @@ container.appendChild(btn);
 
 }
 
-buildCalendar();
+getHijriToday();
+
+buildCalendar(currentMonth);
+
 buildMonths();
 
 </script>
