@@ -1,93 +1,69 @@
 
-async function getPrayerTimes(){
+const prayers = {
+Fajr:"05:20",
+Dhuhr:"12:40",
+Asr:"15:50",
+Maghrib:"18:45",
+Isha:"20:00"
+};
 
-if(!navigator.geolocation){
-document.getElementById("location").innerText="Location not supported";
-return;
-}
-
-navigator.geolocation.getCurrentPosition(async pos=>{
-
-const lat = pos.coords.latitude;
-const lon = pos.coords.longitude;
-
-const today = new Date();
-const day = today.getDate();
-const month = today.getMonth()+1;
-const year = today.getFullYear();
-
-const api = `https://api.aladhan.com/v1/timings/${day}-${month}-${year}?latitude=${lat}&longitude=${lon}&method=2`;
-
-const res = await fetch(api);
-const data = await res.json();
-
-const t = data.data.timings;
-
-document.getElementById("fajr").innerText=t.Fajr;
-document.getElementById("dhuhr").innerText=t.Dhuhr;
-document.getElementById("asr").innerText=t.Asr;
-document.getElementById("maghrib").innerText=t.Maghrib;
-document.getElementById("isha").innerText=t.Isha;
-
-document.getElementById("location").innerText =
-data.data.meta.timezone;
-
-startCountdown(t);
-
-});
-
-}
-
-function startCountdown(times){
-
-const prayers = [
-["Fajr",times.Fajr],
-["Dhuhr",times.Dhuhr],
-["Asr",times.Asr],
-["Maghrib",times.Maghrib],
-["Isha",times.Isha]
-];
-
-function update(){
+function nextPrayer(){
 
 const now = new Date();
+let nextName="";
+let nextTime=null;
 
-for(let p of prayers){
+for(const name in prayers){
 
-let [name,time]=p;
+const t = prayers[name].split(":");
 
-let parts=time.split(":");
+let prayer = new Date();
 
-let prayerTime=new Date();
+prayer.setHours(t[0]);
+prayer.setMinutes(t[1]);
+prayer.setSeconds(0);
 
-prayerTime.setHours(parts[0]);
-prayerTime.setMinutes(parts[1]);
-prayerTime.setSeconds(0);
+if(prayer > now){
 
-if(prayerTime>now){
-
-let diff=prayerTime-now;
-
-let h=Math.floor(diff/3600000);
-let m=Math.floor((diff%3600000)/60000);
-let s=Math.floor((diff%60000)/1000);
-
-document.getElementById("nextPrayer").innerText=name;
-
-document.getElementById("countdown").innerText=
-h+"h "+m+"m "+s+"s";
-
-return;
+nextName=name;
+nextTime=prayer;
+break;
 
 }
 
 }
 
+if(!nextTime){
+
+nextName="Fajr";
+const t = prayers["Fajr"].split(":");
+nextTime = new Date();
+nextTime.setDate(nextTime.getDate()+1);
+nextTime.setHours(t[0]);
+nextTime.setMinutes(t[1]);
+nextTime.setSeconds(0);
+
 }
 
-setInterval(update,1000);
+return {name:nextName,time:nextTime};
 
 }
 
-getPrayerTimes();
+function updateCountdown(){
+
+const n = nextPrayer();
+const now = new Date();
+
+const diff = n.time-now;
+
+const h = Math.floor(diff/3600000);
+const m = Math.floor((diff%3600000)/60000);
+const s = Math.floor((diff%60000)/1000);
+
+document.getElementById("prayerCountdown").innerText =
+"Next: "+n.name+" "+h+"h "+m+"m "+s+"s";
+
+}
+
+setInterval(updateCountdown,1000);
 
