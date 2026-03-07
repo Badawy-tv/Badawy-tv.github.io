@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prayer Countdown</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f2e23;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+h1{
+color:gold;
+}
+
+.card{
+background:#132f25;
+padding:20px;
+border-radius:10px;
+margin-top:20px;
+}
+
+.countdown{
+font-size:40px;
+color:gold;
+margin:10px 0;
+}
+
+.prayer{
+margin:5px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🕌 Prayer Countdown</h1>
+
+<div id="location"></div>
+
+<div class="card">
+
+<div id="nextPrayer"></div>
+
+<div class="countdown" id="countdown"></div>
+
+</div>
+
+<div class="card">
+
+<div id="prayerTimes"></div>
+
+</div>
+
+<script>
+
+const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"]
+
+let prayerTimes={}
+
+navigator.geolocation.getCurrentPosition(async function(pos){
+
+const lat=pos.coords.latitude
+const lon=pos.coords.longitude
+
+const geo=await fetch("https://api.bigdatacloud.net/data/reverse-geocode-client?latitude="+lat+"&longitude="+lon+"&localityLanguage=en")
+const geoData=await geo.json()
+
+document.getElementById("location").innerText=geoData.city+", "+geoData.countryName
+
+const res=await fetch("https://api.aladhan.com/v1/timings?latitude="+lat+"&longitude="+lon+"&method=2")
+const data=await res.json()
+
+prayerTimes=data.data.timings
+
+showTimes()
+startCountdown()
+
+})
+
+function showTimes(){
+
+let html=""
+
+prayers.forEach(p=>{
+
+html+="<div class='prayer'>"+p+" : "+prayerTimes[p]+"</div>"
+
+})
+
+document.getElementById("prayerTimes").innerHTML=html
+
+}
+
+function startCountdown(){
+
+setInterval(function(){
+
+const now=new Date()
+
+let nextPrayer=null
+let nextName=""
+
+for(let p of prayers){
+
+let t=prayerTimes[p].split(":")
+
+let prayerTime=new Date()
+
+prayerTime.setHours(t[0])
+prayerTime.setMinutes(t[1])
+prayerTime.setSeconds(0)
+
+if(prayerTime>now){
+nextPrayer=prayerTime
+nextName=p
+break
+}
+
+}
+
+if(!nextPrayer){
+
+let t=prayerTimes["Fajr"].split(":")
+
+nextPrayer=new Date()
+
+nextPrayer.setDate(now.getDate()+1)
+
+nextPrayer.setHours(t[0])
+nextPrayer.setMinutes(t[1])
+
+nextName="Fajr"
+
+}
+
+let diff=nextPrayer-now
+
+let h=Math.floor(diff/1000/60/60)
+let m=Math.floor(diff/1000/60)%60
+let s=Math.floor(diff/1000)%60
+
+document.getElementById("nextPrayer").innerText="Next Prayer: "+nextName
+
+document.getElementById("countdown").innerText=h+"h "+m+"m "+s+"s"
+
+},1000)
+
+}
+
+</script>
+
+</body>
+</html>
