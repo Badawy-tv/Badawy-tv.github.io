@@ -82,15 +82,31 @@
 </section>
 
 </main>
+<section class="stats container">
+<h2>📊 Channel Statistics</h2>
+<p>Subscribers: <span id="subCount">Loading...</span></p>
+<p>Total Videos: <span id="videoCount">Loading...</span></p>
+<p>Total Views: <span id="viewCount">Loading...</span></p>
+</section>
 <footer class="container">
 <p>© 2026 BADAWY TV – Authentic Islamic Knowledge</p>
 </footer>
-<script src="assets/js/components.js">
-</script>
-<script src="assets/js/donation-bar.js">
-</script>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
+async function fetchStats(){
+const API="AIzaSyCjj8SoDY2y_tXtlLuqlr6bQz8RlEQR7OA";
+const CHANNEL="UCkBBxPszQt3MT6O7cAgbj-w";
+const url=`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL}&key=${API}`;
+try{
+const r=await fetch(url);
+const d=await r.json();
+const s=d.items[0].statistics;
+document.getElementById("subCount").textContent=s.subscriberCount;
+document.getElementById("videoCount").textContent=s.videoCount;
+document.getElementById("viewCount").textContent=s.viewCount;
+}catch(e){console.log(e);}
+}
+fetchStats();
 const verses=[
 {ar:"إِنَّ مَعَ الْعُسْرِ يُسْرًا",en:"Indeed, with hardship comes ease.",ref:"Qur’an 94:6"},
 {ar:"فَاذْكُرُونِي أَذْكُرْكُمْ",en:"So remember Me; I will remember you.",ref:"Qur’an 2:152"},
@@ -102,7 +118,20 @@ const v=verses[Math.floor(Math.random()*verses.length)];
 document.getElementById("verse-text").innerHTML="<div style='font-size:24px;margin-bottom:6px'>"+v.ar+"</div><div>"+v.en+"</div>";
 document.getElementById("verse-ref").innerText=v.ref;
 });
-</script>
+async function fetchStats(){
+const API="AIzaSyCjj8SoDY2y_tXtlLuqlr6bQz8RlEQR7OA";
+const CHANNEL="UCkBBxPszQt3MT6O7cAgbj-w";
+const url=`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL}&key=${API}`;
+try{
+const r=await fetch(url);
+const d=await r.json();
+const s=d.items[0].statistics;
+document.getElementById("subCount").textContent=s.subscriberCount;
+document.getElementById("videoCount").textContent=s.videoCount;
+document.getElementById("viewCount").textContent=s.viewCount;
+}catch(e){console.log(e);}
+}
+fetchStats();
 <script>
 async function checkLive(){
 const API="AIzaSyCjj8SoDY2y_tXtlLuqlr6bQz8RlEQR7OA";
@@ -128,6 +157,19 @@ container.innerHTML=`<iframe width="100%" height="400" src="https://www.youtube.
 }
 checkLive();
 setInterval(checkLive,15000);
-</script>
+async function fetchStats(){
+const API="AIzaSyCjj8SoDY2y_tXtlLuqlr6bQz8RlEQR7OA";
+const CHANNEL="UCkBBxPszQt3MT6O7cAgbj-w";
+const url=`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL}&key=${API}`;
+try{
+const r=await fetch(url);
+const d=await r.json();
+const s=d.items[0].statistics;
+document.getElementById("subCount").textContent=s.subscriberCount;
+document.getElementById("videoCount").textContent=s.videoCount;
+document.getElementById("viewCount").textContent=s.viewCount;
+}catch(e){console.log(e);}
+}
+fetchStats();
 </body>
 </html>
