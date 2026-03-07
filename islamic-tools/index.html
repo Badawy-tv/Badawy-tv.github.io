@@ -4,27 +4,97 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Islamic Tools | Badawy TV</title>
+
 <link rel="stylesheet" href="css/tools.css">
+
+<style>
+
+body{
+background:#f5f5f5;
+font-family:Arial, sans-serif;
+margin:0;
+padding:0;
+}
+
+.header{
+background:#0b3d2e;
+color:white;
+padding:20px;
+text-align:center;
+font-size:26px;
+font-weight:bold;
+}
+
+.countdown{
+position:absolute;
+top:20px;
+left:20px;
+background:white;
+padding:10px 15px;
+border-radius:8px;
+box-shadow:0 2px 8px rgba(0,0,0,0.15);
+font-size:14px;
+}
+
+.tools{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:40px;
+max-width:900px;
+margin:auto;
+}
+
+.card{
+background:white;
+border-radius:10px;
+padding:25px;
+text-align:center;
+box-shadow:0 2px 10px rgba(0,0,0,0.15);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card a{
+text-decoration:none;
+font-size:18px;
+font-weight:bold;
+color:#0b3d2e;
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="prayer-countdown">
-Next Prayer: <span id="nextPrayer">Loading...</span><br>
-Time Remaining: <span id="countdown">--</span>
+<div class="countdown">
+Next Prayer: <span id="nextPrayer">Loading...</span>
 </div>
 
-<h1>Islamic Tools</h1>
+<div class="header">
+Islamic Tools
+</div>
 
-<div class="tools-grid">
+<div class="tools">
 
+<div class="card">
 <a href="hijri-calendar.html">Hijri Calendar</a>
+</div>
 
+<div class="card">
 <a href="prayer-times.html">Prayer Times</a>
+</div>
 
+<div class="card">
 <a href="qibla.html">Qibla Direction</a>
+</div>
 
+<div class="card">
 <a href="tasbih.html">Digital Tasbih</a>
+</div>
 
 </div>
 
