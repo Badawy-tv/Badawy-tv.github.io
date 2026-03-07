@@ -96,14 +96,9 @@ document.getElementById("verse-ref").innerText=v.ref;
 });
 </script>
 <script>
-fetch("https://www.youtube.com/@ahmadbadawytv/live",{method:"HEAD",mode:"no-cors"})
-.then(()=>{
-})
-.catch(()=>{});
-</script>
 <script>
 async function checkLive(){
-const API="YOUR_API_KEY";
+const API="AIZASyDVZIHi5rVAYeVyclG35CrMmUp-mCyiRtI";
 const CHANNEL="UCzkfS0XJmxkt2Cb8YGAAahQ";
 const url=`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL}&eventType=live&type=video&key=${API}`;
 const r=await fetch(url);
