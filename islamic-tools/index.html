@@ -56,6 +56,7 @@ font-weight:bold;
 color:#0b3d2e;
 }
 
+body{padding-bottom:80px;}
 </style>
 </head>
 
@@ -297,6 +298,7 @@ z-index:99999;
 color:gold;
 font-weight:bold;
 }
+body{padding-bottom:80px;}
 </style>
 
 <div id="floatingPrayerBar">
@@ -326,7 +328,7 @@ startCountdown(times);
 
 }catch(e){
 
-document.getElementById("nextPrayerName").textContent="Location blocked";
+initPrayerFallback();
 
 }
 
@@ -383,5 +385,25 @@ document.getElementById("prayerCountdown").textContent=h+"h "+m+"m "+s+"s";
 
 initPrayerBar();
 
+</script>
+
+
+<script>
+function initPrayerFallback(){
+
+const lat=21.4225;
+const lon=39.8262;
+
+fetch("https://api.aladhan.com/v1/timings?latitude="+lat+"&longitude="+lon+"&method=2")
+.then(r=>r.json())
+.then(data=>{
+
+const times=data.data.timings;
+
+startCountdown(times);
+
+});
+
+}
 </script>
 
