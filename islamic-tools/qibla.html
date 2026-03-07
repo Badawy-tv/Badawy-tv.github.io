@@ -12,9 +12,9 @@
 body{
 font-family:Arial,sans-serif;
 background:#f4f4f4;
-margin:0;
-padding:15px;
 text-align:center;
+margin:0;
+padding:20px;
 }
 
 .container{
@@ -22,7 +22,7 @@ max-width:600px;
 margin:auto;
 background:#fff;
 padding:20px;
-border-radius:10px;
+border-radius:12px;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
@@ -35,42 +35,78 @@ margin-bottom:20px;
 font-weight:bold;
 }
 
+/* Compass */
+
 .compass{
-width:200px;
-height:200px;
+width:260px;
+height:260px;
 margin:auto;
-border:8px solid #ddd;
-border-radius:50%;
 position:relative;
+border-radius:50%;
+background:
+radial-gradient(circle,#fff 60%,#e6d3a3 61%);
+border:8px solid #c8a96a;
 }
 
+/* Islamic decoration ring */
+
+.compass:before{
+content:"";
+position:absolute;
+top:-12px;
+left:-12px;
+right:-12px;
+bottom:-12px;
+border-radius:50%;
+border:4px dashed #c8a96a;
+}
+
+/* Direction labels */
+
+.dir{
+position:absolute;
+font-weight:bold;
+font-size:16px;
+}
+
+.n{top:-25px;left:50%;transform:translateX(-50%);}
+.s{bottom:-25px;left:50%;transform:translateX(-50%);}
+.e{right:-25px;top:50%;transform:translateY(-50%);}
+.w{left:-25px;top:50%;transform:translateY(-50%);}
+
+/* Arrow */
+
 .arrow{
+position:absolute;
+top:50%;
+left:50%;
 width:0;
 height:0;
-border-left:15px solid transparent;
-border-right:15px solid transparent;
-border-bottom:80px solid #4caf50;
+border-left:12px solid transparent;
+border-right:12px solid transparent;
+border-bottom:100px solid #2e7d32;
+transform-origin:50% 100%;
+transform:translate(-50%,-100%) rotate(0deg);
+transition:transform 0.4s ease;
+}
+
+/* center dot */
+
+.center{
+width:14px;
+height:14px;
+background:#444;
+border-radius:50%;
 position:absolute;
-top:40px;
+top:50%;
 left:50%;
-transform:translateX(-50%) rotate(0deg);
-transform-origin:50% 80%;
-transition:transform 0.5s ease;
+transform:translate(-50%,-50%);
 }
 
 .direction{
 margin-top:20px;
 font-size:18px;
 font-weight:bold;
-}
-
-@media(max-width:600px){
-
-.compass{
-width:160px;
-height:160px;
-}
-
 }
 
 </style>
@@ -85,7 +121,15 @@ height:160px;
 <div id="location">Detecting location...</div>
 
 <div class="compass">
+
+<div class="dir n">N</div>
+<div class="dir s">S</div>
+<div class="dir e">E</div>
+<div class="dir w">W</div>
+
 <div class="arrow" id="arrow"></div>
+<div class="center"></div>
+
 </div>
 
 <div class="direction" id="directionText"></div>
@@ -97,19 +141,17 @@ height:160px;
 const KAABA_LAT=21.4225;
 const KAABA_LON=39.8262;
 
-function toRad(deg){
-return deg*Math.PI/180;
-}
+/* convert */
 
-function toDeg(rad){
-return rad*180/Math.PI;
-}
+function toRad(d){return d*Math.PI/180;}
+function toDeg(r){return r*180/Math.PI;}
 
-function getQiblaDirection(lat,lon){
+/* qibla calculation */
+
+function getQibla(lat,lon){
 
 const φ1=toRad(lat);
 const φ2=toRad(KAABA_LAT);
-
 const Δλ=toRad(KAABA_LON-lon);
 
 const y=Math.sin(Δλ)*Math.cos(φ2);
@@ -124,7 +166,9 @@ return (θ+360)%360;
 
 }
 
-function updateCompass(qiblaAngle){
+/* compass update */
+
+function startCompass(qibla){
 
 if(window.DeviceOrientationEvent){
 
@@ -134,16 +178,27 @@ let heading=e.alpha;
 
 if(heading===null) return;
 
-let rotate=qiblaAngle-heading;
+let rotate=qibla-heading;
 
 document.getElementById("arrow").style.transform=
-"translateX(-50%) rotate("+rotate+"deg)";
+"translate(-50%,-100%) rotate("+rotate+"deg)";
 
 });
 
 }
 
 }
+
+/* fallback rotation (desktop) */
+
+function showStatic(qibla){
+
+document.getElementById("arrow").style.transform=
+"translate(-50%,-100%) rotate("+qibla+"deg)";
+
+}
+
+/* start */
 
 function start(){
 
@@ -152,20 +207,32 @@ navigator.geolocation.getCurrentPosition(pos=>{
 const lat=pos.coords.latitude;
 const lon=pos.coords.longitude;
 
-document.getElementById("location").innerText=
-"📍 Your Location";
+document.getElementById("location").innerText="📍 Your Location";
 
-const qibla=getQiblaDirection(lat,lon);
+const qibla=getQibla(lat,lon);
 
 document.getElementById("directionText").innerText=
-"Qibla Direction: "+qibla.toFixed(1)+"°";
+"Qibla: "+qibla.toFixed(1)+"°";
 
-updateCompass(qibla);
+startCompass(qibla);
+showStatic(qibla);
 
 },()=>{
 
+/* fallback Nairobi */
+
+const lat=-1.286389;
+const lon=36.817223;
+
 document.getElementById("location").innerText=
-"Location unavailable";
+"📍 Default: Nairobi";
+
+const qibla=getQibla(lat,lon);
+
+document.getElementById("directionText").innerText=
+"Qibla: "+qibla.toFixed(1)+"°";
+
+showStatic(qibla);
 
 });
 
