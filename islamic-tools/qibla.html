@@ -21,12 +21,9 @@ margin:15px;
 }
 
 .map-container{
-width:95%;
+width:100%;
 height:50vh;
-margin:auto;
-border-radius:10px;
 overflow:hidden;
-box-shadow:0 0 10px rgba(0,0,0,0.2);
 }
 
 #map{
@@ -49,6 +46,8 @@ height:100%;
 
 <script>
 
+/* create map */
+
 const map = new ol.Map({
 target: 'map',
 layers: [
@@ -60,46 +59,19 @@ view: new ol.View({
 center: ol.proj.fromLonLat([0,0]),
 zoom: 2
 })
-});
-
-let markerLayer
-
-function updateLocation(lat,lon){
-
-const coords = ol.proj.fromLonLat([lon,lat])
-
-map.getView().setCenter(coords)
-map.getView().setZoom(15)
-
-const marker = new ol.Feature({
-geometry: new ol.geom.Point(coords)
 })
 
-marker.setStyle(new ol.style.Style({
-image: new ol.style.Circle({
-radius:7,
-fill:new ol.style.Fill({color:'#2196f3'}),
-stroke:new ol.style.Stroke({color:'#fff',width:2})
-})
-}))
+/* marker layer */
 
-markerLayer = new ol.layer.Vector({
-source: new ol.source.Vector({
-features:[marker]
-})
+const markerSource = new ol.source.Vector()
+
+const markerLayer = new ol.layer.Vector({
+source: markerSource
 })
 
 map.addLayer(markerLayer)
 
-}
-
-if(navigator.geolocation){
-
-
-let markerFeature
-let markerSource = new ol.source.Vector()
-let markerLayer = new ol.layer.Vector({source:markerSource})
-map.addLayer(markerLayer)
+let marker
 
 function updateLocation(lat,lon){
 
@@ -108,29 +80,31 @@ const coords = ol.proj.fromLonLat([lon,lat])
 map.getView().setCenter(coords)
 map.getView().setZoom(17)
 
-if(!markerFeature){
+if(!marker){
 
-markerFeature = new ol.Feature({
+marker = new ol.Feature({
 geometry:new ol.geom.Point(coords)
 })
 
-markerFeature.setStyle(new ol.style.Style({
+marker.setStyle(new ol.style.Style({
 image:new ol.style.Circle({
 radius:8,
-fill:new ol.style.Fill({color:"#007bff"}),
+fill:new ol.style.Fill({color:"#2196f3"}),
 stroke:new ol.style.Stroke({color:"#fff",width:3})
 })
 }))
 
-markerSource.addFeature(markerFeature)
+markerSource.addFeature(marker)
 
 }else{
 
-markerFeature.getGeometry().setCoordinates(coords)
+marker.getGeometry().setCoordinates(coords)
 
 }
 
 }
+
+/* realtime GPS */
 
 if(navigator.geolocation){
 
@@ -146,7 +120,7 @@ updateLocation(lat,lon)
 },
 
 function(err){
-console.log("GPS error:",err)
+console.log(err)
 },
 
 {
@@ -157,3 +131,7 @@ timeout:5000
 
 }
 
+</script>
+
+</body>
+</html>
