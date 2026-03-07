@@ -22,7 +22,7 @@ margin:15px;
 
 .map-container{
 width:95%;
-height:80vh;
+height:50vh;
 margin:auto;
 border-radius:10px;
 overflow:hidden;
@@ -95,20 +95,65 @@ map.addLayer(markerLayer)
 
 if(navigator.geolocation){
 
-navigator.geolocation.watchPosition(function(pos){
+
+let markerFeature
+let markerSource = new ol.source.Vector()
+let markerLayer = new ol.layer.Vector({source:markerSource})
+map.addLayer(markerLayer)
+
+function updateLocation(lat,lon){
+
+const coords = ol.proj.fromLonLat([lon,lat])
+
+map.getView().setCenter(coords)
+map.getView().setZoom(17)
+
+if(!markerFeature){
+
+markerFeature = new ol.Feature({
+geometry:new ol.geom.Point(coords)
+})
+
+markerFeature.setStyle(new ol.style.Style({
+image:new ol.style.Circle({
+radius:8,
+fill:new ol.style.Fill({color:"#007bff"}),
+stroke:new ol.style.Stroke({color:"#fff",width:3})
+})
+}))
+
+markerSource.addFeature(markerFeature)
+
+}else{
+
+markerFeature.getGeometry().setCoordinates(coords)
+
+}
+
+}
+
+if(navigator.geolocation){
+
+navigator.geolocation.watchPosition(
+
+function(pos){
 
 const lat = pos.coords.latitude
 const lon = pos.coords.longitude
 
 updateLocation(lat,lon)
 
-},{
-enableHighAccuracy:true
+},
+
+function(err){
+console.log("GPS error:",err)
+},
+
+{
+enableHighAccuracy:true,
+maximumAge:0,
+timeout:5000
 })
 
 }
 
-</script>
-
-</body>
-</html>
