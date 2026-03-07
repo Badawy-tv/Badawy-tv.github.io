@@ -49,6 +49,16 @@ loading="lazy">
 
 </div>
 
+<section id="qiblaCompassSection">
+<h2>🧭 Qibla Compass</h2>
+<div class="compass-wrapper">
+<div class="compass">
+<div class="compass-ring"></div>
+<div class="compass-arrow" id="compassArrow"></div>
+<div class="kaaba"></div>
+</div>
+</div>
+</section>
 </body>
 </html>
 
@@ -300,3 +310,112 @@ document.getElementById("compassArrow").style.transform=
 
 </script>
 
+<style>
+#qiblaCompassSection{
+text-align:center;
+padding:30px 10px;
+}
+
+.compass-wrapper{
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.compass{
+position:relative;
+width:260px;
+height:260px;
+border-radius:50%;
+background:radial-gradient(circle,#f5f0d8,#c8b47a);
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+.compass-ring{
+position:absolute;
+width:100%;
+height:100%;
+border-radius:50%;
+border:10px solid #b8973d;
+background:repeating-conic-gradient(#8b6f2a 0deg 5deg,#d4af37 5deg 10deg);
+opacity:0.4;
+}
+
+.compass-arrow{
+position:absolute;
+top:50%;
+left:50%;
+width:6px;
+height:120px;
+background:red;
+transform-origin:50% 90%;
+transform:translate(-50%,-90%) rotate(0deg);
+border-radius:4px;
+}
+
+.kaaba{
+position:absolute;
+top:50%;
+left:50%;
+width:60px;
+height:60px;
+background:#111;
+transform:translate(-50%,-50%);
+border-radius:6px;
+}
+
+.kaaba:before{
+content:"";
+position:absolute;
+top:10px;
+left:0;
+width:100%;
+height:10px;
+background:gold;
+}
+</style>
+<script>
+
+const kaabaLat=21.4225
+const kaabaLon=39.8262
+let qiblaDirection=0
+
+function calculateQibla(lat,lon){
+const φ1=lat*Math.PI/180
+const φ2=kaabaLat*Math.PI/180
+const Δλ=(kaabaLon-lon)*Math.PI/180
+const y=Math.sin(Δλ)
+const x=Math.cos(φ1)*Math.tan(φ2)-Math.sin(φ1)*Math.cos(Δλ)
+let θ=Math.atan2(y,x)*180/Math.PI
+return (θ+360)%360
+}
+
+if(navigator.geolocation){
+navigator.geolocation.getCurrentPosition(function(pos){
+qiblaDirection=calculateQibla(
+pos.coords.latitude,
+pos.coords.longitude
+)
+})
+}
+
+window.addEventListener("deviceorientation",function(e){
+
+let heading
+
+if(e.webkitCompassHeading){
+heading=e.webkitCompassHeading
+}else if(e.alpha!==null){
+heading=360-e.alpha
+}else{
+return
+}
+
+const rotation=qiblaDirection-heading
+
+document.getElementById("compassArrow").style.transform=
+"translate(-50%,-90%) rotate("+rotation+"deg)"
+
+},true)
+
+</script>
