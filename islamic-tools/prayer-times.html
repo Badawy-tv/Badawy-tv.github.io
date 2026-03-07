@@ -6,18 +6,83 @@
 <title>Prayer Times</title>
 
 <link rel="stylesheet" href="css/tools.css">
+
+<style>
+
+body{
+font-family:Arial, sans-serif;
+background:#f4f4f4;
+margin:0;
+padding:15px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+}
+
+#location{
+text-align:center;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+text-align:center;
+}
+
+th,td{
+padding:12px;
+border:1px solid #ddd;
+}
+
+th{
+background:#eee;
+}
+
+.current{
+background:#4caf50;
+color:white;
+font-weight:bold;
+}
+
+/* Mobile optimization */
+
+@media(max-width:600px){
+
+th,td{
+padding:8px;
+font-size:14px;
+}
+
+h1{
+font-size:22px;
+}
+
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="tools-container">
+<div class="container">
 
 <h1>🕌 Prayer Times</h1>
 
-<div id="location"></div>
+<div id="location">Detecting location...</div>
 
-<table id="prayerTable">
-
+<table>
 <thead>
 <tr>
 <th>Prayer</th>
@@ -25,20 +90,72 @@
 </tr>
 </thead>
 
-<tbody>
-<tr><td>Fajr</td><td id="fajr"></td></tr>
-<tr><td>Sunrise</td><td id="sunrise"></td></tr>
-<tr><td>Dhuhr</td><td id="dhuhr"></td></tr>
-<tr><td>Asr</td><td id="asr"></td></tr>
-<tr><td>Maghrib</td><td id="maghrib"></td></tr>
-<tr><td>Isha</td><td id="isha"></td></tr>
-</tbody>
+<tbody id="prayerTable"></tbody>
 
 </table>
 
 </div>
 
-<script src="js/prayer.js"></script>
+<script>
+
+const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"];
+
+function getLocation(){
+
+navigator.geolocation.getCurrentPosition(pos=>{
+
+const lat=pos.coords.latitude;
+const lon=pos.coords.longitude;
+
+fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=2`)
+.then(res=>res.json())
+.then(data=>{
+
+const timings=data.data.timings;
+
+const city=data.data.meta.timezone;
+
+document.getElementById("location").innerText=
+"Location: "+city;
+
+const tbody=document.getElementById("prayerTable");
+
+tbody.innerHTML="";
+
+const now=new Date();
+const currentTime=now.getHours()*60+now.getMinutes();
+
+prayers.forEach(p=>{
+
+let time=timings[p];
+
+let parts=time.split(":");
+
+let minutes=parseInt(parts[0])*60+parseInt(parts[1]);
+
+let row=document.createElement("tr");
+
+if(currentTime>=minutes && currentTime<=minutes+60){
+row.className="current";
+}
+
+row.innerHTML=
+"<td>"+p+"</td>"+
+"<td>"+time+"</td>";
+
+tbody.appendChild(row);
+
+});
+
+});
+
+});
+
+}
+
+getLocation();
+
+</script>
 
 </body>
 </html>
