@@ -482,3 +482,46 @@ animation:heroGlow 12s linear infinite;
 100%{transform:rotate(360deg);}
 }
 
+
+/* ===== MEDIA / LECTURE CARD UPGRADE ===== */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+margin-top:40px;
+}
+
+.card{
+background:#ffffff;
+border-radius:14px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+transition:transform .3s ease, box-shadow .3s ease;
+}
+
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 20px 45px rgba(0,0,0,0.18);
+}
+
+.card img{
+width:100%;
+display:block;
+border-bottom:1px solid #eee;
+}
+
+.card h3{
+font-size:20px;
+padding:18px;
+margin:0;
+color:#222;
+}
+
+.card p{
+padding:0 18px 20px;
+font-size:15px;
+color:#555;
+line-height:1.5;
+}
+
