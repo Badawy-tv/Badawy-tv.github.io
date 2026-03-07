@@ -41,7 +41,7 @@ border:0;
 <div class="map-container">
 
 <iframe
-src="https://www.google.com/maps?q=0,0&z=15&output=embed"
+src=""
 allowfullscreen
 loading="lazy">
 </iframe>
@@ -50,3 +50,46 @@ loading="lazy">
 
 </body>
 </html>
+
+<script>
+
+const frame=document.querySelector("iframe")
+
+function loadMap(lat,lon){
+
+frame.src="https://www.google.com/maps?q="+lat+","+lon+"&z=17&output=embed"
+
+}
+
+/* FAST LOCATION DETECTION */
+
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(
+
+function(pos){
+
+loadMap(
+pos.coords.latitude,
+pos.coords.longitude
+)
+
+},
+
+function(){
+
+/* fallback location */
+frame.src="https://www.google.com/maps?q=0,0&z=2&output=embed"
+
+},
+
+{
+enableHighAccuracy:true,
+timeout:4000,
+maximumAge:0
+})
+
+}
+
+</script>
+
