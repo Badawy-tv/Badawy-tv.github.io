@@ -98,9 +98,24 @@ document.getElementById("verse-ref").innerText=v.ref;
 <script>
 fetch("https://www.youtube.com/@ahmadbadawytv/live",{method:"HEAD",mode:"no-cors"})
 .then(()=>{
-document.getElementById("live-btn").innerText="🔴 Live Now";
 })
 .catch(()=>{});
+</script>
+<script>
+async function checkLive(){
+const API="YOUR_API_KEY";
+const CHANNEL="UCzkfS0XJmxkt2Cb8YGAAahQ";
+const url=`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL}&eventType=live&type=video&key=${API}`;
+const r=await fetch(url);
+const d=await r.json();
+if(d.items && d.items.length>0){
+document.getElementById("live-btn").innerText="🔴 LIVE NOW";
+}else{
+document.getElementById("live-btn").innerText="Watch Live TV";
+}
+}
+checkLive();
+setInterval(checkLive,60000);
 </script>
 </body>
 </html>
