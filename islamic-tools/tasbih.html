@@ -11,7 +11,9 @@
 
 body{
 font-family:"Cairo",sans-serif;
-background:linear-gradient(180deg,#0b1d16,#0f2e23);
+background:
+radial-gradient(circle at center,#0f2e23,#081510),
+url("https://www.transparenttextures.com/patterns/arabesque.png");
 color:white;
 display:flex;
 flex-direction:column;
@@ -27,25 +29,47 @@ color:gold;
 margin-bottom:20px;
 }
 
-.counter{
-width:220px;
-height:220px;
+.ring{
+position:relative;
+width:260px;
+height:260px;
+}
+
+.bead{
+position:absolute;
+width:16px;
+height:16px;
+background:#145c44;
+border-radius:50%;
+border:1px solid gold;
+transition:0.2s;
+}
+
+.bead.active{
+background:gold;
+box-shadow:0 0 8px gold;
+}
+
+.center-btn{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:120px;
+height:120px;
 border-radius:50%;
 background:radial-gradient(circle,#1f3d30,#0a1a14);
-border:4px solid gold;
+border:3px solid gold;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:50px;
+font-size:32px;
 color:gold;
-box-shadow:0 0 30px rgba(0,0,0,0.6);
 cursor:pointer;
 }
 
 .controls{
-margin-top:20px;
-display:flex;
-gap:10px;
+margin-top:25px;
 }
 
 button{
@@ -62,16 +86,8 @@ button:hover{
 background:#1d7a5c;
 }
 
-select{
-margin-top:20px;
-padding:8px;
-border-radius:6px;
-border:none;
-}
-
 .progress{
-margin-top:15px;
-font-size:14px;
+margin-top:10px;
 color:gold;
 }
 
@@ -82,65 +98,107 @@ color:gold;
 
 <h1>Digital Tasbih</h1>
 
-<select id="dhikrSelect">
-<option value="33">SubhanAllah (33)</option>
-<option value="33">Alhamdulillah (33)</option>
-<option value="34">Allahu Akbar (34)</option>
-<option value="100">SubhanAllah wa bihamdihi (100)</option>
-<option value="9999">Free Count</option>
-</select>
-
-<div class="counter" id="counter">0</div>
-
-<div class="progress" id="progress"></div>
+<div class="ring" id="ring"></div>
 
 <div class="controls">
 <button onclick="resetCounter()">Reset</button>
 </div>
 
+<div class="progress" id="progress"></div>
+
+<audio id="clickSound">
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_6c7e2f9f2e.mp3">
+</audio>
+
 <script>
 
-let count=0
-let target=33
-
-const counter=document.getElementById("counter")
+const ring=document.getElementById("ring")
 const progress=document.getElementById("progress")
+const sound=document.getElementById("clickSound")
+
+let beads=33
+let count=0
+let cycle=[33,33,34]
+let cycleIndex=0
+let target=cycle[cycleIndex]
+
+const radius=110
+
+for(let i=0;i<33;i++){
+
+let bead=document.createElement("div")
+bead.className="bead"
+
+let angle=(i/33)*2*Math.PI
+
+let x=130+radius*Math.cos(angle)
+let y=130+radius*Math.sin(angle)
+
+bead.style.left=x+"px"
+bead.style.top=y+"px"
+
+ring.appendChild(bead)
+
+}
+
+const btn=document.createElement("div")
+btn.className="center-btn"
+btn.innerText="0"
+
+ring.appendChild(btn)
+
+const beadEls=document.querySelectorAll(".bead")
 
 function update(){
 
-counter.textContent=count
-progress.textContent=count+" / "+target
+btn.innerText=count
+progress.innerText="Dhikr "+(cycleIndex+1)+" : "+count+" / "+target
+
+beadEls.forEach((b,i)=>{
+
+if(i<count) b.classList.add("active")
+else b.classList.remove("active")
+
+})
 
 localStorage.setItem("tasbihCount",count)
 
 }
 
-counter.addEventListener("click",function(){
+btn.onclick=function(){
 
 count++
 
-if(navigator.vibrate) navigator.vibrate(30)
+sound.currentTime=0
+sound.play()
 
-if(count>target) count=target
+if(navigator.vibrate) navigator.vibrate(20)
 
-update()
+if(count>=target){
 
-})
+cycleIndex++
 
-function resetCounter(){
+if(cycleIndex>=cycle.length){
+cycleIndex=0
+}
 
+target=cycle[cycleIndex]
 count=0
+
+}
+
 update()
 
 }
 
-document.getElementById("dhikrSelect").addEventListener("change",function(){
+function resetCounter(){
 
-target=parseInt(this.value)
 count=0
+cycleIndex=0
+target=cycle[cycleIndex]
 update()
 
-})
+}
 
 const saved=localStorage.getItem("tasbihCount")
 
