@@ -1,45 +1,53 @@
-async function loadHijriCalendar(){
+document.addEventListener("DOMContentLoaded", function(){
 
-const today = new Date();
-const day = today.getDate();
-const month = today.getMonth()+1;
-const year = today.getFullYear();
+const months=[
+"Muharram","Safar","Rabi al-Awwal","Rabi al-Thani",
+"Jumada al-Awwal","Jumada al-Thani",
+"Rajab","Sha'ban","Ramadan",
+"Shawwal","Dhul Qa'dah","Dhul Hijjah"
+];
 
-const res = await fetch(`https://api.aladhan.com/v1/gToH?date=${day}-${month}-${year}`);
-const data = await res.json();
+const today=new Date();
 
-const hijriMonth = data.data.hijri.month.number;
-const hijriYear = data.data.hijri.year;
+const hijri=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{
+day:'numeric',
+month:'long',
+year:'numeric'
+}).formatToParts(today);
 
-const cal = await fetch(`https://api.aladhan.com/v1/hijriCalendar/${hijriYear}/${hijriMonth}`);
-const calendar = await cal.json();
+let hDay=hijri.find(p=>p.type==="day").value;
+let hMonth=hijri.find(p=>p.type==="month").value;
+let hYear=hijri.find(p=>p.type==="year").value;
 
-const table = document.getElementById("calendar");
+const monthIndex=months.findIndex(m=>m.toLowerCase().includes(hMonth.toLowerCase()));
 
-table.innerHTML="";
+document.getElementById("hijri-month").textContent=months[monthIndex]+" "+hYear;
 
-calendar.data.forEach(d =>{
+let table="";
+let day=1;
 
-const row = document.createElement("tr");
+for(let r=0;r<5;r++){
+table+="<tr>";
+for(let c=0;c<7;c++){
 
-const hDay = d.hijri.day;
-const gDay = d.gregorian.day;
+if(day<=30){
 
-row.innerHTML = `
-<td>${hDay}</td>
-<td>${gDay}</td>
-<td>${d.gregorian.weekday.en}</td>
-`;
-
-if(parseInt(hDay)===parseInt(data.data.hijri.day)){
-row.style.background="#e6f2ff";
-row.style.fontWeight="bold";
+if(day==hDay){
+table+=`<td style="background:#caa84c;color:white;font-weight:bold">${day}</td>`;
+}else{
+table+=`<td>${day}</td>`;
 }
 
-table.appendChild(row);
+day++;
+
+}else{
+table+="<td></td>";
+}
+
+}
+table+="</tr>";
+}
+
+document.getElementById("hijri-days").innerHTML=table;
 
 });
-
-}
-
-loadHijriCalendar();

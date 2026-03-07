@@ -1,38 +1,49 @@
+
 async function loadPrayerTimes(){
 
-try{
+if(!navigator.geolocation){
+document.getElementById("prayer-table").innerHTML="Location not supported";
+return;
+}
 
-const city="Nairobi";
-const country="Kenya";
+navigator.geolocation.getCurrentPosition(async function(pos){
 
-document.getElementById("location").innerHTML =
-"<b>Location:</b> "+city+", "+country;
+const lat=pos.coords.latitude;
+const lon=pos.coords.longitude;
 
-const response = await fetch(
-"https://api.aladhan.com/v1/timingsByCity?city="+city+"&country="+country+"&method=2"
-);
+const url=`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=2`;
 
-const data = await response.json();
+const res=await fetch(url);
+const data=await res.json();
 
-const t = data.data.timings;
+const t=data.data.timings;
 
-document.getElementById("fajr").innerText=t.Fajr;
-document.getElementById("sunrise").innerText=t.Sunrise;
-document.getElementById("dhuhr").innerText=t.Dhuhr;
-document.getElementById("asr").innerText=t.Asr;
-document.getElementById("maghrib").innerText=t.Maghrib;
-document.getElementById("isha").innerText=t.Isha;
+const prayers={
+Fajr:t.Fajr,
+Dhuhr:t.Dhuhr,
+Asr:t.Asr,
+Maghrib:t.Maghrib,
+Isha:t.Isha
+};
 
-}catch(e){
+let html="";
 
-console.log("Prayer API error",e);
+for(const p in prayers){
 
-document.querySelectorAll("#prayerTable td").forEach(td=>{
-if(td.innerText==="") td.innerText="--";
+html+=`
+<tr>
+<td>${p}</td>
+<td>${prayers[p]}</td>
+</tr>
+`;
+
+}
+
+document.getElementById("prayer-table").innerHTML=html;
+
 });
 
 }
 
-}
+document.addEventListener("DOMContentLoaded",loadPrayerTimes);
 
-loadPrayerTimes();
