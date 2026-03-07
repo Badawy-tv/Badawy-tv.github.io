@@ -1,15 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Hijri Date</title>
-<script src="js/hijri.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hijri Calendar</title>
+
+<link rel="stylesheet" href="css/tools.css">
 </head>
 
 <body>
 
-<h1>Hijri Date</h1>
+<div class="tools-container">
 
-<h2 id="hijri">Loading...</h2>
+<h1>📅 Hijri Calendar</h1>
+
+<div id="currentHijri"></div>
+
+<table id="calendarTable">
+<thead>
+<tr>
+<th>Month</th>
+<th>Arabic</th>
+<th>Days</th>
+</tr>
+</thead>
+
+<tbody id="hijriMonths"></tbody>
+
+</table>
+
+</div>
+
+<script src="js/hijri.js"></script>
 
 </body>
 </html>
