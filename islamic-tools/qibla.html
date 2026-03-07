@@ -161,7 +161,24 @@ opacity:0.8;
 <div class="pattern-divider"></div>
 
 <p style="text-align:center;opacity:0.8;">
-Compass will appear here.
+<div id="qibla-compass-container" style="display:flex;justify-content:center;margin-top:30px;">
+<div id="compass" style="position:relative;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,#1f3d30,#0a1a14);border:4px solid gold;box-shadow:0 0 25px rgba(0,0,0,0.6);">
+
+<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:gold;font-size:14px;">N</div>
+<div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);color:gold;font-size:14px;">S</div>
+<div style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:gold;font-size:14px;">W</div>
+<div style="position:absolute;right:10px;top:50%;transform:translateY(-50%);color:gold;font-size:14px;">E</div>
+
+<div id="compassArrow" style="position:absolute;top:50%;left:50%;width:6px;height:120px;background:red;border-radius:3px;transform-origin:50% 90%;transform:translate(-50%,-90%) rotate(0deg);box-shadow:0 0 10px red;"></div>
+
+<div style="position:absolute;top:50%;left:50%;width:60px;height:60px;background:#111;transform:translate(-50%,-50%);border-radius:6px;border:2px solid gold;"></div>
+
+</div>
+</div>
+
+<div style="text-align:center;margin-top:15px;font-size:14px;color:gold;">
+Direction updates as you rotate your phone
+</div>
 </p>
 
 </div>
@@ -174,3 +191,67 @@ Islamic Tools Platform
 
 </body>
 </html>
+
+<script>
+
+const kaabaLat = 21.4225;
+const kaabaLon = 39.8262;
+
+let qiblaDirection = 0;
+
+function calculateQibla(lat,lon){
+
+const φ1 = lat*Math.PI/180;
+const φ2 = kaabaLat*Math.PI/180;
+const Δλ = (kaabaLon-lon)*Math.PI/180;
+
+const y = Math.sin(Δλ);
+const x = Math.cos(φ1)*Math.tan(φ2)-Math.sin(φ1)*Math.cos(Δλ);
+
+let θ = Math.atan2(y,x)*180/Math.PI;
+
+return (θ+360)%360;
+
+}
+
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(function(pos){
+
+const lat = pos.coords.latitude;
+const lon = pos.coords.longitude;
+
+document.getElementById("latValue").textContent = lat.toFixed(5);
+document.getElementById("lonValue").textContent = lon.toFixed(5);
+
+qiblaDirection = calculateQibla(lat,lon);
+
+});
+
+}
+
+window.addEventListener("deviceorientation",function(e){
+
+let heading;
+
+if(e.webkitCompassHeading){
+heading = e.webkitCompassHeading;
+}else if(e.alpha !== null){
+heading = 360 - e.alpha;
+}else{
+return;
+}
+
+const rotation = qiblaDirection - heading;
+
+const arrow = document.getElementById("compassArrow");
+
+if(arrow){
+arrow.style.transform =
+"translate(-50%,-90%) rotate("+rotation+"deg)";
+}
+
+},true);
+
+</script>
+
