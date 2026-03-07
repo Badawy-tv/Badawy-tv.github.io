@@ -91,6 +91,8 @@
 <footer class="container">
 <p>© 2026 BADAWY TV – Authentic Islamic Knowledge</p>
 </footer>
+<script src="assets/js/components.js"></script>
+<script src="assets/js/donation-bar.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 async function fetchStats(){
@@ -106,7 +108,6 @@ document.getElementById("videoCount").textContent=s.videoCount;
 document.getElementById("viewCount").textContent=s.viewCount;
 }catch(e){console.log(e);}
 }
-fetchStats();
 const verses=[
 {ar:"إِنَّ مَعَ الْعُسْرِ يُسْرًا",en:"Indeed, with hardship comes ease.",ref:"Qur’an 94:6"},
 {ar:"فَاذْكُرُونِي أَذْكُرْكُمْ",en:"So remember Me; I will remember you.",ref:"Qur’an 2:152"},
@@ -132,6 +133,8 @@ document.getElementById("viewCount").textContent=s.viewCount;
 }catch(e){console.log(e);}
 }
 fetchStats();
+<script src="assets/js/components.js"></script>
+<script src="assets/js/donation-bar.js"></script>
 <script>
 async function checkLive(){
 const API="AIzaSyCjj8SoDY2y_tXtlLuqlr6bQz8RlEQR7OA";
@@ -171,5 +174,7 @@ document.getElementById("viewCount").textContent=s.viewCount;
 }catch(e){console.log(e);}
 }
 fetchStats();
+});
+</script>
 </body>
 </html>
