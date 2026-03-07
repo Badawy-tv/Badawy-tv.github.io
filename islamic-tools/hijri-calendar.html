@@ -6,34 +6,209 @@
 <title>Hijri Calendar</title>
 
 <link rel="stylesheet" href="css/tools.css">
+
+<style>
+body{
+font-family:Arial, sans-serif;
+background:#f4f4f4;
+margin:0;
+padding:20px;
+}
+
+.calendar{
+max-width:900px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+}
+
+#monthTitle{
+text-align:center;
+font-size:22px;
+margin-bottom:15px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+text-align:center;
+}
+
+th,td{
+padding:10px;
+border:1px solid #ddd;
+}
+
+th{
+background:#eee;
+}
+
+.today{
+background:#4caf50;
+color:white;
+font-weight:bold;
+border-radius:5px;
+}
+
+.months{
+margin-top:25px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:10px;
+}
+
+.month-btn{
+padding:10px;
+background:#6a5acd;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.month-btn:hover{
+background:#4b3db5;
+}
+</style>
 </head>
 
 <body>
-<h2 id="hijri-month"></h2>
-<table border="1" width="100%" style="border-collapse:collapse;text-align:center;"><thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead><tbody id="hijri-days"></tbody></table>
 
-<div class="tools-container">
+<div class="calendar">
 
 <h1>📅 Hijri Calendar</h1>
 
-<div id="currentHijri"></div>
+<div id="monthTitle"></div>
 
-<table id="calendarTable">
+<table>
 <thead>
 <tr>
-<th>Month</th>
-<th>Arabic</th>
-<th>Days</th>
+<th>Sun</th>
+<th>Mon</th>
+<th>Tue</th>
+<th>Wed</th>
+<th>Thu</th>
+<th>Fri</th>
+<th>Sat</th>
 </tr>
 </thead>
 
-<tbody id="hijriMonths"></tbody>
-
+<tbody id="calendarDays"></tbody>
 </table>
+
+<div class="months" id="monthsList"></div>
 
 </div>
 
-<script src="js/hijri.js" defer></script>
+<script>
+
+const hijriMonths=[
+"Muharram",
+"Safar",
+"Rabi al-Awwal",
+"Rabi al-Thani",
+"Jumada al-Awwal",
+"Jumada al-Thani",
+"Rajab",
+"Sha'ban",
+"Ramadan",
+"Shawwal",
+"Dhul-Qadah",
+"Dhul-Hijjah"
+];
+
+function getHijriDate(){
+const today=new Date();
+const hijri=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{
+day:'numeric',
+month:'long',
+year:'numeric'
+}).format(today);
+
+return hijri;
+}
+
+function buildCalendar(){
+
+const today=new Date();
+const formatter=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{
+day:'numeric',
+month:'numeric',
+year:'numeric'
+});
+
+const parts=formatter.formatToParts(today);
+
+let hDay,hMonth,hYear;
+
+parts.forEach(p=>{
+if(p.type==="day")hDay=parseInt(p.value);
+if(p.type==="month")hMonth=parseInt(p.value);
+if(p.type==="year")hYear=p.value;
+});
+
+document.getElementById("monthTitle").innerText=
+hijriMonths[hMonth-1]+" "+hYear+" AH";
+
+const days=30;
+
+let tbody=document.getElementById("calendarDays");
+tbody.innerHTML="";
+
+let row=document.createElement("tr");
+
+for(let i=1;i<=days;i++){
+
+let cell=document.createElement("td");
+cell.innerText=i;
+
+if(i===hDay){
+cell.className="today";
+}
+
+row.appendChild(cell);
+
+if(row.children.length===7){
+tbody.appendChild(row);
+row=document.createElement("tr");
+}
+
+}
+
+tbody.appendChild(row);
+
+}
+
+function buildMonths(){
+
+const container=document.getElementById("monthsList");
+
+hijriMonths.forEach((m,i)=>{
+
+let btn=document.createElement("button");
+btn.className="month-btn";
+btn.innerText=m;
+
+btn.onclick=()=>{
+document.getElementById("monthTitle").innerText=m;
+};
+
+container.appendChild(btn);
+
+});
+
+}
+
+buildCalendar();
+buildMonths();
+
+</script>
 
 </body>
 </html>
