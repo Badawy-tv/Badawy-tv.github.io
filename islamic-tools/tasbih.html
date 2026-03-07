@@ -12,7 +12,7 @@
 body{
 font-family:"Cairo",sans-serif;
 background:
-radial-gradient(circle at center,#0f2e23,#081510),
+radial-gradient(circle at center,#0f2e23,#050b09),
 url("https://www.transparenttextures.com/patterns/arabesque.png");
 color:white;
 display:flex;
@@ -21,61 +21,75 @@ align-items:center;
 justify-content:center;
 height:100vh;
 margin:0;
+overflow:hidden;
 }
 
 h1{
 font-family:"Amiri",serif;
 color:gold;
+margin-bottom:10px;
+}
+
+.subtitle{
+opacity:.7;
 margin-bottom:20px;
+font-size:14px;
 }
 
 .ring{
 position:relative;
-width:260px;
-height:260px;
+width:300px;
+height:300px;
+animation:rotateRing 40s linear infinite;
+}
+
+@keyframes rotateRing{
+from{transform:rotate(0deg)}
+to{transform:rotate(360deg)}
 }
 
 .bead{
 position:absolute;
-width:16px;
-height:16px;
-background:#145c44;
+width:18px;
+height:18px;
 border-radius:50%;
+background:#145c44;
 border:1px solid gold;
-transition:0.2s;
+box-shadow:0 0 4px rgba(0,0,0,.6);
+transition:.2s;
 }
 
 .bead.active{
 background:gold;
-box-shadow:0 0 8px gold;
+box-shadow:0 0 12px gold;
 }
 
-.center-btn{
+.center{
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-width:120px;
-height:120px;
+width:130px;
+height:130px;
 border-radius:50%;
 background:radial-gradient(circle,#1f3d30,#0a1a14);
 border:3px solid gold;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:32px;
+font-size:36px;
 color:gold;
 cursor:pointer;
 }
 
 .controls{
-margin-top:25px;
+margin-top:30px;
 }
 
 button{
 background:#145c44;
 border:none;
-padding:10px 20px;
+padding:10px 22px;
 border-radius:8px;
 color:white;
 font-size:14px;
@@ -87,8 +101,15 @@ background:#1d7a5c;
 }
 
 .progress{
-margin-top:10px;
+margin-top:12px;
 color:gold;
+font-size:14px;
+}
+
+.dhikrName{
+margin-top:6px;
+opacity:.8;
+font-size:13px;
 }
 
 </style>
@@ -97,16 +118,18 @@ color:gold;
 <body>
 
 <h1>Digital Tasbih</h1>
+<div class="subtitle">Tap the center to count</div>
 
 <div class="ring" id="ring"></div>
 
 <div class="controls">
-<button onclick="resetCounter()">Reset</button>
+<button onclick="resetTasbih()">Reset</button>
 </div>
 
 <div class="progress" id="progress"></div>
+<div class="dhikrName" id="dhikrName"></div>
 
-<audio id="clickSound">
+<audio id="click">
 <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_6c7e2f9f2e.mp3">
 </audio>
 
@@ -114,15 +137,20 @@ color:gold;
 
 const ring=document.getElementById("ring")
 const progress=document.getElementById("progress")
-const sound=document.getElementById("clickSound")
+const dhikrName=document.getElementById("dhikrName")
+const click=document.getElementById("click")
 
-let beads=33
-let count=0
-let cycle=[33,33,34]
+const dhikrCycle=[
+{name:"SubhanAllah",count:33},
+{name:"Alhamdulillah",count:33},
+{name:"Allahu Akbar",count:34}
+]
+
 let cycleIndex=0
-let target=cycle[cycleIndex]
+let target=dhikrCycle[0].count
+let count=0
 
-const radius=110
+const radius=130
 
 for(let i=0;i<33;i++){
 
@@ -131,8 +159,8 @@ bead.className="bead"
 
 let angle=(i/33)*2*Math.PI
 
-let x=130+radius*Math.cos(angle)
-let y=130+radius*Math.sin(angle)
+let x=150+radius*Math.cos(angle)
+let y=150+radius*Math.sin(angle)
 
 bead.style.left=x+"px"
 bead.style.top=y+"px"
@@ -141,20 +169,22 @@ ring.appendChild(bead)
 
 }
 
-const btn=document.createElement("div")
-btn.className="center-btn"
-btn.innerText="0"
+const center=document.createElement("div")
+center.className="center"
+center.innerText="0"
 
-ring.appendChild(btn)
+ring.appendChild(center)
 
-const beadEls=document.querySelectorAll(".bead")
+const beads=document.querySelectorAll(".bead")
 
 function update(){
 
-btn.innerText=count
-progress.innerText="Dhikr "+(cycleIndex+1)+" : "+count+" / "+target
+center.innerText=count
 
-beadEls.forEach((b,i)=>{
+progress.innerText=count+" / "+target
+dhikrName.innerText=dhikrCycle[cycleIndex].name
+
+beads.forEach((b,i)=>{
 
 if(i<count) b.classList.add("active")
 else b.classList.remove("active")
@@ -162,15 +192,16 @@ else b.classList.remove("active")
 })
 
 localStorage.setItem("tasbihCount",count)
+localStorage.setItem("tasbihCycle",cycleIndex)
 
 }
 
-btn.onclick=function(){
+center.onclick=function(){
 
 count++
 
-sound.currentTime=0
-sound.play()
+click.currentTime=0
+click.play()
 
 if(navigator.vibrate) navigator.vibrate(20)
 
@@ -178,11 +209,11 @@ if(count>=target){
 
 cycleIndex++
 
-if(cycleIndex>=cycle.length){
+if(cycleIndex>=dhikrCycle.length){
 cycleIndex=0
 }
 
-target=cycle[cycleIndex]
+target=dhikrCycle[cycleIndex].count
 count=0
 
 }
@@ -191,19 +222,25 @@ update()
 
 }
 
-function resetCounter(){
+function resetTasbih(){
 
 count=0
 cycleIndex=0
-target=cycle[cycleIndex]
+target=dhikrCycle[0].count
 update()
 
 }
 
-const saved=localStorage.getItem("tasbihCount")
+const savedCount=localStorage.getItem("tasbihCount")
+const savedCycle=localStorage.getItem("tasbihCycle")
 
-if(saved){
-count=parseInt(saved)
+if(savedCount){
+count=parseInt(savedCount)
+}
+
+if(savedCycle){
+cycleIndex=parseInt(savedCycle)
+target=dhikrCycle[cycleIndex].count
 }
 
 update()
