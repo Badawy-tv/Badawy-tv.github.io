@@ -41,7 +41,7 @@ border:0;
 <div class="map-container">
 
 <canvas id="qiblaLine" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
-<iframe
+<iframe src="https://www.google.com/maps?q=0,0<iframez=2<iframeoutput=embed"
 src=""
 allowfullscreen
 loading="lazy">
@@ -117,6 +117,7 @@ box-shadow:0 0 10px rgba(0,0,0,0.4);
 position:absolute;
 top:50%;
 left:50%;
+</script>
 width:60px;
 height:60px;
 background:#111;
@@ -178,26 +179,6 @@ const kaabaLat=21.4225
 const kaabaLon=39.8262
 let qiblaDirection=0
 
-function calculateQibla(lat,lon){
-const φ1=lat*Math.PI/180
-const φ2=kaabaLat*Math.PI/180
-const Δλ=(kaabaLon-lon)*Math.PI/180
-const y=Math.sin(Δλ)
-const x=Math.cos(φ1)*Math.tan(φ2)-Math.sin(φ1)*Math.cos(Δλ)
-let θ=Math.atan2(y,x)*180/Math.PI
-return (θ+360)%360
-}
-
-if(navigator.geolocation){
-navigator.geolocation.getCurrentPosition(function(pos){
-qiblaDirection=calculateQibla(
-pos.coords.latitude,
-pos.coords.longitude
-)
-})
-}
-
-window.addEventListener("deviceorientation",function(e){
 
 let heading
 
@@ -205,3 +186,45 @@ if(e.webkitCompassHeading){
 heading=e.webkitCompassHeading
 }else if(e.alpha!==null){
 heading=360-e.alpha
+<script>
+const kaabaLat = 21.4225;
+const kaabaLon = 39.8262;
+let qiblaDirection = 0;
+
+function calculateQibla(lat, lon){
+const φ1 = lat * Math.PI/180;
+const φ2 = kaabaLat * Math.PI/180;
+const Δλ = (kaabaLon - lon) * Math.PI/180;
+
+const y = Math.sin(Δλ);
+const x = Math.cos(φ1) * Math.tan(φ2) - Math.sin(φ1) * Math.cos(Δλ);
+let θ = Math.atan2(y, x) * 180/Math.PI;
+return (θ + 360) % 360;
+}
+
+if(navigator.geolocation){
+navigator.geolocation.getCurrentPosition(function(pos){
+const lat = pos.coords.latitude;
+const lon = pos.coords.longitude;
+qiblaDirection = calculateQibla(lat, lon);
+});
+}
+
+window.addEventListener("deviceorientation", function(e){
+let heading;
+
+if(e.webkitCompassHeading){
+heading = e.webkitCompassHeading;
+}else if(e.alpha !== null){
+heading = 360 - e.alpha;
+}else{
+return;
+}
+
+const rotation = qiblaDirection - heading;
+const arrow = document.getElementById("compassArrow");
+if(arrow){
+arrow.style.transform = "translate(-50%,-90%) rotate(" + rotation + "deg)";
+}
+}, true);
+</script>
