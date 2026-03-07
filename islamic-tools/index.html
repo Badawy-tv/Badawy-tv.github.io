@@ -91,3 +91,126 @@ Islamic Tools
 
 </body>
 </html>
+
+<section class="tool-card">
+
+<h2>🕌 Prayer Countdown</h2>
+
+<div id="location"></div>
+
+<div id="nextPrayer" style="font-size:20px;margin-top:10px;"></div>
+
+<div id="countdown" style="font-size:28px;color:gold;margin:10px 0;"></div>
+
+<div id="prayerTimes"></div>
+
+</section>
+
+<script>
+
+const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"]
+
+let prayerTimes={}
+
+async function loadPrayerTimes(){
+
+navigator.geolocation.getCurrentPosition(async function(pos){
+
+const lat=pos.coords.latitude
+const lon=pos.coords.longitude
+
+const geo=await fetch("https://api.bigdatacloud.net/data/reverse-geocode-client?latitude="+lat+"&longitude="+lon+"&localityLanguage=en")
+const geoData=await geo.json()
+
+document.getElementById("location").innerText=
+geoData.city+", "+geoData.countryName
+
+const res=await fetch("https://api.aladhan.com/v1/timings?latitude="+lat+"&longitude="+lon+"&method=2")
+
+const data=await res.json()
+
+prayerTimes=data.data.timings
+
+displayTimes()
+
+startCountdown()
+
+})
+
+}
+
+function displayTimes(){
+
+let html=""
+
+prayers.forEach(p=>{
+
+html+=p+" : "+prayerTimes[p]+"<br>"
+
+})
+
+document.getElementById("prayerTimes").innerHTML=html
+
+}
+
+function startCountdown(){
+
+setInterval(function(){
+
+const now=new Date()
+
+let next=null
+let nextName=""
+
+for(let p of prayers){
+
+let t=prayerTimes[p].split(":")
+
+let prayerDate=new Date()
+
+prayerDate.setHours(t[0])
+prayerDate.setMinutes(t[1])
+prayerDate.setSeconds(0)
+
+if(prayerDate>now){
+next=prayerDate
+nextName=p
+break
+}
+
+}
+
+if(!next){
+
+let t=prayerTimes["Fajr"].split(":")
+
+next=new Date()
+
+next.setDate(now.getDate()+1)
+
+next.setHours(t[0])
+next.setMinutes(t[1])
+
+nextName="Fajr"
+
+}
+
+let diff=next-now
+
+let h=Math.floor(diff/1000/60/60)
+let m=Math.floor(diff/1000/60)%60
+let s=Math.floor(diff/1000)%60
+
+document.getElementById("nextPrayer").innerText="Next Prayer: "+nextName
+
+document.getElementById("countdown").innerText=
+h+"h "+m+"m "+s+"s"
+
+},1000)
+
+}
+
+loadPrayerTimes()
+
+</script>
+
