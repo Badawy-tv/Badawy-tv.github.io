@@ -1,60 +1,176 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Google Map</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qibla Direction</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
-body{
+*{
 margin:0;
-font-family:Arial;
-background:#f4f4f4;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:"Cairo",sans-serif;
+background:linear-gradient(180deg,#0b1d16,#0f2e23);
+color:#f5f5f5;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+header{
+width:100%;
+padding:30px 20px;
 text-align:center;
+background:linear-gradient(90deg,#0f3b2e,#145c44);
+border-bottom:2px solid rgba(255,215,0,0.4);
+box-shadow:0 5px 20px rgba(0,0,0,0.4);
 }
 
-h2{
-margin:12px;
+header h1{
+font-family:"Amiri",serif;
+font-size:32px;
+letter-spacing:1px;
+color:gold;
 }
 
+header p{
+margin-top:8px;
+font-size:15px;
+opacity:0.85;
+}
+
+.main-container{
+width:100%;
+max-width:900px;
+padding:40px 20px;
+}
+
+.card{
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,215,0,0.25);
+border-radius:16px;
+padding:30px;
+margin-bottom:30px;
+backdrop-filter:blur(8px);
+box-shadow:0 10px 40px rgba(0,0,0,0.4);
+}
+
+.card h2{
+font-family:"Amiri",serif;
+color:gold;
+margin-bottom:15px;
+font-size:24px;
+}
+
+.pattern-divider{
+width:100%;
+height:2px;
+background:linear-gradient(90deg,transparent,gold,transparent);
+margin:25px 0;
+}
+
+.info-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:20px;
+margin-top:20px;
+}
+
+.info-box{
+background:rgba(0,0,0,0.35);
+border-radius:10px;
+padding:20px;
+text-align:center;
+border:1px solid rgba(255,215,0,0.25);
+}
+
+.info-box span{
+display:block;
+font-size:14px;
+opacity:0.8;
+margin-bottom:6px;
+}
+
+.info-box strong{
+font-size:18px;
+color:gold;
+}
+
+footer{
+margin-top:auto;
+width:100%;
+text-align:center;
+padding:20px;
+font-size:13px;
+background:#0a1a14;
+border-top:1px solid rgba(255,215,0,0.3);
+opacity:0.8;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Qibla Direction Tool</h1>
+<p>Find the direction of prayer from anywhere in the world</p>
+</header>
+
+<div class="main-container">
+
+<div class="card">
+<h2>Location Information</h2>
+<div class="pattern-divider"></div>
+
+<div class="info-grid">
+
+<div class="info-box">
+<span>Your Latitude</span>
+<strong id="latValue">--</strong>
+</div>
+
+<div class="info-box">
+<span>Your Longitude</span>
+<strong id="lonValue">--</strong>
+</div>
+
+<div class="info-box">
+<span>City</span>
+<strong id="cityValue">--</strong>
+</div>
+
+<div class="info-box">
+<span>Country</span>
+<strong id="countryValue">--</strong>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<h2>Qibla Direction</h2>
+<div class="pattern-divider"></div>
+
+<p style="text-align:center;opacity:0.8;">
+Compass will appear here.
+</p>
+
+</div>
+
+</div>
+
+<footer>
+Islamic Tools Platform
+</footer>
 
 </body>
 </html>
-
-<script>
-
-
-function loadMap(lat,lon){
-resizeCanvas()
-window.addEventListener("resize",resizeCanvas)
-
-function drawLine(angle){
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-const cx = canvas.width/2
-const cy = canvas.height/2
-
-const length = Math.max(canvas.width,canvas.height)
-
-const rad = angle*Math.PI/180
-
-const x = cx + length*Math.sin(rad)
-const y = cy - length*Math.cos(rad)
-
-ctx.beginPath()
-ctx.moveTo(cx,cy)
-ctx.lineTo(x,y)
-ctx.lineWidth = 4
-ctx.strokeStyle = "red"
-ctx.stroke()
-
-}
-
-border:10px solid #b8973d;
-box-shadow:inset 0 0 15px rgba(0,0,0,0.4);
-background-image:
-repeating-conic-gradient(#8b6f2a 0deg 5deg,#d4af37 5deg 10deg);
-opacity:0.4;
-}
-
