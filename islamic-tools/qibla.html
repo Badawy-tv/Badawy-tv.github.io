@@ -189,6 +189,34 @@ Direction updates as you rotate your phone
 Islamic Tools Platform
 </footer>
 
+<script>
+async function loadLocation(){
+if(!navigator.geolocation){return}
+navigator.geolocation.getCurrentPosition(async function(pos){
+const lat=pos.coords.latitude;
+const lon=pos.coords.longitude;
+
+document.getElementById("latValue").textContent=lat.toFixed(5);
+document.getElementById("lonValue").textContent=lon.toFixed(5);
+
+try{
+const res=await fetch("https://api.bigdatacloud.net/data/reverse-geocode-client?latitude="+lat+"&longitude="+lon+"&localityLanguage=en");
+const data=await res.json();
+
+if(document.getElementById("cityValue"))
+document.getElementById("cityValue").textContent=data.city||data.locality||"--";
+
+if(document.getElementById("countryValue"))
+document.getElementById("countryValue").textContent=data.countryName||"--";
+
+}catch(e){
+console.log(e);
+}
+});
+}
+
+loadLocation();
+</script>
 </body>
 </html>
 
