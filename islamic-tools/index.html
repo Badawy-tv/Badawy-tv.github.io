@@ -207,47 +207,6 @@ loadPrayerTimes()
 
 
 <style>
-#floatingPrayer{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:#0f2e23;
-color:white;
-text-align:center;
-padding:10px;
-border-top:2px solid gold;
-font-size:14px;
-z-index:9999;
-box-shadow:0 -2px 10px rgba(0,0,0,0.4);
-}
-
-#floatingPrayer span{
-color:gold;
-font-weight:bold;
-margin-left:5px;
-}
-</style>
-
-<div id="floatingPrayer">
-🕌 Next Prayer: <span id="nextPrayerName">Loading...</span>
-| ⏳ <span id="prayerCountdown">--:--:--</span>
-</div>
-
-<script>
-
-
-<script>
-
-const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"];
-let prayerTimes={};
-
-async function loadPrayerTimes(){
-
-try{
-
-const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej));
-
 const lat=pos.coords.latitude;
 const lon=pos.coords.longitude;
 
@@ -316,6 +275,113 @@ document.getElementById("prayerCountdown").innerText=h+"h "+m+"m "+s+"s";
 }
 
 loadPrayerTimes();
+
+</script>
+
+
+<style>
+#floatingPrayerBar{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#0f2e23;
+color:#fff;
+text-align:center;
+padding:12px;
+border-top:3px solid gold;
+font-size:16px;
+z-index:99999;
+}
+#floatingPrayerBar span{
+color:gold;
+font-weight:bold;
+}
+</style>
+
+<div id="floatingPrayerBar">
+🕌 Next Prayer: <span id="nextPrayerName">Loading...</span>
+ | ⏳ <span id="prayerCountdown">--</span>
+</div>
+
+<script>
+
+const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"];
+
+async function initPrayerBar(){
+
+try{
+
+const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej));
+
+const lat=pos.coords.latitude;
+const lon=pos.coords.longitude;
+
+const r=await fetch("https://api.aladhan.com/v1/timings?latitude="+lat+"&longitude="+lon+"&method=2");
+const data=await r.json();
+
+const times=data.data.timings;
+
+startCountdown(times);
+
+}catch(e){
+
+document.getElementById("nextPrayerName").textContent="Location blocked";
+
+}
+
+}
+
+function startCountdown(times){
+
+setInterval(()=>{
+
+const now=new Date();
+
+let nextName="";
+let nextTime=null;
+
+for(let p of prayers){
+
+let [h,m]=times[p].split(":");
+
+let t=new Date();
+t.setHours(h,m,0);
+
+if(t>now){
+nextName=p;
+nextTime=t;
+break;
+}
+
+}
+
+if(!nextTime){
+
+let [h,m]=times["Fajr"].split(":");
+
+nextTime=new Date();
+nextTime.setDate(now.getDate()+1);
+nextTime.setHours(h,m,0);
+
+nextName="Fajr";
+
+}
+
+let diff=nextTime-now;
+
+let h=Math.floor(diff/1000/60/60);
+let m=Math.floor(diff/1000/60)%60;
+let s=Math.floor(diff/1000)%60;
+
+document.getElementById("nextPrayerName").textContent=nextName;
+document.getElementById("prayerCountdown").textContent=h+"h "+m+"m "+s+"s";
+
+},1000);
+
+}
+
+initPrayerBar();
 
 </script>
 
