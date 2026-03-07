@@ -46,6 +46,11 @@
 </div>
 </div>
 </section>
+<section class="daily-verse container">
+<h2>📜 Qur'an Reminder</h2>
+<p id="verse-text">Loading verse...</p>
+<p id="verse-ref"></p>
+</section>
 
 <section class="academy container">
 <h2>🎓 Islamic Academy</h2>
@@ -73,5 +78,18 @@
 </footer>
 <script src="assets/js/components.js"></script>
 <script src="assets/js/donation-bar.js"></script>
+<script>
+const verses=[
+{text:"And whoever fears Allah – He will make for him a way out.",ref:"Qur’an 65:2"},
+{text:"Indeed, Allah does not change the condition of a people until they change what is in themselves.",ref:"Qur’an 13:11"},
+{text:"So remember Me; I will remember you.",ref:"Qur’an 2:152"},
+{text:"And rely upon Allah; and sufficient is Allah as Disposer of affairs.",ref:"Qur’an 33:3"},
+{text:"Indeed, with hardship comes ease.",ref:"Qur’an 94:6"},
+{text:"And whoever puts his trust in Allah, then He will suffice him.",ref:"Qur’an 65:3"}
+];
+const v=verses[Math.floor(Math.random()*verses.length)];
+document.getElementById("verse-text").innerText=v.text;
+document.getElementById("verse-ref").innerText=v.ref;
+</script>
 </body>
 </html>
