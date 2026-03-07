@@ -1,69 +1,38 @@
+async function loadPrayerTimes(){
 
-const prayers = {
-Fajr:"05:20",
-Dhuhr:"12:40",
-Asr:"15:50",
-Maghrib:"18:45",
-Isha:"20:00"
-};
+try{
 
-function nextPrayer(){
+const city="Nairobi";
+const country="Kenya";
 
-const now = new Date();
-let nextName="";
-let nextTime=null;
+document.getElementById("location").innerHTML =
+"<b>Location:</b> "+city+", "+country;
 
-for(const name in prayers){
+const response = await fetch(
+"https://api.aladhan.com/v1/timingsByCity?city="+city+"&country="+country+"&method=2"
+);
 
-const t = prayers[name].split(":");
+const data = await response.json();
 
-let prayer = new Date();
+const t = data.data.timings;
 
-prayer.setHours(t[0]);
-prayer.setMinutes(t[1]);
-prayer.setSeconds(0);
+document.getElementById("fajr").innerText=t.Fajr;
+document.getElementById("sunrise").innerText=t.Sunrise;
+document.getElementById("dhuhr").innerText=t.Dhuhr;
+document.getElementById("asr").innerText=t.Asr;
+document.getElementById("maghrib").innerText=t.Maghrib;
+document.getElementById("isha").innerText=t.Isha;
 
-if(prayer > now){
+}catch(e){
 
-nextName=name;
-nextTime=prayer;
-break;
+console.log("Prayer API error",e);
 
-}
-
-}
-
-if(!nextTime){
-
-nextName="Fajr";
-const t = prayers["Fajr"].split(":");
-nextTime = new Date();
-nextTime.setDate(nextTime.getDate()+1);
-nextTime.setHours(t[0]);
-nextTime.setMinutes(t[1]);
-nextTime.setSeconds(0);
+document.querySelectorAll("#prayerTable td").forEach(td=>{
+if(td.innerText==="") td.innerText="--";
+});
 
 }
 
-return {name:nextName,time:nextTime};
-
 }
 
-function updateCountdown(){
-
-const n = nextPrayer();
-const now = new Date();
-
-const diff = n.time-now;
-
-const h = Math.floor(diff/3600000);
-const m = Math.floor((diff%3600000)/60000);
-const s = Math.floor((diff%60000)/1000);
-
-document.getElementById("prayerCountdown").innerText =
-"Next: "+n.name+" "+h+"h "+m+"m "+s+"s";
-
-}
-
-setInterval(updateCountdown,1000);
-
+loadPrayerTimes();
