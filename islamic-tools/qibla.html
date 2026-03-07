@@ -152,141 +152,88 @@ cursor:pointer;
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-
-const KAABA_LAT=21.4225
-const KAABA_LON=39.8262
-
-let qiblaBearing=0
+const KAABA_LAT=21.4225;
+const KAABA_LON=39.8262;
+let qiblaBearing=0;
 
 function toRad(d){return d*Math.PI/180}
 function toDeg(r){return r*180/Math.PI}
 
-/* calculate qibla */
-
 function calculateQibla(lat,lon){
+const φ1=toRad(lat);
+const φ2=toRad(KAABA_LAT);
+const Δλ=toRad(KAABA_LON-lon);
 
-const φ1=toRad(lat)
-const φ2=toRad(KAABA_LAT)
-const Δλ=toRad(KAABA_LON-lon)
-
-const y=Math.sin(Δλ)*Math.cos(φ2)
+const y=Math.sin(Δλ)*Math.cos(φ2);
 const x=Math.cos(φ1)*Math.sin(φ2)-
-Math.sin(φ1)*Math.cos(φ2)*Math.cos(Δλ)
+Math.sin(φ1)*Math.cos(φ2)*Math.cos(Δλ);
 
-let θ=Math.atan2(y,x)
-
-θ=toDeg(θ)
-
-return (θ+360)%360
-
+let θ=Math.atan2(y,x);
+θ=toDeg(θ);
+return (θ+360)%360;
 }
 
-/* compass update */
-
-function updateCompass(heading){
-
-const rotation=qiblaBearing-heading
-
+function rotateArrow(heading){
+const rotation=qiblaBearing-heading;
 document.getElementById("arrow").style.transform=
-"translate(-50%,-120%) rotate("+rotation+"deg)"
-
+"translate(-50%,-120%) rotate("+rotation+"deg)";
 }
 
-/* start compass sensors */
+function handleOrientation(event){
+let heading;
+
+if(event.webkitCompassHeading){
+heading=event.webkitCompassHeading;
+}else if(event.alpha!==null){
+heading=360-event.alpha;
+}else{
+return;
+}
+
+rotateArrow(heading);
+}
 
 function enableCompass(){
-
 if(typeof DeviceOrientationEvent.requestPermission==="function"){
-
 DeviceOrientationEvent.requestPermission().then(response=>{
-
 if(response==="granted"){
-
-window.addEventListener("deviceorientation",e=>{
-if(e.alpha!==null){
-updateCompass(e.alpha)
+window.addEventListener("deviceorientation",handleOrientation,true);
 }
-})
-
-}
-
-})
-
+}).catch(console.error);
 }else{
-
-window.addEventListener("deviceorientation",e=>{
-if(e.alpha!==null){
-updateCompass(e.alpha)
+window.addEventListener("deviceorientationabsolute",handleOrientation,true);
+window.addEventListener("deviceorientation",handleOrientation,true);
 }
-})
-
 }
-
-}
-
-/* map */
-
-function loadMap(lat,lon){
-
-const map=L.map('map').setView([lat,lon],4)
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-maxZoom:19
-}).addTo(map)
-
-const user=L.marker([lat,lon]).addTo(map)
-
-const kaaba=L.marker([KAABA_LAT,KAABA_LON]).addTo(map)
-
-const line=L.polyline([
-[lat,lon],
-[KAABA_LAT,KAABA_LON]
-],{color:'green'}).addTo(map)
-
-map.fitBounds(line.getBounds())
-
-}
-
-/* start */
 
 function start(){
-
 navigator.geolocation.getCurrentPosition(pos=>{
+const lat=pos.coords.latitude;
+const lon=pos.coords.longitude;
 
-const lat=pos.coords.latitude
-const lon=pos.coords.longitude
+document.getElementById("location").innerText="📍 Your Location";
 
-document.getElementById("location").innerText="📍 Your Location"
-
-qiblaBearing=calculateQibla(lat,lon)
+qiblaBearing=calculateQibla(lat,lon);
 
 document.getElementById("directionText").innerText=
-"Qibla direction: "+qiblaBearing.toFixed(1)+"°"
-
-loadMap(lat,lon)
+"Qibla: "+qiblaBearing.toFixed(1)+"°";
 
 },()=>{
+const lat=-1.286389;
+const lon=36.817223;
 
-const lat=-1.286389
-const lon=36.817223
+document.getElementById("location").innerText="📍 Default: Nairobi";
 
-document.getElementById("location").innerText="📍 Default: Nairobi"
-
-qiblaBearing=calculateQibla(lat,lon)
+qiblaBearing=calculateQibla(lat,lon);
 
 document.getElementById("directionText").innerText=
-"Qibla direction: "+qiblaBearing.toFixed(1)+"°"
-
-loadMap(lat,lon)
-
-})
-
+"Qibla: "+qiblaBearing.toFixed(1)+"°";
+});
 }
 
-document.getElementById("motionBtn").onclick=enableCompass
+document.getElementById("motionBtn").addEventListener("click",enableCompass);
 
-start()
-
+start();
 </script>
 
 </body>
