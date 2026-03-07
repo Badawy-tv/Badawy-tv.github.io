@@ -193,8 +193,10 @@ Islamic Tools Platform
 async function loadLocation(){
 if(!navigator.geolocation){return}
 navigator.geolocation.getCurrentPosition(async function(pos){
+console.log("GPS:",lat,lon);
 const lat=pos.coords.latitude;
 const lon=pos.coords.longitude;
+console.log("GPS:",lat,lon);
 
 document.getElementById("latValue").textContent=lat.toFixed(5);
 document.getElementById("lonValue").textContent=lon.toFixed(5);
@@ -215,7 +217,7 @@ console.log(e);
 });
 }
 
-loadLocation();
+window.addEventListener("load",loadLocation);
 </script>
 </body>
 </html>
@@ -245,6 +247,7 @@ return (θ+360)%360;
 if(navigator.geolocation){
 
 navigator.geolocation.getCurrentPosition(function(pos){
+console.log("GPS:",lat,lon);
 
 const lat = pos.coords.latitude;
 const lon = pos.coords.longitude;
