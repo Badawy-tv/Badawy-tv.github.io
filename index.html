@@ -73,13 +73,21 @@
 </div>
 </section>
 
+<section class="live container">
+<h2>🔴 Live TV</h2>
+<p>Watch the live broadcast from our YouTube channel.</p>
+<div style="margin-top:20px">
+<a id="live-btn" class="btn btn-primary" href="pages/live.html">Watch Live TV</a>
+</div>
+</section>
+
 </main>
 <footer class="container">
 <p>© 2026 BADAWY TV – Authentic Islamic Knowledge</p>
 </footer>
-<script src="assets/js/components.js">});
+<script src="assets/js/components.js">
 </script>
-<script src="assets/js/donation-bar.js">});
+<script src="assets/js/donation-bar.js">
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -94,6 +102,24 @@ const v=verses[Math.floor(Math.random()*verses.length)];
 document.getElementById("verse-text").innerHTML="<div style='font-size:24px;margin-bottom:6px'>"+v.ar+"</div><div>"+v.en+"</div>";
 document.getElementById("verse-ref").innerText=v.ref;
 });
+</script>
+<script>
+async function checkLive(){
+const API="AIzaSyCjj8SoDY2y_tXtlLuqlr6bQz8RlEQR7OA";
+const CHANNEL="UCNHcuGHlZ1vvSTxvpDrIECA";
+const url=`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL}&eventType=live&type=video&key=${API}`;
+try{
+const r=await fetch(url);
+const d=await r.json();
+const btn=document.getElementById("live-btn");
+if(btn){
+if(d.items && d.items.length>0){btn.innerText="🔴 LIVE NOW";}
+else{btn.innerText="Watch Live TV";}
+}
+}catch(e){}
+}
+checkLive();
+setInterval(checkLive,15000);
 </script>
 </body>
 </html>
