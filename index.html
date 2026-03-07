@@ -1,3 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BADAWY TV – Authentic Islamic Knowledge</title>
+
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/images/favicon.png">
+</head>
+
+<body>
+
+<header class="site-header container">
+
+<div class="brand">
+<a href="index.html"></a>
+</div>
+
+<nav class="main-nav">
+<a href="index.html">Home</a>
+<a href="pages/live.html">Live TV</a>
+<a href="pages/lectures.html">Lectures</a>
+<a href="pages/quran.html">Quran</a>
+<a href="pages/articles.html">Articles</a>
+<a href="pages/donate.html">Contact</a>
+</nav>
+
+
+</header>
+
+<main>
+
+<section class="hero">
+<div class="hero-inner">
+<div id="hero-verse" style="margin-bottom:18px;font-size:18px;opacity:0.9">
+<span id="verse-text">Loading verse...</span><br>
+<small id="verse-ref"></small>
+</div>
+<h1>Welcome to BADAWY TV</h1>
+<p>Authentic Islamic knowledge, Quran recitation, lectures and guidance based on the Quran and Sunnah.</p>
+<div class="hero-ctas">
+<a class="btn btn-secondary" href="pages/articles.html">Read Lectures</a>
+<a class="btn btn-primary" href="pages/lectures.html">Watch Lectures</a>
+  <a class="btn btn-primary" href="pages/live.html">Watch Live TV</a>
+<a class="btn btn-secondary" href="pages/donate.html">Support Dawah</a>
+</div>
+</div>
+</section>
+
+<section class="academy container">
+<h2>🎓 Islamic Academy</h2>
+<p>Structured Islamic learning programs designed like a modern online institute.</p>
+<div style="margin-top:20px">
+<a class="btn btn-primary" href="pages/academy.html">Enter Academy</a>
+<br><br>
+<h2>🕌 Islamic Tools</h2>
+<p>Access useful Islamic tools like Qibla compass, Hijri date, and prayer times.</p>
+<a class="btn btn-primary" href="islamic-tools/index.html">Open Islamic Tools</a>
+</div>
+</section>
+
+<section class="quran container">
+<h2>📖 Quran</h2>
+<p>Read and listen to the Holy Quran.</p>
+<div style="margin-top:20px">
+<a class="btn btn-primary" href="pages/quran.html">Open Quran Reader</a>
+</div>
+</section>
+
+</main>
+<footer class="container">
+<p>© 2026 BADAWY TV – Authentic Islamic Knowledge</p>
+</footer>
+<script src="assets/js/components.js">});
+</script>
+<script src="assets/js/donation-bar.js">});
+</script>
+<script>
 document.addEventListener("DOMContentLoaded", function(){
 const verses=[
 {ar:"إِنَّ مَعَ الْعُسْرِ يُسْرًا",en:"Indeed, with hardship comes ease.",ref:"Qur’an 94:6"},
@@ -10,24 +94,6 @@ const v=verses[Math.floor(Math.random()*verses.length)];
 document.getElementById("verse-text").innerHTML="<div style='font-size:24px;margin-bottom:6px'>"+v.ar+"</div><div>"+v.en+"</div>";
 document.getElementById("verse-ref").innerText=v.ref;
 });
-</script>
-<script>
-async function checkLive(){
-const API="AIzaSyCjj8SoDY2y_tXtlLuqlr6bQz8RlEQR7OA";
-const CHANNEL="UCNHcuGHlZ1vvSTxvpDrIECA";
-const url=`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL}&eventType=live&type=video&key=${API}`;
-try{
-const r=await fetch(url);
-const d=await r.json();
-const btn=document.getElementById("live-btn");
-if(btn){
-if(d.items && d.items.length>0){btn.innerText="🔴 LIVE NOW";}
-else{btn.innerText="Watch Live TV";}
-}
-}catch(e){}
-}
-checkLive();
-setInterval(checkLive,10000);
 </script>
 </body>
 </html>
