@@ -1,53 +1,66 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-const months=[
+const monthNames=[
 "Muharram","Safar","Rabi al-Awwal","Rabi al-Thani",
 "Jumada al-Awwal","Jumada al-Thani",
-"Rajab","Sha'ban","Ramadan",
-"Shawwal","Dhul Qa'dah","Dhul Hijjah"
+"Rajab","Sha'ban","Ramadan","Shawwal",
+"Dhul Qa'dah","Dhul Hijjah"
 ];
 
+function getHijriDate(){
 const today=new Date();
+const hijri=today.toLocaleDateString('en-TN-u-ca-islamic',{day:'numeric',month:'long',year:'numeric'}).split(" ");
+return {
+day:parseInt(hijri[0]),
+monthName:hijri[1],
+year:hijri[2]
+};
+}
 
-const hijri=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{
-day:'numeric',
-month:'long',
-year:'numeric'
-}).formatToParts(today);
+function renderCalendar(){
 
-let hDay=hijri.find(p=>p.type==="day").value;
-let hMonth=hijri.find(p=>p.type==="month").value;
-let hYear=hijri.find(p=>p.type==="year").value;
+const h=getHijriDate();
 
-const monthIndex=months.findIndex(m=>m.toLowerCase().includes(hMonth.toLowerCase()));
+document.getElementById("hijri-month").innerText=
+h.monthName+" "+h.year+" AH";
 
-document.getElementById("hijri-month").textContent=months[monthIndex]+" "+hYear;
+const daysContainer=document.getElementById("hijri-days");
 
-let table="";
+daysContainer.innerHTML="";
+
 let day=1;
 
 for(let r=0;r<5;r++){
-table+="<tr>";
+
+let row=document.createElement("tr");
+
 for(let c=0;c<7;c++){
+
+let cell=document.createElement("td");
 
 if(day<=30){
 
-if(day==hDay){
-table+=`<td style="background:#caa84c;color:white;font-weight:bold">${day}</td>`;
-}else{
-table+=`<td>${day}</td>`;
+cell.innerText=day;
+
+if(day===h.day){
+cell.style.background="#caa84c";
+cell.style.color="white";
 }
 
 day++;
 
-}else{
-table+="<td></td>";
+}
+
+row.appendChild(cell);
+
+}
+
+daysContainer.appendChild(row);
+
 }
 
 }
-table+="</tr>";
-}
 
-document.getElementById("hijri-days").innerHTML=table;
+renderCalendar();
 
 });
