@@ -47,7 +47,7 @@
 <div class="hero-ctas">
 <a class="btn btn-secondary" href="pages/articles.html">Read Lectures</a>
 <a class="btn btn-primary" href="pages/lectures.html">Watch Lectures</a>
-  <a class="btn btn-primary" href="pages/live.html">Watch Live TV</a>
+  <a id="live-btn" class="btn btn-primary" href="pages/live.html">Watch Live TV</a>
 <a class="btn btn-secondary" href="pages/donate.html">Support Dawah</a>
 </div>
 </div>
@@ -94,6 +94,13 @@ const v=verses[Math.floor(Math.random()*verses.length)];
 document.getElementById("verse-text").innerHTML="<div style='font-size:24px;margin-bottom:6px'>"+v.ar+"</div><div>"+v.en+"</div>";
 document.getElementById("verse-ref").innerText=v.ref;
 });
+</script>
+<script>
+fetch("https://www.youtube.com/@ahmadbadawytv/live",{method:"HEAD",mode:"no-cors"})
+.then(()=>{
+document.getElementById("live-btn").innerText="🔴 Live Now";
+})
+.catch(()=>{});
 </script>
 </body>
 </html>
