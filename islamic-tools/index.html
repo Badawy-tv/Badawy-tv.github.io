@@ -56,7 +56,7 @@ font-weight:bold;
 color:#0b3d2e;
 }
 
-body{padding-bottom:80px;}
+body{padding-bottom:140px;}
 </style>
 </head>
 
@@ -240,7 +240,7 @@ for(const p of prayers){
 let [h,m]=prayerTimes[p].split(":");
 
 let t=new Date();
-t.setHours(h,m,0);
+t.setHours(parseInt(h),parseInt(m),0,0);
 
 if(t>now){
 next=t;
@@ -256,7 +256,7 @@ let [h,m]=prayerTimes["Fajr"].split(":");
 
 next=new Date();
 next.setDate(now.getDate()+1);
-next.setHours(h,m,0);
+next.setHours(parseInt(h),parseInt(m),0,0);
 
 name="Fajr";
 
@@ -298,7 +298,7 @@ z-index:99999;
 color:gold;
 font-weight:bold;
 }
-body{padding-bottom:80px;}
+body{padding-bottom:140px;}
 </style>
 
 <div id="floatingPrayerBar">
@@ -348,7 +348,7 @@ for(let p of prayers){
 let [h,m]=times[p].split(":");
 
 let t=new Date();
-t.setHours(h,m,0);
+t.setHours(parseInt(h),parseInt(m),0,0);
 
 if(t>now){
 nextName=p;
@@ -364,7 +364,7 @@ let [h,m]=times["Fajr"].split(":");
 
 nextTime=new Date();
 nextTime.setDate(now.getDate()+1);
-nextTime.setHours(h,m,0);
+nextTime.setHours(parseInt(h),parseInt(m),0,0);
 
 nextName="Fajr";
 
