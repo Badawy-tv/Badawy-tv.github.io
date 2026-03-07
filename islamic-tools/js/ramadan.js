@@ -1,0 +1,34 @@
+async function ramadanTracker(){
+
+const today = new Date();
+const day = today.getDate();
+const month = today.getMonth()+1;
+const year = today.getFullYear();
+
+const res = await fetch(`https://api.aladhan.com/v1/gToH?date=${day}-${month}-${year}`);
+const data = await res.json();
+
+const hijriMonth = data.data.hijri.month.number;
+const hijriDay = parseInt(data.data.hijri.day);
+
+const box = document.getElementById("ramadan");
+
+if(hijriMonth===9){
+
+box.innerHTML = `
+<h3>Ramadan Day ${hijriDay}</h3>
+<p>May Allah accept your fasting</p>
+`;
+
+}else{
+
+box.innerHTML = `
+<h3>Ramadan Tracker</h3>
+<p>Ramadan has not started yet</p>
+`;
+
+}
+
+}
+
+ramadanTracker();

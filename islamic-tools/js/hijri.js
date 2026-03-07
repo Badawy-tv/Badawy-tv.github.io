@@ -1,99 +1,45 @@
-
-const months = [
-"Muharram",
-"Safar",
-"Rabi al-Awwal",
-"Rabi al-Thani",
-"Jumada al-Awwal",
-"Jumada al-Thani",
-"Rajab",
-"Sha'ban",
-"Ramadan",
-"Shawwal",
-"Dhul Qa'dah",
-"Dhul Hijjah"
-];
-
-function getHijriToday(){
+async function loadHijriCalendar(){
 
 const today = new Date();
+const day = today.getDate();
+const month = today.getMonth()+1;
+const year = today.getFullYear();
 
-const hijri = new Intl.DateTimeFormat('en-TN-u-ca-islamic', {
-day:'numeric',
-month:'numeric',
-year:'numeric'
-}).formatToParts(today);
+const res = await fetch(`https://api.aladhan.com/v1/gToH?date=${day}-${month}-${year}`);
+const data = await res.json();
 
-let day,month,year;
+const hijriMonth = data.data.hijri.month.number;
+const hijriYear = data.data.hijri.year;
 
-hijri.forEach(p=>{
-if(p.type==="day") day=parseInt(p.value);
-if(p.type==="month") month=parseInt(p.value);
-if(p.type==="year") year=parseInt(p.value);
-});
+const cal = await fetch(`https://api.aladhan.com/v1/hijriCalendar/${hijriYear}/${hijriMonth}`);
+const calendar = await cal.json();
 
-return {day,month,year};
+const table = document.getElementById("calendar");
+
+table.innerHTML="";
+
+calendar.data.forEach(d =>{
+
+const row = document.createElement("tr");
+
+const hDay = d.hijri.day;
+const gDay = d.gregorian.day;
+
+row.innerHTML = `
+<td>${hDay}</td>
+<td>${gDay}</td>
+<td>${d.gregorian.weekday.en}</td>
+`;
+
+if(parseInt(hDay)===parseInt(data.data.hijri.day)){
+row.style.background="#e6f2ff";
+row.style.fontWeight="bold";
 }
 
-function renderMonths(){
-
-const container = document.getElementById("hijriMonths");
-if(!container) return;
-
-container.innerHTML="";
-
-const today = getHijriToday();
-
-months.forEach((m,i)=>{
-
-const el = document.createElement("div");
-
-el.className="hijri-month";
-
-if(i+1===today.month){
-el.classList.add("current-month");
-}
-
-el.innerText=m;
-
-el.onclick=()=>{
-renderDays(i+1);
-};
-
-container.appendChild(el);
+table.appendChild(row);
 
 });
 
-renderDays(today.month);
-
 }
 
-function renderDays(month){
-
-const container = document.getElementById("hijriDays");
-if(!container) return;
-
-container.innerHTML="";
-
-const today = getHijriToday();
-
-for(let d=1; d<=30; d++){
-
-const day = document.createElement("div");
-
-day.className="hijri-day";
-
-if(month===today.month && d===today.day){
-day.classList.add("today");
-}
-
-day.innerText=d;
-
-container.appendChild(day);
-
-}
-
-}
-
-document.addEventListener("DOMContentLoaded",renderMonths);
-
+loadHijriCalendar();
