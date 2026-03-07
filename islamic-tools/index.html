@@ -281,60 +281,64 @@ loadPrayerTimes();
 
 
 <style>
-#floatingPrayerBar{
+});
+
+}
+</script>
+
+
+<style>
+body{padding-bottom:160px;}
+
+#prayerFloat{
 position:fixed;
 bottom:0;
 left:0;
 width:100%;
 background:#0f2e23;
-color:#fff;
+color:white;
 text-align:center;
 padding:12px;
 border-top:3px solid gold;
 font-size:16px;
-z-index:99999;
+z-index:9999;
 }
-#floatingPrayerBar span{
+#prayerFloat span{
 color:gold;
 font-weight:bold;
 }
-body{padding-bottom:140px;}
 </style>
 
-<div id="floatingPrayerBar">
-🕌 Next Prayer: <span id="nextPrayerName">Loading...</span>
- | ⏳ <span id="prayerCountdown">--</span>
+<div id="prayerFloat">
+🕌 Next Prayer: <span id="pName">Loading...</span>
+ | ⏳ <span id="pCount">--</span>
 </div>
 
 <script>
 
-const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"];
+async function loadPrayer(){
 
-async function initPrayerBar(){
+let lat=21.4225;
+let lon=39.8262;
 
 try{
-
 const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej));
+lat=pos.coords.latitude;
+lon=pos.coords.longitude;
+}catch(e){}
 
-const lat=pos.coords.latitude;
-const lon=pos.coords.longitude;
-
-const r=await fetch("https://api.aladhan.com/v1/timings?latitude="+lat+"&longitude="+lon+"&method=2");
+const r=await fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=2`);
 const data=await r.json();
 
-const times=data.data.timings;
+const t=data.data.timings;
 
-startCountdown(times);
-
-}catch(e){
-
-initPrayerFallback();
-
-}
-
-}
-
-function startCountdown(times){
+const prayers=[
+["Fajr",t.Fajr],
+["Dhuhr",t.Dhuhr],
+["Asr",t.Asr],
+["Maghrib",t.Maghrib],
+["Isha",t.Isha]
+];
 
 setInterval(()=>{
 
@@ -345,14 +349,14 @@ let nextTime=null;
 
 for(let p of prayers){
 
-let [h,m]=times[p].split(":");
+let [h,m]=p[1].split(":");
 
-let t=new Date();
-t.setHours(parseInt(h),parseInt(m),0,0);
+let d=new Date();
+d.setHours(parseInt(h),parseInt(m),0,0);
 
-if(t>now){
-nextName=p;
-nextTime=t;
+if(d>now){
+nextName=p[0];
+nextTime=d;
 break;
 }
 
@@ -360,7 +364,7 @@ break;
 
 if(!nextTime){
 
-let [h,m]=times["Fajr"].split(":");
+let [h,m]=prayers[0][1].split(":");
 
 nextTime=new Date();
 nextTime.setDate(now.getDate()+1);
@@ -372,38 +376,18 @@ nextName="Fajr";
 
 let diff=nextTime-now;
 
-let h=Math.floor(diff/1000/60/60);
-let m=Math.floor(diff/1000/60)%60;
+let h=Math.floor(diff/3600000);
+let m=Math.floor(diff/60000)%60;
 let s=Math.floor(diff/1000)%60;
 
-document.getElementById("nextPrayerName").textContent=nextName;
-document.getElementById("prayerCountdown").textContent=h+"h "+m+"m "+s+"s";
+document.getElementById("pName").textContent=nextName;
+document.getElementById("pCount").textContent=h+"h "+m+"m "+s+"s";
 
 },1000);
 
 }
 
-initPrayerBar();
+loadPrayer();
 
-</script>
-
-
-<script>
-function initPrayerFallback(){
-
-const lat=21.4225;
-const lon=39.8262;
-
-fetch("https://api.aladhan.com/v1/timings?latitude="+lat+"&longitude="+lon+"&method=2")
-.then(r=>r.json())
-.then(data=>{
-
-const times=data.data.timings;
-
-startCountdown(times);
-
-});
-
-}
 </script>
 
