@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Qibla Map</title>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Realtime Location Map</title>
 
 <style>
-
 body{
 margin:0;
-font-family:Arial,sans-serif;
-background:#f4f4f4;
+font-family:Arial;
 text-align:center;
+background:#f4f4f4;
 }
 
 h1{
@@ -25,55 +22,49 @@ height:80vh;
 width:95%;
 margin:auto;
 border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.15);
 }
-
 </style>
+
 </head>
 
 <body>
 
-<h1>🌍 Qibla Location Map</h1>
+<h1>📍 Live Location Map</h1>
 
 <div id="map"></div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
 
-const map=L.map('map').setView([0,0],2)
+let map
+let marker
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-maxZoom:19,
-attribution:'© OpenStreetMap'
-}).addTo(map)
+function initMap(){
 
-let userMarker=null
-
-function updateLocation(lat,lon){
-
-map.setView([lat,lon],13)
-
-if(userMarker){
-userMarker.setLatLng([lat,lon])
-}else{
-userMarker=L.marker([lat,lon]).addTo(map)
-}
-
-}
+map=new google.maps.Map(document.getElementById("map"),{
+zoom:15,
+center:{lat:0,lng:0},
+mapTypeId:"roadmap"
+})
 
 if(navigator.geolocation){
 
-navigator.geolocation.watchPosition(pos=>{
+navigator.geolocation.watchPosition(function(position){
 
-const lat=pos.coords.latitude
-const lon=pos.coords.longitude
+const lat=position.coords.latitude
+const lng=position.coords.longitude
 
-updateLocation(lat,lon)
+const location={lat:lat,lng:lng}
 
-},err=>{
+map.setCenter(location)
 
-alert("Location access required for map.")
+if(marker){
+marker.setPosition(location)
+}else{
+marker=new google.maps.Marker({
+position:location,
+map:map
+})
+}
 
 },{
 enableHighAccuracy:true
@@ -81,7 +72,11 @@ enableHighAccuracy:true
 
 }
 
+}
+
 </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 
 </body>
 </html>
