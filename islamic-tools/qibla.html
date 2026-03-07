@@ -1,18 +1,179 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Qibla Direction</title>
+
+<link rel="stylesheet" href="css/tools.css">
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f4f4f4;
+margin:0;
+padding:15px;
+text-align:center;
+}
+
+.container{
+max-width:600px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h1{
+margin-bottom:10px;
+}
+
+#location{
+margin-bottom:20px;
+font-weight:bold;
+}
+
+.compass{
+width:200px;
+height:200px;
+margin:auto;
+border:8px solid #ddd;
+border-radius:50%;
+position:relative;
+}
+
+.arrow{
+width:0;
+height:0;
+border-left:15px solid transparent;
+border-right:15px solid transparent;
+border-bottom:80px solid #4caf50;
+position:absolute;
+top:40px;
+left:50%;
+transform:translateX(-50%) rotate(0deg);
+transform-origin:50% 80%;
+transition:transform 0.5s ease;
+}
+
+.direction{
+margin-top:20px;
+font-size:18px;
+font-weight:bold;
+}
+
+@media(max-width:600px){
+
+.compass{
+width:160px;
+height:160px;
+}
+
+}
+
+</style>
 </head>
 
 <body>
 
-<h1>Qibla Direction</h1>
+<div class="container">
 
-<p>Kaaba Coordinates:</p>
+<h1>🧭 Qibla Direction</h1>
 
-<p>21.4225° N, 39.8262° E</p>
+<div id="location">Detecting location...</div>
 
-<p>Use phone compass to face that direction.</p>
+<div class="compass">
+<div class="arrow" id="arrow"></div>
+</div>
+
+<div class="direction" id="directionText"></div>
+
+</div>
+
+<script>
+
+const KAABA_LAT=21.4225;
+const KAABA_LON=39.8262;
+
+function toRad(deg){
+return deg*Math.PI/180;
+}
+
+function toDeg(rad){
+return rad*180/Math.PI;
+}
+
+function getQiblaDirection(lat,lon){
+
+const φ1=toRad(lat);
+const φ2=toRad(KAABA_LAT);
+
+const Δλ=toRad(KAABA_LON-lon);
+
+const y=Math.sin(Δλ)*Math.cos(φ2);
+const x=Math.cos(φ1)*Math.sin(φ2)-
+Math.sin(φ1)*Math.cos(φ2)*Math.cos(Δλ);
+
+let θ=Math.atan2(y,x);
+
+θ=toDeg(θ);
+
+return (θ+360)%360;
+
+}
+
+function updateCompass(qiblaAngle){
+
+if(window.DeviceOrientationEvent){
+
+window.addEventListener("deviceorientation",function(e){
+
+let heading=e.alpha;
+
+if(heading===null) return;
+
+let rotate=qiblaAngle-heading;
+
+document.getElementById("arrow").style.transform=
+"translateX(-50%) rotate("+rotate+"deg)";
+
+});
+
+}
+
+}
+
+function start(){
+
+navigator.geolocation.getCurrentPosition(pos=>{
+
+const lat=pos.coords.latitude;
+const lon=pos.coords.longitude;
+
+document.getElementById("location").innerText=
+"📍 Your Location";
+
+const qibla=getQiblaDirection(lat,lon);
+
+document.getElementById("directionText").innerText=
+"Qibla Direction: "+qibla.toFixed(1)+"°";
+
+updateCompass(qibla);
+
+},()=>{
+
+document.getElementById("location").innerText=
+"Location unavailable";
+
+});
+
+}
+
+start();
+
+</script>
 
 </body>
 </html>
