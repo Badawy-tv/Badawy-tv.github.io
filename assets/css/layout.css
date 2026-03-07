@@ -437,3 +437,48 @@ transform:translateY(-3px);
 box-shadow:0 10px 25px rgba(0,0,0,0.25);
 }
 
+
+/* ===== HERO PROFESSIONAL DECORATION ===== */
+
+.hero{
+padding:140px 20px;
+background:linear-gradient(135deg,#0c7a43,#062d1a);
+border-radius:12px;
+box-shadow:0 25px 60px rgba(0,0,0,0.35);
+margin-top:40px;
+position:relative;
+overflow:hidden;
+}
+
+.hero h1{
+font-size:54px;
+font-weight:700;
+letter-spacing:1px;
+margin-bottom:25px;
+text-shadow:0 6px 18px rgba(0,0,0,0.45);
+}
+
+.hero .lead{
+font-size:22px;
+max-width:760px;
+margin:auto;
+line-height:1.7;
+opacity:0.95;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+top:-50%;
+left:-50%;
+width:200%;
+height:200%;
+background:radial-gradient(circle at center,rgba(255,255,255,0.08),transparent 60%);
+animation:heroGlow 12s linear infinite;
+}
+
+@keyframes heroGlow{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
