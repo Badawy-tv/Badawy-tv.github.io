@@ -110,6 +110,8 @@ font-weight:bold;
 }
 
 </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
 <body>
@@ -118,22 +120,32 @@ font-weight:bold;
 
 <h1>🧭 Qibla Direction</h1>
 
+<div id="qiblaMap" style="height:300px;margin-top:20px;border-radius:10px;overflow:hidden;"></div>
 <div id="location">Detecting location...</div>
 
 <div class="compass">
 
+<div id="qiblaMap" style="height:300px;margin-top:20px;border-radius:10px;overflow:hidden;"></div>
 <div class="dir n">N</div>
+<div id="qiblaMap" style="height:300px;margin-top:20px;border-radius:10px;overflow:hidden;"></div>
 <div class="dir s">S</div>
+<div id="qiblaMap" style="height:300px;margin-top:20px;border-radius:10px;overflow:hidden;"></div>
 <div class="dir e">E</div>
+<div id="qiblaMap" style="height:300px;margin-top:20px;border-radius:10px;overflow:hidden;"></div>
 <div class="dir w">W</div>
 
+<div id="qiblaMap" style="height:300px;margin-top:20px;border-radius:10px;overflow:hidden;"></div>
 <div class="arrow" id="arrow"></div>
+<div id="qiblaMap" style="height:300px;margin-top:20px;border-radius:10px;overflow:hidden;"></div>
 <div class="center"></div>
 
+<div id="qiblaMap" style="height:300px;margin-top:20px;border-radius:10px;overflow:hidden;"></div>
 </div>
 
+<div id="qiblaMap" style="height:300px;margin-top:20px;border-radius:10px;overflow:hidden;"></div>
 <div class="direction" id="directionText"></div>
 
+<div id="qiblaMap" style="height:300px;margin-top:20px;border-radius:10px;overflow:hidden;"></div>
 </div>
 
 <script>
@@ -244,3 +256,68 @@ start();
 
 </body>
 </html>
+
+<script>
+
+/* MAP */
+
+function initQiblaMap(lat,lon){
+
+const map=L.map('qiblaMap').setView([lat,lon],5)
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+maxZoom:19
+}).addTo(map)
+
+const user=L.marker([lat,lon]).addTo(map)
+
+const kaaba=L.marker([21.4225,39.8262]).addTo(map)
+
+const line=L.polyline([
+[lat,lon],
+[21.4225,39.8262]
+],{color:'green',weight:3}).addTo(map)
+
+map.fitBounds(line.getBounds())
+
+}
+
+navigator.geolocation.getCurrentPosition(pos=>{
+initQiblaMap(pos.coords.latitude,pos.coords.longitude)
+})
+
+/* POINTER SENSITIVITY */
+
+let smoothHeading=0
+
+function smoothRotate(target){
+
+smoothHeading=smoothHeading+(target-smoothHeading)*0.15
+
+document.getElementById("arrow").style.transform=
+"translate(-50%,-120%) rotate("+smoothHeading+"deg)"
+
+requestAnimationFrame(()=>smoothRotate(target))
+
+}
+
+window.addEventListener("deviceorientation",function(e){
+
+let heading
+
+if(e.webkitCompassHeading){
+heading=e.webkitCompassHeading
+}else if(e.alpha!==null){
+heading=360-e.alpha
+}else{
+return
+}
+
+let rotation=qiblaBearing-heading
+
+smoothRotate(rotation)
+
+},true)
+
+</script>
+
