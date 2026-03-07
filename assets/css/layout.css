@@ -381,3 +381,59 @@ padding:4px 6px;
 animation-play-state:paused;
 }
 
+
+/* ===== HERO UPGRADE ===== */
+
+.hero{
+padding:120px 20px;
+background:linear-gradient(135deg,#0c7a43,#062d1a);
+border-radius:8px;
+box-shadow:0 20px 40px rgba(0,0,0,0.25);
+margin-top:40px;
+}
+
+.hero h1{
+font-size:52px;
+font-weight:700;
+letter-spacing:1px;
+margin-bottom:20px;
+text-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+
+.hero .lead{
+font-size:20px;
+max-width:750px;
+margin:auto;
+line-height:1.6;
+opacity:0.95;
+}
+
+.hero-ctas{
+margin-top:30px;
+}
+
+.hero-ctas a{
+display:inline-block;
+padding:14px 26px;
+margin:8px;
+border-radius:30px;
+font-weight:600;
+text-decoration:none;
+transition:all .3s ease;
+}
+
+.hero-ctas a:first-child{
+background:#ffd166;
+color:#222;
+}
+
+.hero-ctas a:last-child{
+background:#ffffff;
+color:#0c7a43;
+}
+
+.hero-ctas a:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
