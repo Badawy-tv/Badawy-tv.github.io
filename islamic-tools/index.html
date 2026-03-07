@@ -104,11 +104,6 @@ Islamic Tools
 
 <script>
 
-const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"]
-
-let prayerTimes={}
-
-async function loadPrayerTimes(){
 
 navigator.geolocation.getCurrentPosition(async function(pos){
 
@@ -241,72 +236,86 @@ margin-left:5px;
 
 <script>
 
+
+<script>
+
 const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"];
 let prayerTimes={};
 
-navigator.geolocation.getCurrentPosition(async function(pos){
+async function loadPrayerTimes(){
+
+try{
+
+const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej));
 
 const lat=pos.coords.latitude;
 const lon=pos.coords.longitude;
 
-const res=await fetch("https://api.aladhan.com/v1/timings?latitude="+lat+"&longitude="+lon+"&method=2");
-const data=await res.json();
+const r=await fetch("https://api.aladhan.com/v1/timings?latitude="+lat+"&longitude="+lon+"&method=2");
+const data=await r.json();
 
 prayerTimes=data.data.timings;
 
 startCountdown();
 
-});
+}catch(e){
+
+document.getElementById("nextPrayerName").innerText="Location blocked";
+document.getElementById("prayerCountdown").innerText="--";
+
+}
+
+}
 
 function startCountdown(){
 
-setInterval(function(){
+setInterval(()=>{
 
 const now=new Date();
-let nextPrayerTime=null;
-let nextName="";
+let next=null;
+let name="";
 
-for(let p of prayers){
+for(const p of prayers){
 
-let t=prayerTimes[p].split(":");
-let prayerDate=new Date();
+let [h,m]=prayerTimes[p].split(":");
 
-prayerDate.setHours(t[0]);
-prayerDate.setMinutes(t[1]);
-prayerDate.setSeconds(0);
+let t=new Date();
+t.setHours(h,m,0);
 
-if(prayerDate>now){
-nextPrayerTime=prayerDate;
-nextName=p;
+if(t>now){
+next=t;
+name=p;
 break;
 }
 
 }
 
-if(!nextPrayerTime){
+if(!next){
 
-let t=prayerTimes["Fajr"].split(":");
+let [h,m]=prayerTimes["Fajr"].split(":");
 
-nextPrayerTime=new Date();
-nextPrayerTime.setDate(now.getDate()+1);
-nextPrayerTime.setHours(t[0]);
-nextPrayerTime.setMinutes(t[1]);
-nextName="Fajr";
+next=new Date();
+next.setDate(now.getDate()+1);
+next.setHours(h,m,0);
+
+name="Fajr";
 
 }
 
-let diff=nextPrayerTime-now;
+let diff=next-now;
 
 let h=Math.floor(diff/1000/60/60);
 let m=Math.floor(diff/1000/60)%60;
 let s=Math.floor(diff/1000)%60;
 
-document.getElementById("nextPrayerName").innerText=nextName;
+document.getElementById("nextPrayerName").innerText=name;
 document.getElementById("prayerCountdown").innerText=h+"h "+m+"m "+s+"s";
 
 },1000);
 
 }
+
+loadPrayerTimes();
 
 </script>
 
