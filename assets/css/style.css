@@ -327,7 +327,6 @@ text-align:center;
 .mpesa-badge{
 width:120px;
 margin:15px auto;
-display:block;
 }
 
 .paybill-box{
@@ -733,7 +732,7 @@ box-shadow:0 6px 18px rgba(0,0,0,0.35);
 
 
 #search-panel{
-display:block;
+display:none;
 position:fixed;
 top:0;
 left:0;
@@ -793,7 +792,6 @@ flex-direction:column;
 align-items:flex-start;
 padding:25px;
 box-shadow:0 10px 25px rgba(0,0,0,0.15);
-display:block;
 border-radius:8px;
 }
 
@@ -803,7 +801,6 @@ margin:12px 0;
 }
 
 nav ul li a{
-display:block;
 width:100%;
 font-size:17px;
 }
@@ -823,7 +820,6 @@ display:flex;
 
 
 nav ul{
-display:block;
 position:absolute;
 top:70px;
 right:0;
@@ -898,4 +894,5 @@ display:none;
 }
 }
 
-#search-panel{display:none;}
+#search-panel{
+display:none;display:none;}
