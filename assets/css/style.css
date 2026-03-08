@@ -546,3 +546,33 @@ font-size:20px;
 background:#e9e9e9;
 transform:translateY(-3px);
 }
+
+.contact{
+text-align:center;
+margin-top:60px;
+}
+
+.contact-icons{
+display:flex;
+justify-content:center;
+gap:25px;
+flex-wrap:wrap;
+margin-top:25px;
+}
+
+.contact-icons a{
+font-size:34px;
+transition:0.3s;
+}
+
+.fa-youtube{color:#FF0000;}
+.fa-tiktok{color:#000000;}
+.fa-facebook{color:#1877F2;}
+.fa-envelope{color:#EA4335;}
+.fa-whatsapp{color:#25D366;}
+.fa-phone{color:#0f9d58;}
+.fa-comment{color:#555;}
+
+.contact-icons a:hover{
+transform:scale(1.25);
+}
