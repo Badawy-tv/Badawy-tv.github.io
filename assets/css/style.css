@@ -921,3 +921,28 @@ display:block;
 
 }
 
+
+/* HAMBURGER BELOW NAVBAR */
+
+.hamburger-container{
+position:absolute;
+top:80px;
+right:20px;
+z-index:1000;
+}
+
+.hamburger{
+font-size:28px;
+cursor:pointer;
+background:#fff;
+padding:10px 14px;
+border-radius:6px;
+box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+@media (min-width:901px){
+.hamburger-container{
+display:none;
+}
+}
+
