@@ -475,6 +475,7 @@ width:200%;
 height:200%;
 background:radial-gradient(circle at center,rgba(255,255,255,0.08),transparent 60%);
 animation:heroGlow 12s linear infinite;
+pointer-events:none;
 }
 
 @keyframes heroGlow{
