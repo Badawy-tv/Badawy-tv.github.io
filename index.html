@@ -227,53 +227,8 @@ We use cookies to improve your experience on BADAWY TV.
 <i class="fas fa-search"></i>
 </div>
 
-<div id="search-panel">
-<div class="search-box">
-<input type="text" id="site-search" placeholder="Search BADAWY TV...">
-<i class="fas fa-times" id="close-search"></i>
-</div>
 <div id="search-results"></div>
 </div>
 
 <script>
 const searchBtn = document.getElementById("floating-search");
-const searchPanel = document.getElementById("search-panel");
-const closeSearch = document.getElementById("close-search");
-const input = document.getElementById("site-search");
-const results = document.getElementById("search-results");
-
-searchBtn.onclick = () => {
-searchPanel.style.display = "block";
-input.focus();
-};
-
-closeSearch.onclick = () => {
-searchPanel.style.display = "none";
-results.innerHTML = "";
-input.value = "";
-};
-
-input.addEventListener("input", function(){
-const term = this.value.toLowerCase();
-results.innerHTML = "";
-
-if(term.length < 2) return;
-
-const elements = document.querySelectorAll("h1,h2,h3,p,a,li");
-
-elements.forEach(el => {
-if(el.innerText.toLowerCase().includes(term)){
-const item = document.createElement("div");
-item.className = "result-item";
-item.textContent = el.innerText;
-item.onclick = () => el.scrollIntoView({behavior:"smooth"});
-results.appendChild(item);
-}
-});
-});
-</script>
-
-<script src="assets/js/main.js"></script>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
