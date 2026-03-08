@@ -828,3 +828,41 @@ display:block;
 
 }
 
+
+/* HAMBURGER MENU FIX */
+
+.hamburger{
+position:absolute;
+top:20px;
+right:20px;
+font-size:28px;
+cursor:pointer;
+color:#111;
+display:none;
+z-index:9999;
+}
+
+@media (max-width:900px){
+
+.hamburger{
+display:block;
+}
+
+nav ul{
+display:none;
+position:absolute;
+top:70px;
+right:0;
+background:#fff;
+width:230px;
+flex-direction:column;
+padding:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+nav ul.active{
+display:flex;
+}
+
+}
+
