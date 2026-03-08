@@ -90,6 +90,12 @@
 <textarea placeholder="Write your question..." rows="4" required></textarea>
 <button class="btn btn-primary" type="submit">Submit Question</button>
 </form>
+<div id="contact-options" style="display:none;margin-top:15px;">
+<p><strong>Choose how to send your question:</strong></p>
+<a id="send-whatsapp" class="btn btn-primary" style="margin-right:10px;">WhatsApp</a>
+<a id="send-email" class="btn btn-primary">Email</a>
+</div>
+
 </section>
 
 </main>
@@ -140,5 +146,18 @@ container.innerHTML=`<iframe width="100%" height="400" src="https://www.youtube.
 checkLive();
 setInterval(checkLive,15000);
 </script>
+<script>
+document.querySelector(".ask-form").addEventListener("submit",function(e){
+e.preventDefault();
+const name=this.querySelector("input[type=text]").value;
+const email=this.querySelector("input[type=email]").value;
+const question=this.querySelector("textarea").value;
+const message=`Ask Imam Question:%0AName: ${name}%0AEmail: ${email}%0AQuestion: ${question}`;
+document.getElementById("contact-options").style.display="block";
+document.getElementById("send-whatsapp").href=`https://wa.me/254716802090?text=${message}`;
+document.getElementById("send-email").href=`mailto:ahmedbadawy786@gmail.com?subject=Ask Imam Question&body=${message}`;
+});
+</script>
+
 </body>
 </html>
