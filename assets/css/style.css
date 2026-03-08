@@ -511,3 +511,38 @@ z-index:9999;
   font-size: 17px;
 }
 
+
+.contact{
+text-align:center;
+margin-top:60px;
+}
+
+.contact-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:20px;
+margin-top:25px;
+}
+
+.contact-item{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+padding:15px;
+background:#f5f5f5;
+border-radius:10px;
+text-decoration:none;
+font-weight:600;
+color:#222;
+transition:0.3s;
+}
+
+.contact-item i{
+font-size:20px;
+}
+
+.contact-item:hover{
+background:#e9e9e9;
+transform:translateY(-3px);
+}
