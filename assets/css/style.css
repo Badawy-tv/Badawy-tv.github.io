@@ -459,3 +459,55 @@ cursor:pointer;
 z-index:9999;
 }
 
+
+/* Ask Imam Section Improved */
+.ask-imam {
+  margin-top: 60px;
+  padding: 50px;
+  background: #f8f9fa;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.ask-imam h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.ask-imam p {
+  margin-bottom: 25px;
+  font-size: 17px;
+}
+
+.ask-form {
+  max-width: 750px;
+  margin: auto;
+}
+
+.ask-form input,
+.ask-form textarea {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 17px;
+  transition: border 0.2s ease;
+}
+
+.ask-form input:focus,
+.ask-form textarea:focus {
+  border-color: #2c7be5;
+  outline: none;
+}
+
+.ask-form textarea {
+  min-height: 160px;
+}
+
+.ask-form button {
+  padding: 16px 35px;
+  font-size: 17px;
+}
+
