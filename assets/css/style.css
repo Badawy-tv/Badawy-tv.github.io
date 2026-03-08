@@ -615,3 +615,39 @@ box-shadow:0 6px 18px rgba(0,0,0,0.15);
 .fa-phone{color:#34A853;}
 .fa-comment{color:#4285F4;}
 
+
+.about{
+margin-top:90px;
+text-align:center;
+padding-bottom:60px;
+}
+
+.about-text{
+max-width:800px;
+margin:15px auto;
+line-height:1.7;
+font-size:16px;
+color:#444;
+}
+
+.about-highlights{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+margin-top:35px;
+}
+
+.about-box{
+background:#f7f7f7;
+padding:20px;
+border-radius:12px;
+font-weight:600;
+font-size:17px;
+transition:0.3s;
+}
+
+.about-box:hover{
+transform:translateY(-4px);
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
