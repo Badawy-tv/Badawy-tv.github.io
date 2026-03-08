@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // simple: if js needs to activate features later
-  console.log("Badawy TV — main.js loaded");
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("nav-menu");
+
+hamburger.addEventListener("click", function(){
+navMenu.classList.toggle("active");
 });
