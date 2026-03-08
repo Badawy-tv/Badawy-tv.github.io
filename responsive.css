@@ -1,0 +1,53 @@
+/* Base layout */
+body{
+margin:0;
+padding:0;
+font-family:Arial, sans-serif;
+}
+
+/* flexible containers */
+.container{
+width:90%;
+max-width:1400px;
+margin:auto;
+}
+
+/* responsive images */
+img{
+max-width:100%;
+height:auto;
+}
+
+/* mobile phones */
+@media (max-width:600px){
+body{
+font-size:16px;
+}
+.container{
+width:95%;
+}
+}
+
+/* tablets */
+@media (min-width:601px) and (max-width:1024px){
+body{
+font-size:17px;
+}
+}
+
+/* laptops / desktops */
+@media (min-width:1025px){
+body{
+font-size:18px;
+}
+}
+
+/* 4K screens */
+@media (min-width:2560px){
+body{
+font-size:22px;
+}
+.container{
+max-width:2000px;
+}
+}
