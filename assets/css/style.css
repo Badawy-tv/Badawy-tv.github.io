@@ -733,7 +733,7 @@ box-shadow:0 6px 18px rgba(0,0,0,0.35);
 
 
 #search-panel{
-display:none;
+display:block;
 position:fixed;
 top:0;
 left:0;
@@ -784,7 +784,7 @@ right:25px;
 top:20px;
 font-size:28px;
 cursor:pointer;
-display:none;
+display:block;
 color:#111;
 z-index:999;
 }
@@ -803,7 +803,7 @@ flex-direction:column;
 align-items:flex-start;
 padding:25px;
 box-shadow:0 10px 25px rgba(0,0,0,0.15);
-display:none;
+display:block;
 border-radius:8px;
 }
 
@@ -838,7 +838,7 @@ right:20px;
 font-size:28px;
 cursor:pointer;
 color:#111;
-display:none;
+display:block;
 z-index:9999;
 }
 
@@ -849,7 +849,7 @@ display:block;
 }
 
 nav ul{
-display:none;
+display:block;
 position:absolute;
 top:70px;
 right:0;
