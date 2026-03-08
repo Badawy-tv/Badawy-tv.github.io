@@ -866,3 +866,58 @@ display:flex;
 
 }
 
+
+/* CLEAN HAMBURGER MENU */
+
+.main-nav{
+width:100%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:18px 25px;
+background:#fff;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+#nav-menu{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+#nav-menu a{
+text-decoration:none;
+font-weight:600;
+color:#111;
+}
+
+.hamburger{
+font-size:28px;
+cursor:pointer;
+display:none;
+}
+
+@media (max-width:900px){
+
+#nav-menu{
+display:none;
+position:absolute;
+top:70px;
+right:20px;
+background:#fff;
+flex-direction:column;
+padding:20px;
+width:220px;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+#nav-menu.active{
+display:flex;
+}
+
+.hamburger{
+display:block;
+}
+
+}
+
