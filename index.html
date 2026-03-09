@@ -255,3 +255,7 @@ We use cookies to improve your experience on BADAWY TV.
 <script>document.addEventListener("contextmenu",function(e){e.preventDefault();});</script>
 
 <script>document.addEventListener("submit",function(e){var h=document.querySelector("input[name=website]");if(h&&h.value!==""){e.preventDefault();console.log("Bot detected");}});</script>
+
+<script>setInterval(function(){var d=window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160;if(d){document.body.innerHTML="";}},2000);</script>
+<script>document.addEventListener("copy",function(e){e.preventDefault();});document.addEventListener("cut",function(e){e.preventDefault();});</script>
+<script>if(navigator.webdriver||/bot|crawl|spider/i.test(navigator.userAgent)){console.log("Crawler blocked");}</script>
