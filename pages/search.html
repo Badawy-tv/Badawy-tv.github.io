@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Search BADAWY TV</title>
+
+<style>
+body{
+font-family:Arial;
+text-align:center;
+padding:40px;
+}
+
+.search-box{
+width:90%;
+max-width:500px;
+padding:12px;
+font-size:18px;
+border:2px solid #0a7c3a;
+border-radius:6px;
+}
+
+button{
+padding:12px 20px;
+font-size:16px;
+background:#0a7c3a;
+color:white;
+border:none;
+border-radius:6px;
+margin-left:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Search BADAWY TV</h2>
+
+<input id="q" class="search-box" placeholder="Search lectures, duas, Quran...">
+
+<button onclick="searchSite()">Search</button>
+
+<script>
+
+function searchSite(){
+
+var query = document.getElementById("q").value;
+
+window.location.href =
+"https://www.google.com/search?q=site:badawy-tv.github.io+" + query;
+
+}
+
+</script>
+
+</body>
+</html>
