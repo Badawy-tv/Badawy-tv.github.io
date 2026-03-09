@@ -1018,6 +1018,8 @@ padding:14px;
 
 .topnav a{
 color:white;
+
+color:white;
 text-decoration:none;
 font-weight:500;
 font-size:16px;
@@ -1046,5 +1048,31 @@ gap:15px;
 
 body{
 margin-top:60px;
+}
+
+
+/* TV Ticker Navbar */
+
+.topnav{
+overflow:hidden;
+white-space:nowrap;
+}
+
+.topnav a{
+display:inline-block;
+padding:0 25px;
+animation:navscroll 20s linear infinite;
+}
+
+@keyframes navscroll{
+
+0%{
+transform:translateX(100%);
+}
+
+100%{
+transform:translateX(-100%);
+}
+
 }
 
