@@ -795,3 +795,74 @@ display:none;
 #search-panel{
 display:none;display:none;}
 *{transform:translateZ(0);}
+
+/* Floating Search Button */
+
+#floating-search-btn{
+position:fixed;
+top:20px;
+left:20px;
+width:55px;
+height:55px;
+border-radius:50%;
+border:none;
+background:white;
+font-size:22px;
+cursor:pointer;
+z-index:99999;
+
+box-shadow:
+0 6px 14px rgba(0,0,0,0.25),
+inset 0 -3px 6px rgba(0,0,0,0.15);
+
+transition:all .25s ease;
+}
+
+#floating-search-btn:hover{
+transform:translateY(-2px);
+box-shadow:
+0 12px 24px rgba(0,0,0,0.35),
+inset 0 -3px 6px rgba(0,0,0,0.15);
+}
+
+/* Search Panel */
+
+#floating-search-panel{
+position:fixed;
+top:90px;
+left:20px;
+width:320px;
+background:white;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+padding:15px;
+display:none;
+z-index:99999;
+}
+
+#floating-search-input{
+width:100%;
+padding:10px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:16px;
+}
+
+#floating-search-results{
+margin-top:10px;
+max-height:280px;
+overflow:auto;
+}
+
+#floating-search-results a{
+display:block;
+padding:8px;
+text-decoration:none;
+color:#333;
+border-bottom:1px solid #eee;
+}
+
+#floating-search-results a:hover{
+background:#f3f3f3;
+}
+
