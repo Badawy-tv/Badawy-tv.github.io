@@ -1089,3 +1089,36 @@ display:block;
 
 }
 
+
+/* TOP NAVBAR */
+
+.topnav{
+display:flex;
+justify-content:center;
+gap:25px;
+background:#0a7c3a;
+padding:14px;
+}
+
+.topnav a{
+color:white;
+text-decoration:none;
+font-weight:500;
+font-size:16px;
+}
+
+.topnav a:hover{
+text-decoration:underline;
+}
+
+/* MOBILE */
+
+@media (max-width:768px){
+
+.topnav{
+flex-wrap:wrap;
+gap:15px;
+}
+
+}
+
