@@ -951,3 +951,16 @@ font-size:14px;
 margin-top:10px;
 }
 
+
+/* Fixed Search Icon */
+.fixed-search{
+position:fixed;
+top:20px;
+left:20px;
+z-index:9999;
+font-size:34px;
+color:#28a745;
+font-weight:900;
+cursor:pointer;
+}
+
