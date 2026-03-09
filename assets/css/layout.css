@@ -201,7 +201,7 @@ gap:30px;
 
 .lecture-card{
 background:#ffffff;
-border-radius:12px;
+
 overflow:hidden;
 box-shadow:0 4px 12px rgba(0,0,0,0.08);
 transition:0.3s;
@@ -389,7 +389,7 @@ padding:120px 20px;
 background:linear-gradient(135deg,#0c7a43,#062d1a);
 border-radius:8px;
 box-shadow:0 20px 40px rgba(0,0,0,0.25);
-margin-top:40px;
+margin-top:0;
 }
 
 .hero h1{
@@ -443,9 +443,9 @@ box-shadow:0 10px 25px rgba(0,0,0,0.25);
 .hero{
 padding:140px 20px;
 background:linear-gradient(135deg,#0c7a43,#062d1a);
-border-radius:12px;
-box-shadow:0 25px 60px rgba(0,0,0,0.35);
-margin-top:40px;
+
+
+margin-top:0;
 position:relative;
 overflow:hidden;
 }
@@ -490,7 +490,7 @@ pointer-events:none;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:30px;
-margin-top:40px;
+margin-top:0;
 }
 
 .card{
