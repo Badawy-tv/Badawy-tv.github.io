@@ -387,8 +387,8 @@ animation-play-state:paused;
 .hero{
 padding:120px 20px;
 background:linear-gradient(135deg,#0c7a43,#062d1a);
-border-radius:8px;
-box-shadow:0 20px 40px rgba(0,0,0,0.25);
+
+
 margin-top:0;
 }
 
