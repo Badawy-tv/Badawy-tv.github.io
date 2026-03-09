@@ -409,6 +409,10 @@ opacity:0.95;
 }
 
 .hero-ctas{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+
 margin-top:30px;
 }
 
