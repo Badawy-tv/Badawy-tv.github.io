@@ -923,3 +923,31 @@ grid-template-columns:1fr;
 }
 }
 
+
+.dua-card{
+background:#ffffff;
+border-radius:10px;
+padding:25px;
+margin-bottom:25px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.dua-arabic{
+font-size:28px;
+text-align:center;
+direction:rtl;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+.dua-translit{
+font-style:italic;
+margin-bottom:10px;
+}
+
+.dua-ref{
+color:#666;
+font-size:14px;
+margin-top:10px;
+}
+
