@@ -978,3 +978,38 @@ body{
 padding-top:80px;
 }
 
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#0a7c3a;
+padding:15px 40px;
+}
+
+.logo a{
+color:white;
+font-size:22px;
+font-weight:bold;
+text-decoration:none;
+}
+
+.nav-links{
+list-style:none;
+display:flex;
+gap:20px;
+}
+
+.nav-links a{
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:500;
+}
+
+.nav-links a:hover{
+text-decoration:underline;
+}
+
