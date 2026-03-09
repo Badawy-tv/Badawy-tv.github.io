@@ -7,52 +7,26 @@
 <style>
 body{
 font-family:Arial;
-text-align:center;
 padding:40px;
+text-align:center;
 }
 
-.search-box{
-width:90%;
-max-width:500px;
-padding:12px;
-font-size:18px;
-border:2px solid #0a7c3a;
-border-radius:6px;
+h1{
+color:#0a7c3a;
 }
 
-button{
-padding:12px 20px;
-font-size:16px;
-background:#0a7c3a;
-color:white;
-border:none;
-border-radius:6px;
-margin-left:10px;
-}
 </style>
-
 </head>
 
 <body>
 
-<h2>Search BADAWY TV</h2>
+<h1>Search BADAWY TV</h1>
 
-<input id="q" class="search-box" placeholder="Search lectures, duas, Quran...">
+<script async src="https://cse.google.com/cse.js?cx=15d55b710e4224a76"></script>
 
-<button onclick="searchSite()">Search</button>
+<div class="gcse-searchbox"></div>
 
-<script>
-
-function searchSite(){
-
-var query = document.getElementById("q").value;
-
-window.location.href =
-"https://www.google.com/search?q=site:badawy-tv.github.io+" + query;
-
-}
-
-</script>
+<div class="gcse-searchresults"></div>
 
 </body>
 </html>
