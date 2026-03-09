@@ -551,3 +551,7 @@ opacity:0.8;
 font-size:14px;
 }
 
+
+@media (max-width:600px){
+.hero-ctas a{display:block;width:90%;margin:10px auto;}
+}
