@@ -19,6 +19,6 @@ bar.style.top="-120px";
 
 sessionStorage.setItem("dawahPopupShown","true");
 
-},180000);
+},5000);
 
 }
