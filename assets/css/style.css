@@ -1032,9 +1032,19 @@ text-decoration:underline;
 @media (max-width:768px){
 
 .topnav{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:1000;
 flex-wrap:wrap;
 gap:15px;
 }
 
+}
+
+
+body{
+margin-top:60px;
 }
 
