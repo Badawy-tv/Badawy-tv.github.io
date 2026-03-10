@@ -1025,6 +1025,13 @@ padding:14px;
 }
 
 .topnav a{
+color:#ffffff;
+font-weight:800;
+font-size:16px;
+padding:14px 18px;
+letter-spacing:0.6px;
+text-transform:uppercase;
+}
 color:white;
 
 color:white;
@@ -1034,6 +1041,9 @@ font-size:16px;
 }
 
 .topnav a:hover{
+color:#ffd166;
+transition:0.3s;
+}
 text-decoration:underline;
 }
 
@@ -1067,6 +1077,13 @@ white-space:nowrap;
 }
 
 .topnav a{
+color:#ffffff;
+font-weight:800;
+font-size:16px;
+padding:14px 18px;
+letter-spacing:0.6px;
+text-transform:uppercase;
+}
 display:inline-block;
 padding:0 25px;
 animation:navscroll 20s linear infinite;
