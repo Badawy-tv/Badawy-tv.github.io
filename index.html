@@ -214,7 +214,9 @@ checkLive();
 setInterval(checkLive,300000);
 </script>
 <script>
-document.querySelector(".ask-form").addEventListener("submit",function(e){
+document.addEventListener("DOMContentLoaded",function(){
+const form=document.querySelector(".ask-form");
+if(form){form.addEventListener("submit",function(e){
 e.preventDefault();
 const name=this.querySelector("input[type=text]").value;
 const email=this.querySelector("input[type=email]").value;
