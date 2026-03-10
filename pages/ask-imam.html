@@ -53,7 +53,7 @@ background:#145c46;
 <h1>🕌 Ask The Imam</h1>
 <p>Have a question about Islam? Send it directly to the Imam.</p>
 
-<form onsubmit="sendQuestion(); return false;">
+<form onsubmit="return false;">
 
 <input type="text" id="name" placeholder="Your Name" required>
 
@@ -61,7 +61,7 @@ background:#145c46;
 
 <textarea id="question" rows="6" placeholder="Write your question..." required></textarea>
 
-<button type="submit">Send Question</button>
+<button type="button" onclick="sendQuestion()">Send Question</button>
 
 </form>
 
