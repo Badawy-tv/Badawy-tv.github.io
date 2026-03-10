@@ -8,17 +8,80 @@
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/responsive.css">
 
+<style>
+.ask-box{
+max-width:600px;
+margin:60px auto;
+padding:30px;
+background:#f9fbf9;
+border-radius:10px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+.ask-box input,
+.ask-box textarea{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:15px;
+}
+
+.ask-box button{
+background:#0b3d2e;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+}
+
+.ask-box button:hover{
+background:#145c46;
+}
+</style>
+
 </head>
 
 <body>
 
-<h1>Ask The Imam</h1>
+<div class="ask-box">
 
-<p>If you have Islamic questions, submit them below and the Imam will respond.</p>
+<h1>🕌 Ask The Imam</h1>
+<p>Have a question about Islam? Send it directly to the Imam.</p>
 
+<form onsubmit="sendQuestion(); return false;">
 
-<script src="../assets/js/components.js"></script>
+<input type="text" id="name" placeholder="Your Name" required>
 
-<script src="/assets/js/youtube-topic-loader.js"></script>
+<input type="tel" id="phone" placeholder="Your Phone Number" required>
+
+<textarea id="question" rows="6" placeholder="Write your question..." required></textarea>
+
+<button type="submit">Send Question</button>
+
+</form>
+
+</div>
+
+<script>
+
+function sendQuestion(){
+
+var n=document.getElementById("name").value;
+var p=document.getElementById("phone").value;
+var q=document.getElementById("question").value;
+
+var msg="Assalamu Alaikum Imam,%0A%0AName: "+n+"%0APhone: "+p+"%0AQuestion: "+q;
+
+window.open("https://wa.me/254716802090?text="+msg,"_blank");
+
+}
+
+</script>
+
 </body>
 </html>
