@@ -115,11 +115,11 @@
 <section class="ask-imam container">
 <h2>🕌 Ask the Imam</h2>
 <p>Have a question about Islam? Submit it and an Imam will answer.</p>
-<form id="ask-form">
+<form id="ask-form" onsubmit="return false;">
 <input type="text" placeholder="Your name" required>
 <input type="email" placeholder="Your email" required>
 <textarea placeholder="Write your question..." rows="4" required></textarea>
-<button class="btn btn-primary" type="submit">Submit Question</button>
+<button class="btn btn-primary" type="button" id="ask-submit">Submit Question</button>
 </form>
 <div id="contact-options" style="display:none;margin-top:15px;">
 <p><strong>Choose how to send your question:</strong></p>
@@ -176,7 +176,7 @@ The platform is closely connected with <strong>Masjid Aqswa Kisauni</strong>, se
 document.addEventListener("DOMContentLoaded", function(){
 const form = document.getElementById("ask-form");
 if(form){
-form.addEventListener("submit", function(e){
+document.getElementById("ask-submit").addEventListener("click", function(e){
 e.preventDefault();
 const name=this.querySelector("input[type=text]").value;
 const email=this.querySelector("input[type=email]").value;
@@ -219,7 +219,7 @@ setInterval(checkLive,300000);
 document.addEventListener("DOMContentLoaded", function(){
 const form = document.getElementById("ask-form");
 if(form){
-form.addEventListener("submit", function(e){
+document.getElementById("ask-submit").addEventListener("click", function(e){
 e.preventDefault();
 const name=this.querySelector("input[type=text]").value;
 const email=this.querySelector("input[type=email]").value;
