@@ -33,7 +33,7 @@ a {
   color: white;
   background:
     linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("../assets/images/mosque.jpg");
+    url("../images/mosque.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -137,7 +137,7 @@ body {
   text-align: center;
   background:
     linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
-    url("../assets/images/mosque.jpg");
+    url("../images/mosque.jpg");
   background-size: cover;
   background-position: center;
   color: white;
