@@ -109,6 +109,7 @@
 <p>Watch the live broadcast from our YouTube channel.</p>
 <div style="margin-top:20px">
 <div id="live-container">Checking live stream...</div>
+<div style="margin-top:15px;"><a class="btn btn-primary" href="pages/ask-imam.html">Ask Imam</a></div>
 </div>
 </section>
 
@@ -176,6 +177,7 @@ async function checkLive(){
 const API="AIzaSyCjj8SoDY2y_tXtlLuqlr6bQz8RlEQR7OA";
 const CHANNEL="UCkBBxPszQt3MT6O7cAgbj-w";
 const container=document.getElementById("live-container");
+<div style="margin-top:15px;"><a class="btn btn-primary" href="pages/ask-imam.html">Ask Imam</a></div>
 try{
 const liveUrl=`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL}&eventType=live&type=video&key=${API}`;
 const r=await fetch(liveUrl);
