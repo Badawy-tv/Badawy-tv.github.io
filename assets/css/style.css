@@ -25,17 +25,16 @@ a {
 }
 
 .hero {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("../images/mosque.jpg");
-  background-size: cover;
-  background-position: center;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+background-image:linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),url("../images/mosque.jpg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
 }
 
 .hero h1 {
@@ -130,17 +129,16 @@ body {
 }
 
 .hero {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
-    url("../images/mosque.jpg");
-  background-size: cover;
-  background-position: center;
-  color: white;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+background-image:linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),url("../images/mosque.jpg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
 }
 
 .hero-inner h1 {
