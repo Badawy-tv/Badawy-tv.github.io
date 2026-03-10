@@ -47,6 +47,11 @@ background-repeat:no-repeat;
   margin-bottom: 30px;
 }
 
+nav a{
+color:#ffffff !important;
+font-weight:700;
+letter-spacing:0.5px;
+}
 .btn {
   display: inline-block;
   padding: 12px 25px;
@@ -154,6 +159,11 @@ background-repeat:no-repeat;
 
 /* buttons */
 
+nav a{
+color:#ffffff !important;
+font-weight:700;
+letter-spacing:0.5px;
+}
 .btn {
   padding: 12px 24px;
   border-radius: 6px;
