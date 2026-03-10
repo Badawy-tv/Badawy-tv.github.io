@@ -60,7 +60,6 @@
 
 </nav>
 
-<script>
 
 };
 
@@ -126,7 +125,6 @@
 <h2>Ask the Imam</h2>
 <p>Send your Islamic question directly to the Imam.</p>
 <form onsubmit="sendQuestion();return false;">
-<script>function sendQuestion(){var n=document.getElementById("ask-name").value;var p=document.getElementById("ask-phone").value;var q=document.getElementById("ask-question").value;var msg="Assalamu Alaikum Imam,%0A%0AName: "+n+"%0APhone: "+p+"%0AQuestion: "+q;window.open("https://wa.me/254716802090?text="+msg,"_blank");}</script>
 <input type="text" id="ask-name" placeholder="Your Name" required>
 <input type="tel" id="ask-phone" placeholder="Phone Number" required>
 <textarea id="ask-question" placeholder="Write your question here..." required></textarea>
@@ -177,3 +175,11 @@ The platform is closely connected with <strong>Masjid Aqswa Kisauni</strong>, se
 </script>
 <script defer src="assets/js/donation-bar.js"></script>
 <script>
+function sendQuestion(){
+var n=document.getElementById("ask-name").value;
+var p=document.getElementById("ask-phone").value;
+var q=document.getElementById("ask-question").value;
+var msg="Assalamu Alaikum Imam,%0A%0AName: "+n+"%0APhone: "+p+"%0AQuestion: "+q;
+window.open("https://wa.me/254716802090?text="+msg,"_blank");
+}
+</script>
