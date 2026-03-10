@@ -122,6 +122,16 @@
 <a class="btn btn-primary" href="https://youtube.com/@ahmadbadawytv?si=QK0KPueB7LHAuCUP" target="_blank">Watch Live TV</a>
 <a class="btn btn-secondary" href="pages/donate.html">Support Dawah</a>
 </div>
+<section class="ask-imam container">
+<h2>Ask the Imam</h2>
+<p>Send your Islamic question directly to the Imam.</p>
+<form onsubmit="sendQuestion();return false;">
+<input type="text" id="ask-name" placeholder="Your Name" required>
+<input type="tel" id="ask-phone" placeholder="Phone Number" required>
+<textarea id="ask-question" placeholder="Write your question here..." required></textarea>
+<button type="submit">Submit Question</button>
+</form>
+</section>
 <section class="contact container">
 <h2 style="margin-bottom:25px;">Contact Us</h2>
 <div class="contact-icons">
@@ -152,7 +162,6 @@ The platform is closely connected with <strong>Masjid Aqswa Kisauni</strong>, se
 </div>
 </section>
 
-<section class="ask-imam container">
 <h2>Ask the Imam</h2>
 <p>Send your Islamic question directly to the Imam.</p>
 <form action="https://wa.me/254716802090" method="get" target="_blank">
