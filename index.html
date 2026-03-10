@@ -115,7 +115,7 @@
 <section class="ask-imam container">
 <h2>🕌 Ask the Imam</h2>
 <p>Have a question about Islam? Submit it and an Imam will answer.</p>
-<form class="ask-form">
+<form id="ask-form">
 <input type="text" placeholder="Your name" required>
 <input type="email" placeholder="Your email" required>
 <textarea placeholder="Write your question..." rows="4" required></textarea>
@@ -174,7 +174,7 @@ The platform is closely connected with <strong>Masjid Aqswa Kisauni</strong>, se
 <script defer src="assets/js/donation-bar.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-const form = document.querySelector(".ask-form");
+const form = document.getElementById("ask-form");
 if(form){
 form.addEventListener("submit", function(e){
 e.preventDefault();
@@ -217,7 +217,7 @@ setInterval(checkLive,300000);
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-const form = document.querySelector(".ask-form");
+const form = document.getElementById("ask-form");
 if(form){
 form.addEventListener("submit", function(e){
 e.preventDefault();
