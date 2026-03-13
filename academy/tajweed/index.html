@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>Tajweed Course</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
 body{
 font-family:Arial;
-background:#f5f7fa;
 margin:0;
-padding:0;
+background:#f4f6f8;
 }
 
 .header{
@@ -19,24 +21,38 @@ padding:25px;
 text-align:center;
 }
 
+.progress-container{
+width:90%;
+margin:auto;
+margin-top:20px;
+}
+
+.progress-bar{
+height:12px;
+background:#ddd;
+border-radius:10px;
+overflow:hidden;
+}
+
+.progress{
+height:12px;
+background:#0b5d3b;
+width:0%;
+}
+
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+grid-template-columns:repeat(3,1fr);
 gap:20px;
-padding:25px;
+padding:30px;
 }
 
 .lesson{
 background:white;
-padding:20px;
-border-radius:12px;
+padding:25px;
+border-radius:10px;
 text-align:center;
 box-shadow:0 3px 8px rgba(0,0,0,0.1);
-transition:0.2s;
-}
-
-.lesson:hover{
-transform:scale(1.05);
 }
 
 .lesson a{
@@ -46,6 +62,22 @@ color:#0b5d3b;
 font-size:18px;
 }
 
+.complete{
+margin-top:10px;
+}
+
+@media(max-width:800px){
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+@media(max-width:500px){
+.grid{
+grid-template-columns:1fr;
+}
+}
+
 </style>
 </head>
 
@@ -53,36 +85,69 @@ font-size:18px;
 
 <div class="header">
 <h1>Tajweed Course</h1>
-<p>Learn the Correct Recitation of the Quran</p>
+<p>Learn Correct Quran Recitation</p>
 </div>
 
-<div class="grid">
-
-<a class="lesson" href="lesson1.html">Lesson 1</a>
-<a class="lesson" href="lesson2.html">Lesson 2</a>
-<a class="lesson" href="lesson3.html">Lesson 3</a>
-<a class="lesson" href="lesson4.html">Lesson 4</a>
-<a class="lesson" href="lesson5.html">Lesson 5</a>
-<a class="lesson" href="lesson6.html">Lesson 6</a>
-<a class="lesson" href="lesson7.html">Lesson 7</a>
-<a class="lesson" href="lesson8.html">Lesson 8</a>
-<a class="lesson" href="lesson9.html">Lesson 9</a>
-<a class="lesson" href="lesson10.html">Lesson 10</a>
-<a class="lesson" href="lesson11.html">Lesson 11</a>
-<a class="lesson" href="lesson12.html">Lesson 12</a>
-<a class="lesson" href="lesson13.html">Lesson 13</a>
-<a class="lesson" href="lesson14.html">Lesson 14</a>
-<a class="lesson" href="lesson15.html">Lesson 15</a>
-<a class="lesson" href="lesson16.html">Lesson 16</a>
-<a class="lesson" href="lesson17.html">Lesson 17</a>
-<a class="lesson" href="lesson18.html">Lesson 18</a>
-<a class="lesson" href="lesson19.html">Lesson 19</a>
-<a class="lesson" href="lesson20.html">Lesson 20</a>
-<a class="lesson" href="lesson21.html">Lesson 21</a>
-<a class="lesson" href="lesson22.html">Lesson 22</a>
-<a class="lesson" href="lesson23.html">Lesson 23</a>
-
+<div class="progress-container">
+<p>Course Progress</p>
+<div class="progress-bar">
+<div class="progress" id="progress"></div>
 </div>
+</div>
+
+<div class="grid" id="lessons"></div>
+
+<script>
+
+const totalLessons = 23
+const container = document.getElementById("lessons")
+
+for(let i=1;i<=totalLessons;i++){
+
+let completed = localStorage.getItem("lesson"+i)
+
+container.innerHTML += `
+<div class="lesson">
+<a href="lesson${i}.html">Lesson ${i}</a>
+<div class="complete">
+<label>
+<input type="checkbox" ${completed?"checked":""}
+onchange="toggleComplete(${i},this)">
+Completed
+</label>
+</div>
+</div>
+`
+}
+
+function toggleComplete(num,box){
+
+if(box.checked){
+localStorage.setItem("lesson"+num,true)
+}else{
+localStorage.removeItem("lesson"+num)
+}
+
+updateProgress()
+}
+
+function updateProgress(){
+
+let done = 0
+
+for(let i=1;i<=totalLessons;i++){
+if(localStorage.getItem("lesson"+i)) done++
+}
+
+let percent = (done/totalLessons)*100
+
+document.getElementById("progress").style.width = percent+"%"
+
+}
+
+updateProgress()
+
+</script>
 
 </body>
 </html>
