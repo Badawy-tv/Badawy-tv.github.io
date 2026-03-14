@@ -89,6 +89,20 @@ window.location.href="lesson24.html"
 </body>
 </html>
 
+
+<script>
+function checkAllLessonsCompleted() {
+    let allDone = true;
+    for(let i=1; i<=23; i++) {
+        if(!localStorage.getItem("lesson"+i)) {
+            allDone = false;
+            break;
+        }
+    }
+    if(allDone) {
+
+
+<!-- Certificate Button -->
 <div id="certificate-container" style="margin:30px; text-align:center; display:none;">
     <button id="get-certificate" style="
         padding:15px 25px;
@@ -102,19 +116,21 @@ window.location.href="lesson24.html"
 </div>
 
 <script>
+// Show certificate button if all lessons 1-23 are completed
 function checkAllLessonsCompleted() {
     let allDone = true;
-    for(let i=1; i<=23; i++) {
-        if(!localStorage.getItem("lesson"+i)) {
-            allDone = false;
-            break;
+    for(let i=1;i<=23;i++){
+        if(localStorage.getItem("lesson"+i) !== "true"){ 
+            allDone = false; 
+            break; 
         }
     }
-    if(allDone) {
+    if(allDone){
         document.getElementById("certificate-container").style.display = "block";
     }
 }
 
+// Redirect to certificate request page
 document.getElementById("get-certificate").addEventListener("click", () => {
     window.location.href="/academy/certificate-request.html";
 });
