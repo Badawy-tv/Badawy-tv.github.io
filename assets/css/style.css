@@ -1182,3 +1182,13 @@ background:#145c46;
   display: none;
   z-index: 9998;
 }
+
+/* Transparent until hovered */
+.support-btn {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.support-btn:hover {
+  opacity: 1;
+}
