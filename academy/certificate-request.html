@@ -1,106 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Request Certificate</title>
-
-<link rel="stylesheet" href="../assets/css/layout.css">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/responsive.css">
-
-<style>
-
-.container{
-max-width:700px;
-margin:auto;
-padding:50px;
-}
-
-input,select{
-width:100%;
-padding:12px;
-margin-top:10px;
-margin-bottom:20px;
-font-size:16px;
-}
-
-button{
-padding:15px;
-font-size:18px;
-background:#1a7f37;
-color:white;
-border:none;
-border-radius:6px;
-cursor:pointer;
-}
-
-button:hover{
-background:#166a2e;
-}
-
-</style>
-
+  <title>Tajweed Certificate Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial; text-align:center; padding:50px; background:#f4f6f8; }
+    h2 { color:#0b5d3b; }
+    button { padding:15px 25px; font-size:18px; background:#0b5d3b; color:white; border:none; border-radius:8px; cursor:pointer; }
+    #payment-status { margin-top:20px; font-weight:bold; }
+    input { padding:10px; font-size:16px; width:200px; margin-bottom:15px; }
+  </style>
 </head>
-
 <body>
 
-<div class="container">
+<h2>Tajweed Certificate Payment</h2>
+<p>Enter your phone number to pay Ksh 500 and get your certificate.</p>
 
-<h1>Badawy Islamic Academy</h1>
+<input type="tel" id="phone" placeholder="2547XXXXXXXX" /><br>
+<button id="pay-button">💳 Pay Ksh 500</button>
 
-<h2>Certificate Request</h2>
-
-<p>Fill the details below to generate your certificate.</p>
-
-<form id="certForm">
-
-<label>Full Name</label>
-<input type="text" id="name" required>
-
-<label>Phone Number</label>
-<input type="text" id="phone" required>
-
-<label>Course</label>
-<select id="course">
-
-<option value="tajweed">Tajweed</option>
-<option value="arabic">Arabic</option>
-<option value="aqeedah">Aqeedah</option>
-<option value="fiqh">Fiqh</option>
-<option value="hadith">Hadith</option>
-<option value="seerah">Seerah</option>
-<option value="akhlaq">Akhlaq</option>
-<option value="hifdh">Hifdh</option>
-
-</select>
-
-<label>City, Country</label>
-<input type="text" id="location" required>
-<label>M-PESA Transaction ID</label>
-<input type="text" id="txid" required>
-
-<button type="submit">Verify Payment</button>
-
-</form>
-
-</div>
+<div id="payment-status"></div>
 
 <script>
-
-document.getElementById("certForm").addEventListener("submit",function(e){
-
-e.preventDefault()
-
-const name=document.getElementById("name").value;const course=document.getElementById("course").value;const txid=document.getElementById("txid").value;if(txid.length<8){alert("Invalid Transaction ID");return;}window.location.href="certificate-generate.html?name="+encodeURIComponent(name)+"&course="+encodeURIComponent(course);
-
-})
-
+document.getElementById("pay-button").addEventListener("click", async () => {
+    const status = document.getElementById("payment-status");
+    const phone = document.getElementById("phone").value.trim();
+    if(!phone) { status.innerText="Please enter your phone number"; return; }
+    
+    status.innerText = "Initiating payment...";
+    
+    try {
+        const res = await fetch("/pay-certificate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ phone })
+        });
+        const data = await res.json();
+        
+        if(data.success){
+            status.innerText = "Payment initiated! Check your phone to approve Ksh 500 payment.";
+        } else {
+            status.innerText = "Error: " + data.message;
+        }
+    } catch(err){
+        status.innerText = "Network error. Please try again.";
+    }
+});
 </script>
 
-<script type="module" src="js/certificate-request.js"></script>
 </body>
-
 </html>

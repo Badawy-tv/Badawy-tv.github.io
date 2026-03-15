@@ -139,3 +139,45 @@ document.getElementById("get-certificate").addEventListener("click", () => {
 checkAllLessonsCompleted();
 </script>
 
+
+<!-- Certificate Button -->
+<div id="certificate-container" style="margin:30px; text-align:center; display:none;">
+<button id="get-certificate" style="
+padding:15px 25px;
+font-size:18px;
+background:#caa84c;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+">
+📜 Apply for Certificate
+</button>
+</div>
+
+<script>
+// Show certificate button if all lessons completed
+function checkAllLessonsCompleted() {
+let allDone = true;
+
+for(let i=1;i<=23;i++){
+if(localStorage.getItem("lesson"+i) !== "true"){
+allDone = false;
+break;
+}
+}
+
+if(allDone){
+document.getElementById("certificate-container").style.display = "block";
+}
+}
+
+// Redirect to certificate request page
+document.getElementById("get-certificate").addEventListener("click", () => {
+window.location.href="/academy/certificate-request.html";
+});
+
+// Run on page load
+checkAllLessonsCompleted();
+</script>
+
