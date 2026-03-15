@@ -1153,3 +1153,32 @@ cursor:pointer;
 background:#145c46;
 }
 
+
+/* Support Panel */
+.support-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  font-size: 28px;
+  cursor: pointer;
+  background: #0b3d2e;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.support-panel {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  width: 300px;
+  background: #fff;
+  border: 1px solid #0b3d2e;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  display: none;
+  z-index: 9998;
+}
