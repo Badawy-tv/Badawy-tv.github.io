@@ -1192,3 +1192,39 @@ background:#145c46;
 .support-btn:hover {
   opacity: 1;
 }
+
+/* Support Floating Panel */
+.support-btn {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  font-size: 32px;
+  z-index: 9999;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.support-btn:hover {
+  opacity: 1;
+}
+
+.support-panel {
+  position: fixed;
+  top: 120px;
+  right: 20px;
+  width: 250px;
+  background: #0b3d2e;
+  color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  display: none;
+  z-index: 9998;
+}
+
+.support-panel a.btn {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+}

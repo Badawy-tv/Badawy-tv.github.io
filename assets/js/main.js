@@ -54,3 +54,24 @@ if (supportBtn && supportPanel) {
     }
   });
 }
+
+// Support Button Panel
+const supportBtn = document.getElementById("support-btn");
+const supportPanel = document.getElementById("support-panel");
+
+if(supportBtn && supportPanel){
+  supportBtn.addEventListener("click", (e)=>{
+    e.stopPropagation();
+    supportPanel.style.display = (supportPanel.style.display === "block") ? "none" : "block";
+  });
+
+  window.addEventListener("scroll", () => {
+    supportPanel.style.display = "none";
+  });
+
+  document.addEventListener("click", (e)=>{
+    if(!supportPanel.contains(e.target) && !supportBtn.contains(e.target)){
+      supportPanel.style.display = "none";
+    }
+  });
+}
