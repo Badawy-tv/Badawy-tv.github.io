@@ -24,7 +24,7 @@ document.getElementById("pay-button").addEventListener("click", async () => {
     status.innerText = "Processing payment...";
     
     try {
-        const res = await fetch("/pay-certificate", { method: "POST" });
+        const res = await fetch("http://localhost:3000/pay-certificate", { method: "POST" });
         const data = await res.json();
         
         if(data.success){
