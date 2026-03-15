@@ -1,49 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tajweed Certificate Payment</title>
+  <title>Apply for Tajweed Certificate</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body { font-family: Arial; text-align:center; padding:50px; background:#f4f6f8; }
     h2 { color:#0b5d3b; }
     button { padding:15px 25px; font-size:18px; background:#0b5d3b; color:white; border:none; border-radius:8px; cursor:pointer; }
     #payment-status { margin-top:20px; font-weight:bold; }
-    input { padding:10px; font-size:16px; width:200px; margin-bottom:15px; }
   </style>
 </head>
 <body>
 
-<h2>Tajweed Certificate Payment</h2>
-<p>Enter your phone number to pay Ksh 500 and get your certificate.</p>
+<h2>Apply for Your Tajweed Certificate</h2>
+<p>Click the button below to pay and receive your certificate.</p>
 
-<input type="tel" id="phone" placeholder="2547XXXXXXXX" /><br>
-<button id="pay-button">💳 Pay Ksh 500</button>
-
+<button id="pay-button">💳 Apply Certificate</button>
 <div id="payment-status"></div>
 
 <script>
 document.getElementById("pay-button").addEventListener("click", async () => {
     const status = document.getElementById("payment-status");
-    const phone = document.getElementById("phone").value.trim();
-    if(!phone) { status.innerText="Please enter your phone number"; return; }
-    
-    status.innerText = "Initiating payment...";
+    status.innerText = "Processing payment...";
     
     try {
-        const res = await fetch("/pay-certificate", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ phone })
-        });
+        const res = await fetch("/pay-certificate", { method: "POST" });
         const data = await res.json();
         
         if(data.success){
-            status.innerText = "Payment initiated! Check your phone to approve Ksh 500 payment.";
+            status.innerText = "Payment initiated! Check your phone to approve the transaction.";
         } else {
             status.innerText = "Error: " + data.message;
         }
     } catch(err){
-        status.innerText = "Network error. Please try again.";
+        status.innerText = "Network error. Backend server may not be running.";
     }
 });
 </script>
