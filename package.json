@@ -1,0 +1,27 @@
+{
+  "name": "badawy-tv.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Badawy-tv/Badawy-tv.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Badawy-tv/Badawy-tv.github.io/issues"
+  },
+  "homepage": "https://github.com/Badawy-tv/Badawy-tv.github.io#readme",
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2"
+  }
+}
