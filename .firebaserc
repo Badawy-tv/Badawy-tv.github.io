@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "badawy-academy"
-  }
+    "default": "badawy-academy",
+    "live-tv": "badawy-tv-4e1b4"
+  },
+  "targets": {},
+  "etags": {}
 }
