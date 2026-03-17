@@ -2,101 +2,68 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ask The Imam | Badawy TV</title>
-
-<link rel="stylesheet" href="../assets/css/layout.css">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/responsive.css">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ask Imam - Islamic Guidance</title>
+<link rel="stylesheet" href="../../assets/css/style.css">
 <style>
-.ask-box{
-max-width:600px;
-margin:60px auto;
-padding:30px;
-background:#f9fbf9;
-border-radius:10px;
-border:1px solid #ddd;
-text-align:center;
-}
-
-.ask-box input,
-.ask-box textarea{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:1px solid #ccc;
-border-radius:6px;
-font-size:15px;
-}
-
-.ask-box button{
-background:#0b3d2e;
-color:white;
-border:none;
-padding:12px 25px;
-border-radius:6px;
-font-size:16px;
-cursor:pointer;
-}
-
-.ask-box button:hover{
-background:#145c46;
-}
-</style>
-
-<style>
-body{background:#f5f7f6;font-family:Arial,Helvetica,sans-serif;}
-.ask-box{max-width:650px;margin:80px auto;padding:35px;background:#ffffff;border-radius:12px;border:1px solid #e6e6e6;box-shadow:0 5px 15px rgba(0,0,0,0.05);}
-.ask-box h1{color:#0b3d2e;margin-bottom:10px;text-align:center;}
-.ask-box p{text-align:center;color:#555;margin-bottom:25px;}
-.ask-box input,.ask-box textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #ccc;border-radius:6px;font-size:15px;}
-.ask-box textarea{height:140px;}
-.ask-box a{display:inline-block;margin-top:10px;background:#0b3d2e;color:#fff;padding:12px 25px;border-radius:6px;text-decoration:none;font-size:16px;}
-.ask-box a:hover{background:#145c46;}
+  .form-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+  }
+  .form-container h2 { text-align: center; margin-bottom: 20px; }
+  .form-container label { display: block; margin-top: 10px; font-weight: bold; }
+  .form-container input, .form-container textarea, .form-container button {
+    width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px; border: 1px solid #ccc;
+  }
+  .form-container textarea { resize: vertical; height: 120px; }
+  .send-options { display: none; margin-top: 15px; text-align: center; }
+  .send-options a { display: inline-block; margin: 5px; padding: 10px 15px; background: #1e90ff; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; }
 </style>
 </head>
-
 <body>
+<div class="form-container">
+  <h2>Ask Imam</h2>
+  <p>Submit your question about Islamic family guidance. The Imam will respond via Email or WhatsApp.</p>
+  <form id="ask-imam-form">
+    <label for="name">Name</label>
+    <input type="text" id="name" required>
 
-<div class="ask-box">
+    <label for="email">Email</label>
+    <input type="email" id="email" required>
 
-<h1>🕌 Ask The Imam</h1>
-<p>Have a question about Islam? Send it directly to the Imam.</p>
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" required>
 
-<form onsubmit="return false;">
+    <label for="question">Question</label>
+    <textarea id="question" required></textarea>
 
-<input type="text" id="name" placeholder="Your Name" required>
+    <button type="submit">Submit</button>
+  </form>
 
-<input type="tel" id="phone" placeholder="Your Phone Number" required>
-
-<textarea id="question" rows="6" placeholder="Write your question..." required></textarea>
-
-<a class="btn btn-primary" href="https://wa.me/254716802090?text=Assalamu%20Alaikum%20Imam%2C%0A%0AName%3A%20%0APhone%3A%20%0AQuestion%3A%20" target="_blank">Send Question</a>
-
-</form>
-
+  <div class="send-options" id="contact-options">
+    <a id="send-whatsapp" href="#" target="_blank">Send via WhatsApp</a>
+    <a id="send-email" href="#">Send via Email</a>
+  </div>
 </div>
 
-<div class="imam-bio" style="max-width:650px;margin:20px auto;padding:20px;background:#ffffff;border-radius:8px;border:1px solid #eee;text-align:center;">
-<h3>About Imam Ahmad Badawy</h3>
-<p>Imam Ahmad Badawy is the respected Imam of Masjid Aqswa in Kisauni, Mombasa, Kenya. Through Badawy TV he spreads authentic Islamic knowledge, guiding Muslims in matters of faith, worship, and daily life. His lectures focus on Quran, Sunnah, Islamic manners, and strengthening the connection between Muslims and Allah. Through teaching, dawah, and community guidance, he continues to inspire and educate the Muslim Ummah. <!-- source: YouTube channel --></p>
-<img loading="lazy" src="../assets/img/ahmad-badawy.jpg" alt="Imam Ahmad Badawy" style="max-width:420px;width:100%;margin-top:20px;border-radius:8px;margin-top:12px;">
-</div>
 <script>
+document.getElementById("ask-imam-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const question = document.getElementById("question").value.trim();
 
-function sendQuestion(){
+  const message = `Assalamu Alaikum wa Rahmatullahi wa Barakatuh,%0A%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AQuestion: ${question}%0A%0AJazakum Allahu Khairan.`;
 
-var n=document.getElementById("name").value;
-var p=document.getElementById("phone").value;
-var q=document.getElementById("question").value;
-
-var msg="Assalamu Alaikum Imam,%0A%0AName: "+n+"%0APhone: "+p+"%0AQuestion: "+q;
-
-window.location.href="https://wa.me/254716802090?text=Assalamu%20Alaikum%20Imam%2C%0A%0AName%3A%20%0APhone%3A%20%0AQuestion%3A%20?text="+msg;
-
-}
-
+  document.getElementById("contact-options").style.display = "block";
+  document.getElementById("send-whatsapp").href = `https://wa.me/254716802090?text=${message}`;
+  document.getElementById("send-email").href = `mailto:ahmedbadawy786@gmail.com?subject=Ask Imam Question&body=${message}`;
+});
 </script>
-
 </body>
 </html>
