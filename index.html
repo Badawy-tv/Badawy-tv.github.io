@@ -127,6 +127,7 @@
 <div style="text-align:center; margin-bottom:20px;">
 <p>Explore key teachings about building a strong and righteous Muslim family. Learn how to raise children, maintain harmony, and strengthen marital bonds according to Islamic principles.</p>
 <a href="pages/family-teachings/index.html" class="btn btn-primary">Learn More</a>
+<div class="card" style="width:75%; max-width:900px; margin:20px auto; padding:20px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9;">
 </div>
 <div class="card" style="width:75%; max-width:900px; margin:20px auto; padding:20px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9;"><h3>Islamic Dua and Dhikr</h3><p>Access a comprehensive collection of authentic Duas, supplications, and Dhikr from the Qur&#39;an and Sunnah. These resources are designed to help Muslims remember Allah in daily life, strengthen faith, and achieve spiritual tranquility. <a href="pages/dua.html" style="text-decoration:underline;color:#1e90ff;">Learn More</a></p></div>
 <div class="card" style="width:75%; max-width:900px; margin:20px auto; padding:20px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9;"><h3>Watch Lectures</h3><p>Watch carefully selected Islamic lectures providing deep insights into faith, knowledge, and spiritual development. These lectures are designed to educate, inspire, and guide Muslims in understanding Islam correctly while addressing contemporary challenges faced by the Ummah. <a href="pages/lectures.html" style="text-decoration:underline;color:#1e90ff;">Learn More</a></p></div>
@@ -218,7 +219,6 @@ const question=this.querySelector("textarea").value;
 const message=`Assalamu Alaikum wa Rahmatullahi wa Barakatuh,%0A%0AThank you for contacting Badawy TV 📺.%0AMay Allah bless you for reaching out to us.%0AWe are honored to hear from you and pray that Allah fills your life with barakah and guidance.%0A%0AStay connected with Badawy TV for Qur’an recitations, Islamic reminders, beneficial knowledge, and live lectures.%0A%0A---%0AName: ${name}%0AEmail: ${email}%0AQuestion: ${question}%0A%0AJazakum Allahu Khairan.%0ABadawy TV`;
 document.getElementById("contact-options").style.display="block";
 document.getElementById("send-whatsapp").href=`https://wa.me/254716802090?text=${message}`;
-document.getElementById("send-email").href=`mailto:ahmedbadawy786@gmail.com?subject=Ask Imam Question&body=${message}`;
 });
 </script>
 
@@ -270,3 +270,40 @@ document.getElementById("send-email").href=`mailto:ahmedbadawy786@gmail.com?subj
 <script>setInterval(function(){var d=window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160;if(d){document.body.innerHTML="";}},2000);</script>
 <script>document.addEventListener("copy",function(e){e.preventDefault();});document.addEventListener("cut",function(e){e.preventDefault();});</script>
 <script>if(navigator.webdriver||/bot|crawl|spider/i.test(navigator.userAgent)){console.log("Crawler blocked");}</script>
+
+<!-- Ask Imam Section -->
+<div class="card" style="width:75%; max-width:900px; margin:20px auto; padding:20px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9;">
+  <h3>Ask Imam</h3>
+  <p>Have a question about Islamic family guidance? Submit your question and get answers directly via Email or WhatsApp.</p>
+  <form id="ask-imam-form" style="text-align:left; margin-top:15px;">
+    <label>Name:</label><br>
+    <input type="text" name="name" required style="width:100%; padding:8px; margin-bottom:10px;"><br>
+    <label>Email:</label><br>
+    <input type="email" name="email" required style="width:100%; padding:8px; margin-bottom:10px;"><br>
+    <label>Phone Number:</label><br>
+    <input type="tel" name="phone" required style="width:100%; padding:8px; margin-bottom:10px;"><br>
+    <label>Question:</label><br>
+    <textarea name="question" rows="4" required style="width:100%; padding:8px; margin-bottom:10px;"></textarea><br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <div id="contact-options" style="display:none; margin-top:15px;">
+    <a id="send-whatsapp" href="#" target="_blank" class="btn btn-success" style="margin-right:10px;">Send via WhatsApp</a>
+    <a id="send-email" href="#" class="btn btn-info">Send via Email</a>
+  </div>
+</div>
+
+<script>
+document.getElementById('ask-imam-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name=this.querySelector("input[name=name]").value;
+  const email=this.querySelector("input[name=email]").value;
+  const phone=this.querySelector("input[name=phone]").value;
+  const question=this.querySelector("textarea[name=question]").value;
+  
+  const message = `Assalamu Alaikum Warahmatullahi Wabarakatuh,%0A%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AQuestion: ${question}`;
+  
+  document.getElementById("contact-options").style.display="block";
+  document.getElementById("send-whatsapp").href = `https://wa.me/254716802090?text=${message}`;
+  document.getElementById("send-email").href = `mailto:ahmedbadawy786@gmail.com?subject=Ask Imam Question&body=${message}`;
+});
+</script>
