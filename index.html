@@ -276,39 +276,3 @@ document.getElementById("send-whatsapp").href=`https://wa.me/254716802090?text=$
 <script>document.addEventListener("copy",function(e){e.preventDefault();});document.addEventListener("cut",function(e){e.preventDefault();});</script>
 <script>if(navigator.webdriver||/bot|crawl|spider/i.test(navigator.userAgent)){console.log("Crawler blocked");}</script>
 
-<!-- Ask Imam Section -->
-<div class="card" style="width:75%; max-width:900px; margin:20px auto; padding:20px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9;">
-  <h3>Ask Imam</h3>
-  <p>Have a question about Islamic family guidance? Submit your question and get answers directly via Email or WhatsApp.</p>
-  <form id="ask-imam-form" style="text-align:left; margin-top:15px;">
-    <label>Name:</label><br>
-    <input type="text" name="name" required style="width:100%; padding:8px; margin-bottom:10px;"><br>
-    <label>Email:</label><br>
-    <input type="email" name="email" required style="width:100%; padding:8px; margin-bottom:10px;"><br>
-    <label>Phone Number:</label><br>
-    <input type="tel" name="phone" required style="width:100%; padding:8px; margin-bottom:10px;"><br>
-    <label>Question:</label><br>
-    <textarea name="question" rows="4" required style="width:100%; padding:8px; margin-bottom:10px;"></textarea><br>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-  <div id="contact-options" style="display:none; margin-top:15px;">
-    <a id="send-whatsapp" href="#" target="_blank" class="btn btn-success" style="margin-right:10px;">Send via WhatsApp</a>
-    <a id="send-email" href="#" class="btn btn-info">Send via Email</a>
-  </div>
-</div>
-
-<script>
-document.getElementById('ask-imam-form').addEventListener('submit', function(e){
-  e.preventDefault();
-  const name=this.querySelector("input[name=name]").value;
-  const email=this.querySelector("input[name=email]").value;
-  const phone=this.querySelector("input[name=phone]").value;
-  const question=this.querySelector("textarea[name=question]").value;
-  
-  const message = `Assalamu Alaikum Warahmatullahi Wabarakatuh,%0A%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AQuestion: ${question}`;
-  
-  document.getElementById("contact-options").style.display="block";
-  document.getElementById("send-whatsapp").href = `https://wa.me/254716802090?text=${message}`;
-  document.getElementById("send-email").href = `mailto:ahmedbadawy786@gmail.com?subject=Ask Imam Question&body=${message}`;
-});
-</script>
