@@ -113,27 +113,32 @@
 <img loading="lazy" src="assets/images/islamic_tools.png" alt="Islamic Tools" style="width:100%; max-height:400px; object-fit:cover; border-radius:12px; margin-bottom:15px;">
 <p>Explore modern Islamic tools designed to simplify your practice and daily worship. Access Qibla direction, Hijri date, prayer times, supplications, and much more. All tools are easy to use, reliable, and designed to enrich your spiritual journey. <a href="islamic-tools/index.html" style="display:inline-block; margin-top:15px; padding:10px 18px; background-color:#1b5e20; color:white; text-decoration:none; border-radius:8px; font-weight:bold;">Learn More</a></p>
 </div>
+<section class="quran container">
+<div class="card quran-card" style="width:95%; max-width:1000px; margin:20px auto; padding:25px; border-radius:16px; border:none; background: linear-gradient(135deg, #0288d1, #26c6da); color:white; box-shadow:0 12px 28px rgba(0,0,0,0.25); font-size:1.1rem; line-height:1.6; text-align:left;">
+<img loading="lazy" src="assets/images/open_quran_reader.png" alt="Quran Reader" style="width:100%; max-height:400px; object-fit:cover; border-radius:12px; margin-bottom:20px;">
+<a href="pages/quran.html" style="display:inline-block; margin-top:15px; padding:10px 18px; background-color:#01579b; color:white; text-decoration:none; border-radius:8px; font-weight:bold;">Read Quran</a>
 </div>
 </section>
-
-<section class="quran container">
 <h2>📖 Quran</h2>
-<img loading="lazy" src="assets/images/open_quran_reader.png" alt="Read Quran" style="width:100%; max-height:550px; object-fit:cover; border-radius:12px; margin:20px 0;">
 <p>Read and listen to the Holy Quran.</p>
 <div style="margin-top:20px">
 <a class="btn btn-primary" href="pages/quran.html">Open Quran Reader</a>
-<h2 style="text-align:center; margin-top:30px;">Islamic Family Teachings</h2>
-<img loading="lazy" src="assets/images/islamic-family-teaching.jpg" alt="Islamic Family Teaching" style="width:100%; max-height:500px; object-fit:cover; border-radius:12px; margin:20px 0;">
-<div style="text-align:center; margin-bottom:20px;">
-<p>Explore key teachings about building a strong and righteous Muslim family. Learn how to raise children, maintain harmony, and strengthen marital bonds according to Islamic principles.</p>
-<a href="pages/family-teachings/index.html" class="btn btn-primary">Learn More</a>
-<div class="card" style="width:75%; max-width:900px; margin:20px auto; padding:20px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9;">
-<h3>Ask Imam</h3>
-<p>Have a question about Islamic family guidance? Submit it below and get answers via Email or WhatsApp.</p>
-<a href="pages/ask-imam.html" style="text-decoration:underline;color:#1e90ff;">Learn More</a>
+<div class="live-stream" style="margin:30px 0;text-align:center;">
+<h2>🔴 Live Now</h2>
+<video preload="none" width="100%" height="400" controls autoplay>
+<source src="https://badawy-tv.github.io/live/badawy-live-001/index.m3u8" type="application/x-mpegURL">
+Your browser does not support the video tag.
+</video>
 </div>
-<div class="card" style="width:75%; max-width:900px; margin:20px auto; padding:20px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9;">
 </div>
+</section>
+
+
+
+
+
+<div class="hero-ctas">
+<div class="card" style="width:75%; max-width:900px; margin:20px auto; padding:20px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9;"><h3>Read Lectures</h3><p>Explore a growing collection of beneficial Islamic lectures written for those who seek knowledge, reflection, and guidance. These lectures focus on Qur&#39;an explanations, purification of the heart, Islamic character, and strengthening faith in daily life. <a href="pages/articles.html" style="text-decoration:underline;color:#1e90ff;">Learn More</a></p></div>
 <div class="card" style="width:75%; max-width:900px; margin:20px auto; padding:20px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9;"><h3>Islamic Dua and Dhikr</h3><p>Access a comprehensive collection of authentic Duas, supplications, and Dhikr from the Qur&#39;an and Sunnah. These resources are designed to help Muslims remember Allah in daily life, strengthen faith, and achieve spiritual tranquility. <a href="pages/dua.html" style="text-decoration:underline;color:#1e90ff;">Learn More</a></p></div>
 <div class="card" style="width:75%; max-width:900px; margin:20px auto; padding:20px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9;"><h3>Watch Lectures</h3><p>Watch carefully selected Islamic lectures providing deep insights into faith, knowledge, and spiritual development. These lectures are designed to educate, inspire, and guide Muslims in understanding Islam correctly while addressing contemporary challenges faced by the Ummah. <a href="pages/lectures.html" style="text-decoration:underline;color:#1e90ff;">Learn More</a></p></div>
 <div class="card" style="width:75%; max-width:900px; margin:20px auto; padding:20px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9;"><h3>Watch Live TV</h3><p>Access our live Islamic broadcast featuring beneficial lectures, reminders, and educational programs streamed worldwide. Perfect for those seeking spiritual guidance and authentic Islamic content anytime. <a href="https://youtube.com/@ahmadbadawytv?si=QK0KPueB7LHAuCUP" style="text-decoration:underline;color:#1e90ff;" target="_blank">Learn More</a></p></div>
@@ -223,49 +228,9 @@ const email=this.querySelector("input[type=email]").value;
 const question=this.querySelector("textarea").value;
 const message=`Assalamu Alaikum wa Rahmatullahi wa Barakatuh,%0A%0AThank you for contacting Badawy TV 📺.%0AMay Allah bless you for reaching out to us.%0AWe are honored to hear from you and pray that Allah fills your life with barakah and guidance.%0A%0AStay connected with Badawy TV for Qur’an recitations, Islamic reminders, beneficial knowledge, and live lectures.%0A%0A---%0AName: ${name}%0AEmail: ${email}%0AQuestion: ${question}%0A%0AJazakum Allahu Khairan.%0ABadawy TV`;
 document.getElementById("contact-options").style.display="block";
-document.getElementById("send-whatsapp").href=`https://api.whatsapp.com/send?phone=254716802090document.getElementById("send-whatsapp").href=`https://wa.me/254716802090?text=${message}`;text=${message}`;
+document.getElementById("send-whatsapp").href=`https://wa.me/254716802090?text=${message}`;
+document.getElementById("send-email").href=`mailto:ahmedbadawy786@gmail.com?subject=Ask Imam Question&body=${message}`;
 });
 </script>
 
-
-<footer class="site-footer">
-<div class="footer-container">
-
-<div class="footer-column">
-<p>Spreading authentic Islamic knowledge through Quran, lectures, live programs and Islamic education. Serving the Ummah through Masjid Aqswa Kisauni.</p>
-</div>
-
-<div class="footer-column">
-<h4>Quick Links</h4>
-</div>
-
-<div class="footer-column">
-<h4>Contact</h4>
-<p>📞 +254 716 802090</p>
-<p>✉ ahmedbadawy786@gmail.com</p>
-<p>📍 Masjid Aqswa Kisauni</p>
-</div>
-
-</div>
-
-<div class="footer-bottom">
-<p class="hadith">“Seeking knowledge is an obligation upon every Muslim.”</p>
-</div>
-</footer>
-
-</div>
-
-</div>
-
-<script>
-
-<script>if(window.top!==window.self){window.top.location=window.self.location;}</script>
-
-<script>document.addEventListener("contextmenu",function(e){e.preventDefault();});</script>
-
-<script>document.addEventListener("submit",function(e){var h=document.querySelector("input[name=website]");if(h&&h.value!==""){e.preventDefault();console.log("Bot detected");}});</script>
-
-<script>setInterval(function(){var d=window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160;if(d){document.body.innerHTML="";}},2000);</script>
-<script>document.addEventListener("copy",function(e){e.preventDefault();});document.addEventListener("cut",function(e){e.preventDefault();});</script>
-<script>if(navigator.webdriver||/bot|crawl|spider/i.test(navigator.userAgent)){console.log("Crawler blocked");}</script>
-
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;width:100%;background:#111;color:#fff;padding:20px;text-align:center;z-index:9999;">
