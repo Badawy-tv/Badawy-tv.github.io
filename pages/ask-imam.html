@@ -3,66 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ask Imam - Islamic Guidance</title>
+<title>Ask Imam</title>
 <link rel="stylesheet" href="../../assets/css/style.css">
 <style>
-  .form-container {
-    max-width: 600px;
-    margin: 30px auto;
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    background: #f9f9f9;
+  .card { 
+    width:75%; 
+    max-width:900px; 
+    margin:20px auto; 
+    padding:20px; 
+    border-radius:12px; 
+    border:1px solid #ddd; 
+    background:#f9f9f9; 
+    text-align:center;
   }
-  .form-container h2 { text-align: center; margin-bottom: 20px; }
-  .form-container label { display: block; margin-top: 10px; font-weight: bold; }
-  .form-container input, .form-container textarea, .form-container button {
-    width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px; border: 1px solid #ccc;
+  .card input, .card textarea {
+    width:90%; 
+    padding:10px; 
+    margin:10px 0; 
+    border-radius:6px; 
+    border:1px solid #ccc;
   }
-  .form-container textarea { resize: vertical; height: 120px; }
-  .send-options { display: none; margin-top: 15px; text-align: center; }
-  .send-options a { display: inline-block; margin: 5px; padding: 10px 15px; background: #1e90ff; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; }
+  .card button {
+    padding:10px 20px; 
+    margin:5px; 
+    border:none; 
+    border-radius:6px; 
+    background:#1e90ff; 
+    color:white; 
+    font-weight:bold; 
+    cursor:pointer;
+  }
 </style>
 </head>
 <body>
-<div class="form-container">
-  <h2>Ask Imam</h2>
-  <p>Submit your question about Islamic family guidance. The Imam will respond via Email or WhatsApp.</p>
+<div class="card">
+  <h3>Ask Imam</h3>
+  <p>Have a question about Islamic family guidance? Submit it below and get answers via Email or WhatsApp.</p>
   <form id="ask-imam-form">
-    <label for="name">Name</label>
-    <input type="text" id="name" required>
-
-    <label for="email">Email</label>
-    <input type="email" id="email" required>
-
-    <label for="phone">Phone Number</label>
-    <input type="tel" id="phone" required>
-
-    <label for="question">Question</label>
-    <textarea id="question" required></textarea>
-
-    <button type="submit">Submit</button>
+    <input type="text" name="name" placeholder="Your Name" required><br>
+    <input type="email" name="email" placeholder="Your Email" required><br>
+    <input type="text" name="phone" placeholder="Phone Number (for WhatsApp)" required><br>
+    <textarea name="question" rows="4" placeholder="Your Question" required></textarea><br>
+    <button type="button" id="send-email">Send via Email</button>
+    <button type="button" id="send-whatsapp">Send via WhatsApp</button>
   </form>
-
-  <div class="send-options" id="contact-options">
-    <a id="send-whatsapp" href="#" target="_blank">Send via WhatsApp</a>
-    <a id="send-email" href="#">Send via Email</a>
-  </div>
 </div>
-
 <script>
-document.getElementById("ask-imam-form").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const question = document.getElementById("question").value.trim();
-
-  const message = `Assalamu Alaikum wa Rahmatullahi wa Barakatuh,%0A%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AQuestion: ${question}%0A%0AJazakum Allahu Khairan.`;
-
-  document.getElementById("contact-options").style.display = "block";
-  document.getElementById("send-whatsapp").href = `https://wa.me/254716802090?text=${message}`;
-  document.getElementById("send-email").href = `mailto:ahmedbadawy786@gmail.com?subject=Ask Imam Question&body=${message}`;
+document.getElementById("send-email").addEventListener("click", function(){
+  const form = document.getElementById("ask-imam-form");
+  const name = form.querySelector("input[name=name]").value;
+  const email = form.querySelector("input[name=email]").value;
+  const phone = form.querySelector("input[name=phone]").value;
+  const question = form.querySelector("textarea[name=question]").value;
+  const message = `Assalamu Alaikum Warahmatullahi Wabarakatuh,%0A%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AQuestion: ${question}`;
+  window.location.href = `mailto:ahmedbadawy786@gmail.com?subject=Ask Imam Question&body=${message}`;
+});
+document.getElementById("send-whatsapp").addEventListener("click", function(){
+  const form = document.getElementById("ask-imam-form");
+  const name = form.querySelector("input[name=name]").value;
+  const email = form.querySelector("input[name=email]").value;
+  const phone = form.querySelector("input[name=phone]").value;
+  const question = form.querySelector("textarea[name=question]").value;
+  const message = `Assalamu Alaikum Warahmatullahi Wabarakatuh,%0A%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AQuestion: ${question}`;
+  window.open(`https://wa.me/254716802090?text=${message}`, "_blank");
 });
 </script>
 </body>
