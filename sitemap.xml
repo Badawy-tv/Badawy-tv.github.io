@@ -1,100 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://badawy-tv.github.io/index.html</loc></url>
-<url><loc>https://badawy-tv.github.io/articles/article1.html</loc></url>
-<url><loc>https://badawy-tv.github.io/articles/article2.html</loc></url>
-<url><loc>https://badawy-tv.github.io/articles/article3.html</loc></url>
-<url><loc>https://badawy-tv.github.io/articles/article4.html</loc></url>
-<url><loc>https://badawy-tv.github.io/articles/article5.html</loc></url>
-<url><loc>https://badawy-tv.github.io/articles/article6.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/quran.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/lectures.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/contact.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/donate.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/ask-imam.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/community.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article1.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article2.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article3.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article4.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article5.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article6.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article7.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article8.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article9.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article10.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article11.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article12.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article13.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article14.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article15.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article16.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article17.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article18.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article19.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article20.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article21.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article22.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article23.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article24.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article25.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article26.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article27.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article28.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article29.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/articles/article30.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/academy.html</loc></url>
-<url><loc>https://badawy-tv.github.io/pages/tajweed-lesson1.html</loc></url>
-<url><loc>https://badawy-tv.github.io/components/header.html</loc></url>
-<url><loc>https://badawy-tv.github.io/index_broken_backup.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/tajweed/index.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/tajweed/lesson1.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/tajweed/lesson2.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/tajweed/lesson3.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/tajweed/lesson4.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/aqeedah/index.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/aqeedah/lesson1.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/aqeedah/lesson2.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/aqeedah/lesson3.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/aqeedah/lesson4.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/arabic/index.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/arabic/lesson1.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/arabic/lesson2.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/arabic/lesson3.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/arabic/lesson4.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/hadith/index.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/hadith/lesson1.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/hadith/lesson2.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/hadith/lesson3.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/hadith/lesson4.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/fiqh/index.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/fiqh/lesson1.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/fiqh/lesson2.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/fiqh/lesson3.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/fiqh/lesson4.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/seerah/index.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/seerah/lesson1.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/seerah/lesson2.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/seerah/lesson3.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/seerah/lesson4.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/akhlaq/index.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/akhlaq/lesson1.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/akhlaq/lesson2.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/akhlaq/lesson3.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/akhlaq/lesson4.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/hifdh/index.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/hifdh/lesson1.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/hifdh/lesson2.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/hifdh/lesson3.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/hifdh/lesson4.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/course-complete.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/certificate-request.html</loc></url>
-<url><loc>https://badawy-tv.github.io/academy/certificate-generate.html</loc></url>
-<url><loc>https://badawy-tv.github.io/islamic-tools/index.html</loc></url>
-<url><loc>https://badawy-tv.github.io/islamic-tools/hijri-calendar.html</loc></url>
-<url><loc>https://badawy-tv.github.io/islamic-tools/prayer-times.html</loc></url>
-<url><loc>https://badawy-tv.github.io/islamic-tools/qibla.html</loc></url>
-<url><loc>https://badawy-tv.github.io/islamic-tools/tasbih.html</loc></url>
-<url><loc>https://badawy-tv.github.io/islamic-tools/prayer-countdown.html</loc></url>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://badawy-tv.github.io/</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://badawy-tv.github.io/pages/academy.html</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://badawy-tv.github.io/pages/quran.html</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://badawy-tv.github.io/pages/donate.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>
