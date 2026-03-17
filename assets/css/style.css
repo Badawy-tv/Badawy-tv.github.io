@@ -1228,3 +1228,4 @@ background:#145c46;
   margin-top: 10px;
   text-align: center;
 }
+@keyframes scroll-left { 0% { left: 100%; } 100% { left: -100%; } } #rotating-text { white-space: nowrap; }
