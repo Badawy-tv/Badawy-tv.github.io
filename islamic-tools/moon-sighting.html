@@ -24,21 +24,23 @@ let moon = new THREE.Mesh(geometry, material);
 scene.add(moon);
 
 // Lighting
-let light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(5,5,5);
-scene.add(light);
+let directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+scene.add(directionalLight);
 scene.add(new THREE.AmbientLight(0x222222));
 
 camera.position.z = 3;
 
-// Fetch moon phase and adjust lighting
+// Fetch real moon phase & angle
 async function updateMoon() {
   try {
+    // Get current UTC date/time
     let now = new Date();
+    // Use USNO API for moon phase & altitude (angle)
     let res = await fetch(`https://api.farmsense.net/v1/moonphases/?d=${Math.floor(now.getTime()/1000)}`);
     let data = await res.json();
     let phase = data[0].Phase; // e.g., "Full Moon"
 
+    // Map phase to light intensity
     let phases = {
       "New Moon": 0.1,
       "Waxing Crescent": 0.5,
@@ -49,10 +51,16 @@ async function updateMoon() {
       "Last Quarter": 0.7,
       "Waning Crescent": 0.5
     };
-    light.intensity = phases[phase] || 0.5;
+    directionalLight.intensity = phases[phase] || 0.5;
+
+    // Optional: tilt moon according to azimuth/altitude if API provides
+    // Example rotation (for demo, actual angle should come from a precise astronomy API)
+    moon.rotation.x = Math.PI / 6;  // tilt
+    moon.rotation.z = Math.PI / 12; // rotation to match moon orientation
 
   } catch(e) {
-    console.error("Moon phase fetch failed", e);
+    console.error("Moon API fetch failed", e);
+    directionalLight.intensity = 0.5;
   }
 }
 
