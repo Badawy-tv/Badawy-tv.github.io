@@ -67,7 +67,6 @@
     const r=await fetch("https://api.aladhan.com/v1/timings?latitude="+lat+"&longitude="+lon+"&method=2");
     const data=await r.json();
 
-    prayerTimes=data.data.timings;
 
 
     }catch(e){
@@ -87,7 +86,6 @@
 
     for(const p of prayers){
 
-    let [h,m]=prayerTimes[p].split(":");
 
     let t=new Date();
     t.setHours(parseInt(h),parseInt(m),0,0);
@@ -102,7 +100,6 @@
 
     if(!next){
 
-    let [h,m]=prayerTimes["Fajr"].split(":");
 
     next=new Date();
     next.setDate(now.getDate()+1);
@@ -182,7 +179,6 @@ Times</a></div>
 <div id="location"></div>
 <div id="nextPrayer" class="c1"></div>
 <div id="countdown" class="c2"></div>
-<div id="prayerTimes"></div>
 </section>
 <script>
 
@@ -202,7 +198,6 @@ Times</a></div>
 
         const data=await res.json()
 
-        prayerTimes=data.data.timings
 
         displayTimes()
 
@@ -217,11 +212,9 @@ Times</a></div>
 
         prayers.forEach(p=>{
 
-        html+=p+" : "+prayerTimes[p]+"<br>"
 
         })
 
-        document.getElementById("prayerTimes").innerHTML=html
 
         }
 
@@ -235,7 +228,6 @@ Times</a></div>
 
         for(let p of prayers){
 
-        let t=prayerTimes[p].split(":")
 
         let prayerDate=new Date()
 
@@ -253,7 +245,6 @@ Times</a></div>
 
         if(!next){
 
-        let t=prayerTimes["Fajr"].split(":")
 
         next=new Date()
 
@@ -284,7 +275,6 @@ Times</a></div>
 
 </script>
 <div id="prayerFloat">🕌 Next Prayer: <span id=
-"pName">Loading...</span> | ⏳ <span id="pCount">--</span></div>
 <script>
 
         async function loadPrayer(){
