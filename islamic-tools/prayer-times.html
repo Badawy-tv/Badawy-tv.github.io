@@ -1,79 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.9.14">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
 <title>Prayer Times</title>
-
 <link rel="stylesheet" href="css/tools.css">
-
 <style>
 
-body{
-font-family:Arial,sans-serif;
-background:#f4f4f4;
-margin:0;
-padding:15px;
-}
+    body{
+    font-family:Arial,sans-serif;
+    background:#f4f4f4;
+    margin:0;
+    padding:15px;
+    }
 
-.container{
-max-width:800px;
-margin:auto;
-background:#fff;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
+    .container{
+    max-width:800px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
 
-h1{
-text-align:center;
-}
+    h1{
+    text-align:center;
+    }
 
-#location{
-text-align:center;
-margin-bottom:15px;
-font-weight:bold;
-}
+    #location{
+    text-align:center;
+    margin-bottom:15px;
+    font-weight:bold;
+    }
 
-table{
-width:100%;
-border-collapse:collapse;
-text-align:center;
-}
+    table{
+    width:100%;
+    border-collapse:collapse;
+    text-align:center;
+    }
 
-th,td{
-padding:12px;
-border:1px solid #ddd;
-}
+    th,td{
+    padding:12px;
+    border:1px solid #ddd;
+    }
 
-th{
-background:#eee;
-}
+    th{
+    background:#eee;
+    }
 
-.current{
-background:#4caf50;
-color:white;
-font-weight:bold;
-}
+    .current{
+    background:#4caf50;
+    color:white;
+    font-weight:bold;
+    }
 
-@media(max-width:600px){
-th,td{
-padding:8px;
-font-size:14px;
-}
-}
+    @media(max-width:600px){
+    th,td{
+    padding:8px;
+    font-size:14px;
+    }
+    }
 
 </style>
+
+<style type="text/css">
+    section.c2 {background:#0b3d2e; color:white; padding:20px; text-align:center; border-radius:8px; margin-top:40px;}
+    a.c1 {color:#66bb6a; text-decoration:underline;}
+</style>
 </head>
-
 <body>
-
 <div class="container">
-
 <h1>🕌 Prayer Times</h1>
-
 <div id="location">Detecting location...</div>
-
 <table>
 <thead>
 <tr>
@@ -81,99 +82,98 @@ font-size:14px;
 <th>Time</th>
 </tr>
 </thead>
-
 <tbody id="prayerTable"></tbody>
 </table>
-
 </div>
-
 <script>
 
-const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"];
+    const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"];
 
-function renderTable(timings){
+    function renderTable(timings){
 
-const tbody=document.getElementById("prayerTable");
-tbody.innerHTML="";
+    const tbody=document.getElementById("prayerTable");
+    tbody.innerHTML="";
 
-const now=new Date();
-const current=now.getHours()*60+now.getMinutes();
+    const now=new Date();
+    const current=now.getHours()*60+now.getMinutes();
 
-prayers.forEach(p=>{
+    prayers.forEach(p=>{
 
-const time=timings[p];
-const parts=time.split(":");
+    const time=timings[p];
+    const parts=time.split(":");
 
-const minutes=parseInt(parts[0])*60+parseInt(parts[1]);
+    const minutes=parseInt(parts[0])*60+parseInt(parts[1]);
 
-let row=document.createElement("tr");
+    let row=document.createElement("tr");
 
-if(current>=minutes && current<minutes+60){
-row.className="current";
-}
+    if(current>=minutes && current<minutes+60){
+    row.className="current";
+    }
 
-row.innerHTML="<td>"+p+"</td><td>"+time+"</td>";
+    row.innerHTML="<td>"+p+"</td><td>"+time+"</td>";
 
-tbody.appendChild(row);
+    tbody.appendChild(row);
 
-});
+    });
 
-}
+    }
 
-function fetchTimes(lat,lon,label){
+    function fetchTimes(lat,lon,label){
 
-fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=2`)
-.then(r=>r.json())
-.then(data=>{
+    fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=2`)
+    .then(r=>r.json())
+    .then(data=>{
 
-document.getElementById("location").innerText="📍 "+label;
+    document.getElementById("location").innerText="📍 "+label;
 
-renderTable(data.data.timings);
+    renderTable(data.data.timings);
 
-})
-.catch(()=>{
+    })
+    .catch(()=>{
 
-document.getElementById("location").innerText="Unable to load prayer times";
+    document.getElementById("location").innerText="Unable to load prayer times";
 
-});
+    });
 
-}
+    }
 
-function getLocation(){
+    function getLocation(){
 
-if(!navigator.geolocation){
+    if(!navigator.geolocation){
 
-fetchTimes(-1.286389,36.817223,"Nairobi, Kenya");
-return;
+    fetchTimes(-1.286389,36.817223,"Nairobi, Kenya");
+    return;
 
-}
+    }
 
-navigator.geolocation.getCurrentPosition(
+    navigator.geolocation.getCurrentPosition(
 
-pos=>{
+    pos=>{
 
-const lat=pos.coords.latitude;
-const lon=pos.coords.longitude;
+    const lat=pos.coords.latitude;
+    const lon=pos.coords.longitude;
 
-fetchTimes(lat,lon,"Your Location");
+    fetchTimes(lat,lon,"Your Location");
 
-},
+    },
 
-()=>{
+    ()=>{
 
-fetchTimes(-1.286389,36.817223,"Nairobi, Kenya");
+    fetchTimes(-1.286389,36.817223,"Nairobi, Kenya");
 
-}
+    }
 
-);
+    );
 
-}
+    }
 
-getLocation();
+    getLocation();
 
 </script>
-
+<section class="footer-legal c2">
+<p><a href="/pages/privacy.html" class="c1">Privacy Policy</a> |
+<a href="/pages/terms.html" class="c1">Terms & Conditions</a></p>
+<p>© 2026 Badawy TV. All Rights Reserved.</p>
+</section>
 </body>
 </html>
-
-<section class="footer-legal" style="background:#0b3d2e; color:white; padding:20px; text-align:center; border-radius:8px; margin-top:40px;"><p><a href="/pages/privacy.html" style="color:#66bb6a; text-decoration:underline;">Privacy Policy</a> | <a href="/pages/terms.html" style="color:#66bb6a; text-decoration:underline;">Terms & Conditions</a></p><p>© 2026 Badawy TV. All Rights Reserved.</p></section>

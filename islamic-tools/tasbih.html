@@ -1,253 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.9.14">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
 <title>Digital Tasbih</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
-
+<link href=
+"https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Cairo:wght@400;600&amp;display=swap"
+rel="stylesheet">
 <style>
 
-body{
-font-family:"Cairo",sans-serif;
-background:
-radial-gradient(circle at center,#0f2e23,#050b09),
-url("https://www.transparenttextures.com/patterns/arabesque.png");
-color:white;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-height:100vh;
-margin:0;
-overflow:hidden;
-}
+    body{
+    font-family:"Cairo",sans-serif;
+    background:
+    radial-gradient(circle at center,#0f2e23,#050b09),
+    url("https://www.transparenttextures.com/patterns/arabesque.png");
+    color:white;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+    margin:0;
+    overflow:hidden;
+    }
 
-h1{
-font-family:"Amiri",serif;
-color:gold;
-margin-bottom:10px;
-}
+    h1{
+    font-family:"Amiri",serif;
+    color:gold;
+    margin-bottom:10px;
+    }
 
-.subtitle{
-opacity:.7;
-margin-bottom:20px;
-font-size:14px;
-}
+    .subtitle{
+    opacity:.7;
+    margin-bottom:20px;
+    font-size:14px;
+    }
 
-.ring{
-position:relative;
-width:300px;
-height:300px;
-animation:rotateRing 40s linear infinite;
-}
+    .ring{
+    position:relative;
+    width:300px;
+    height:300px;
+    animation:rotateRing 40s linear infinite;
+    }
 
-@keyframes rotateRing{
-from{transform:rotate(0deg)}
-to{transform:rotate(360deg)}
-}
+    @keyframes rotateRing{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}
+    }
 
-.bead{
-position:absolute;
-width:18px;
-height:18px;
-border-radius:50%;
-background:#145c44;
-border:1px solid gold;
-box-shadow:0 0 4px rgba(0,0,0,.6);
-transition:.2s;
-}
+    .bead{
+    position:absolute;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#145c44;
+    border:1px solid gold;
+    box-shadow:0 0 4px rgba(0,0,0,.6);
+    transition:.2s;
+    }
 
-.bead.active{
-background:gold;
-box-shadow:0 0 12px gold;
-}
+    .bead.active{
+    background:gold;
+    box-shadow:0 0 12px gold;
+    }
 
-.center{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-width:130px;
-height:130px;
-border-radius:50%;
-background:radial-gradient(circle,#1f3d30,#0a1a14);
-border:3px solid gold;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:36px;
-color:gold;
-cursor:pointer;
-}
+    .center{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    background:radial-gradient(circle,#1f3d30,#0a1a14);
+    border:3px solid gold;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:36px;
+    color:gold;
+    cursor:pointer;
+    }
 
-.controls{
-margin-top:30px;
-}
+    .controls{
+    margin-top:30px;
+    }
 
-button{
-background:#145c44;
-border:none;
-padding:10px 22px;
-border-radius:8px;
-color:white;
-font-size:14px;
-cursor:pointer;
-}
+    button{
+    background:#145c44;
+    border:none;
+    padding:10px 22px;
+    border-radius:8px;
+    color:white;
+    font-size:14px;
+    cursor:pointer;
+    }
 
-button:hover{
-background:#1d7a5c;
-}
+    button:hover{
+    background:#1d7a5c;
+    }
 
-.progress{
-margin-top:12px;
-color:gold;
-font-size:14px;
-}
+    .progress{
+    margin-top:12px;
+    color:gold;
+    font-size:14px;
+    }
 
-.dhikrName{
-margin-top:6px;
-opacity:.8;
-font-size:13px;
-}
+    .dhikrName{
+    margin-top:6px;
+    opacity:.8;
+    font-size:13px;
+    }
 
 </style>
+
+<style type="text/css">
+    section.c2 {background:#0b3d2e; color:white; padding:20px; text-align:center; border-radius:8px; margin-top:40px;}
+    a.c1 {color:#66bb6a; text-decoration:underline;}
+</style>
 </head>
-
 <body>
-
 <h1>Digital Tasbih</h1>
 <div class="subtitle">Tap the center to count</div>
-
 <div class="ring" id="ring"></div>
-
-<div class="controls">
-<button onclick="resetTasbih()">Reset</button>
-</div>
-
+<div class="controls"><button onclick=
+"resetTasbih()">Reset</button></div>
 <div class="progress" id="progress"></div>
 <div class="dhikrName" id="dhikrName"></div>
-
-<audio id="click">
-<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_6c7e2f9f2e.mp3">
-</audio>
+<audio id="click"><source src=
+"https://cdn.pixabay.com/audio/2022/03/15/audio_6c7e2f9f2e.mp3"></audio>
 
 <script>
 
-const ring=document.getElementById("ring")
-const progress=document.getElementById("progress")
-const dhikrName=document.getElementById("dhikrName")
-const click=document.getElementById("click")
 
-const dhikrCycle=[
-{name:"SubhanAllah",count:33},
-{name:"Alhamdulillah",count:33},
-{name:"Allahu Akbar",count:34}
-]
 
-let cycleIndex=0
-let target=dhikrCycle[0].count
-let count=0
 
-const radius=130
 
-for(let i=0;i<33;i++){
+    const ring=document.getElementById("ring")
+    const progress=document.getElementById("progress")
+    const dhikrName=document.getElementById("dhikrName")
+    const click=document.getElementById("click")
 
-let bead=document.createElement("div")
-bead.className="bead"
+    const dhikrCycle=[
+    {name:"SubhanAllah",count:33},
+    {name:"Alhamdulillah",count:33},
+    {name:"Allahu Akbar",count:34}
+    ]
 
-let angle=(i/33)*2*Math.PI
+    let cycleIndex=0
+    let target=dhikrCycle[0].count
+    let count=0
 
-let x=150+radius*Math.cos(angle)
-let y=150+radius*Math.sin(angle)
+    const radius=130
 
-bead.style.left=x+"px"
-bead.style.top=y+"px"
+    for(let i=0;i<33;i++){
 
-ring.appendChild(bead)
+    let bead=document.createElement("div")
+    bead.className="bead"
 
-}
+    let angle=(i/33)*2*Math.PI
 
-const center=document.createElement("div")
-center.className="center"
-center.innerText="0"
+    let x=150+radius*Math.cos(angle)
+    let y=150+radius*Math.sin(angle)
 
-ring.appendChild(center)
+    bead.style.left=x+"px"
+    bead.style.top=y+"px"
 
-const beads=document.querySelectorAll(".bead")
+    ring.appendChild(bead)
 
-function update(){
+    }
 
-center.innerText=count
+    const center=document.createElement("div")
+    center.className="center"
+    center.innerText="0"
 
-progress.innerText=count+" / "+target
-dhikrName.innerText=dhikrCycle[cycleIndex].name
+    ring.appendChild(center)
 
-beads.forEach((b,i)=>{
+    const beads=document.querySelectorAll(".bead")
 
-if(i<count) b.classList.add("active")
-else b.classList.remove("active")
+    function update(){
 
-})
+    center.innerText=count
 
-localStorage.setItem("tasbihCount",count)
-localStorage.setItem("tasbihCycle",cycleIndex)
+    progress.innerText=count+" / "+target
+    dhikrName.innerText=dhikrCycle[cycleIndex].name
 
-}
+    beads.forEach((b,i)=>{
 
-center.onclick=function(){
+    if(i<count) b.classList.add("active")
+    else b.classList.remove("active")
 
-count++
+    })
 
-click.currentTime=0
-click.play()
+    localStorage.setItem("tasbihCount",count)
+    localStorage.setItem("tasbihCycle",cycleIndex)
 
-if(navigator.vibrate) navigator.vibrate(20)
+    }
 
-if(count>=target){
+    center.onclick=function(){
 
-cycleIndex++
+    count++
 
-if(cycleIndex>=dhikrCycle.length){
-cycleIndex=0
-}
+    click.currentTime=0
+    click.play()
 
-target=dhikrCycle[cycleIndex].count
-count=0
+    if(navigator.vibrate) navigator.vibrate(20)
 
-}
+    if(count>=target){
 
-update()
+    cycleIndex++
 
-}
+    if(cycleIndex>=dhikrCycle.length){
+    cycleIndex=0
+    }
 
-function resetTasbih(){
+    target=dhikrCycle[cycleIndex].count
+    count=0
 
-count=0
-cycleIndex=0
-target=dhikrCycle[0].count
-update()
+    }
 
-}
+    update()
 
-const savedCount=localStorage.getItem("tasbihCount")
-const savedCycle=localStorage.getItem("tasbihCycle")
+    }
 
-if(savedCount){
-count=parseInt(savedCount)
-}
+    function resetTasbih(){
 
-if(savedCycle){
-cycleIndex=parseInt(savedCycle)
-target=dhikrCycle[cycleIndex].count
-}
+    count=0
+    cycleIndex=0
+    target=dhikrCycle[0].count
+    update()
 
-update()
+    }
+
+    const savedCount=localStorage.getItem("tasbihCount")
+    const savedCycle=localStorage.getItem("tasbihCycle")
+
+    if(savedCount){
+    count=parseInt(savedCount)
+    }
+
+    if(savedCycle){
+    cycleIndex=parseInt(savedCycle)
+    target=dhikrCycle[cycleIndex].count
+    }
+
+    update()
 
 </script>
-
+<section class="footer-legal c2">
+<p><a href="/pages/privacy.html" class="c1">Privacy Policy</a> |
+<a href="/pages/terms.html" class="c1">Terms & Conditions</a></p>
+<p>© 2026 Badawy TV. All Rights Reserved.</p>
+</section>
 </body>
 </html>
-
-<section class="footer-legal" style="background:#0b3d2e; color:white; padding:20px; text-align:center; border-radius:8px; margin-top:40px;"><p><a href="/pages/privacy.html" style="color:#66bb6a; text-decoration:underline;">Privacy Policy</a> | <a href="/pages/terms.html" style="color:#66bb6a; text-decoration:underline;">Terms & Conditions</a></p><p>© 2026 Badawy TV. All Rights Reserved.</p></section>

@@ -1,112 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.9.14">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
 <title>Hijri Calendar</title>
-
 <link rel="stylesheet" href="css/tools.css">
-
 <style>
 
-body{
-font-family:Arial, sans-serif;
-background:#f4f4f4;
-margin:0;
-padding:15px;
-}
+    body{
+    font-family:Arial, sans-serif;
+    background:#f4f4f4;
+    margin:0;
+    padding:15px;
+    }
 
-.calendar{
-max-width:900px;
-margin:auto;
-background:#fff;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
+    .calendar{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
 
-h1{
-text-align:center;
-}
+    h1{
+    text-align:center;
+    }
 
-#monthTitle{
-text-align:center;
-font-size:22px;
-margin-bottom:15px;
-}
+    #monthTitle{
+    text-align:center;
+    font-size:22px;
+    margin-bottom:15px;
+    }
 
-table{
-width:100%;
-border-collapse:collapse;
-text-align:center;
-}
+    table{
+    width:100%;
+    border-collapse:collapse;
+    text-align:center;
+    }
 
-th,td{
-padding:10px;
-border:1px solid #ddd;
-}
+    th,td{
+    padding:10px;
+    border:1px solid #ddd;
+    }
 
-th{
-background:#eee;
-}
+    th{
+    background:#eee;
+    }
 
-.today{
-background:#4caf50;
-color:white;
-font-weight:bold;
-}
+    .today{
+    background:#4caf50;
+    color:white;
+    font-weight:bold;
+    }
 
-.months{
-margin-top:25px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-gap:10px;
-}
+    .months{
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:10px;
+    }
 
-.month-btn{
-padding:10px;
-background:#6a5acd;
-color:white;
-border:none;
-border-radius:6px;
-cursor:pointer;
-font-size:14px;
-}
+    .month-btn{
+    padding:10px;
+    background:#6a5acd;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:14px;
+    }
 
-.month-btn:hover{
-background:#4b3db5;
-}
+    .month-btn:hover{
+    background:#4b3db5;
+    }
 
-/* MOBILE OPTIMIZATION */
+    /* MOBILE OPTIMIZATION */
 
-@media(max-width:600px){
+    @media(max-width:600px){
 
-th,td{
-padding:6px;
-font-size:12px;
-}
+    th,td{
+    padding:6px;
+    font-size:12px;
+    }
 
-h1{
-font-size:20px;
-}
+    h1{
+    font-size:20px;
+    }
 
-#monthTitle{
-font-size:18px;
-}
+    #monthTitle{
+    font-size:18px;
+    }
 
-}
+    }
 
 </style>
+
+<style type="text/css">
+    section.c2 {background:#0b3d2e; color:white; padding:20px; text-align:center; border-radius:8px; margin-top:40px;}
+    a.c1 {color:#66bb6a; text-decoration:underline;}
+</style>
 </head>
-
 <body>
-
 <div class="calendar">
-
 <h1>📅 Hijri Calendar</h1>
-
 <div id="monthTitle"></div>
-
 <table>
 <thead>
 <tr>
@@ -119,120 +120,118 @@ font-size:18px;
 <th>Sat</th>
 </tr>
 </thead>
-
 <tbody id="calendarDays"></tbody>
 </table>
-
 <div class="months" id="monthsList"></div>
-
 </div>
-
 <script>
 
-const hijriMonths=[
-"Muharram",
-"Safar",
-"Rabi al-Awwal",
-"Rabi al-Thani",
-"Jumada al-Awwal",
-"Jumada al-Thani",
-"Rajab",
-"Sha'ban",
-"Ramadan",
-"Shawwal",
-"Dhul-Qadah",
-"Dhul-Hijjah"
-];
+    const hijriMonths=[
+    "Muharram",
+    "Safar",
+    "Rabi al-Awwal",
+    "Rabi al-Thani",
+    "Jumada al-Awwal",
+    "Jumada al-Thani",
+    "Rajab",
+    "Sha'ban",
+    "Ramadan",
+    "Shawwal",
+    "Dhul-Qadah",
+    "Dhul-Hijjah"
+    ];
 
-let currentDay;
-let currentMonth;
-let currentYear;
+    let currentDay;
+    let currentMonth;
+    let currentYear;
 
-function getHijriToday(){
+    function getHijriToday(){
 
-const today=new Date();
+    const today=new Date();
 
-const parts=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{
-day:'numeric',
-month:'numeric',
-year:'numeric'
-}).formatToParts(today);
+    const parts=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{
+    day:'numeric',
+    month:'numeric',
+    year:'numeric'
+    }).formatToParts(today);
 
-parts.forEach(p=>{
-if(p.type==="day") currentDay=parseInt(p.value);
-if(p.type==="month") currentMonth=parseInt(p.value);
-if(p.type==="year") currentYear=p.value;
-});
+    parts.forEach(p=>{
+    if(p.type==="day") currentDay=parseInt(p.value);
+    if(p.type==="month") currentMonth=parseInt(p.value);
+    if(p.type==="year") currentYear=p.value;
+    });
 
-}
+    }
 
-function buildCalendar(month){
+    function buildCalendar(month){
 
-document.getElementById("monthTitle").innerText=
-hijriMonths[month-1]+" "+currentYear+" AH";
+    document.getElementById("monthTitle").innerText=
+    hijriMonths[month-1]+" "+currentYear+" AH";
 
-const days=30;
+    const days=30;
 
-let tbody=document.getElementById("calendarDays");
-tbody.innerHTML="";
+    let tbody=document.getElementById("calendarDays");
+    tbody.innerHTML="";
 
-let row=document.createElement("tr");
+    let row=document.createElement("tr");
 
-for(let i=1;i<=days;i++){
+    for(let i=1;i<=days;i++){
 
-let cell=document.createElement("td");
-cell.innerText=i;
+    let cell=document.createElement("td");
+    cell.innerText=i;
 
-if(month===currentMonth && i===currentDay){
-cell.className="today";
-}
+    if(month===currentMonth && i===currentDay){
+    cell.className="today";
+    }
 
-row.appendChild(cell);
+    row.appendChild(cell);
 
-if(row.children.length===7){
+    if(row.children.length===7){
 
-tbody.appendChild(row);
-row=document.createElement("tr");
+    tbody.appendChild(row);
+    row=document.createElement("tr");
 
-}
+    }
 
-}
+    }
 
-tbody.appendChild(row);
+    tbody.appendChild(row);
 
-}
+    }
 
-function buildMonths(){
+    function buildMonths(){
 
-const container=document.getElementById("monthsList");
+    const container=document.getElementById("monthsList");
 
-hijriMonths.forEach((m,i)=>{
+    hijriMonths.forEach((m,i)=>{
 
-let btn=document.createElement("button");
-btn.className="month-btn";
-btn.innerText=m;
+    let btn=document.createElement("button");
+    btn.className="month-btn";
+    btn.innerText=m;
 
-btn.onclick=()=>{
+    btn.onclick=()=>{
 
-buildCalendar(i+1);
+    buildCalendar(i+1);
 
-};
+    };
 
-container.appendChild(btn);
+    container.appendChild(btn);
 
-});
+    });
 
-}
+    }
 
-getHijriToday();
+    getHijriToday();
 
-buildCalendar(currentMonth);
+    buildCalendar(currentMonth);
 
-buildMonths();
+    buildMonths();
 
 </script>
-
+<section class="footer-legal c2">
+<p><a href="/pages/privacy.html" class="c1">Privacy Policy</a> |
+<a href="/pages/terms.html" class="c1">Terms & Conditions</a></p>
+<p>© 2026 Badawy TV. All Rights Reserved.</p>
+</section>
 </body>
 </html>
-
-<section class="footer-legal" style="background:#0b3d2e; color:white; padding:20px; text-align:center; border-radius:8px; margin-top:40px;"><p><a href="/pages/privacy.html" style="color:#66bb6a; text-decoration:underline;">Privacy Policy</a> | <a href="/pages/terms.html" style="color:#66bb6a; text-decoration:underline;">Terms & Conditions</a></p><p>© 2026 Badawy TV. All Rights Reserved.</p></section>
