@@ -41,3 +41,5 @@ background:#f9f9f9;
 .current-month{background:#0b3d2e;color:white;}
 .hijri-day{display:inline-block;width:40px;height:40px;line-height:40px;margin:4px;border:1px solid #ccc;text-align:center;}
 .today{background:#caa84c;color:white;border-radius:50%;}
+/* Fix Digital Tasbih card table background */
+.card a[href="tasbih.html"] + table { background: white !important; }
