@@ -69,18 +69,15 @@
 
     prayerTimes=data.data.timings;
 
-    startCountdown();
 
     }catch(e){
 
     document.getElementById("nextPrayerName").innerText="Location blocked";
-    document.getElementById("prayerCountdown").innerText="--";
 
     }
 
     }
 
-    function startCountdown(){
 
     setInterval(()=>{
 
@@ -122,13 +119,11 @@
     let s=Math.floor(diff/1000)%60;
 
     document.getElementById("nextPrayerName").innerText=name;
-    document.getElementById("prayerCountdown").innerText=h+"h "+m+"m "+s+"s";
 
     },1000);
 
     }
 
-    loadPrayerTimes();
 
     </script>
 
@@ -211,7 +206,6 @@ Times</a></div>
 
         displayTimes()
 
-        startCountdown()
 
         })
 
@@ -231,7 +225,6 @@ Times</a></div>
 
         }
 
-        function startCountdown(){
 
         setInterval(function(){
 
@@ -288,7 +281,6 @@ Times</a></div>
 
         }
 
-        loadPrayerTimes()
 
 </script>
 <div id="prayerFloat">🕌 Next Prayer: <span id=
