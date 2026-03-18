@@ -1,10 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Quran | Badawy TV</title>
-
 <style>
 body{margin:0;font-family:serif;background:#e9e4d4;}
 
@@ -49,43 +49,29 @@ border-left:4px solid #2e7d32;
 
 .dark .book{background:#1e1e1e;}
 </style>
-</head>
-
+<meta content="Welcome to Badawy TV, your platform for Islamic education and more." name="description"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Badawy TV","url":"https://badawy-tv.github.io","logo":"https://badawy-tv.github.io/logo.png"}</script></head>
 <body>
-
 <div class="book">
-
 <h2 style="text-align:center;">📖 Holy Quran</h2>
-
 <div class="controls">
-
 <select id="surah"></select>
-
 <select id="reciter">
 <option value="ar.alafasy">Mishary Alafasy</option>
 <option value="ar.abdurrahmaansudais">Sudais</option>
 <option value="ar.husary">Husary</option>
 </select>
-
 <select id="repeat">
 <option value="1">Repeat 1x</option>
 <option value="3">Repeat 3x</option>
 <option value="5">Repeat 5x</option>
 <option value="10">Repeat 10x</option>
 </select>
-
-<input type="text" id="search" placeholder="Search Quran">
-
+<input id="search" placeholder="Search Quran" type="text"/>
 <button onclick="toggleDark()">🌙 Night</button>
-
 </div>
-
-<audio id="player" controls style="width:100%"></audio>
-
+<audio controls="" id="player" style="width:100%"></audio>
 <div id="quranText"></div>
-
 </div>
-
 <script>
 
 const surahSelect=document.getElementById("surah")
@@ -200,7 +186,6 @@ document.body.classList.toggle("dark")
 }
 
 </script>
-
 <!-- Floating Translate Button -->
 <div id="translateBtn" onclick="toggleTranslate()">🌐</div>
 <div id="translateMenu">
@@ -214,7 +199,6 @@ document.body.classList.toggle("dark")
 <option value="ur">Urdu</option>
 </select>
 </div>
-
 <style>
 #translateBtn{
 position:fixed;
@@ -253,7 +237,6 @@ border-radius:6px;
 border:1px solid #ccc;
 }
 </style>
-
 <script>
 function toggleTranslate(){
 let m=document.getElementById("translateMenu");
@@ -301,12 +284,10 @@ z-index:9999;
 display:none;
 }
 </style>
-
 <button id="quranTranslateBtn">🌙 Translate</button>
 <div id="quranTranslateBox">
 <div id="google_translate_element"></div>
 </div>
-
 <script>
 document.getElementById("quranTranslateBtn").onclick=function(){
 var box=document.getElementById("quranTranslateBox");
@@ -323,5 +304,4 @@ autoDisplay:false
 <!-- End Quran Translator -->
 </body>
 </html>
-
-<section class="footer-legal" style="background:#0b3d2e; color:white; padding:20px; text-align:center; border-radius:8px; margin-top:40px;"><p><a href="/pages/privacy.html" style="color:#66bb6a; text-decoration:underline;">Privacy Policy</a> | <a href="/pages/terms.html" style="color:#66bb6a; text-decoration:underline;">Terms & Conditions</a></p><p>© 2026 Badawy TV. All Rights Reserved.</p></section>
+<section class="footer-legal" style="background:#0b3d2e; color:white; padding:20px; text-align:center; border-radius:8px; margin-top:40px;"><p><a href="/pages/privacy.html" style="color:#66bb6a; text-decoration:underline;">Privacy Policy</a> | <a href="/pages/terms.html" style="color:#66bb6a; text-decoration:underline;">Terms &amp; Conditions</a></p><p>© 2026 Badawy TV. All Rights Reserved.</p></section>
