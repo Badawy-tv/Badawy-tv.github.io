@@ -78,7 +78,6 @@
     }
 
 
-    setInterval(()=>{
 
     const now=new Date();
     let next=null;
@@ -219,7 +218,6 @@ Times</a></div>
         }
 
 
-        setInterval(function(){
 
         const now=new Date()
 
@@ -263,7 +261,6 @@ Times</a></div>
         let m=Math.floor(diff/1000/60)%60
         let s=Math.floor(diff/1000)%60
 
-        document.getElementById("nextPrayer").innerText="Next Prayer: "+nextName
 
         document.getElementById("countdown").innerText=
         h+"h "+m+"m "+s+"s"
@@ -274,10 +271,8 @@ Times</a></div>
 
 
 </script>
-<div id="prayerFloat">🕌 Next Prayer: <span id=
 <script>
 
-        async function loadPrayer(){
 
         let lat=21.4225;
         let lon=39.8262;
@@ -301,7 +296,6 @@ Times</a></div>
         ["Isha",t.Isha]
         ];
 
-        setInterval(()=>{
 
         const now=new Date();
 
@@ -325,7 +319,6 @@ Times</a></div>
 
         if(!nextTime){
 
-        let [h,m]=prayers[0][1].split(":");
 
         nextTime=new Date();
         nextTime.setDate(now.getDate()+1);
@@ -341,14 +334,11 @@ Times</a></div>
         let m=Math.floor(diff/60000)%60;
         let s=Math.floor(diff/1000)%60;
 
-        document.getElementById("pName").textContent=nextName;
-        document.getElementById("pCount").textContent=h+"h "+m+"m "+s+"s";
 
         },1000);
 
         }
 
-        loadPrayer();
 
 </script>
 <section class="footer-legal c4">
