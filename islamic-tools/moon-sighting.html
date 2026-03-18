@@ -8,8 +8,9 @@
   body { margin: 0; overflow: hidden; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
   canvas { display: block; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
 </head>
-<body>
+<body><div id="moon-container" style="width:100%; height:600px;"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
 <script>
   // Scene setup
@@ -80,3 +81,44 @@
 </script>
 </body>
 </html>
+<script>
+async function initMoon() {
+  const container = document.getElementById("moon-container");
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, container.clientWidth/container.clientHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  container.appendChild(renderer.domElement);
+
+  const geometry = new THREE.SphereGeometry(1, 64, 64);
+  const material = new THREE.MeshPhongMaterial({ color: 0xffffff });
+  const moon = new THREE.Mesh(geometry, material);
+  scene.add(moon);
+
+  const light = new THREE.DirectionalLight(0xffffff, 1);
+  light.position.set(5,5,5);
+  scene.add(light);
+
+  camera.position.z = 3;
+
+  async function updatePhase() {
+    try {
+      const res = await fetch("https://api.farmsense.net/v1/moonphases/?d=" + Math.floor(Date.now()/1000));
+      const data = await res.json();
+      const phase = data[0].Phase; // 0 = New, 1 = Waxing, etc.
+      // Simple dynamic shading
+      material.color.setHSL(0,0,0.5 + 0.5*Math.sin(phase*Math.PI/4));
+    } catch(e){ console.error(e); }
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    moon.rotation.y += 0.001;
+    renderer.render(scene, camera);
+  }
+
+  await updatePhase();
+  animate();
+}
+initMoon();
+</script>
