@@ -4,59 +4,62 @@
 <meta charset="UTF-8">
 <title>Moon Sighting</title>
 <style>
-  body { margin: 0; background: #000; overflow: hidden; }
-  canvas { display: block; }
+  body { margin: 0; background: #000; display:flex; justify-content:center; align-items:center; height:100vh; }
+  #moon-container { width: 300px; height: 300px; }
 </style>
 </head>
 <body>
+<div id="moon-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
 <script>
-let scene = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
-let renderer = new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+const container = document.getElementById('moon-container');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+renderer.setSize(container.clientWidth, container.clientHeight);
+container.appendChild(renderer.domElement);
 
-// Moon geometry & material
-let geometry = new THREE.SphereGeometry(1, 64, 64);
-let material = new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true });
-let moon = new THREE.Mesh(geometry, material);
+// Moon geometry
+const geometry = new THREE.SphereGeometry(1, 64, 64);
+const material = new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: false });
+const moon = new THREE.Mesh(geometry, material);
 scene.add(moon);
 
-// Lighting
-let directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+// Lights
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 scene.add(directionalLight);
 scene.add(new THREE.AmbientLight(0x222222));
 
 camera.position.z = 3;
 
-// Fetch real moon phase & angle
+// Fetch real moon phase and map illumination
 async function updateMoon() {
   try {
-    // Get current UTC date/time
-    let now = new Date();
-    // Use USNO API for moon phase & altitude (angle)
-    let res = await fetch(`https://api.farmsense.net/v1/moonphases/?d=${Math.floor(now.getTime()/1000)}`);
-    let data = await res.json();
-    let phase = data[0].Phase; // e.g., "Full Moon"
+    const now = new Date();
+    const timestamp = Math.floor(now.getTime()/1000);
+    const res = await fetch(`https://api.farmsense.net/v1/moonphases/?d=${timestamp}`);
+    const data = await res.json();
+    const phaseName = data[0].Phase;
 
-    // Map phase to light intensity
-    let phases = {
-      "New Moon": 0.1,
-      "Waxing Crescent": 0.5,
-      "First Quarter": 0.7,
-      "Waxing Gibbous": 0.9,
-      "Full Moon": 1.0,
-      "Waning Gibbous": 0.9,
-      "Last Quarter": 0.7,
-      "Waning Crescent": 0.5
+    // Moon illumination fraction
+    const phaseFractions = {
+      "New Moon": 0,
+      "Waxing Crescent": 0.25,
+      "First Quarter": 0.5,
+      "Waxing Gibbous": 0.75,
+      "Full Moon": 1,
+      "Waning Gibbous": 0.75,
+      "Last Quarter": 0.5,
+      "Waning Crescent": 0.25
     };
-    directionalLight.intensity = phases[phase] || 0.5;
+    const illum = phaseFractions[phaseName] || 0.5;
 
-    // Optional: tilt moon according to azimuth/altitude if API provides
-    // Example rotation (for demo, actual angle should come from a precise astronomy API)
-    moon.rotation.x = Math.PI / 6;  // tilt
-    moon.rotation.z = Math.PI / 12; // rotation to match moon orientation
+    // Adjust light to simulate the phase
+    directionalLight.intensity = illum;
+    directionalLight.position.set(-1 + illum*2, 1, 2);
+
+    moon.rotation.x = Math.PI / 6;
+    moon.rotation.z = Math.PI / 12;
 
   } catch(e) {
     console.error("Moon API fetch failed", e);
@@ -74,11 +77,9 @@ function animate() {
 updateMoon();
 animate();
 
-// Resize handler
+// Resize
 window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth/window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(container.clientWidth, container.clientHeight);
 });
 </script>
 </body>
