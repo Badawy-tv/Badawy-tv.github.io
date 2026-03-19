@@ -1,16 +1,1 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDegjGujJw2_ZplUSvoW75Qyaz_JIcM_OM",
-  authDomain: "badawy-academy.firebaseapp.com",
-  projectId: "badawy-academy",
-  storageBucket: "badawy-academy.firebasestorage.app",
-  messagingSenderId: "670641991838",
-  appId: "1:670641991838:web:1c3f7c32ca5393c4d50b8f"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-export { db };
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"; import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; const firebaseConfig = { apiKey: "AIzaSyDegjGujJw2_ZplUSvoW75Qyaz_JIcM_OM", authDomain: "badawy-academy.firebaseapp.com", projectId: "badawy-academy", storageBucket: "badawy-academy.firebasestorage.app", messagingSenderId: "670641991838", appId: "1:670641991838:web:1c3f7c32ca5393c4d50b8f" }; const app = initializeApp(firebaseConfig); const db = getFirestore(app); export { db };

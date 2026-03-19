@@ -1,1 +1,0 @@
-fetch("/data/videos.json").then(r=>r.json()).then(v=>{const c=document.getElementById("video-container");v.forEach(x=>{c.innerHTML+=`<div class="video-card"><iframe src="${x.url}" frameborder="0" allowfullscreen></iframe><h3>${x.title}</h3></div>`})})

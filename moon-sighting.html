@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Moon Sighting</title>
+    <meta name="description" content="Moon Sighting - Badawy TV Islamic Website">
+<style>
+  body { margin: 0; background: #000; display:flex; justify-content:center; align-items:center; height:100vh; }
+  #moon-container { width: 300px; height: 300px; }
+</style>
+<meta content="Welcome to Badawy TV, your platform for Islamic education and more." name="description"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Badawy TV","url":"https://badawy-tv.github.io","logo":"https://badawy-tv.github.io/logo.png"}</script></head>
+<body>
+<div id="moon-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+<script>
+const container = document.getElementById('moon-container');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+renderer.setSize(container.clientWidth, container.clientHeight);
+container.appendChild(renderer.domElement);
+
+// Moon geometry
+const geometry = new THREE.SphereGeometry(1, 64, 64);
+
+// Shader to show illuminated fraction
+const material = new THREE.ShaderMaterial({
+  uniforms: { illum: { value: 0.5 } },
+  vertexShader: `
+    varying vec3 vNormal;
+    void main() {
+      vNormal = normalize(normalMatrix * normal);
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform float illum;
+    varying vec3 vNormal;
+    void main() {
+      float cosAngle = dot(normalize(vec3(1.0,0.0,0.0)), vNormal);
+      float bright = smoothstep(illum - 0.05, illum + 0.05, cosAngle);
+      vec3 color = mix(vec3(0.1), vec3(1.0), bright);
+      gl_FragColor = vec4(color,1.0);
+    }
+  `
+});
+const moon = new THREE.Mesh(geometry, material);
+scene.add(moon);
+
+// Lights (ambient just for minimal shading)
+scene.add(new THREE.AmbientLight(0x222222));
+
+camera.position.z = 3;
+
+// Fetch real moon phase and set uniform
+async function updateMoon() {
+  try {
+    const now = new Date();
+    const timestamp = Math.floor(now.getTime()/1000);
+    const res = await fetch(`https://api.farmsense.net/v1/moonphases/?d=${timestamp}`);
+    const data = await res.json();
+    const phaseName = data[0].Phase;
+
+    const phaseFractions = {
+      "New Moon": 0,
+      "Waxing Crescent": 0.25,
+      "First Quarter": 0.5,
+      "Waxing Gibbous": 0.75,
+      "Full Moon": 1,
+      "Waning Gibbous": 0.75,
+      "Last Quarter": 0.5,
+      "Waning Crescent": 0.25
+    };
+
+    material.uniforms.illum.value = phaseFractions[phaseName] || 0.5;
+  } catch(e) {
+    console.error("Moon API fetch failed", e);
+    material.uniforms.illum.value = 0.5;
+  }
+}
+
+// Animate rotation
+function animate() {
+  requestAnimationFrame(animate);
+  moon.rotation.y += 0.002;
+  renderer.render(scene, camera);
+}
+
+updateMoon();
+animate();
+
+// Resize
+window.addEventListener('resize', () => {
+  renderer.setSize(container.clientWidth, container.clientHeight);
+});
+</script>
+</body>
+</html>
