@@ -1,1 +1,25 @@
-const videoContainer = document.getElementById("video-library"); const videos = [ { title: "Friday Khutbah", }, { title: "Importance of Salah", }, { title: "Understanding Tawheed", } ]; videos.forEach(video => { const card = document.createElement("div"); card.className = "video-card"; card.innerHTML = ` <iframe width="100%" height="220" src="${video.embed}" frameborder="0" allowfullscreen></iframe> <h3>${video.title}</h3> `; videoContainer.appendChild(card); });
+const videoContainer = document.getElementById("video-library");
+
+const videos = [
+{
+title: "Friday Khutbah",
+},
+{
+title: "Importance of Salah",
+},
+{
+title: "Understanding Tawheed",
+}
+];
+
+videos.forEach(video => {
+const card = document.createElement("div");
+card.className = "video-card";
+
+card.innerHTML = `
+<iframe width="100%" height="220" src="${video.embed}" frameborder="0" allowfullscreen></iframe>
+<h3>${video.title}</h3>
+`;
+
+videoContainer.appendChild(card);
+});

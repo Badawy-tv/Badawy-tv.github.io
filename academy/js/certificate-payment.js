@@ -1,1 +1,30 @@
-const coursePrices = { tajweed:500, arabic:500, aqeedah:200, akhlaq:200, fiqh:500, hadith:500, seerah:1500, hifdh:1500 } export function verifyPayment(course, txid){ if(!txid || txid.length < 8){ return {valid:false,message:"Invalid Transaction ID"} } const expectedAmount = coursePrices[course] if(!expectedAmount){ return {valid:false,message:"Course not recognized"} } return { valid:true, amount:expectedAmount, message:"Transaction format accepted" } }
+const coursePrices = {
+tajweed:500,
+arabic:500,
+aqeedah:200,
+akhlaq:200,
+fiqh:500,
+hadith:500,
+seerah:1500,
+hifdh:1500
+}
+
+export function verifyPayment(course, txid){
+
+if(!txid || txid.length < 8){
+return {valid:false,message:"Invalid Transaction ID"}
+}
+
+const expectedAmount = coursePrices[course]
+
+if(!expectedAmount){
+return {valid:false,message:"Course not recognized"}
+}
+
+return {
+valid:true,
+amount:expectedAmount,
+message:"Transaction format accepted"
+}
+
+}

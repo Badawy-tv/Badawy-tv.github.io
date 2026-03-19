@@ -1,1 +1,19 @@
-let count = 0; function updateDisplay() { document.getElementById("tasbeeh-count").innerText = count; } function increaseTasbeeh() { count++; updateDisplay(); } function resetTasbeeh() { count = 0; updateDisplay(); } document.addEventListener("DOMContentLoaded", function(){ updateDisplay(); });
+let count = 0;
+
+function updateDisplay() {
+document.getElementById("tasbeeh-count").innerText = count;
+}
+
+function increaseTasbeeh() {
+count++;
+updateDisplay();
+}
+
+function resetTasbeeh() {
+count = 0;
+updateDisplay();
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+updateDisplay();
+});

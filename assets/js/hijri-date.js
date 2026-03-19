@@ -1,1 +1,12 @@
-const hijri = new Intl.DateTimeFormat('en-TN-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date()); document.addEventListener("DOMContentLoaded", () => { const el = document.getElementById("hijri-date"); if(el){ el.innerText = hijri + " AH"; } });
+const hijri = new Intl.DateTimeFormat('en-TN-u-ca-islamic', {
+day: 'numeric',
+month: 'long',
+year: 'numeric'
+}).format(new Date());
+
+document.addEventListener("DOMContentLoaded", () => {
+const el = document.getElementById("hijri-date");
+if(el){
+el.innerText = hijri + " AH";
+}
+});
