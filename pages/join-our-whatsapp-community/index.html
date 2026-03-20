@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Our WhatsApp Community</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:0; }
+  .container { max-width:600px; margin:50px auto; padding:20px; background:#fff; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+  h2 { text-align:center; color:#1b5e20; margin-bottom:10px; }
+  p.description { text-align:center; margin-bottom:20px; font-size:1rem; color:#555; }
+  .checkbox-group { display:flex; flex-direction:column; margin-bottom:20px; }
+  .checkbox-group label { display:flex; align-items:center; margin-bottom:10px; font-size:0.95rem; }
+  .checkbox-group input[type="checkbox"] { margin-right:10px; width:18px; height:18px; cursor:pointer; }
+  .checkbox-group a { color:#1e88e5; text-decoration:underline; margin-left:5px; font-size:0.85rem; }
+  button { width:100%; padding:12px; font-size:1rem; font-weight:bold; border:none; border-radius:8px; cursor:pointer; color:#fff; transition:background 0.3s; }
+  button.disabled { background:#e53935; cursor:not-allowed; }
+  button.enabled { background:#43a047; }
+  #message { text-align:center; margin-bottom:15px; font-size:0.95rem; color:#d32f2f; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Join Our WhatsApp Community</h2>
+  <p class="description">Stay connected with Badawy TV and get updates directly in WhatsApp.</p>
+
+  <div class="checkbox-group">
+    <label>
+      <input type="checkbox" id="agree1">
+      I agree to the <a href="/pages/legal/terms.html" target="_blank">Terms & Conditions</a>
+    </label>
+    <label>
+      <input type="checkbox" id="agree2">
+      I agree to the <a href="/pages/legal/privacy-policy.html" target="_blank">Privacy Policy</a>
+    </label>
+  </div>
+
+  <div id="message"></div>
+  <button id="joinBtn" class="disabled">Join Now</button>
+</div>
+
+<script>
+const btn = document.getElementById('joinBtn');
+const agree1 = document.getElementById('agree1');
+const agree2 = document.getElementById('agree2');
+const message = document.getElementById('message');
+
+const whatsappLink = "https://chat.whatsapp.com/GB6kufciC5o0TncAiuAQ7A?mode=gi_t";
+
+function updateButton() {
+  if (agree1.checked && agree2.checked) {
+    btn.classList.remove('disabled');
+    btn.classList.add('enabled');
+  } else {
+    btn.classList.remove('enabled');
+    btn.classList.add('disabled');
+  }
+}
+
+agree1.addEventListener('change', updateButton);
+agree2.addEventListener('change', updateButton);
+
+btn.addEventListener('click', () => {
+  if (!agree1.checked || !agree2.checked) {
+    message.textContent = "You must confirm that you agree to the Terms and Conditions of Badawy TV website.";
+    return;
+  }
+  message.style.color = "#43a047";
+  message.textContent = "Joining successfully... Redirecting to WhatsApp";
+  setTimeout(() => {
+    window.open(whatsappLink, "_blank");
+  }, 2000);
+});
+
+updateButton();
+</script>
+</body>
+</html>
