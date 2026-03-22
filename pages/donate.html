@@ -6,141 +6,131 @@
 <title>Support Badawy TV</title>
 <style>
 body { font-family: Arial, sans-serif; background:#f9f9f9; padding:20px; }
-.payment-card { max-width:800px; margin:0 auto; background:#fff; padding:25px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.08); }
-h1 { color:#0a7a4b; }
-button { border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer; }
-button#generateBtn { background:#0a7a4b; color:#fff; }
-button#pdfBtn { background:#ccc; color:#fff; }
-button#pdfBtn.enabled { background:#d93025; color:#fff; cursor:pointer; }
-#certificateArea { margin-top:20px; padding:20px; border:3px solid #0a7a4b; border-radius:12px; position:relative; background:#fdfcfb; }
-#certificateArea h2 { text-align:center; color:#0a7a4b; margin-bottom:15px; }
-#certificateArea input { width:95%; padding:8px; margin:5px 0; border-radius:4px; border:1px solid #ccc; }
-.steps { margin-top:20px; }
-.steps ol { padding-left:20px; }
-.steps li { margin-bottom:10px; }
+.payment-card { max-width:800px; margin:0 auto; padding:30px; background:#e8f5ef; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.08); }
+h1,h2,h3 { color:#0a7a4b; }
+.steps { margin:20px 0; }
+.steps ol { counter-reset: step; padding-left:0; }
+.steps li { list-style:none; margin-bottom:12px; position:relative; padding-left:40px; }
+.steps li span { position:absolute; left:0; top:0; background:#0a7a4b; color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; }
+#certificateArea { margin-top:20px; padding:20px; border:3px solid #0a7a4b; border-radius:12px; background:white; position:relative; min-height:300px; }
+.watermark { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-30deg); font-size:30px; color:rgba(10,122,75,0.1); pointer-events:none; white-space:nowrap; }
+input, textarea { width:100%; padding:10px; margin-top:10px; border-radius:6px; border:1px solid #ccc; }
+#pdfBtn { background:#ccc; color:white; border:none; padding:12px; border-radius:8px; cursor:not-allowed; font-weight:bold; }
+#pdfBtn.enabled { background:#0a7a4b; cursor:pointer; }
+.success-message { display:none; margin-top:15px; padding:15px; background:#dff0d8; border-left:5px solid #0a7a4b; border-radius:6px; color:#0a7a4b; font-weight:bold; }
 </style>
 </head>
 <body>
 <div class="payment-card">
-<h1>🤲 Support Badawy TV</h1>
-<p>Follow the steps below to support us and get your award certificate:</p>
+    <h1>🤲 Support Badawy TV</h1>
 
-<div class="steps">
-<h2>📌 Payment Steps</h2>
-<ol>
-<li>Open M-Pesa on your phone.</li>
-<li>Select Send Money.</li>
-<li>Enter the recipient number: <strong>0716 802090</strong></li>
-<li>Enter recipient name: <strong>Ahmed Ali</strong></li>
-<li>Enter the amount you wish to donate.</li>
-<li>Confirm the details and enter your M-Pesa PIN.</li>
-<li>Wait for the confirmation message.</li>
-</ol>
-<p>Keep the confirmation SMS as proof of donation.</p>
-</div>
+    <!-- Payment Steps -->
+    <div class="steps">
+        <h2>📌 How to Donate via M-Pesa</h2>
+        <ol>
+            <li><span>1</span> Open M-Pesa on your phone.</li>
+            <li><span>2</span> Select Send Money.</li>
+            <li><span>3</span> Enter recipient number: 0716 802090</li>
+            <li><span>4</span> Enter recipient name: Ahmed Ali</li>
+            <li><span>5</span> Enter the amount and confirm.</li>
+            <li><span>6</span> Enter your M-Pesa PIN.</li>
+            <li><span>7</span> Wait for confirmation SMS.</li>
+        </ol>
+    </div>
 
-<!-- Certificate -->
-<div id="certificateArea">
-<h2>🏆 Your Certificate</h2>
-<p id="certificateText">Paste your M-Pesa statement below to generate your certificate:</p>
-<textarea id="mpesaStatement" rows="4" placeholder="Paste your M-Pesa statement"></textarea><br>
-<button id="generateBtn" onclick="generateCertificate()">Generate Certificate</button>
+    <!-- Certificate Section -->
+    <h2>🏆 Generate Your Award Certificate</h2>
+    <div id="certificateArea">
+        <div class="watermark">Certificate Award for Supporting Badawy TV</div>
+        <p id="certificateText"></p>
+        <input type="text" id="certName" placeholder="Your Name">
+        <input type="text" id="certPhone" placeholder="Your Phone Number">
+        <input type="email" id="certEmail" placeholder="Your Email">
+        <button id="pdfBtn">Download Certificate PDF</button>
+    </div>
+    <button onclick="generateCertificate()">Generate Certificate</button>
 
-<h3>Certificate Details</h3>
-<input type="text" id="certName" placeholder="Your Name">
-<input type="text" id="certPhone" placeholder="Phone Number">
-<input type="text" id="certEmail" placeholder="Email">
-
-<button id="pdfBtn" disabled>Download PDF Certificate</button>
-</div>
-
-<!-- Feature submission form -->
-<div id="featureFormContainer">
-<h2>💡 Suggest a Feature / Send Certificate</h2>
-<form id="featureForm">
-<input type="text" id="name" placeholder="Your Name" required><br>
-<input type="text" id="phone" placeholder="Your Phone" required><br>
-<input type="file" id="certFile" accept=".pdf,.txt"><br>
-<textarea id="feature" rows="4" placeholder="What feature would you like us to add?" required></textarea><br>
-<input type="checkbox" id="terms"><label for="terms"><a href="/legal/terms.html" target="_blank">Terms & Conditions</a></label><br>
-<input type="checkbox" id="privacy"><label for="privacy"><a href="/legal/privacy.html" target="_blank">Privacy Policy</a></label><br><br>
-<button type="button" id="submitBtn" disabled>Submit</button>
-</form>
-<div class="success-message" id="successMessage" style="display:none; margin-top:15px; padding:15px; background:#dff0d8; border-left:5px solid #0a7a4b; border-radius:6px; color:#0a7a4b; font-weight:bold;">
-✅ Thank you! Our review team will confirm your submission within 24 hours.
-</div>
+    <!-- Feature Request Form -->
+    <h2>💡 Suggest a Feature / Send Certificate</h2>
+    <form id="featureForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="text" id="phone" placeholder="Your Phone Number" required>
+        <input type="file" id="certFile" accept=".txt,.pdf">
+        <textarea id="feature" rows="4" placeholder="What feature would you like us to add?" required></textarea>
+        <input type="checkbox" id="terms"><label for="terms"><a href="/legal/terms.html" target="_blank">Terms & Conditions</a></label>
+        <input type="checkbox" id="privacy"><label for="privacy"><a href="/legal/privacy.html" target="_blank">Privacy Policy</a></label>
+        <button type="button" id="submitBtn">Submit</button>
+    </form>
+    <div class="success-message" id="successMessage">
+        ✅ Thank you! Our review team will confirm your submission within 24 hours.
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-// Generate certificate (no validation)
+// Certificate Generation
 function generateCertificate(){
-    const statement = document.getElementById('mpesaStatement').value;
     const now = new Date();
-    const uniqueId = Math.floor(Math.random()*1000000);
-    document.getElementById('certificateText').textContent =
-        `🏆 You have successfully received an award certificate from Badawy TV for supporting the channel!
-ID: ${uniqueId}
-Generated at ${now.toLocaleString()}`;
+    const name = document.getElementById('certName').value;
+    const phone = document.getElementById('certPhone').value;
+    const email = document.getElementById('certEmail').value;
+    const uniqueID = 'BADAWY-' + now.getTime();
+    if(!name || !phone || !email){
+        alert('Please fill all fields inside the certificate first.');
+        return;
+    }
+    document.getElementById('certificateText').innerHTML =
+        `<h3>🏆 Certificate of Support</h3>
+        <p>This certificate is awarded to <strong>${name}</strong></p>
+        <p>Phone: ${phone} | Email: ${email}</p>
+        <p>Certificate ID: ${uniqueID}</p>
+        <p>For showing support to <strong>Badawy TV</strong> and helping improve the channel.</p>`;
+    document.getElementById('pdfBtn').classList.add('enabled');
 }
 
-// Enable submit button when terms/privacy checked
+// PDF download
+document.getElementById('pdfBtn').addEventListener('click', () => {
+    const btn = document.getElementById('pdfBtn');
+    if(!btn.classList.contains('enabled')) return;
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const certificateHTML = document.getElementById('certificateText').innerHTML;
+    doc.html(certificateHTML, { x:10, y:10 });
+    doc.save('BadawyTV_Certificate.pdf');
+});
+
+// Terms & Privacy toggle submit
 const submitBtn = document.getElementById('submitBtn');
 const termsCheckbox = document.getElementById('terms');
 const privacyCheckbox = document.getElementById('privacy');
-function toggleSubmit(){
-    submitBtn.disabled = !(termsCheckbox.checked && privacyCheckbox.checked);
+function toggleSubmit() {
+    if(termsCheckbox.checked && privacyCheckbox.checked){
+        submitBtn.classList.add('enabled'); submitBtn.disabled=false;
+    } else {
+        submitBtn.classList.remove('enabled'); submitBtn.disabled=true;
+    }
 }
 termsCheckbox.addEventListener('change', toggleSubmit);
 privacyCheckbox.addEventListener('change', toggleSubmit);
 
-// PDF button
-const pdfBtn = document.getElementById('pdfBtn');
-function updatePdfButton(){
-    const name = document.getElementById('certName').value;
-    const phone = document.getElementById('certPhone').value;
-    const email = document.getElementById('certEmail').value;
-    pdfBtn.disabled = !(name && phone && email);
-    if(!pdfBtn.disabled) pdfBtn.classList.add('enabled'); else pdfBtn.classList.remove('enabled');
-}
-['certName','certPhone','certEmail'].forEach(id => document.getElementById(id).addEventListener('input', updatePdfButton));
-
-pdfBtn.addEventListener('click', ()=>{
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const name = document.getElementById('certName').value;
-    const phone = document.getElementById('certPhone').value;
-    const email = document.getElementById('certEmail').value;
-    const text = document.getElementById('certificateText').textContent;
-
-    // Watermark
-    doc.setFontSize(60);
-    doc.setTextColor(200,200,200);
-    doc.text('Certificate Award for Supporting Badawy TV', 35, 100, {angle:45, align:'center'});
-
-    // Certificate content
-    doc.setFontSize(16);
-    doc.setTextColor(0,0,0);
-    doc.text(`Name: ${name}`, 20, 50);
-    doc.text(`Phone: ${phone}`, 20, 60);
-    doc.text(`Email: ${email}`, 20, 70);
-    doc.text(text, 20, 90);
-
-    doc.save(`BadawyTV_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
-});
-
-// Feature form submission
-document.getElementById('submitBtn').addEventListener('click', ()=>{
-    if(submitBtn.disabled) { alert("Please accept Terms & Privacy first"); return; }
+// Submit feature form
+submitBtn.addEventListener('click', function(){
+    if(!submitBtn.classList.contains('enabled')){
+        alert("Please accept Terms & Privacy first");
+        return;
+    }
     const formData = new FormData();
     formData.append('name', document.getElementById('name').value);
     formData.append('phone', document.getElementById('phone').value);
     formData.append('feature', document.getElementById('feature').value);
     const certFile = document.getElementById('certFile').files[0];
     if(certFile) formData.append('certificate', certFile);
-    fetch('https://formsubmit.co/badawytv76@gmail.com', {method:'POST', body: formData})
-        .then(res=>{ if(res.ok){ document.getElementById('successMessage').style.display='block'; document.getElementById('featureForm').reset(); toggleSubmit(); } })
-        .catch(err=>alert('❌ Could not submit: '+err));
+
+    fetch('https://formsubmit.co/badawytv76@gmail.com', { method:'POST', body:formData })
+    .then(res => { if(res.ok){
+        document.getElementById('successMessage').style.display='block';
+        document.getElementById('featureForm').reset(); toggleSubmit();
+    }}).catch(err=>alert('❌ Could not submit: '+err));
 });
 </script>
 </body>
