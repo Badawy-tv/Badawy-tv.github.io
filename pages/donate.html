@@ -4,36 +4,171 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Badawy TV - Maintenance</title>
+<title>Badawy TV - Donate & Certificate</title>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
-body {margin:0; padding:0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #0a7a4b, #b2d8b2); color:#fff; display:flex; justify-content:center; align-items:center; height:100vh; user-select:none;}
-.maintenance-card {background:rgba(0,0,0,0.7); padding:40px; border-radius:20px; text-align:center; max-width:600px; box-shadow:0 8px 30px rgba(0,0,0,0.5);}
-h1 {font-size:2.5em; margin-bottom:20px; letter-spacing:1px;}
-p {font-size:1.1em; margin-bottom:10px; line-height:1.5;}
-.contact {margin-top:20px; font-size:1em;}
-.contact b {color:#ffd700;}
-.rabbit {width:80px; margin:20px auto; animation:dance 1s infinite alternate;}
-@keyframes dance {0% {transform: translateY(0px) rotate(0deg);} 50% {transform: translateY(-15px) rotate(-15deg);} 100% {transform: translateY(0px) rotate(15deg);}}
+body {font-family: Arial, sans-serif; background:#f0f0f0; margin:0; padding:0;}
+h1,h2,h3{margin:0 0 10px 0;}
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{background:white;padding:20px;margin:15px 0;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.15);transition:0.3s;}
+.card:hover{box-shadow:0 4px 12px rgba(0,0,0,0.25);}
+button{padding:10px 20px;background:#0a7a4b;color:white;border:none;border-radius:6px;cursor:pointer;transition:0.3s;}
+button:hover{background:#096637;}
+.copy-btn{margin-left:10px;padding:5px 10px;background:#444;color:white;border-radius:4px;cursor:pointer;}
+.certificate{position:relative;background:white;padding:40px;margin:20px 0;border:3px solid #0a7a4b;border-radius:15px;min-height:300px;overflow:hidden;}
+.watermark{position:absolute;top:0;left:0;right:0;bottom:0;opacity:0.05;font-size:50px;color:#0a7a4b;display:flex;align-items:center;justify-content:center;pointer-events:none;flex-wrap:wrap;}
+.watermark span{margin:20px;}
+input[type=text]{padding:5px;margin:5px 0;border-radius:4px;border:1px solid #aaa;width:100%;}
+.stamp{position:absolute;bottom:20px;right:20px;color:#0a7a4b;font-size:32px;font-weight:bold;text-shadow:0 0 10px #0a7a4b,0 0 20px #0a7a4b,0 0 30px #0a7a4b;transform:rotate(-10deg);}
+.message{margin:15px 0;font-size:16px;color:#0a7a4b;}
 </style>
-<script>
-// Disable right-click
-document.addEventListener('contextmenu', event => event.preventDefault());
-// Disable selection/copy
-document.addEventListener('copy', event => event.preventDefault());
-document.addEventListener('keydown', function(e){
-    if(e.ctrlKey && (e.key==='c' || e.key==='u' || e.key==='s')) { e.preventDefault(); }
-});
-</script>
 </head>
 <body>
-<div class="maintenance-card">
-  <h1>We’re Currently Under Maintenance</h1>
-  <p>We are performing scheduled updates to improve your experience. Services are temporarily unavailable during this time.</p>
-  <p class="contact">For more information or technical assistance, contact <b>Faiswal</b>:<br>
-  Phone: <b>0799970292</b><br>
-  Email: <b>badawytv76@gmail.com</b></p>
-  <p>Thank you for your patience and continued support. We will be back soon.</p>
-  <img class="rabbit" src="https://i.imgur.com/0KFBHTB.png" alt="Dancing Rabbit">
+<div class="container">
+<h1>Support Badawy TV</h1>
+
+<!-- Payments Section -->
+<div class="card">
+  <h2>MPESA</h2>
+  <p>Send money to: <strong>+254700123456</strong></p>
+  <button onclick="copyToClipboard('+254700123456')">Copy Number</button>
 </div>
+
+<div class="card">
+  <h2>Local Banks</h2>
+  <p>Select a bank to donate:</p>
+  <button onclick="window.location='bankapp://abc'">Bank ABC</button>
+  <button onclick="window.location='bankapp://xyz'">Bank XYZ</button>
+</div>
+
+<div class="card">
+  <h2>Global Payments</h2>
+  <p>Use this email for payments: <strong id="globalEmail">ahmedbadawy786@gmail.com</strong></p>
+  <button onclick="copyAndOpenEmail()">Donate via Email</button>
+</div>
+
+<!-- Certificate Section -->
+<div class="card certificate" id="certificate">
+  <div class="watermark">
+    <span>Certificate Award for Supporting Badawy TV</span>
+    <span>Certificate Award for Supporting Badawy TV</span>
+  </div>
+  <h2>Certificate</h2>
+  <div class="message">
+    You have been successfully awarded this certificate from Badawy TV. You can now request features/upgrades to be added to our channel. Thank you for your support.
+  </div>
+  <p>Recipient Name:</p>
+  <input type="text" id="cert_name">
+  <p>Phone Number:</p>
+  <input type="text" id="cert_phone">
+  <p>Email:</p>
+  <input type="text" id="cert_email">
+  <p>Time:</p>
+  <span id="cert_time"></span>
+  <div class="stamp">BADAWY TV</div>
+  <button onclick="generateCertificatePDF()">⬇️ Download Official Certificate</button>
+</div>
+
+<!-- Submission Section -->
+<div class="card">
+  <h2>Submit Your Request</h2>
+  <p>Name:</p>
+  <input type="text" id="s_name">
+  <p>Phone:</p>
+  <input type="text" id="s_phone">
+  <p>Email (optional):</p>
+  <input type="text" id="s_email">
+  <p>Feature / Request:</p>
+  <input type="text" id="feature">
+  <button onclick="submitForm()">Submit</button>
+</div>
+
+</div>
+
+<script>
+// Copy to clipboard function
+function copyToClipboard(text){
+  navigator.clipboard.writeText(text);
+  alert("Copied to clipboard: " + text);
+}
+
+// Open email for global payments
+function copyAndOpenEmail(){
+  const email = document.getElementById("globalEmail").textContent;
+  navigator.clipboard.writeText(email);
+  alert("Email copied: " + email);
+  window.location.href = "mailto:" + email;
+}
+
+// Certificate PDF generation
+function generateCertificatePDF(){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({orientation:'portrait',unit:'pt',format:'a4'});
+  const name = document.getElementById("cert_name").value;
+  const phone = document.getElementById("cert_phone").value;
+  const email = document.getElementById("cert_email").value;
+  const time = new Date().toLocaleString();
+  const watermark = "Certificate Award for Supporting Badawy TV";
+
+  document.getElementById("cert_time").textContent = time;
+
+  doc.setFontSize(22);
+  doc.text("Badawy TV Certificate", 40, 60);
+  doc.setFontSize(14);
+  doc.text("Recipient Name: " + name, 40, 100);
+  doc.text("Phone: " + phone, 40, 120);
+  doc.text("Email: " + email, 40, 140);
+  doc.text("Time: " + time, 40, 160);
+  doc.text("You have been successfully awarded this certificate from Badawy TV. You can now request features/upgrades to be added to our channel. Thank you for your support.", 40, 200, {maxWidth:500});
+
+  // Watermarks diagonally
+  for(let i=100;i<700;i+=100){
+    for(let j=100;j<500;j+=100){
+      doc.setTextColor(0,150,75,50);
+      doc.setFontSize(40);
+      doc.text(watermark,i,j,{angle:45});
+    }
+  }
+
+  // Electric stamp
+  doc.setFontSize(36);
+  doc.setTextColor(10,122,75);
+  doc.text("BADAWY TV", 400, 700);
+
+  doc.save("BadawyTV_Certificate.pdf");
+}
+
+// EmailJS Submission
+emailjs.init("dQ3fOQb_-jV7-LUGv");
+function submitForm(){
+    const name = document.getElementById("s_name").value;
+    const phone = document.getElementById("s_phone").value;
+    const feature = document.getElementById("feature").value;
+    const email = document.getElementById("s_email").value;
+
+    if(!name || !phone || !feature){
+        alert("Please fill all required fields!");
+        return;
+    }
+
+    emailjs.send("service_x9pcmtm", "template_tn5i68d", {
+        name: name,
+        phone: phone,
+        feature: feature,
+        email: email,
+        title: "Badawy TV Submission",
+        time: new Date().toLocaleString(),
+        message: "Feature submission from website"
+    })
+    .then(()=> {
+        alert("Submitted successfully! Your submission has been received. Our team will review it within 24 hours and provide feedback. Thank you for supporting Badawy TV.");
+    })
+    .catch(()=> {
+        alert("Submission failed. Please try again.");
+    });
+}
+</script>
+
 </body>
 </html>
