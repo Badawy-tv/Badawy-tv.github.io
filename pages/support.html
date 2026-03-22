@@ -8,3 +8,13 @@
 <body>
 </body>
 </html>
+<script>
+
+function generateCertificate(){
+    const now = new Date();
+    document.getElementById('certificateText').textContent =
+        `🏆 You have successfully received an award certificate from Badawy TV for supporting the channel! We would love to hear your feature requests. Generated at ${now.toLocaleString()}`;
+    document.getElementById('certificateArea').style.display='block';
+}
+
+</script>
