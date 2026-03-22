@@ -3,8 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Donate / Support Badawy TV</title>
+<title>Donate - Badawy TV</title>
+<style>
+body { font-family: Arial, sans-serif; background:#f9f9f9; padding:20px; }
+.payment-steps-card {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 25px;
+    background: #fefefe;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+.payment-steps-card h2 {
+    color: #0a7a4b;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.payment-steps-card p {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.steps { display: flex; flex-direction: column; gap: 15px; }
+.step-card {
+    display: flex; align-items: center; gap: 12px;
+    padding: 15px 20px; background: #e8f5ef;
+    border-left: 5px solid #0a7a4b; border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.step-card:hover { transform: translateY(-2px); box-shadow:0 4px 15px rgba(0,0,0,0.1);}
+.step-number {
+    background: #0a7a4b; color:white; font-weight:bold;
+    width:32px; height:32px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+}
+.copy-btn {
+    margin-left: 10px; background: #0a7a4b; color: white;
+    border:none; padding:4px 8px; border-radius:6px;
+    cursor:pointer; font-size:14px; transition: background 0.2s;
+}
+.copy-btn:hover { background:#066238; }
+</style>
 </head>
 <body>
+
+<!-- Payment Steps Section -->
+<div class="payment-steps-card">
+    <h2>📌 M-PESA PAYMENT STEPS</h2>
+    <p>Support Badawy TV and help us maintain quality Islamic content. Follow the steps below to donate via M-Pesa.</p>
+    
+    <div class="steps">
+        <div class="step-card">
+            <span class="step-number">1</span>
+            <p>OPEN M-PESA ON YOUR PHONE.</p>
+        </div>
+        <div class="step-card">
+            <span class="step-number">2</span>
+            <p>SELECT SEND MONEY.</p>
+        </div>
+        <div class="step-card">
+            <span class="step-number">3</span>
+            <p>ENTER THE RECIPIENT NUMBER: <strong id="recipientNumber">0716 802090</strong>
+            <button class="copy-btn" onclick="copyNumber()">📋 Copy</button></p>
+        </div>
+        <div class="step-card">
+            <span class="step-number">4</span>
+            <p>ENTER THE RECIPIENT NAME: <strong>AHMED ALI</strong></p>
+        </div>
+        <div class="step-card">
+            <span class="step-number">5</span>
+            <p>ENTER THE AMOUNT YOU WISH TO DONATE.</p>
+        </div>
+        <div class="step-card">
+            <span class="step-number">6</span>
+            <p>CONFIRM DETAILS AND ENTER YOUR M-PESA PIN.</p>
+        </div>
+        <div class="step-card">
+            <span class="step-number">7</span>
+            <p>WAIT FOR CONFIRMATION MESSAGE TO ENSURE PAYMENT SUCCESS.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyNumber() {
+    const number = document.getElementById("recipientNumber").innerText;
+    navigator.clipboard.writeText(number).then(() => {
+        alert("✅ Number copied to clipboard: " + number);
+    }).catch(err => alert("❌ Failed to copy: " + err));
+}
+</script>
+
 </body>
 </html>
