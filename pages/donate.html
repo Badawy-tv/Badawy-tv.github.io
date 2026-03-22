@@ -3,71 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Donate - Badawy TV</title>
+<title>Support Badawy TV</title>
 <style>
 body { font-family: Arial, sans-serif; background:#f9f9f9; padding:20px; }
-h1,h2 { color:#0a7a4b; text-align:center; }
-.card { background:white; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); padding:20px; margin:20px auto; max-width:600px; transition: transform 0.2s; }
-.card:hover { transform: translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.15); }
-.button { background:#0a7a4b; color:white; border:none; padding:12px 25px; border-radius:6px; font-weight:bold; cursor:pointer; }
-.button:hover { background:#095d38; }
-.copy-btn { margin-left:10px; padding:6px 12px; font-size:0.9em; }
-.note { font-size:0.95em; color:#555; text-align:center; margin-top:10px; }
+h1, h2 { color:#0a7a4b; text-align:center; }
+.cards { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; margin-top:20px; }
+.card { background:#fff; padding:20px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.1); width:250px; text-align:center; transition:transform 0.2s; }
+.card:hover { transform:translateY(-5px); }
+.card button { background:#0a7a4b; color:white; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer; transition:background 0.2s; }
+.card button:hover { background:#065836; }
+.copy-text { cursor:pointer; display:inline-block; margin-left:5px; color:#0a7a4b; font-weight:bold; }
 </style>
 </head>
 <body>
 
 <h1>🤲 Support Badawy TV</h1>
-
-<!-- M-Pesa Section -->
-<div class="card">
-  <h2>M-PESA</h2>
-  <p><strong>Number:</strong> 0716802090 
-     <button class="copy-btn" onclick="copyText('0716802090')">📋 Copy</button>
-  </p>
+<h2>Local Banks (Kenya)</h2>
+<div class="cards">
+  <div class="card">
+    <h3>Equity Bank</h3>
+    <p>Donate directly via app or web.</p>
+    <button onclick="openBank('equity')">Donate</button>
+  </div>
+  <div class="card">
+    <h3>KCB</h3>
+    <p>Donate directly via app or web.</p>
+    <button onclick="openBank('kcb')">Donate</button>
+  </div>
+  <div class="card">
+    <h3>Cooperative Bank</h3>
+    <p>Donate directly via app or web.</p>
+    <button onclick="openBank('co-op')">Donate</button>
+  </div>
+  <div class="card">
+    <h3>Other Banks</h3>
+    <p>Visit their payment portal.</p>
+    <button onclick="openBank('other')">Donate</button>
+  </div>
 </div>
 
-<!-- Local Banks Section -->
-<div class="card">
-  <h2>LOCAL BANKS</h2>
-  <p>Select your bank and press Donate:</p>
-  <ul style="list-style:none; padding:0;">
-    <li><button class="button" onclick="openBank('https://www.stanbicbank.co.ke/personal-banking/payments')">Stanbic Bank Donate</button></li>
-    <li><button class="button" onclick="openBank('https://www.absa.co.ke/personal/payments')">ABSA Bank Donate</button></li>
-    <li><button class="button" onclick="openBank('https://www.kcbgroup.com/personal/payments')">KCB Bank Donate</button></li>
-    <li><button class="button" onclick="openBank('https://www.co-opbank.co.ke/personal-banking/payments')">Co-Operative Bank Donate</button></li>
-  </ul>
-</div>
-
-<!-- Global Payments Section -->
-<div class="card">
-  <h2>GLOBAL PAYMENTS</h2>
-  <p class="note">Use the email <strong>ahmedbadawy786@gmail.com</strong> for global payments.</p>
-  <button class="button" onclick="globalDonate()">Donate</button>
+<h2>Global Payments</h2>
+<p style="text-align:center;">Send your donation to: <strong id="globalEmail">ahmedbadawy786@gmail.com</strong> <span class="copy-text" onclick="copyEmail()">📋 Copy</span></p>
+<div class="cards">
+  <div class="card">
+    <h3>PayPal</h3>
+    <button onclick="openGlobal('paypal')">Donate</button>
+  </div>
+  <div class="card">
+    <h3>Visa / Mastercard</h3>
+    <button onclick="openGlobal('visa')">Donate</button>
+  </div>
+  <div class="card">
+    <h3>Stripe</h3>
+    <button onclick="openGlobal('stripe')">Donate</button>
+  </div>
+  <div class="card">
+    <h3>Other Methods</h3>
+    <button onclick="openGlobal('other')">Donate</button>
+  </div>
 </div>
 
 <script>
-function copyText(text) {
-  navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!'));
+// Clipboard copy for global email
+function copyEmail() {
+  const email = document.getElementById('globalEmail').textContent;
+  navigator.clipboard.writeText(email).then(() => alert(`Email copied: ${email}`));
 }
 
-// Local Banks open link or app fallback
-function openBank(url) {
-  window.open(url, '_blank');
+// Open local bank app or fallback web
+function openBank(bank) {
+  let url = "";
+  switch(bank) {
+    case 'equity': url = "https://www.equitybankgroup.com/personal"; break;
+    case 'kcb': url = "https://ke.kcbgroup.com/personal"; break;
+    case 'co-op': url = "https://www.co-opbank.co.ke/"; break;
+    case 'other': url = "https://www.centralbank.go.ke/"; break;
+  }
+  window.open(url, "_blank");
 }
 
-// Global Payments logic
-function globalDonate() {
-  const email = 'ahmedbadawy786@gmail.com';
-  navigator.clipboard.writeText(email).then(() => alert('Email copied to clipboard!'));
-  
-  // Attempt to open PayPal or Visa app deep link (example)
-  const appUrl = 'paypal://send?recipient=' + email;
-  const fallbackWeb = 'https://www.paypal.com/paypalme/' + email.split('@')[0];
-
-  // Try to open app, fallback to web after short delay
-  const timeout = setTimeout(() => window.open(fallbackWeb, '_blank'), 500);
-  window.location = appUrl;
+// Open global payment app or fallback web / store
+function openGlobal(method) {
+  const email = document.getElementById('globalEmail').textContent;
+  copyEmail(); // always copy email first
+  let url = "";
+  switch(method) {
+    case 'paypal': url = `https://www.paypal.com/paypalme/${email}`; break;
+    case 'visa': url = `https://checkout.stripe.com/pay/${email}`; break;
+    case 'stripe': url = `https://stripe.com/pay/${email}`; break;
+    case 'other': url = `mailto:${email}`; break;
+  }
+  window.open(url, "_blank");
 }
 </script>
 
