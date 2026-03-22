@@ -6,23 +6,48 @@
 <title>Support Badawy TV</title>
 <style>
 body { font-family: Arial, sans-serif; line-height:1.6; background:#f9f9f9; padding:20px; }
-.payment-card { max-width:600px; margin:0 auto; background:#e8f5ef; padding:30px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.08); text-align:center; }
+.payment-card, .payment-steps { text-align:left; padding:20px; background:#e8f5ef; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.08); max-width:700px; margin:20px auto; }
+.payment-steps ol { padding-left:20px; }
 textarea, input[type=text], input[type=file] { width:100%; padding:10px; margin-top:10px; border-radius:6px; border:1px solid #ccc; }
-button { padding:10px 20px; border:none; border-radius:6px; font-weight:bold; color:white; cursor:pointer; }
-#submitBtn { background:#ccc; cursor:not-allowed; }
+#submitBtn { background:#ccc; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:not-allowed; }
 #submitBtn.enabled { background:#0a7a4b; cursor:pointer; }
 .success-message { display:none; margin-top:15px; padding:15px; background:#dff0d8; border-left:5px solid #0a7a4b; border-radius:6px; color:#0a7a4b; font-weight:bold; }
-#certificateArea { margin-top:20px; display:none; text-align:left; padding:15px; border-left:5px solid #0a7a4b; border-radius:6px; background:#e8f5ef; }
 </style>
 </head>
 <body>
 
-<div id="certificateArea">
+<!-- Payment Steps -->
+<div class="payment-steps">
+    <h2>🤲 Support Badawy TV</h2>
+    <p>Your support helps maintain and improve <strong>Badawy TV</strong>. Contributions enable us to add new features requested by our viewers and work towards launching the official Badawy TV app. Every donation, no matter the size, directly supports authentic Islamic content and enhances the experience for our global community.</p>
+
+    <h3>M-Pesa Send Money</h3>
+    <p>📌 How to Donate:</p>
+    <ol>
+        <li>Open M-Pesa on your phone.</li>
+        <li>Select Send Money.</li>
+        <li>Enter the recipient number: <strong>0716 802090</strong> 📋 Copy</li>
+        <li>Enter the recipient name: <strong>Ahmed Ali</strong></li>
+        <li>Enter the amount you wish to donate.</li>
+        <li>Confirm the details and enter your M-Pesa PIN.</li>
+        <li>Wait for the confirmation message to ensure your donation was successful.</li>
+    </ol>
+    <p>💡 Tip: Keep your confirmation SMS as proof of donation. Your support directly helps maintain Badawy TV and bring new features!</p>
+</div>
+
+<!-- Certificate Section -->
+<div class="payment-card">
+    <h2>🏆 Generate Your Award Certificate</h2>
+    <p>Paste your M-Pesa statement below to generate your award certificate:</p>
+    <textarea id="mpesaStatement" rows="6" placeholder="Paste your M-Pesa payment statement here"></textarea><br>
+    <button onclick="generateCertificate()" style="background:#0a7a4b; color:white; border:none; padding:10px 20px; border-radius:6px;">Generate Certificate</button>
+
+    <div id="certificateArea" style="margin-top:20px; display:none;">
         <h3>🏆 Your Certificate</h3>
-        <p id="certificateText"></p>
+        <p id="certificateText" style="background:#e8f5ef; padding:15px; border-left:5px solid #0a7a4b; border-radius:6px;"></p>
     </div>
 
-    <!-- Feature / Certificate Submission Form -->
+    <!-- Feature request & submission -->
     <h2>💡 Suggest a Feature / Send Certificate</h2>
     <form id="featureForm">
         <input type="text" id="name" placeholder="Your Name" required><br><br>
@@ -42,13 +67,8 @@ button { padding:10px 20px; border:none; border-radius:6px; font-weight:bold; co
 </div>
 
 <script>
-// Copy recipient number
-function copyNumber() {
-    navigator.clipboard.writeText("0716 802090").then(()=>alert("Number copied to clipboard!"));
-}
-
-// Generate certificate (works for any pasted statement)
-function generateCertificate() {
+// Generate certificate (no validation)
+function generateCertificate(){
     const statement = document.getElementById('mpesaStatement').value;
     const now = new Date();
     document.getElementById('certificateText').textContent =
@@ -56,7 +76,7 @@ function generateCertificate() {
     document.getElementById('certificateArea').style.display='block';
 }
 
-// Terms & Privacy toggle for submit button
+// Terms & Privacy toggle submit
 const submitBtn = document.getElementById('submitBtn');
 const termsCheckbox = document.getElementById('terms');
 const privacyCheckbox = document.getElementById('privacy');
@@ -64,16 +84,16 @@ const privacyCheckbox = document.getElementById('privacy');
 function toggleSubmit() {
     if(termsCheckbox.checked && privacyCheckbox.checked){
         submitBtn.classList.add('enabled');
-        submitBtn.disabled = false;
+        submitBtn.disabled=false;
     } else {
         submitBtn.classList.remove('enabled');
-        submitBtn.disabled = true;
+        submitBtn.disabled=true;
     }
 }
 termsCheckbox.addEventListener('change', toggleSubmit);
 privacyCheckbox.addEventListener('change', toggleSubmit);
 
-// Submit feature/certificate form
+// Submit form
 submitBtn.addEventListener('click', function(){
     if(!submitBtn.classList.contains('enabled')) {
         alert("Please accept Terms & Privacy first");
@@ -98,5 +118,6 @@ submitBtn.addEventListener('click', function(){
     }).catch(err=> alert('❌ Could not submit: '+err));
 });
 </script>
+
 </body>
 </html>
