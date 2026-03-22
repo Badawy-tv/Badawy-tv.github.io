@@ -3,66 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Donate to Badawy TV</title>
+<title>Donate - Badawy TV</title>
 <style>
-body { font-family: Arial, sans-serif; background: #f9f9f9; margin:0; padding:20px; }
-h1, h2 { color:#0a7a4b; text-align:center; }
-.payment-section { max-width: 800px; margin: 20px auto; }
-.card { background:#e8f5ef; padding:20px; border-radius:12px; margin-bottom:15px; box-shadow:0 4px 12px rgba(0,0,0,0.08); display:flex; align-items:center; justify-content:space-between; transition: transform 0.2s; }
-.card:hover { transform: scale(1.02); }
-.copy-btn, .donate-btn { background:#0a7a4b; color:white; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-weight:bold; }
-.copy-btn:hover, .donate-btn:hover { background:#065a38; }
+body { font-family: Arial, sans-serif; background:#f9f9f9; padding:20px; }
+h1,h2 { color:#0a7a4b; text-align:center; }
+.card { background:white; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); padding:20px; margin:20px auto; max-width:600px; transition: transform 0.2s; }
+.card:hover { transform: translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.15); }
+.button { background:#0a7a4b; color:white; border:none; padding:12px 25px; border-radius:6px; font-weight:bold; cursor:pointer; }
+.button:hover { background:#095d38; }
+.copy-btn { margin-left:10px; padding:6px 12px; font-size:0.9em; }
+.note { font-size:0.95em; color:#555; text-align:center; margin-top:10px; }
 </style>
 </head>
 <body>
-<div class="payment-section">
+
 <h1>🤲 Support Badawy TV</h1>
 
-<h2>M-Pesa</h2>
+<!-- M-Pesa Section -->
 <div class="card">
-  <span>📞 0716 802090</span>
-  <button class="copy-btn" onclick="copyNumber('0716802090')">Copy</button>
+  <h2>M-PESA</h2>
+  <p><strong>Number:</strong> 0716802090 
+     <button class="copy-btn" onclick="copyText('0716802090')">📋 Copy</button>
+  </p>
 </div>
 
-<h2>Local Banks (Kenya)</h2>
+<!-- Local Banks Section -->
 <div class="card">
-  <span>Equity Bank</span>
-  <button class="donate-btn" onclick="donateBank('Equity')">Donate</button>
+  <h2>LOCAL BANKS</h2>
+  <p>Select your bank and press Donate:</p>
+  <ul style="list-style:none; padding:0;">
+    <li><button class="button" onclick="openBank('https://www.stanbicbank.co.ke/personal-banking/payments')">Stanbic Bank Donate</button></li>
+    <li><button class="button" onclick="openBank('https://www.absa.co.ke/personal/payments')">ABSA Bank Donate</button></li>
+    <li><button class="button" onclick="openBank('https://www.kcbgroup.com/personal/payments')">KCB Bank Donate</button></li>
+    <li><button class="button" onclick="openBank('https://www.co-opbank.co.ke/personal-banking/payments')">Co-Operative Bank Donate</button></li>
+  </ul>
 </div>
-<div class="card">
-  <span>KCB</span>
-  <button class="donate-btn" onclick="donateBank('KCB')">Donate</button>
-</div>
-<div class="card">
-  <span>Co-operative Bank</span>
-  <button class="donate-btn" onclick="donateBank('Co-operative')">Donate</button>
-</div>
-<!-- Add more banks as needed -->
 
-<h2>Global Payments</h2>
+<!-- Global Payments Section -->
 <div class="card">
-  <span>Visa / Mastercard</span>
-  <button class="donate-btn" onclick="globalDonate('Visa')">Donate</button>
-</div>
-<div class="card">
-  <span>PayPal</span>
-  <button class="donate-btn" onclick="globalDonate('PayPal')">Donate</button>
-</div>
-<!-- Add more global methods if needed -->
-
+  <h2>GLOBAL PAYMENTS</h2>
+  <p class="note">Use the email <strong>ahmedbadawy786@gmail.com</strong> for global payments.</p>
+  <button class="button" onclick="globalDonate()">Donate</button>
 </div>
 
 <script>
-function copyNumber(number) {
-  navigator.clipboard.writeText(number).then(() => alert('📋 Number copied: ' + number));
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!'));
 }
 
-function donateBank(bank) {
-  alert('💳 You clicked Donate for ' + bank + '. Backend processing should be implemented.');
+// Local Banks open link or app fallback
+function openBank(url) {
+  window.open(url, '_blank');
 }
 
-function globalDonate(method) {
-  window.location.href = 'mailto:ahmedbadawy786@gmail.com?subject=Donation via ' + method + '&body=Please provide your donation details here.';
+// Global Payments logic
+function globalDonate() {
+  const email = 'ahmedbadawy786@gmail.com';
+  navigator.clipboard.writeText(email).then(() => alert('Email copied to clipboard!'));
+  
+  // Attempt to open PayPal or Visa app deep link (example)
+  const appUrl = 'paypal://send?recipient=' + email;
+  const fallbackWeb = 'https://www.paypal.com/paypalme/' + email.split('@')[0];
+
+  // Try to open app, fallback to web after short delay
+  const timeout = setTimeout(() => window.open(fallbackWeb, '_blank'), 500);
+  window.location = appUrl;
 }
 </script>
 
