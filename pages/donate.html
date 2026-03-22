@@ -84,12 +84,13 @@ function copyNumber() {
 }
 
 // Generate certificate
-function generateCertificate() {
+function generateCertificate(){
     const statement = document.getElementById('mpesaStatement').value;
     const now = new Date();
-    if(statement.toLowerCase().includes('ahmad ali') && statement.includes('0716 802090')) {
-        document.getElementById('certificateText').textContent =
-            `🏆 You have successfully received an award certificate from Badawy TV for supporting the channel! We may like to hear your feature requests for the website/app. Generated at ${now.toLocaleString()}`;
+    document.getElementById('certificateText').textContent =
+        `🏆 You have successfully received an award certificate from Badawy TV for supporting the channel! We may like to hear your feature requests for the website/app. Generated at ${now.toLocaleString()}`;
+    document.getElementById('certificateArea').style.display='block';
+}`;
         document.getElementById('certificateArea').style.display='block';
     } else {
         alert('❌ Could not verify your payment statement. Make sure the name and number are correct.');
