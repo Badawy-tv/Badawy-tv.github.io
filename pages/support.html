@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Badawy TV</title>
+<style>
+body { font-family: Arial, sans-serif; background:#f9f9f9; margin:0; padding:0; }
+.container { max-width:700px; margin:40px auto; padding:20px; background:white; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.08); }
+h1, h2 { color:#0a7a4b; }
+button { cursor:pointer; transition:0.2s; }
+input, textarea { width:100%; padding:10px; margin:5px 0 15px 0; border-radius:5px; border:1px solid #ccc; box-sizing:border-box; }
+.checkbox-group { margin-bottom:15px; }
+.checkbox-group label { margin-left:8px; }
+#submitBtn { background:#ccc; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; }
+#submitBtn.enabled { background:#0a7a4b; }
+.success-message { background:#e8f5ef; padding:15px; border-left:5px solid #0a7a4b; border-radius:6px; color:#0a7a4b; font-weight:bold; display:none; margin-top:20px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>🤲 Support Badawy TV</h1>
+
+<!-- Certificate Section -->
+<h2>🎖 Your Support Award</h2>
+<p>Paste your M-Pesa statement below to generate your award certificate:</p>
+<textarea id="statement" rows="6" placeholder="Paste your M-Pesa payment statement here"></textarea>
+<button onclick="generateCertificate()" style="background:#0a7a4b; color:white; border:none; padding:10px 20px; border-radius:6px;">Generate Certificate</button>
+
+<div id="certificateArea" style="margin-top:20px; display:none;">
+    <h3>✅ Your Certificate</h3>
+    <p id="certificateText" style="background:#e8f5ef; padding:15px; border-left:5px solid #0a7a4b; border-radius:6px;"></p>
+</div>
+
+<!-- Feature Request Form -->
+<h2>💡 Suggest a Feature / Send Certificate</h2>
+<p>You may submit your certificate along with any feature requests:</p>
+<form id="featureForm">
+    <input type="text" id="name" placeholder="Full Name" required>
+    <input type="text" id="phone" placeholder="Phone Number" required>
+    <textarea id="feature" rows="4" placeholder="What feature would you like us to add?"></textarea>
+    <input type="file" id="certFile" accept="application/pdf">
+    <div class="checkbox-group">
+        <input type="checkbox" id="terms">
+        <label for="terms">I accept the <a href="/legal/terms.html" target="_blank">Terms & Conditions</a></label>
+    </div>
+    <div class="checkbox-group">
+        <input type="checkbox" id="privacy">
+        <label for="privacy">I accept the <a href="/legal/privacy.html" target="_blank">Privacy Policy</a></label>
+    </div>
+    <button type="button" id="submitBtn">Submit</button>
+</form>
+
+<div class="success-message" id="successMessage">
+    ✅ Submission received. Our review team will verify your information and respond within 24 hours. May Allah reward you for your support!
+</div>
+</div>
+
+<script>
+// Enable submit button only when both checkboxes are checked
+const submitBtn = document.getElementById('submitBtn');
+const termsCheckbox = document.getElementById('terms');
+const privacyCheckbox = document.getElementById('privacy');
+
+function toggleSubmit() {
+    if(termsCheckbox.checked && privacyCheckbox.checked){
+        submitBtn.classList.add('enabled');
+    } else {
+        submitBtn.classList.remove('enabled');
+    }
+}
+
+termsCheckbox.addEventListener('change', toggleSubmit);
+privacyCheckbox.addEventListener('change', toggleSubmit);
+
+// Certificate Generation
+function generateCertificate(){
+    const statement = document.getElementById('statement').value;
+    if(statement.includes("0716802090") && /ahmed ali/i.test(statement)){
+        const now = new Date();
+        // Here you could parse time from statement if desired
+        document.getElementById('certificateText').textContent = `🏆 You have successfully received an award certificate from Badawy TV for showing your support. We may like to hear your feature requests or suggestions for the website/app. Generated at ${now.toLocaleString()}`;
+        document.getElementById('certificateArea').style.display = 'block';
+    } else {
+        alert("❌ Invalid statement. Ensure the payment number and name are correct.");
+    }
+}
+
+// Form submission
+submitBtn.addEventListener('click', function(){
+    if(!submitBtn.classList.contains('enabled')) { alert("Please accept Terms & Privacy first"); return; }
+    
+    // Prepare form data
+    const formData = new FormData();
+    formData.append('name', document.getElementById('name').value);
+    formData.append('phone', document.getElementById('phone').value);
+    formData.append('feature', document.getElementById('feature').value);
+    const fileInput = document.getElementById('certFile');
+    if(fileInput.files.length>0) formData.append('certificate', fileInput.files[0]);
+    
+    // Send to email via Formspree or EmailJS
+    fetch('https://formspree.io/f/your_form_id_here', { method:'POST', body: formData })
+    .then(res=> { if(res.ok){ document.getElementById('successMessage').style.display='block'; document.getElementById('featureForm').reset(); } })
+    .catch(err=>alert("❌ Submission failed: "+err));
+});
+</script>
+
+</body>
+</html>
