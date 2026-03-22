@@ -4,139 +4,164 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Support Badawy TV</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
-body { font-family: Arial, sans-serif; background:#f9f9f9; padding:20px; }
-h1, h2 { color:#0a7a4b; text-align:center; }
-.cards { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; margin-top:20px; }
-.card { background:#fff; padding:20px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.1); width:250px; text-align:center; transition:transform 0.2s; }
-.card:hover { transform:translateY(-5px); }
-.card button { background:#0a7a4b; color:white; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; cursor:pointer; transition:background 0.2s; }
-.card button:hover { background:#065836; }
-.copy-text { cursor:pointer; display:inline-block; margin-left:5px; color:#0a7a4b; font-weight:bold; }
+body { font-family: Arial; background:#f5f5f5; padding:20px; }
+h1,h2 { text-align:center; color:#0a7a4b; }
+
+.section { margin:40px 0; }
+.cards { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+
+.card {
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  width:250px;
+  text-align:center;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+button {
+  background:#0a7a4b;
+  color:white;
+  border:none;
+  padding:10px 20px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* Certificate */
+#certificateArea {
+  display:none;
+  margin-top:20px;
+  padding:30px;
+  background:white;
+  border:8px solid #0a7a4b;
+  position:relative;
+}
+
+.watermark {
+  position:absolute;
+  opacity:0.05;
+  font-size:30px;
+  transform:rotate(-30deg);
+}
+
+input, textarea {
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+}
 </style>
 </head>
+
 <body>
 
 <h1>🤲 Support Badawy TV</h1>
 
-<h2>Mpesa Payment</h2>
+<!-- PAYMENT SECTION -->
+<div class="section">
+<h2>Mpesa</h2>
 <div class="cards">
-  <div class="card">
-    <h3>Mpesa</h3>
-    <p>Send to: <strong>0716802090</strong></p>
-    <button onclick="openMpesa()">Donate</button>
-  </div>
+<div class="card">
+<p>0716802090</p>
+<button onclick="navigator.clipboard.writeText('0716802090')">Copy</button>
+<button onclick="openApp('mpesa://','https://play.google.com/store/apps/details?id=com.safaricom.mpesa')">Donate</button>
+</div>
 </div>
 
-<h2>Local Banks (Kenya)</h2>
+<h2>Local Banks</h2>
 <div class="cards">
-  <div class="card">
-    <h3>Equity Bank</h3>
-    <button onclick="openBank('equity')">Donate</button>
-  </div>
-  <div class="card">
-    <h3>KCB</h3>
-    <button onclick="openBank('kcb')">Donate</button>
-  </div>
-  <div class="card">
-    <h3>Co-operative Bank</h3>
-    <button onclick="openBank('co-op')">Donate</button>
-  </div>
-  <div class="card">
-    <h3>Other Banks</h3>
-    <button onclick="openBank('other')">Donate</button>
-  </div>
+<div class="card"><h3>Equity</h3><button onclick="openApp('equitybank://','https://play.google.com/store/apps/details?id=com.equity.android')">Donate</button></div>
+<div class="card"><h3>KCB</h3><button onclick="openApp('kcb://','https://play.google.com/store/apps/details?id=com.kcb.mobile')">Donate</button></div>
+<div class="card"><h3>Co-op</h3><button onclick="openApp('coop://','https://play.google.com/store/apps/details?id=com.coopbank')">Donate</button></div>
 </div>
 
 <h2>Global Payments</h2>
-<p style="text-align:center;">Use email: <strong id="globalEmail">ahmedbadawy786@gmail.com</strong> <span class="copy-text" onclick="copyEmail()">📋 Copy</span></p>
 <div class="cards">
-  <div class="card">
-    <h3>PayPal</h3>
-    <button onclick="openGlobal('paypal')">Donate</button>
-  </div>
-  <div class="card">
-    <h3>Visa / Mastercard</h3>
-    <button onclick="openGlobal('visa')">Donate</button>
-  </div>
-  <div class="card">
-    <h3>Stripe</h3>
-    <button onclick="openGlobal('stripe')">Donate</button>
-  </div>
-  <div class="card">
-    <h3>Other Methods</h3>
-    <button onclick="openGlobal('other')">Donate</button>
-  </div>
+<div class="card">
+<p>Email: ahmedbadawy786@gmail.com</p>
+<button onclick="globalPay()">Donate</button>
+</div>
+</div>
+</div>
+
+<!-- CERTIFICATE -->
+<div class="section">
+<h2>Generate Certificate</h2>
+<textarea id="mpesaStatement" placeholder="Paste statement"></textarea>
+<button onclick="generateCertificate()">Generate Certificate</button>
+
+<div id="certificateArea">
+<div class="watermark">Badawy TV</div>
+
+<h2 style="text-align:center;">🏆 CERTIFICATE OF SUPPORT</h2>
+<p id="certText"></p>
+
+<input id="name" placeholder="Recipient Name">
+<input id="phone" placeholder="Phone">
+<input id="email" placeholder="Email">
+
+<p id="certID"></p>
+
+<button id="downloadBtn" disabled onclick="downloadPDF()">Download PDF</button>
+</div>
+</div>
+
+<!-- SUBMIT -->
+<div class="section">
+<h2>Submit Certificate</h2>
+<input id="s_name" placeholder="Name">
+<input id="s_phone" placeholder="Phone">
+<input type="file" id="file">
+<textarea id="feature" placeholder="Feature request"></textarea>
+<button onclick="submitForm()">Submit</button>
 </div>
 
 <script>
-// Clipboard copy for global email
-function copyEmail() {
-  const email = document.getElementById('globalEmail').textContent;
-  navigator.clipboard.writeText(email).then(() => alert(`Email copied: ${email}`));
+
+function openApp(app, store){
+  window.location = app;
+  setTimeout(()=>window.location=store,1500);
 }
 
-// Open Mpesa app or fallback to store only
-function openMpesa() {
-  const scheme = "mpesa://"; 
-  const playstore = "https://play.google.com/store/apps/details?id=com.safaricom.mpesa&hl=en";
-  const appstore = "https://apps.apple.com/ke/app/mpesa/id472066175";
-  openAppOrStore(scheme, playstore, appstore);
+function globalPay(){
+  navigator.clipboard.writeText("ahmedbadawy786@gmail.com");
+  window.location="mailto:ahmedbadawy786@gmail.com";
 }
 
-// Open local bank app or fallback store only
-function openBank(bank) {
-  let scheme = "", playstore = "", appstore = "";
-  switch(bank) {
-    case 'equity':
-      scheme = "equitybank://"; 
-      playstore="https://play.google.com/store/apps/details?id=com.equity.android"; 
-      appstore="https://apps.apple.com/ke/app/equity-mobile/id123456";
-      break;
-    case 'kcb':
-      scheme="kcb://"; 
-      playstore="https://play.google.com/store/apps/details?id=com.kcb.mobile"; 
-      appstore="https://apps.apple.com/ke/app/kcb-mobile/id123456";
-      break;
-    case 'co-op':
-      scheme="coop://"; 
-      playstore="https://play.google.com/store/apps/details?id=com.coopbank"; 
-      appstore="https://apps.apple.com/ke/app/co-op-bank/id123456";
-      break;
-    case 'other':
-      playstore="https://play.google.com/store/apps/details?id=com.centralbank"; 
-      appstore="https://apps.apple.com/ke/app/central-bank/id123456";
-  }
-  openAppOrStore(scheme, playstore, appstore);
+function generateCertificate(){
+  const now=new Date();
+  document.getElementById("certificateArea").style.display="block";
+  document.getElementById("certText").innerText="Awarded for supporting Badawy TV on "+now.toLocaleString();
+  document.getElementById("certID").innerText="ID-"+Date.now();
 }
 
-// Open global payment app or fallback store only
-function openGlobal(method) {
-  const email = document.getElementById('globalEmail').textContent;
-  copyEmail(); 
-  let scheme="", playstore="", appstore="";
-  switch(method) {
-    case 'paypal': scheme="paypal://send?recipient="+email; break;
-    case 'visa': scheme="stripe://"; break;
-    case 'stripe': scheme="stripe://"; break;
-    case 'other': scheme="mailto:"+email; break;
-  }
-  openAppOrStore(scheme, "https://play.google.com/store/", "https://apps.apple.com/");
+document.querySelectorAll("#name,#phone,#email").forEach(el=>{
+  el.addEventListener("input",()=>{
+    const filled = name.value && phone.value && email.value;
+    document.getElementById("downloadBtn").disabled=!filled;
+  });
+});
+
+async function downloadPDF(){
+  const { jsPDF } = window.jspdf;
+  const canvas = await html2canvas(document.getElementById("certificateArea"));
+  const img = canvas.toDataURL("image/png");
+  const pdf = new jsPDF();
+  pdf.addImage(img,'PNG',0,0,210,297);
+  pdf.save("certificate.pdf");
 }
 
-// Generic open app or store function
-function openAppOrStore(scheme, playstore, appstore) {
-  if(scheme){
-    window.location = scheme;
-    setTimeout(()=>{ 
-      // fallback to store after delay
-      if(navigator.userAgent.includes("Android")) window.location=playstore;
-      if(navigator.userAgent.includes("iPhone") || navigator.userAgent.includes("iPad")) window.location=appstore;
-    }, 1500);
-  } else {
-    alert("App not detected, please install from store.");
-  }
+function submitForm(){
+  alert("Submitted successfully!");
+  alert("Your submission has been received successfully. Our team will review your certificate and details within 24 hours. You will receive feedback shortly. Thank you for supporting Badawy TV.");
+  window.location="mailto:badawytv76@gmail.com";
 }
+
 </script>
 
 </body>
