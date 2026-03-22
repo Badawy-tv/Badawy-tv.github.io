@@ -33,7 +33,6 @@ button {
   transition: all 0.3s ease;
 }
 
-/* PDF Button specific */
 #downloadBtn {
   display:flex;
   align-items:center;
@@ -49,7 +48,6 @@ button {
 }
 #downloadBtn:hover:not(:disabled){ background:#27ae60; }
 
-/* Certificate */
 #certificateArea {
   display:none;
   margin-top:20px;
@@ -78,7 +76,7 @@ button {
   transform:rotate(-30deg);
 }
 
-input, textarea { width:100%; padding:10px; margin-top:10px; }
+.certificateText { margin-top:20px; }
 
 .spinner {
   display:none;
@@ -93,7 +91,6 @@ input, textarea { width:100%; padding:10px; margin-top:10px; }
 @keyframes spin { 100%{ transform:rotate(360deg); } }
 </style>
 </head>
-
 <body>
 
 <h1>🤲 Support Badawy TV</h1>
@@ -132,21 +129,19 @@ input, textarea { width:100%; padding:10px; margin-top:10px; }
 <button onclick="generateCertificate()">Generate Certificate</button>
 
 <div id="certificateArea">
-
 <div class="watermark">
 <span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span>
 <span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span>
 </div>
 
 <h2 style="text-align:center;">🏆 CERTIFICATE OF SUPPORT</h2>
+<div class="certificateText" id="certText"></div>
 
-<p id="certText"></p>
+<p id="certID"></p>
 
 <input id="name" placeholder="Recipient Name">
 <input id="phone" placeholder="Phone">
 <input id="email" placeholder="Email">
-
-<p id="certID"></p>
 
 <button id="downloadBtn" disabled onclick="downloadPDF()">
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 16 16">
@@ -186,16 +181,24 @@ function globalPay(){
 // GENERATE CERTIFICATE
 function generateCertificate(){
   const area = document.getElementById("certificateArea");
-  const text = document.getElementById("certText");
-  const id = document.getElementById("certID");
+  const textEl = document.getElementById("certText");
+  const idEl = document.getElementById("certID");
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const email = document.getElementById("email").value;
 
   const now = new Date();
   const uniqueID = "BADAWY-" + Date.now();
 
   area.style.display = "block";
 
-  text.innerText = "🏆 This certificate is awarded for supporting Badawy TV on " + now.toLocaleString();
-  id.innerText = "Certificate ID: " + uniqueID;
+  textEl.innerHTML = `
+  <p><strong>Recipient:</strong> ${name}</p>
+  <p><strong>Phone:</strong> ${phone}</p>
+  <p><strong>Email:</strong> ${email}</p>
+  <p>🏆 This certificate is awarded for supporting Badawy TV on ${now.toLocaleString()}</p>
+  `;
+  idEl.innerText = "Certificate ID: " + uniqueID;
 }
 
 // ENABLE PDF BUTTON
@@ -211,16 +214,35 @@ inputs.forEach(el=>{
   });
 });
 
-// DOWNLOAD PDF WITH SPINNER
+// DOWNLOAD PDF WITH HIDDEN INPUTS AND BUTTON
 async function downloadPDF(){
   spinner.style.display="inline-block";
+
+  const certArea = document.getElementById("certificateArea");
+  const nameInput = document.getElementById("name");
+  const phoneInput = document.getElementById("phone");
+  const emailInput = document.getElementById("email");
+  const pdfButton = document.getElementById("downloadBtn");
+
+  // Hide inputs and button
+  nameInput.style.display="none";
+  phoneInput.style.display="none";
+  emailInput.style.display="none";
+  pdfButton.style.display="none";
+
   const { jsPDF } = window.jspdf;
-  const element = document.getElementById("certificateArea");
-  const canvas = await html2canvas(element,{scale:2});
+  const canvas = await html2canvas(certArea,{scale:2});
   const img = canvas.toDataURL("image/png");
   const pdf = new jsPDF();
   pdf.addImage(img,'PNG',0,0,210,297);
   pdf.save("Badawy_Certificate.pdf");
+
+  // Restore inputs and button
+  nameInput.style.display="block";
+  phoneInput.style.display="block";
+  emailInput.style.display="block";
+  pdfButton.style.display="flex";
+
   spinner.style.display="none";
 }
 
