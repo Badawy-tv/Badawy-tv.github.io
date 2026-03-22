@@ -1,203 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Support &amp; Donate - Badawy TV
-  </title>
-  <style>
-   body { font-family: Arial, sans-serif; line-height:1.6; background:#f9f9f9; padding:20px; }
-.payment-card { text-align:center; padding:30px; background:#e8f5ef; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.08); max-width:700px; margin:0 auto; }
-.payment-card h1 { color:#0a7a4b; margin-bottom:10px; }
-.steps { text-align:left; margin:20px auto; max-width:600px; line-height:1.8; }
-.steps h4 { color:#0a7a4b; border-bottom:2px solid #0a7a4b; padding-bottom:5px; margin-bottom:15px; }
-.steps ol { counter-reset: step; padding-left:0; }
-.steps li { list-style:none; margin-bottom:12px; position:relative; padding-left:40px; }
-.steps li span { position:absolute; left:0; top:0; background:#0a7a4b; color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; }
-#certificateArea { margin-top:20px; display:none; }
-#featureForm textarea, #featureForm input[type=text] { width:100%; padding:10px; margin-top:10px; border-radius:6px; border:1px solid #ccc; }
-#submitBtn { background:#ccc; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:not-allowed; }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Badawy TV</title>
+<style>
+body { font-family: Arial, sans-serif; line-height:1.6; background:#f9f9f9; padding:20px; }
+.payment-card { max-width:600px; margin:0 auto; background:#e8f5ef; padding:30px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.08); text-align:center; }
+textarea, input[type=text], input[type=file] { width:100%; padding:10px; margin-top:10px; border-radius:6px; border:1px solid #ccc; }
+button { padding:10px 20px; border:none; border-radius:6px; font-weight:bold; color:white; cursor:pointer; }
+#submitBtn { background:#ccc; cursor:not-allowed; }
 #submitBtn.enabled { background:#0a7a4b; cursor:pointer; }
 .success-message { display:none; margin-top:15px; padding:15px; background:#dff0d8; border-left:5px solid #0a7a4b; border-radius:6px; color:#0a7a4b; font-weight:bold; }
-  </style>
- </head>
- <body>
-  <div class="payment-card">
-   <h1>
-    🤲 Support Badawy TV
-   </h1>
-   <p>
-    Your support helps maintain and improve
-    <strong>
-     Badawy TV
-    </strong>
-    . Contributions enable us to add new features requested by our viewers and work towards launching the official Badawy TV app. Every donation directly supports authentic Islamic content for the global community.
-   </p>
-   <!-- Payment Steps -->
-   <div class="steps">
-    <h4>
-     📌 How to Donate
-    </h4>
-    <ol>
-     <li>
-      <span>
-       1
-      </span>
-      Open
-      <strong>
-       M-Pesa
-      </strong>
-      on your phone.
-     </li>
-     <li>
-      <span>
-       2
-      </span>
-      Select
-      <strong>
-       Send Money
-      </strong>
-      .
-     </li>
-     <li>
-      <span>
-       3
-      </span>
-      Enter the recipient number:
-      <strong id="mpesa-number">
-       0716 802090
-      </strong>
-      <button onclick="copyNumber()" style="margin-left:10px; background:#0a7a4b; color:white; border:none; padding:3px 8px; border-radius:5px; cursor:pointer;">
-       📋 Copy
-      </button>
-     </li>
-     <li>
-      <span>
-       4
-      </span>
-      Verify that the recipient name appears as
-      <strong>
-       Ahmed Ali
-      </strong>
-      to ensure it’s correct.
-     </li>
-     <li>
-      <span>
-       5
-      </span>
-      Enter the amount you wish to donate.
-     </li>
-     <li>
-      <span>
-       6
-      </span>
-      Confirm the details and enter your
-      <strong>
-       M-Pesa PIN
-      </strong>
-      .
-     </li>
-     <li>
-      <span>
-       7
-      </span>
-      Wait for the
-      <strong>
-       confirmation message
-      </strong>
-      to ensure your donation was successful.
-     </li>
-    </ol>
-    <p style="margin-top:20px; background:#e8f5ef; padding:15px; border-left:5px solid #0a7a4b; border-radius:6px; font-weight:bold; color:#0a7a4b;">
-     💡 Tip: Keep your confirmation SMS as proof of donation. Your support directly helps maintain Badawy TV and bring new features for the community!
-    </p>
-   </div>
-   <!-- Certificate Section -->
-   <h2>
-    🏆 Generate Your Award Certificate
-   </h2>
-   <p>
-    Paste your M-Pesa statement below to generate your certificate:
-   </p>
-   <textarea id="mpesaStatement" placeholder="Paste your M-Pesa payment statement here" rows="6"></textarea>
-   <br/>
-   <button onclick="generateCertificate()" style="background:#0a7a4b; color:white; border:none; padding:10px 20px; border-radius:6px;">
-    Generate Certificate
-   </button>
-   <div id="certificateArea">
-    <h3>
-     ✅ Your Certificate
-    </h3>
-    <p id="certificateText" style="background:#e8f5ef; padding:15px; border-left:5px solid #0a7a4b; border-radius:6px;">
-    </p>
-   </div>
-   <!-- Feature Request & Certificate Submission -->
-   <h2>
-    💡 Suggest a Feature / Send Certificate
-   </h2>
-   <form id="featureForm">
-    <input id="name" placeholder="Your Name" required="" type="text"/>
-    <br/>
-    <br/>
-    <input id="phone" placeholder="Your Phone Number" required="" type="text"/>
-    <br/>
-    <br/>
-    <input accept=".txt,.pdf" id="certFile" type="file"/>
-    <br/>
-    <br/>
-    <textarea id="feature" placeholder="What feature would you like us to add?" required="" rows="4"></textarea>
-    <br/>
-    <br/>
-    <input id="terms" type="checkbox"/>
-    <label for="terms">
-     <a href="/legal/terms.html" target="_blank">
-      Terms &amp; Conditions
-     </a>
-    </label>
-    <br/>
-    <input id="privacy" type="checkbox"/>
-    <label for="privacy">
-     <a href="/legal/privacy.html" target="_blank">
-      Privacy Policy
-     </a>
-    </label>
-    <br/>
-    <br/>
-    <button id="submitBtn" type="button">
-     Submit
-    </button>
-   </form>
-   <div class="success-message" id="successMessage">
-    ✅ Thank you! Our review team will confirm your submission within 24 hours.
-   </div>
-  </div>
-  <script>
-   // Copy number
+#certificateArea { margin-top:20px; display:none; text-align:left; padding:15px; border-left:5px solid #0a7a4b; border-radius:6px; background:#e8f5ef; }
+</style>
+</head>
+<body>
+<div class="payment-card">
+    <h1>🤲 Support Badawy TV</h1>
+    <p>Your support helps maintain and improve <strong>Badawy TV</strong>. Contributions enable us to add new features requested by our viewers and work towards launching the official app.</p>
+
+    <!-- Payment / Certificate Section -->
+    <p>Paste your M-Pesa statement below to generate your award certificate:</p>
+    <textarea id="mpesaStatement" rows="6" placeholder="Paste your M-Pesa payment statement here"></textarea><br>
+    <button onclick="generateCertificate()" style="background:#0a7a4b;">Generate Certificate</button>
+
+    <div id="certificateArea">
+        <h3>🏆 Your Certificate</h3>
+        <p id="certificateText"></p>
+    </div>
+
+    <!-- Feature / Certificate Submission Form -->
+    <h2>💡 Suggest a Feature / Send Certificate</h2>
+    <form id="featureForm">
+        <input type="text" id="name" placeholder="Your Name" required><br><br>
+        <input type="text" id="phone" placeholder="Your Phone Number" required><br><br>
+        <input type="file" id="certFile" accept=".txt,.pdf"><br><br>
+        <textarea id="feature" rows="4" placeholder="What feature would you like us to add?" required></textarea><br><br>
+
+        <input type="checkbox" id="terms"> <label for="terms"><a href="/legal/terms.html" target="_blank">Terms & Conditions</a></label><br>
+        <input type="checkbox" id="privacy"> <label for="privacy"><a href="/legal/privacy.html" target="_blank">Privacy Policy</a></label><br><br>
+
+        <button type="button" id="submitBtn">Submit</button>
+    </form>
+
+    <div class="success-message" id="successMessage">
+        ✅ Thank you! Our review team will confirm your submission within 24 hours.
+    </div>
+</div>
+
+<script>
+// Copy recipient number
 function copyNumber() {
-    const number = document.getElementById("mpesa-number").textContent;
-    navigator.clipboard.writeText(number)
-        .then(() => alert("✅ Number copied: " + number))
-        .catch(err => alert("❌ Could not copy: " + err));
+    navigator.clipboard.writeText("0716 802090").then(()=>alert("Number copied to clipboard!"));
 }
 
-// Generate certificate
+// Generate certificate (works for any pasted statement)
 function generateCertificate() {
     const statement = document.getElementById('mpesaStatement').value;
     const now = new Date();
     document.getElementById('certificateText').textContent =
         `🏆 You have successfully received an award certificate from Badawy TV for supporting the channel! We may like to hear your feature requests for the website/app. Generated at ${now.toLocaleString()}`;
-    document.getElementById('certificateArea').style.display = 'block';
-}`;
     document.getElementById('certificateArea').style.display='block';
-}`;
-        document.getElementById('certificateArea').style.display='block';
-    } else {
-        alert('❌ Could not verify your payment statement. Make sure the name and number are correct.');
-    }
 }
 
-// Terms & Privacy toggle submit
+// Terms & Privacy toggle for submit button
 const submitBtn = document.getElementById('submitBtn');
 const termsCheckbox = document.getElementById('terms');
 const privacyCheckbox = document.getElementById('privacy');
@@ -205,16 +72,16 @@ const privacyCheckbox = document.getElementById('privacy');
 function toggleSubmit() {
     if(termsCheckbox.checked && privacyCheckbox.checked){
         submitBtn.classList.add('enabled');
-        submitBtn.disabled=false;
+        submitBtn.disabled = false;
     } else {
         submitBtn.classList.remove('enabled');
-        submitBtn.disabled=true;
+        submitBtn.disabled = true;
     }
 }
 termsCheckbox.addEventListener('change', toggleSubmit);
 privacyCheckbox.addEventListener('change', toggleSubmit);
 
-// Submit form
+// Submit feature/certificate form
 submitBtn.addEventListener('click', function(){
     if(!submitBtn.classList.contains('enabled')) {
         alert("Please accept Terms & Privacy first");
@@ -238,6 +105,6 @@ submitBtn.addEventListener('click', function(){
         }
     }).catch(err=> alert('❌ Could not submit: '+err));
 });
-  </script>
- </body>
+</script>
+</body>
 </html>
