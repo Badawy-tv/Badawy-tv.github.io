@@ -1,0 +1,46 @@
+<div class="steps" style="text-align:left; margin:0 auto; max-width:500px; line-height:1.8;">
+    <h4 style="color:#0a7a4b; border-bottom:2px solid #0a7a4b; padding-bottom:5px; margin-bottom:15px;">📌 How to Donate</h4>
+    <ol style="counter-reset: step; padding-left:0;">
+        <li style="list-style:none; margin-bottom:12px; position:relative; padding-left:40px;">
+            <span style="position:absolute; left:0; top:0; background:#0a7a4b; color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">1</span>
+            Open <strong>M-Pesa</strong> on your phone.
+        </li>
+        <li style="list-style:none; margin-bottom:12px; position:relative; padding-left:40px;">
+            <span style="position:absolute; left:0; top:0; background:#0a7a4b; color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">2</span>
+            Select <strong>Send Money</strong>.
+        </li>
+        <li style="list-style:none; margin-bottom:12px; position:relative; padding-left:40px;">
+            <span style="position:absolute; left:0; top:0; background:#0a7a4b; color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">3</span>
+            Enter the recipient number: <strong id="mpesa-number">0716 802090</strong>
+            <button onclick="copyNumber()" style="margin-left:10px; background:#0a7a4b; color:white; border:none; padding:3px 8px; border-radius:5px; cursor:pointer;">📋 Copy</button>
+        </li>
+        <li style="list-style:none; margin-bottom:12px; position:relative; padding-left:40px;">
+            <span style="position:absolute; left:0; top:0; background:#0a7a4b; color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">4</span>
+            Verify that the recipient name appears as <strong>Ahmed Ali</strong>.
+        </li>
+        <li style="list-style:none; margin-bottom:12px; position:relative; padding-left:40px;">
+            <span style="position:absolute; left:0; top:0; background:#0a7a4b; color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">5</span>
+            Enter the amount you wish to donate.
+        </li>
+        <li style="list-style:none; margin-bottom:12px; position:relative; padding-left:40px;">
+            <span style="position:absolute; left:0; top:0; background:#0a7a4b; color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">6</span>
+            Confirm the details and enter your <strong>M-Pesa PIN</strong>.
+        </li>
+        <li style="list-style:none; margin-bottom:12px; position:relative; padding-left:40px;">
+            <span style="position:absolute; left:0; top:0; background:#0a7a4b; color:white; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">7</span>
+            Wait for the <strong>confirmation message</strong> to ensure your donation was successful.
+        </li>
+    </ol>
+
+    <p style="margin-top:20px; background:#e8f5ef; padding:15px; border-left:5px solid #0a7a4b; border-radius:6px; font-weight:bold; color:#0a7a4b;">
+        💡 Tip: Keep your confirmation SMS as proof of donation. Your support directly helps maintain Badawy TV and bring new features for the community!
+    </p>
+</div>
+<script>
+function copyNumber() {
+    const number = document.getElementById("mpesa-number").textContent;
+    navigator.clipboard.writeText(number)
+        .then(() => alert("✅ Number copied: " + number))
+        .catch(err => alert("❌ Could not copy: " + err));
+}
+</script>
