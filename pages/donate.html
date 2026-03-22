@@ -71,8 +71,17 @@ textarea, input[type=text], input[type=file] { width:100%; padding:10px; margin-
 function generateCertificate(){
     const statement = document.getElementById('mpesaStatement').value;
     const now = new Date();
-    document.getElementById('certificateText').textContent =
-        `🏆 You have successfully received an award certificate from Badawy TV for supporting the channel! We may like to hear your feature requests for the website/app. Generated at ${now.toLocaleString()}`;
+    const uniqueId = 'BADAWY-' + now.getTime(); // Unique certificate ID
+    document.getElementById('certificateText').innerHTML = `
+        <div style="border:2px solid #0a7a4b; padding:20px; margin:15px; text-align:center; font-family: 'Georgia', serif;">
+            <h2 style="color:#0a7a4b;">🏆 Badawy TV Award Certificate</h2>
+            <p>Congratulations! You have received this certificate for supporting <strong>Badawy TV</strong>.</p>
+            <p><em>Generated at: ${now.toLocaleString()}</em></p>
+            <p>Certificate ID: <strong>${uniqueId}</strong></p>
+            <p style="font-size:24px;">🕋 ✨ 🌙</p>
+        </div>`;
+    document.getElementById('certificateArea').style.display='block';
+}`;
     document.getElementById('certificateArea').style.display='block';
 }
 
