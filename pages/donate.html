@@ -9,7 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
-body { font-family: Arial; background:#f5f5f5; padding:20px; }
+body { font-family: Arial, sans-serif; background:#f5f5f5; padding:20px; }
 h1,h2 { text-align:center; color:#0a7a4b; }
 
 .section { margin:40px 0; }
@@ -25,15 +25,31 @@ h1,h2 { text-align:center; color:#0a7a4b; }
 }
 
 button {
-  background:#0a7a4b;
-  color:white;
   border:none;
   padding:10px 20px;
   border-radius:6px;
   cursor:pointer;
+  font-weight:bold;
+  transition: all 0.3s ease;
 }
 
-/* CERTIFICATE */
+/* PDF Button specific */
+#downloadBtn {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#c0392b;
+  color:white;
+  padding:12px 20px;
+  border-radius:8px;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+#downloadBtn:hover:not(:disabled){ background:#27ae60; }
+
+/* Certificate */
 #certificateArea {
   display:none;
   margin-top:20px;
@@ -41,9 +57,9 @@ button {
   background:white;
   border:6px solid #0a7a4b;
   position:relative;
+  border-radius:12px;
 }
 
-/* WATERMARK */
 .watermark {
   position:absolute;
   width:100%;
@@ -62,11 +78,19 @@ button {
   transform:rotate(-30deg);
 }
 
-input, textarea {
-  width:100%;
-  padding:10px;
-  margin-top:10px;
+input, textarea { width:100%; padding:10px; margin-top:10px; }
+
+.spinner {
+  display:none;
+  margin-left:10px;
+  border:4px solid #f3f3f3;
+  border-top:4px solid #0a7a4b;
+  border-radius:50%;
+  width:18px;
+  height:18px;
+  animation: spin 1s linear infinite;
 }
+@keyframes spin { 100%{ transform:rotate(360deg); } }
 </style>
 </head>
 
@@ -74,7 +98,7 @@ input, textarea {
 
 <h1>🤲 Support Badawy TV</h1>
 
-<!-- PAYMENT -->
+<!-- PAYMENT SECTION -->
 <div class="section">
 <h2>Mpesa</h2>
 <div class="cards">
@@ -101,7 +125,7 @@ input, textarea {
 </div>
 </div>
 
-<!-- CERTIFICATE -->
+<!-- CERTIFICATE SECTION -->
 <div class="section">
 <h2>Generate Certificate</h2>
 <textarea id="mpesaStatement" placeholder="Paste statement"></textarea>
@@ -110,7 +134,6 @@ input, textarea {
 <div id="certificateArea">
 
 <div class="watermark">
-<span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span>
 <span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span>
 <span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span>
 </div>
@@ -125,12 +148,19 @@ input, textarea {
 
 <p id="certID"></p>
 
-<button id="downloadBtn" disabled onclick="downloadPDF()">⬇ Download PDF</button>
+<button id="downloadBtn" disabled onclick="downloadPDF()">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 16 16">
+<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10.4a.5.5 0 0 1 1 0v2.6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V10.4a.5.5 0 0 1 .5-.5z"/>
+<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+</svg>
+Download Official Certificate
+<div class="spinner" id="pdfSpinner"></div>
+</button>
 
 </div>
 </div>
 
-<!-- SUBMIT -->
+<!-- SUBMIT SECTION -->
 <div class="section">
 <h2>Submit Certificate</h2>
 <input id="s_name" placeholder="Name">
@@ -141,20 +171,19 @@ input, textarea {
 </div>
 
 <script>
-
 // OPEN APP OR STORE
 function openApp(app, store){
   window.location = app;
   setTimeout(()=>window.location=store,1500);
 }
 
-// GLOBAL
+// GLOBAL PAY
 function globalPay(){
   navigator.clipboard.writeText("ahmedbadawy786@gmail.com");
   window.location="mailto:ahmedbadawy786@gmail.com";
 }
 
-// GENERATE CERTIFICATE (WORKING)
+// GENERATE CERTIFICATE
 function generateCertificate(){
   const area = document.getElementById("certificateArea");
   const text = document.getElementById("certText");
@@ -170,33 +199,37 @@ function generateCertificate(){
 }
 
 // ENABLE PDF BUTTON
-document.querySelectorAll("#name,#phone,#email").forEach(el=>{
+const pdfBtn = document.getElementById("downloadBtn");
+const spinner = document.getElementById("pdfSpinner");
+const inputs = [document.getElementById("name"), document.getElementById("phone"), document.getElementById("email")];
+
+inputs.forEach(el=>{
   el.addEventListener("input",()=>{
-    const filled = name.value && phone.value && email.value;
-    document.getElementById("downloadBtn").disabled=!filled;
+    const allFilled = inputs.every(i=>i.value.trim()!=="");
+    pdfBtn.disabled = !allFilled;
+    pdfBtn.style.background = allFilled ? "#27ae60" : "#c0392b";
   });
 });
 
-// DOWNLOAD PDF (FIXED)
+// DOWNLOAD PDF WITH SPINNER
 async function downloadPDF(){
+  spinner.style.display="inline-block";
   const { jsPDF } = window.jspdf;
   const element = document.getElementById("certificateArea");
-
   const canvas = await html2canvas(element,{scale:2});
   const img = canvas.toDataURL("image/png");
-
   const pdf = new jsPDF();
   pdf.addImage(img,'PNG',0,0,210,297);
   pdf.save("Badawy_Certificate.pdf");
+  spinner.style.display="none";
 }
 
-// SUBMIT
+// SUBMIT FORM
 function submitForm(){
   alert("Submitted successfully!");
-  alert("Your submission has been received successfully. Our team will review your certificate and details within 24 hours. You will receive feedback shortly. Thank you for supporting Badawy TV.");
+  alert("Your submission has been received. Our team will review your certificate and details within 24 hours and provide feedback. Thank you for supporting Badawy TV.");
   window.location="mailto:badawytv76@gmail.com";
 }
-
 </script>
 
 </body>
