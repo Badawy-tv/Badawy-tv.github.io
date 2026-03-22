@@ -159,14 +159,34 @@ function globalPay(){
 }
 
 function generateCertificate(){
+    alert("Generate clicked ✅");
+
     const area = document.getElementById("certificateArea");
     const text = document.getElementById("certText");
     const id = document.getElementById("certID");
 
-    if(!area || !text || !id){
-        alert("Certificate elements missing!");
+    console.log(area, text, id);
+
+    if(!area){
+        alert("❌ certificateArea not found");
         return;
     }
+
+    const now = new Date();
+    const uniqueID = "BADAWY-" + Date.now();
+
+    area.style.display = "block";
+    area.style.visibility = "visible";
+
+    if(text){
+        text.innerText = "🏆 This certificate is proudly awarded for supporting Badawy TV. Generated on " + now.toLocaleString();
+    }
+
+    if(id){
+        id.innerText = "Certificate ID: " + uniqueID;
+    }
+}
+
 
     const now = new Date();
     const uniqueID = "BADAWY-" + Date.now();
