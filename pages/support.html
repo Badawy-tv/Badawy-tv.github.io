@@ -6,6 +6,41 @@
 <title>Support Badawy TV</title>
 </head>
 <body>
+
+<script>
+// Initialize EmailJS with your real public key
+emailjs.init("dQ3fOQb_-jV7-LUGv");
+
+function submitForm(){
+    const name = document.getElementById("s_name").value;
+    const phone = document.getElementById("s_phone").value;
+    const feature = document.getElementById("feature").value;
+    const email = document.getElementById("s_email").value;
+
+    if(!name || !phone || !feature){
+        alert("Please fill all required fields!");
+        return;
+    }
+
+    // Real Service ID and Template ID
+    emailjs.send("service_x9pcmtm", "template_tn5i68d", {
+        name: name,
+        phone: phone,
+        feature: feature,
+        email: email,
+        title: "Badawy TV Submission",
+        time: new Date().toLocaleString(),
+        message: "Feature submission from website"
+    })
+    .then(()=> {
+        alert("Submitted successfully! Your submission has been received. Our team will review it within 24 hours and provide feedback. Thank you for supporting Badawy TV.");
+    })
+    .catch(()=> {
+        alert("Submission failed. Please try again.");
+    });
+}
+</script>
+
 </body>
 </html>
 <script>

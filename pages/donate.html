@@ -165,92 +165,40 @@ Download Official Certificate
 <button onclick="submitForm()">Submit</button>
 </div>
 
+
+
+
 <script>
-// OPEN APP OR STORE
-function openApp(app, store){
-  window.location = app;
-  setTimeout(()=>window.location=store,1500);
-}
+// Initialize EmailJS with your real public key
+emailjs.init("dQ3fOQb_-jV7-LUGv");
 
-// GLOBAL PAY
-function globalPay(){
-  navigator.clipboard.writeText("ahmedbadawy786@gmail.com");
-  window.location="mailto:ahmedbadawy786@gmail.com";
-}
-
-// GENERATE CERTIFICATE
-function generateCertificate(){
-  const area = document.getElementById("certificateArea");
-  const textEl = document.getElementById("certText");
-  const idEl = document.getElementById("certID");
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const email = document.getElementById("email").value;
-
-  const now = new Date();
-  const uniqueID = "BADAWY-" + Date.now();
-
-  area.style.display = "block";
-
-  textEl.innerHTML = `
-  <p><strong>Recipient:</strong> ${name}</p>
-  <p><strong>Phone:</strong> ${phone}</p>
-  <p><strong>Email:</strong> ${email}</p>
-  <p>🏆 This certificate is awarded for supporting Badawy TV on ${now.toLocaleString()}</p>
-  `;
-  idEl.innerText = "Certificate ID: " + uniqueID;
-}
-
-// ENABLE PDF BUTTON
-const pdfBtn = document.getElementById("downloadBtn");
-const spinner = document.getElementById("pdfSpinner");
-const inputs = [document.getElementById("name"), document.getElementById("phone"), document.getElementById("email")];
-
-inputs.forEach(el=>{
-  el.addEventListener("input",()=>{
-    const allFilled = inputs.every(i=>i.value.trim()!=="");
-    pdfBtn.disabled = !allFilled;
-    pdfBtn.style.background = allFilled ? "#27ae60" : "#c0392b";
-  });
-});
-
-// DOWNLOAD PDF WITH HIDDEN INPUTS AND BUTTON
-async function downloadPDF(){
-  spinner.style.display="inline-block";
-
-  const certArea = document.getElementById("certificateArea");
-  const nameInput = document.getElementById("name");
-  const phoneInput = document.getElementById("phone");
-  const emailInput = document.getElementById("email");
-  const pdfButton = document.getElementById("downloadBtn");
-
-  // Hide inputs and button
-  nameInput.style.display="none";
-  phoneInput.style.display="none";
-  emailInput.style.display="none";
-  pdfButton.style.display="none";
-
-  const { jsPDF } = window.jspdf;
-  const canvas = await html2canvas(certArea,{scale:2});
-  const img = canvas.toDataURL("image/png");
-  const pdf = new jsPDF();
-  pdf.addImage(img,'PNG',0,0,210,297);
-  pdf.save("Badawy_Certificate.pdf");
-
-  // Restore inputs and button
-  nameInput.style.display="block";
-  phoneInput.style.display="block";
-  emailInput.style.display="block";
-  pdfButton.style.display="flex";
-
-  spinner.style.display="none";
-}
-
-// SUBMIT FORM
 function submitForm(){
-  alert("Submitted successfully!");
-  alert("Your submission has been received. Our team will review your certificate and details within 24 hours and provide feedback. Thank you for supporting Badawy TV.");
-  window.location="mailto:badawytv76@gmail.com";
+    const name = document.getElementById("s_name").value;
+    const phone = document.getElementById("s_phone").value;
+    const feature = document.getElementById("feature").value;
+    const email = document.getElementById("s_email").value;
+
+    if(!name || !phone || !feature){
+        alert("Please fill all required fields!");
+        return;
+    }
+
+    // Real Service ID and Template ID
+    emailjs.send("service_x9pcmtm", "template_tn5i68d", {
+        name: name,
+        phone: phone,
+        feature: feature,
+        email: email,
+        title: "Badawy TV Submission",
+        time: new Date().toLocaleString(),
+        message: "Feature submission from website"
+    })
+    .then(()=> {
+        alert("Submitted successfully! Your submission has been received. Our team will review it within 24 hours and provide feedback. Thank you for supporting Badawy TV.");
+    })
+    .catch(()=> {
+        alert("Submission failed. Please try again.");
+    });
 }
 </script>
 
