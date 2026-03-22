@@ -128,5 +128,55 @@ submitBtn.addEventListener('click', function(){
 });
 </script>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const pdfBtn = document.getElementById('pdfBtn');
+
+function updatePdfButton() {
+    const name = document.getElementById('certName').value;
+    const phone = document.getElementById('certPhone').value;
+    const email = document.getElementById('certEmail').value;
+    if(name && phone && email) {
+        pdfBtn.disabled = false;
+        pdfBtn.classList.add('enabled');
+    } else {
+        pdfBtn.disabled = true;
+        pdfBtn.classList.remove('enabled');
+    }
+}
+
+// Listen for input changes to enable/disable PDF button
+['certName','certPhone','certEmail'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updatePdfButton);
+});
+
+pdfBtn.addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const name = document.getElementById('certName').value;
+    const phone = document.getElementById('certPhone').value;
+    const email = document.getElementById('certEmail').value;
+    const text = document.getElementById('certificateText').textContent;
+    
+    // Add watermark
+    doc.setFontSize(60);
+    doc.setTextColor(200,200,200);
+    doc.text('Certificate Award for Supporting Badawy TV', 35, 100, {angle:45, align:'center'});
+
+    // Add main certificate content
+    doc.setFontSize(16);
+    doc.setTextColor(0,0,0);
+    doc.text(`Name: ${name}`, 20, 50);
+    doc.text(`Phone: ${phone}`, 20, 60);
+    doc.text(`Email: ${email}`, 20, 70);
+    doc.text(text, 20, 90);
+
+    // Save PDF
+    doc.save(`BadawyTV_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
+});
+</script>
+
 </body>
 </html>
