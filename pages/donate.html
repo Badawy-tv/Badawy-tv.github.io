@@ -3,95 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Donate - Badawy TV</title>
+<title>Donate to Badawy TV</title>
 <style>
-body { font-family: Arial, sans-serif; background:#f9f9f9; padding:20px; }
-.payment-steps-card {
-    max-width: 700px;
-    margin: 30px auto;
-    padding: 25px;
-    background: #fefefe;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-}
-.payment-steps-card h2 {
-    color: #0a7a4b;
-    text-align: center;
-    margin-bottom: 15px;
-}
-.payment-steps-card p {
-    font-size: 16px;
-    text-align: center;
-    margin-bottom: 25px;
-}
-.steps { display: flex; flex-direction: column; gap: 15px; }
-.step-card {
-    display: flex; align-items: center; gap: 12px;
-    padding: 15px 20px; background: #e8f5ef;
-    border-left: 5px solid #0a7a4b; border-radius: 8px;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-.step-card:hover { transform: translateY(-2px); box-shadow:0 4px 15px rgba(0,0,0,0.1);}
-.step-number {
-    background: #0a7a4b; color:white; font-weight:bold;
-    width:32px; height:32px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-}
-.copy-btn {
-    margin-left: 10px; background: #0a7a4b; color: white;
-    border:none; padding:4px 8px; border-radius:6px;
-    cursor:pointer; font-size:14px; transition: background 0.2s;
-}
-.copy-btn:hover { background:#066238; }
+body { font-family: Arial, sans-serif; background: #f9f9f9; margin:0; padding:20px; }
+h1, h2 { color:#0a7a4b; text-align:center; }
+.payment-section { max-width: 800px; margin: 20px auto; }
+.card { background:#e8f5ef; padding:20px; border-radius:12px; margin-bottom:15px; box-shadow:0 4px 12px rgba(0,0,0,0.08); display:flex; align-items:center; justify-content:space-between; transition: transform 0.2s; }
+.card:hover { transform: scale(1.02); }
+.copy-btn, .donate-btn { background:#0a7a4b; color:white; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-weight:bold; }
+.copy-btn:hover, .donate-btn:hover { background:#065a38; }
 </style>
 </head>
 <body>
+<div class="payment-section">
+<h1>🤲 Support Badawy TV</h1>
 
-<!-- Payment Steps Section -->
-<div class="payment-steps-card">
-    <h2>📌 M-PESA PAYMENT STEPS</h2>
-    <p>Support Badawy TV and help us maintain quality Islamic content. Follow the steps below to donate via M-Pesa.</p>
-    
-    <div class="steps">
-        <div class="step-card">
-            <span class="step-number">1</span>
-            <p>OPEN M-PESA ON YOUR PHONE.</p>
-        </div>
-        <div class="step-card">
-            <span class="step-number">2</span>
-            <p>SELECT SEND MONEY.</p>
-        </div>
-        <div class="step-card">
-            <span class="step-number">3</span>
-            <p>ENTER THE RECIPIENT NUMBER: <strong id="recipientNumber">0716 802090</strong>
-            <button class="copy-btn" onclick="copyNumber()">📋 Copy</button></p>
-        </div>
-        <div class="step-card">
-            <span class="step-number">4</span>
-            <p>ENTER THE RECIPIENT NAME: <strong>AHMED ALI</strong></p>
-        </div>
-        <div class="step-card">
-            <span class="step-number">5</span>
-            <p>ENTER THE AMOUNT YOU WISH TO DONATE.</p>
-        </div>
-        <div class="step-card">
-            <span class="step-number">6</span>
-            <p>CONFIRM DETAILS AND ENTER YOUR M-PESA PIN.</p>
-        </div>
-        <div class="step-card">
-            <span class="step-number">7</span>
-            <p>WAIT FOR CONFIRMATION MESSAGE TO ENSURE PAYMENT SUCCESS.</p>
-        </div>
-    </div>
+<h2>M-Pesa</h2>
+<div class="card">
+  <span>📞 0716 802090</span>
+  <button class="copy-btn" onclick="copyNumber('0716802090')">Copy</button>
+</div>
+
+<h2>Local Banks (Kenya)</h2>
+<div class="card">
+  <span>Equity Bank</span>
+  <button class="donate-btn" onclick="donateBank('Equity')">Donate</button>
+</div>
+<div class="card">
+  <span>KCB</span>
+  <button class="donate-btn" onclick="donateBank('KCB')">Donate</button>
+</div>
+<div class="card">
+  <span>Co-operative Bank</span>
+  <button class="donate-btn" onclick="donateBank('Co-operative')">Donate</button>
+</div>
+<!-- Add more banks as needed -->
+
+<h2>Global Payments</h2>
+<div class="card">
+  <span>Visa / Mastercard</span>
+  <button class="donate-btn" onclick="globalDonate('Visa')">Donate</button>
+</div>
+<div class="card">
+  <span>PayPal</span>
+  <button class="donate-btn" onclick="globalDonate('PayPal')">Donate</button>
+</div>
+<!-- Add more global methods if needed -->
+
 </div>
 
 <script>
-function copyNumber() {
-    const number = document.getElementById("recipientNumber").innerText;
-    navigator.clipboard.writeText(number).then(() => {
-        alert("✅ Number copied to clipboard: " + number);
-    }).catch(err => alert("❌ Failed to copy: " + err));
+function copyNumber(number) {
+  navigator.clipboard.writeText(number).then(() => alert('📋 Number copied: ' + number));
+}
+
+function donateBank(bank) {
+  alert('💳 You clicked Donate for ' + bank + '. Backend processing should be implemented.');
+}
+
+function globalDonate(method) {
+  window.location.href = 'mailto:ahmedbadawy786@gmail.com?subject=Donation via ' + method + '&body=Please provide your donation details here.';
 }
 </script>
 
