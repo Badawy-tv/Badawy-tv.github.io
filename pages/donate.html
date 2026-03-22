@@ -18,32 +18,38 @@ h1, h2 { color:#0a7a4b; text-align:center; }
 <body>
 
 <h1>🤲 Support Badawy TV</h1>
+
+<h2>Mpesa Payment</h2>
+<div class="cards">
+  <div class="card">
+    <h3>Mpesa</h3>
+    <p>Send to: <strong>0716802090</strong></p>
+    <button onclick="openMpesa()">Donate</button>
+  </div>
+</div>
+
 <h2>Local Banks (Kenya)</h2>
 <div class="cards">
   <div class="card">
     <h3>Equity Bank</h3>
-    <p>Donate directly via app or web.</p>
     <button onclick="openBank('equity')">Donate</button>
   </div>
   <div class="card">
     <h3>KCB</h3>
-    <p>Donate directly via app or web.</p>
     <button onclick="openBank('kcb')">Donate</button>
   </div>
   <div class="card">
-    <h3>Cooperative Bank</h3>
-    <p>Donate directly via app or web.</p>
+    <h3>Co-operative Bank</h3>
     <button onclick="openBank('co-op')">Donate</button>
   </div>
   <div class="card">
     <h3>Other Banks</h3>
-    <p>Visit their payment portal.</p>
     <button onclick="openBank('other')">Donate</button>
   </div>
 </div>
 
 <h2>Global Payments</h2>
-<p style="text-align:center;">Send your donation to: <strong id="globalEmail">ahmedbadawy786@gmail.com</strong> <span class="copy-text" onclick="copyEmail()">📋 Copy</span></p>
+<p style="text-align:center;">Use email: <strong id="globalEmail">ahmedbadawy786@gmail.com</strong> <span class="copy-text" onclick="copyEmail()">📋 Copy</span></p>
 <div class="cards">
   <div class="card">
     <h3>PayPal</h3>
@@ -70,30 +76,66 @@ function copyEmail() {
   navigator.clipboard.writeText(email).then(() => alert(`Email copied: ${email}`));
 }
 
-// Open local bank app or fallback web
-function openBank(bank) {
-  let url = "";
-  switch(bank) {
-    case 'equity': url = "https://www.equitybankgroup.com/personal"; break;
-    case 'kcb': url = "https://ke.kcbgroup.com/personal"; break;
-    case 'co-op': url = "https://www.co-opbank.co.ke/"; break;
-    case 'other': url = "https://www.centralbank.go.ke/"; break;
-  }
-  window.open(url, "_blank");
+// Open Mpesa app or fallback to store only
+function openMpesa() {
+  const scheme = "mpesa://"; 
+  const playstore = "https://play.google.com/store/apps/details?id=com.safaricom.mpesa&hl=en";
+  const appstore = "https://apps.apple.com/ke/app/mpesa/id472066175";
+  openAppOrStore(scheme, playstore, appstore);
 }
 
-// Open global payment app or fallback web / store
+// Open local bank app or fallback store only
+function openBank(bank) {
+  let scheme = "", playstore = "", appstore = "";
+  switch(bank) {
+    case 'equity':
+      scheme = "equitybank://"; 
+      playstore="https://play.google.com/store/apps/details?id=com.equity.android"; 
+      appstore="https://apps.apple.com/ke/app/equity-mobile/id123456";
+      break;
+    case 'kcb':
+      scheme="kcb://"; 
+      playstore="https://play.google.com/store/apps/details?id=com.kcb.mobile"; 
+      appstore="https://apps.apple.com/ke/app/kcb-mobile/id123456";
+      break;
+    case 'co-op':
+      scheme="coop://"; 
+      playstore="https://play.google.com/store/apps/details?id=com.coopbank"; 
+      appstore="https://apps.apple.com/ke/app/co-op-bank/id123456";
+      break;
+    case 'other':
+      playstore="https://play.google.com/store/apps/details?id=com.centralbank"; 
+      appstore="https://apps.apple.com/ke/app/central-bank/id123456";
+  }
+  openAppOrStore(scheme, playstore, appstore);
+}
+
+// Open global payment app or fallback store only
 function openGlobal(method) {
   const email = document.getElementById('globalEmail').textContent;
-  copyEmail(); // always copy email first
-  let url = "";
+  copyEmail(); 
+  let scheme="", playstore="", appstore="";
   switch(method) {
-    case 'paypal': url = `https://www.paypal.com/paypalme/${email}`; break;
-    case 'visa': url = `https://checkout.stripe.com/pay/${email}`; break;
-    case 'stripe': url = `https://stripe.com/pay/${email}`; break;
-    case 'other': url = `mailto:${email}`; break;
+    case 'paypal': scheme="paypal://send?recipient="+email; break;
+    case 'visa': scheme="stripe://"; break;
+    case 'stripe': scheme="stripe://"; break;
+    case 'other': scheme="mailto:"+email; break;
   }
-  window.open(url, "_blank");
+  openAppOrStore(scheme, "https://play.google.com/store/", "https://apps.apple.com/");
+}
+
+// Generic open app or store function
+function openAppOrStore(scheme, playstore, appstore) {
+  if(scheme){
+    window.location = scheme;
+    setTimeout(()=>{ 
+      // fallback to store after delay
+      if(navigator.userAgent.includes("Android")) window.location=playstore;
+      if(navigator.userAgent.includes("iPhone") || navigator.userAgent.includes("iPad")) window.location=appstore;
+    }, 1500);
+  } else {
+    alert("App not detected, please install from store.");
+  }
 }
 </script>
 
