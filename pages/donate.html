@@ -6,90 +6,79 @@
 <title>Support Badawy TV</title>
 <style>
 body { font-family: Arial, sans-serif; line-height:1.6; background:#f9f9f9; padding:20px; }
-.payment-card, .payment-steps { text-align:left; padding:20px; background:#e8f5ef; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.08); max-width:700px; margin:20px auto; }
-.payment-steps ol { padding-left:20px; }
-textarea, input[type=text], input[type=file] { width:100%; padding:10px; margin-top:10px; border-radius:6px; border:1px solid #ccc; }
+.payment-card { text-align:center; padding:30px; background:#e8f5ef; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.08); max-width:700px; margin:0 auto; }
+#certificateArea { margin-top:20px; display:none; }
+#featureForm textarea, #featureForm input { width:100%; padding:10px; margin-top:10px; border-radius:6px; border:1px solid #ccc; }
 #submitBtn { background:#ccc; color:white; border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:not-allowed; }
 #submitBtn.enabled { background:#0a7a4b; cursor:pointer; }
 .success-message { display:none; margin-top:15px; padding:15px; background:#dff0d8; border-left:5px solid #0a7a4b; border-radius:6px; color:#0a7a4b; font-weight:bold; }
 </style>
 </head>
 <body>
+<div class="payment-card">
+<h1>🤲 Support Badawy TV</h1>
+<p>Your support helps maintain and improve <strong>Badawy TV</strong>. Contributions enable new features and launch the official app.</p>
 
 <!-- Payment Steps -->
-<div class="payment-steps">
-    <h2>🤲 Support Badawy TV</h2>
-    <p>Your support helps maintain and improve <strong>Badawy TV</strong>. Contributions enable us to add new features requested by our viewers and work towards launching the official Badawy TV app. Every donation, no matter the size, directly supports authentic Islamic content and enhances the experience for our global community.</p>
-
-    <h3>M-Pesa Send Money</h3>
-    <p>📌 How to Donate:</p>
-    <ol>
-        <li>Open M-Pesa on your phone.</li>
-        <li>Select Send Money.</li>
-        <li>Enter the recipient number: <strong>0716 802090</strong> 📋 Copy</li>
-        <li>Enter the recipient name: <strong>Ahmed Ali</strong></li>
-        <li>Enter the amount you wish to donate.</li>
-        <li>Confirm the details and enter your M-Pesa PIN.</li>
-        <li>Wait for the confirmation message to ensure your donation was successful.</li>
-    </ol>
-    <p>💡 Tip: Keep your confirmation SMS as proof of donation. Your support directly helps maintain Badawy TV and bring new features!</p>
-</div>
+<h2>📌 How to Donate via M-Pesa</h2>
+<ol style="text-align:left; max-width:500px; margin:0 auto; line-height:1.8;">
+<li>Open M-Pesa on your phone.</li>
+<li>Select Send Money.</li>
+<li>Enter the recipient number: <strong>0716 802090</strong></li>
+<li>Enter the recipient name: <strong>Ahmed Ali</strong></li>
+<li>Enter the amount you wish to donate.</li>
+<li>Confirm the details and enter your M-Pesa PIN.</li>
+<li>Wait for the confirmation message.</li>
+</ol>
+<p style="text-align:center;">💡 Keep your confirmation SMS as proof of donation.</p>
 
 <!-- Certificate Section -->
-<div class="payment-card">
-    <h2>🏆 Generate Your Award Certificate</h2>
-    <p>Paste your M-Pesa statement below to generate your award certificate:</p>
-    <textarea id="mpesaStatement" rows="6" placeholder="Paste your M-Pesa payment statement here"></textarea><br>
-    <button onclick="generateCertificate()" style="background:#0a7a4b; color:white; border:none; padding:10px 20px; border-radius:6px;">Generate Certificate</button>
+<p>Paste your M-Pesa statement below to generate your award certificate:</p>
+<textarea id="mpesaStatement" rows="6" placeholder="Paste your M-Pesa payment statement here"></textarea><br>
+<button onclick="generateCertificate()" style="background:#0a7a4b; color:white; border:none; padding:10px 20px; border-radius:6px;">Generate Certificate</button>
+<div id="certificateArea"></div>
 
-    <div id="certificateArea" style="margin-top:20px; display:none;">
-        <h3>🏆 Your Certificate</h3>
-        <p id="certificateText" style="background:#e8f5ef; padding:15px; border-left:5px solid #0a7a4b; border-radius:6px;"></p>
-    </div>
-
-    <!-- Feature request & submission -->
-    <h2>💡 Suggest a Feature / Send Certificate</h2>
-    <form id="featureForm">
-        <input type="text" id="name" placeholder="Your Name" required><br><br>
-        <input type="text" id="phone" placeholder="Your Phone Number" required><br><br>
-        <input type="file" id="certFile" accept=".txt,.pdf"><br><br>
-        <textarea id="feature" rows="4" placeholder="What feature would you like us to add?" required></textarea><br><br>
-
-        <input type="checkbox" id="terms"> <label for="terms"><a href="/legal/terms.html" target="_blank">Terms & Conditions</a></label><br>
-        <input type="checkbox" id="privacy"> <label for="privacy"><a href="/legal/privacy.html" target="_blank">Privacy Policy</a></label><br><br>
-
-        <button type="button" id="submitBtn">Submit</button>
-    </form>
-
-    <div class="success-message" id="successMessage">
-        ✅ Thank you! Our review team will confirm your submission within 24 hours.
-    </div>
+<!-- Feature request & submission -->
+<h2>💡 Suggest a Feature / Send Certificate</h2>
+<form id="featureForm">
+<input type="text" id="name" placeholder="Your Name" required><br><br>
+<input type="text" id="phone" placeholder="Your Phone Number" required><br><br>
+<input type="file" id="certFile" accept=".txt,.pdf"><br><br>
+<textarea id="feature" rows="4" placeholder="What feature would you like us to add?" required></textarea><br><br>
+<input type="checkbox" id="terms"> <label for="terms"><a href="/legal/terms.html" target="_blank">Terms & Conditions</a></label><br>
+<input type="checkbox" id="privacy"> <label for="privacy"><a href="/legal/privacy.html" target="_blank">Privacy Policy</a></label><br><br>
+<button type="button" id="submitBtn">Submit</button>
+</form>
+<div class="success-message" id="successMessage">✅ Thank you! Our review team will confirm your submission within 24 hours.</div>
 </div>
 
 <script>
-// Generate certificate (no validation)
+// Generate certificate with unique ID and styled award
 function generateCertificate(){
     const statement = document.getElementById('mpesaStatement').value;
     const now = new Date();
-    const uniqueId = 'BADAWY-' + now.getTime(); // Unique certificate ID
-    document.getElementById('certificateText').innerHTML = `
-        <div style="border:2px solid #0a7a4b; padding:20px; margin:15px; text-align:center; font-family: 'Georgia', serif;">
-            <h2 style="color:#0a7a4b;">🏆 Badawy TV Award Certificate</h2>
-            <p>Congratulations! You have received this certificate for supporting <strong>Badawy TV</strong>.</p>
-            <p><em>Generated at: ${now.toLocaleString()}</em></p>
-            <p>Certificate ID: <strong>${uniqueId}</strong></p>
-            <p style="font-size:24px;">🕋 ✨ 🌙</p>
-        </div>`;
-    document.getElementById('certificateArea').style.display='block';
-}`;
-    document.getElementById('certificateArea').style.display='block';
+    const uniqueID = 'BADAWY-' + now.getTime() + '-' + Math.floor(Math.random()*9000+1000);
+    const certificateHTML = `
+        <div style="border:5px solid #0a7a4b; border-radius:15px; padding:30px; margin:20px auto; max-width:700px; background:#f9f9f9; text-align:center; font-family: 'Times New Roman', serif; position:relative;">
+            <div style="font-size:50px; position:absolute; top:10px; left:10px;">🕌</div>
+            <h1 style="color:#0a7a4b; font-size:32px; margin-bottom:10px;">🏆 Certificate of Support</h1>
+            <p style="font-size:18px; margin:10px 0;">This certificate is proudly presented to:</p>
+            <h2 style="font-size:28px; color:#0a7a4b; margin:5px 0;">[Your Name]</h2>
+            <p style="font-size:18px; margin:10px 0;">For showing support to <strong>Badawy TV</strong> and contributing to the growth of authentic Islamic content.</p>
+            <p style="font-size:16px; margin:10px 0;">Feature requests and suggestions are welcomed!</p>
+            <p style="margin-top:20px; font-size:14px; color:#555;">Generated on: ${now.toLocaleString()}<br>Certificate ID: ${uniqueID}</p>
+            <div style="font-size:50px; position:absolute; bottom:10px; right:10px;">🕋</div>
+        </div>
+    `;
+    const certArea = document.getElementById('certificateArea');
+    certArea.innerHTML = certificateHTML;
+    certArea.style.display='block';
 }
 
 // Terms & Privacy toggle submit
 const submitBtn = document.getElementById('submitBtn');
 const termsCheckbox = document.getElementById('terms');
 const privacyCheckbox = document.getElementById('privacy');
-
 function toggleSubmit() {
     if(termsCheckbox.checked && privacyCheckbox.checked){
         submitBtn.classList.add('enabled');
@@ -114,7 +103,6 @@ submitBtn.addEventListener('click', function(){
     formData.append('feature', document.getElementById('feature').value);
     const certFile = document.getElementById('certFile').files[0];
     if(certFile) formData.append('certificate', certFile);
-
     fetch('https://formsubmit.co/badawytv76@gmail.com', {
         method:'POST',
         body: formData
@@ -127,6 +115,5 @@ submitBtn.addEventListener('click', function(){
     }).catch(err=> alert('❌ Could not submit: '+err));
 });
 </script>
-
 </body>
 </html>
