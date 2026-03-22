@@ -19,8 +19,6 @@ body { font-family: Arial, sans-serif; line-height:1.6; background:#f9f9f9; padd
 .success-message { display:none; margin-top:15px; padding:15px; background:#dff0d8; border-left:5px solid #0a7a4b; border-radius:6px; color:#0a7a4b; font-weight:bold; }
 </style>
 </head>
-<body>
-
 <div class="payment-card">
     <h1>🤲 Support Badawy TV</h1>
     <p>Your support helps maintain and improve <strong>Badawy TV</strong>. Contributions enable new features and help launch the official app.</p>
@@ -34,82 +32,4 @@ body { font-family: Arial, sans-serif; line-height:1.6; background:#f9f9f9; padd
         <h3>🏆 Your Certificate</h3>
         <p id="certificateText" style="background:#e8f5ef; padding:15px; border-left:5px solid #0a7a4b; border-radius:6px;"></p>
     </div>
-
-    <!-- Feature request & submission -->
-    <h2>💡 Suggest a Feature / Send Certificate</h2>
-    <form id="featureForm">
-        <input type="text" id="name" placeholder="Your Name" required><br><br>
-        <input type="text" id="phone" placeholder="Your Phone Number" required><br><br>
-        <input type="file" id="certFile" accept=".txt,.pdf"><br><br>
-        <textarea id="feature" rows="4" placeholder="What feature would you like us to add?" required></textarea><br><br>
-
-        <input type="checkbox" id="terms"> <label for="terms"><a href="/legal/terms.html" target="_blank">Terms & Conditions</a></label><br>
-        <input type="checkbox" id="privacy"> <label for="privacy"><a href="/legal/privacy.html" target="_blank">Privacy Policy</a></label><br><br>
-
-        <button type="button" id="submitBtn">Submit</button>
-    </form>
-
-    <div class="success-message" id="successMessage">
-        ✅ Thank you! Our review team will confirm your submission within 24 hours.
-    </div>
-</div>
-
-<script>
-// Generate certificate
-function generateCertificate(){
-    const statement = document.getElementById('mpesaStatement').value;
-    const now = new Date();
-    if(statement.toLowerCase().includes('ahmad ali') && statement.includes('0716 802090')){
-        document.getElementById('certificateText').textContent =
-            `🏆 You have successfully received an award certificate from Badawy TV for supporting the channel! We may like to hear your feature requests for the website/app. Generated at ${now.toLocaleString()}`;
-        document.getElementById('certificateArea').style.display='block';
-    } else {
-        alert('❌ Could not verify your payment statement. Make sure the name and number are correct.');
-    }
-}
-
-// Terms & Privacy toggle submit
-const submitBtn = document.getElementById('submitBtn');
-const termsCheckbox = document.getElementById('terms');
-const privacyCheckbox = document.getElementById('privacy');
-
-function toggleSubmit() {
-    if(termsCheckbox.checked && privacyCheckbox.checked){
-        submitBtn.classList.add('enabled');
-        submitBtn.disabled=false;
-    } else {
-        submitBtn.classList.remove('enabled');
-        submitBtn.disabled=true;
-    }
-}
-termsCheckbox.addEventListener('change', toggleSubmit);
-privacyCheckbox.addEventListener('change', toggleSubmit);
-
-// Submit form
-submitBtn.addEventListener('click', function(){
-    if(!submitBtn.classList.contains('enabled')) { 
-        alert("Please accept Terms & Privacy first"); 
-        return; 
-    }
-    const formData = new FormData();
-    formData.append('name', document.getElementById('name').value);
-    formData.append('phone', document.getElementById('phone').value);
-    formData.append('feature', document.getElementById('feature').value);
-    const certFile = document.getElementById('certFile').files[0];
-    if(certFile) formData.append('certificate', certFile);
-
-    fetch('https://formsubmit.co/badawytv76@gmail.com', {
-        method:'POST',
-        body: formData
-    }).then(res => {
-        if(res.ok){
-            document.getElementById('successMessage').style.display='block';
-            document.getElementById('featureForm').reset();
-            toggleSubmit(); // disable button again
-        }
-    }).catch(err=> alert('❌ Could not submit: '+err));
-});
-</script>
-
-</body>
 </html>
