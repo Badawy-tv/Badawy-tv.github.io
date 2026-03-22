@@ -33,21 +33,19 @@ button {
   cursor:pointer;
 }
 
-/* Certificate */
+/* CERTIFICATE */
 #certificateArea {
   display:none;
   margin-top:20px;
   padding:30px;
   background:white;
-  border:8px solid #0a7a4b;
+  border:6px solid #0a7a4b;
   position:relative;
 }
 
-
+/* WATERMARK */
 .watermark {
   position:absolute;
-  top:0;
-  left:0;
   width:100%;
   height:100%;
   display:flex;
@@ -64,7 +62,6 @@ button {
   transform:rotate(-30deg);
 }
 
-
 input, textarea {
   width:100%;
   padding:10px;
@@ -77,7 +74,7 @@ input, textarea {
 
 <h1>🤲 Support Badawy TV</h1>
 
-<!-- PAYMENT SECTION -->
+<!-- PAYMENT -->
 <div class="section">
 <h2>Mpesa</h2>
 <div class="cards">
@@ -111,11 +108,15 @@ input, textarea {
 <button onclick="generateCertificate()">Generate Certificate</button>
 
 <div id="certificateArea">
+
 <div class="watermark">
-<span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span>
+<span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span>
+<span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span>
+<span>Badawy TV Certificate</span><span>Badawy TV Certificate</span><span>Badawy TV Certificate</span>
 </div>
 
 <h2 style="text-align:center;">🏆 CERTIFICATE OF SUPPORT</h2>
+
 <p id="certText"></p>
 
 <input id="name" placeholder="Recipient Name">
@@ -124,14 +125,7 @@ input, textarea {
 
 <p id="certID"></p>
 
-
-<button id="downloadBtn" disabled onclick="downloadPDF()" style="display:flex;align-items:center;gap:8px;">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 16 16">
-<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10.4a.5.5 0 0 1 1 0v2.6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V10.4a.5.5 0 0 1 .5-.5z"/>
-<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-</svg>
-Download PDF
-</button>
+<button id="downloadBtn" disabled onclick="downloadPDF()">⬇ Download PDF</button>
 
 </div>
 </div>
@@ -148,57 +142,34 @@ Download PDF
 
 <script>
 
+// OPEN APP OR STORE
 function openApp(app, store){
   window.location = app;
   setTimeout(()=>window.location=store,1500);
 }
 
+// GLOBAL
 function globalPay(){
   navigator.clipboard.writeText("ahmedbadawy786@gmail.com");
   window.location="mailto:ahmedbadawy786@gmail.com";
 }
 
+// GENERATE CERTIFICATE (WORKING)
 function generateCertificate(){
-    alert("Generate clicked ✅");
+  const area = document.getElementById("certificateArea");
+  const text = document.getElementById("certText");
+  const id = document.getElementById("certID");
 
-    const area = document.getElementById("certificateArea");
-    const text = document.getElementById("certText");
-    const id = document.getElementById("certID");
+  const now = new Date();
+  const uniqueID = "BADAWY-" + Date.now();
 
-    console.log(area, text, id);
+  area.style.display = "block";
 
-    if(!area){
-        alert("❌ certificateArea not found");
-        return;
-    }
-
-    const now = new Date();
-    const uniqueID = "BADAWY-" + Date.now();
-
-    area.style.display = "block";
-    area.style.visibility = "visible";
-
-    if(text){
-        text.innerText = "🏆 This certificate is proudly awarded for supporting Badawy TV. Generated on " + now.toLocaleString();
-    }
-
-    if(id){
-        id.innerText = "Certificate ID: " + uniqueID;
-    }
+  text.innerText = "🏆 This certificate is awarded for supporting Badawy TV on " + now.toLocaleString();
+  id.innerText = "Certificate ID: " + uniqueID;
 }
 
-
-    const now = new Date();
-    const uniqueID = "BADAWY-" + Date.now();
-
-    area.style.display = "block";
-
-    text.innerText = "🏆 This certificate is proudly awarded for supporting Badawy TV. Generated on " + now.toLocaleString();
-
-    id.innerText = "Certificate ID: " + uniqueID;
-}
-
-
+// ENABLE PDF BUTTON
 document.querySelectorAll("#name,#phone,#email").forEach(el=>{
   el.addEventListener("input",()=>{
     const filled = name.value && phone.value && email.value;
@@ -206,33 +177,20 @@ document.querySelectorAll("#name,#phone,#email").forEach(el=>{
   });
 });
 
-
+// DOWNLOAD PDF (FIXED)
 async function downloadPDF(){
   const { jsPDF } = window.jspdf;
   const element = document.getElementById("certificateArea");
 
-  const canvas = await html2canvas(element, {
-    scale: 2,
-    useCORS: true
-  });
-
-  const imgData = canvas.toDataURL("image/png");
-
-  const pdf = new jsPDF('p','mm','a4');
-  const width = 210;
-  const height = (canvas.height * width) / canvas.width;
-
-  pdf.addImage(imgData, 'PNG', 0, 0, width, height);
-  pdf.save("Badawy_Certificate.pdf");
-}
- = window.jspdf;
-  const canvas = await html2canvas(document.getElementById("certificateArea"));
+  const canvas = await html2canvas(element,{scale:2});
   const img = canvas.toDataURL("image/png");
+
   const pdf = new jsPDF();
   pdf.addImage(img,'PNG',0,0,210,297);
-  pdf.save("certificate.pdf");
+  pdf.save("Badawy_Certificate.pdf");
 }
 
+// SUBMIT
 function submitForm(){
   alert("Submitted successfully!");
   alert("Your submission has been received successfully. Our team will review your certificate and details within 24 hours. You will receive feedback shortly. Thank you for supporting Badawy TV.");
