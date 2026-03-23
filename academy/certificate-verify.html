@@ -96,7 +96,7 @@ body{
     justify-content:space-between;
     margin-top:30px;
 }
-.left,.right{width:45%;font-size:18px;}
+.left,.right{width:45%;font-size:18px; line-height:2;}
 .center-text{text-align:center;margin:30px 0;font-size:20px;}
 
 /* SEAL */
@@ -146,6 +146,23 @@ body{
 <div class="container">
 
 <div id="certificate" class="certificate">
+<div style="
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.02),
+    rgba(0,0,0,0.02) 1px,
+    transparent 1px,
+    transparent 25px
+);
+pointer-events:none;
+"></div>
+
+<hr style="margin-top:40px; border:none; border-top:1px solid rgba(0,0,0,0.1);">
 <!-- ADVANCED LEGAL WATERMARK -->
 <div id="legal-watermark" style="
     position:absolute;
@@ -185,18 +202,19 @@ body{
 
 <!-- TITLE -->
 <div class="title">
-<h1>Certificate of Completion</h1>
+<h1 style="color:#b8962e; letter-spacing:2px;">Certificate of Completion</h1>
 </div>
 
 <div class="center-text">
 This certifies that<br><br>
-<strong id="name" style="font-size:28px;"></strong><br><br>
+<strong id="name" style="font-size:34px; font-weight:bold; color:#0b5d3b; letter-spacing:1px;"></strong><br><br>
 has successfully completed<br>
 <strong>Tajweed Mastery</strong>
 </div>
 
 <!-- CONTENT -->
-<div class="content">
+<hr style="margin:25px 0; border:none; border-top:1px solid rgba(0,0,0,0.1);">
+<div class="content" style="margin-top:40px; line-height:1.8;">
 <div class="left">
 <p><strong>DOB:</strong> <span id="dob"></span></p>
 <p><strong>ID:</strong> <span id="nid"></span></p>
@@ -206,14 +224,14 @@ has successfully completed<br>
 
 <div class="right">
 <p><strong>Date:</strong> <span id="date"></span></p>
-<p><strong>Cert ID:</strong> <span id="cid"></span></p>
+<p><strong>Cert ID:</strong> <span id="cid" style="color:#b8962e; font-weight:bold;"></span></p>
 <p><strong>Instructor:</strong> <span id="imam"></span></p>
 <p><strong>Institute:</strong> Badawy Islamic Academy</p>
 </div>
 </div>
 
 <!-- SEAL -->
-<div class="seal">
+<div class="seal" style="box-shadow:0 0 10px rgba(202,167,74,0.6);">
 Badawy TV<br>Official Seal<br>✔ Verified
 </div>
 
@@ -227,7 +245,7 @@ Badawy TV<br>Official Seal<br>✔ Verified
 
 
 
-<div id="qrcode" class="qr" style="position:absolute; top:40px; left:40px;" style="position:absolute; top:20px; left:20px;"></div>
+<div id="qrcode" style="margin-top:10px;" class="qr" style="position:absolute; top:40px; left:40px;" style="position:absolute; top:20px; left:20px;"></div>
 
 
 
