@@ -1,68 +1,215 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verify Certificate</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate</title>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
-body{font-family:Arial;background:#f9f9f9;margin:0;padding:0;}
-.container{max-width:900px;margin:30px auto;background:white;padding:30px;border-radius:12px;box-shadow:0 5px 20px rgba(0,0,0,0.1);}
-.certificate{border:5px double #0b5d3b;padding:40px;position:relative;}
-h1{text-align:center;color:#0b5d3b;margin-bottom:10px;}
-p{margin:5px 0;font-size:18px;}
-.signature{position:absolute;bottom:30px;right:50px;font-size:16px;}
-.qr{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);}
+body{
+    background:#eee;
+    font-family:"Times New Roman", serif;
+}
+
+.container{
+    max-width:1000px;
+    margin:30px auto;
+    padding:20px;
+}
+
+.certificate{
+    position:relative;
+    background:white;
+    padding:60px;
+    border:12px double #caa74a;
+    box-shadow:0 0 25px rgba(0,0,0,0.2);
+}
+
+/* Watermark */
+.certificate::before{
+    content:"TAJWEED CERTIFICATE";
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(-30deg);
+    font-size:70px;
+    color:rgba(200,200,200,0.2);
+    white-space:nowrap;
+}
+
+/* Header */
+.header{
+    text-align:center;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    color:gold;
+    letter-spacing:2px;
+}
+
+.arabic{
+    font-size:22px;
+    margin-top:10px;
+}
+
+/* Title */
+.title{
+    text-align:center;
+    margin:30px 0;
+}
+
+.title h1{
+    font-size:36px;
+    color:#0b5d3b;
+}
+
+/* Content layout */
+.content{
+    display:flex;
+    justify-content:space-between;
+    margin-top:30px;
+}
+
+.left, .right{
+    width:45%;
+    font-size:18px;
+}
+
+.center-text{
+    text-align:center;
+    margin:30px 0;
+    font-size:20px;
+}
+
+/* Footer */
+.footer{
+    margin-top:60px;
+    position:relative;
+}
+
+.signature{
+    position:absolute;
+    right:0;
+    text-align:center;
+}
+
+.signature-line{
+    border-top:1px solid #000;
+    width:200px;
+    margin-top:40px;
+}
+
+/* QR */
+.qr{
+    position:absolute;
+    bottom:-20px;
+    left:50%;
+    transform:translateX(-50%);
+}
 </style>
 </head>
+
 <body>
+
 <div class="container">
-<h2>Certificate Verification</h2>
-<div id="cert-display" class="certificate">
-<h1>Tajweed Mastery Certificate</h1>
-<p id="cname"></p>
-<p id="cdob"></p>
-<p id="cnid"></p>
-<p id="cphone"></p>
-<p id="clocation"></p>
-<p id="cimam"></p>
-<p id="ccourse">Course: Tajweed Mastery</p>
-<p id="cdate"></p>
-<p id="cid"></p>
-<div class="signature">Imam Ahmad Badawy</div>
-<div id="qrcode" class="qr"></div>
+
+<div id="certificate" class="certificate">
+
+<div class="header">
+<div class="logo">BADAWY TV</div>
+<div class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
 </div>
-<button id="download">Download Certificate (PDF)</button>
-<div id="msg" style="margin-top:20px;text-align:center;color:#0b5d3b;"></div>
+
+<div class="title">
+<h1>Certificate of Completion</h1>
+</div>
+
+<div class="center-text">
+This certifies that
+<br><br>
+<strong id="name" style="font-size:28px;"></strong>
+<br><br>
+has successfully completed the course
+<br>
+<strong>Tajweed Mastery</strong>
+</div>
+
+<div class="content">
+<div class="left">
+<p><strong>Date of Birth:</strong> <span id="dob"></span></p>
+<p><strong>National ID:</strong> <span id="nid"></span></p>
+<p><strong>Phone:</strong> <span id="phone"></span></p>
+<p><strong>Location:</strong> <span id="location"></span></p>
+</div>
+
+<div class="right">
+<p><strong>Date Issued:</strong> <span id="date"></span></p>
+<p><strong>Certificate ID:</strong> <span id="cid"></span></p>
+<p><strong>Instructor:</strong> <span id="imam"></span></p>
+<p><strong>Institution:</strong> Badawy Islamic Academy</p>
+</div>
+</div>
+
+<div class="footer">
+
+<div class="signature">
+<div class="signature-line"></div>
+<p>Imam Ahmad Badawy</p>
+</div>
+
+<div id="qrcode" class="qr"></div>
+
+</div>
+
+</div>
+
+<button onclick="downloadPDF()" style="margin-top:20px;width:100%;padding:12px;background:#0b5d3b;color:white;border:none;border-radius:6px;">Download Certificate</button>
+
 </div>
 
 <script>
-const certData = JSON.parse(localStorage.getItem("certData")||"{}");
-const certID = localStorage.getItem("certID")||"";
 
-document.getElementById("cname").innerText="Name: "+certData.name;
-document.getElementById("cdob").innerText="DOB: "+certData.dob;
-document.getElementById("cnid").innerText="National ID: "+certData.nid;
-document.getElementById("cphone").innerText="Phone: "+certData.phone;
-document.getElementById("clocation").innerText="Location: "+certData.location+", "+certData.ward+", "+certData.sub+", "+certData.county+", "+certData.country;
-document.getElementById("cimam").innerText="Imam: "+certData.imam;
-document.getElementById("cdate").innerText="Date: "+new Date().toLocaleDateString();
-document.getElementById("cid").innerText="Certificate ID: "+certID;
+// Load data
+const data = JSON.parse(localStorage.getItem("certData") || "{}");
+const id = localStorage.getItem("certID") || "N/A";
 
-// Generate QR code
-new QRCode(document.getElementById("qrcode"),{text:certID,width:100,height:100});
+// Fill fields
+document.getElementById("name").innerText = data.name || "";
+document.getElementById("dob").innerText = data.dob || "";
+document.getElementById("nid").innerText = data.nid || "";
+document.getElementById("phone").innerText = data.phone || "";
+document.getElementById("location").innerText = (data.location || "") + ", " + (data.country || "");
+document.getElementById("imam").innerText = data.imam || "Ahmad Badawy";
+document.getElementById("cid").innerText = id;
+document.getElementById("date").innerText = new Date().toLocaleDateString();
 
-document.getElementById("download").addEventListener("click",()=>{
-  if(!certID){alert("Certificate locked");return;}
-  import("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js").then(js=>{
-    const { jsPDF } = js.jspdf;
-    const doc = new jsPDF();
-    doc.html(document.getElementById("cert-display"),{
-      callback:function(doc){doc.save(`Certificate-${certData.name.replace(/ /g,"_")}.pdf`);}
-    });
-  });
+// QR
+new QRCode(document.getElementById("qrcode"), {
+    text: id,
+    width: 80,
+    height: 80
 });
+
+// Download
+function downloadPDF(){
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF("landscape");
+
+    doc.html(document.getElementById("certificate"), {
+        callback: function (doc) {
+            doc.save("Badawy-Certificate.pdf");
+        },
+        x: 10,
+        y: 10
+    });
+}
+
 </script>
+
 </body>
 </html>
