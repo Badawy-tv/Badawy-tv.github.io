@@ -1,57 +1,61 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Certificate Request</title>
+
 <style>
-body{font-family:Arial;background:#f5f5f5;margin:0;padding:0;}
-.container{max-width:800px;margin:40px auto;background:white;padding:30px;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.1);}
+body{font-family:Arial;background:#f4f6f8;margin:0;padding:20px;}
+.container{max-width:800px;margin:auto;background:white;padding:30px;border-radius:12px;box-shadow:0 5px 20px rgba(0,0,0,0.1);}
 h2{text-align:center;color:#0b5d3b;}
-.form-group{margin-bottom:15px;}
-label{display:block;margin-bottom:5px;font-weight:bold;}
-input,select{width:100%;padding:10px;border:1px solid #ccc;border-radius:5px;}
-button{width:100%;padding:12px;background:#0b5d3b;color:white;border:none;border-radius:5px;font-size:16px;cursor:pointer;}
+label{display:block;margin-top:10px;font-weight:bold;}
+input,select{width:100%;padding:10px;margin-top:5px;border:1px solid #ccc;border-radius:6px;}
+button{margin-top:20px;width:100%;padding:12px;background:#0b5d3b;color:white;border:none;border-radius:6px;font-size:16px;cursor:pointer;}
 button:hover{background:#09432b;}
-#msg{margin-top:20px;text-align:center;font-weight:bold;color:#0b5d3b;display:none;}
+#msg{margin-top:20px;text-align:center;color:#0b5d3b;font-weight:bold;display:none;}
 </style>
 </head>
+
 <body>
 
 <div class="container">
-<h2>Tajweed Certificate Request</h2>
+<h2>Tajweed Mastery Certificate Request</h2>
 
-<form id="certificate-form">
-<div class="form-group">
+<form id="form">
+
 <label>Full Name</label>
 <input type="text" id="name" required>
-</div>
 
-<div class="form-group">
 <label>Date of Birth</label>
 <input type="date" id="dob" required>
-</div>
 
-<div class="form-group">
 <label>National ID / Parent ID</label>
 <input type="text" id="nid" required>
-</div>
 
-<div class="form-group">
 <label>Phone Number</label>
 <input type="text" id="phone">
-</div>
 
-<div class="form-group">
 <label>Nearby Mosque</label>
 <input type="text" id="mosque">
-</div>
 
-<div class="form-group">
 <label>Name of Imam</label>
-<input type="text" id="imam" required>
-</div>
+<input type="text" id="imam" value="Ahmad Badawy" required>
+
+<label>Country</label>
+<select id="country" required></select>
+
+<label>Region</label>
+<select id="region" required></select>
+
+<label>District</label>
+<select id="district" required></select>
+
+<label>Ward</label>
+<select id="ward" required></select>
+
+<label>Location</label>
+<input type="text" id="location" required>
 
 <button type="submit">Submit Application</button>
 </form>
@@ -61,43 +65,104 @@ button:hover{background:#09432b;}
 </div>
 
 <script>
-document.getElementById("certificate-form").addEventListener("submit", function(e){
-    e.preventDefault();
 
-    const name = document.getElementById("name").value.trim();
-    const dob = document.getElementById("dob").value.trim();
+// --- Countries (Islamic + major) ---
+const data = {
+"Kenya":{"Nairobi":["Westlands","Langata","Embakasi"],"Mombasa":["Kisauni","Likoni"]},
+"Uganda":{"Kampala":["Central","Nakawa"],"Wakiso":["Entebbe"]},
+"Tanzania":{"Dar":["Kinondoni","Ilala"],"Arusha":["Urban"]},
+"Saudi Arabia":{"Riyadh":["Olaya","Malaz"],"Jeddah":["Balad","Shati"]},
+"Egypt":{"Cairo":["Nasr City","Maadi"],"Alexandria":["Montaza","Gaber"]},
+"Turkey":{"Istanbul":["Fatih","Kadikoy"],"Ankara":["Cankaya"]},
+"Pakistan":{"Punjab":["Lahore","Rawalpindi"],"Sindh":["Karachi"]},
+"Indonesia":{"Jakarta":["Central","South"],"Java":["Bandung"]},
+"UAE":{"Dubai":["Deira","Marina"],"Abu Dhabi":["City"]},
+"Qatar":{"Doha":["West Bay","Al Sadd"]}
+};
 
-    if(!name || !dob){
-        alert("Please fill required fields");
-        return;
-    }
+// Elements
+const country = document.getElementById("country");
+const region = document.getElementById("region");
+const district = document.getElementById("district");
+const ward = document.getElementById("ward");
 
-    // Save data
-    const data = {
-        name:name,
-        dob:dob,
-        nid:document.getElementById("nid").value,
-        phone:document.getElementById("phone").value,
-        mosque:document.getElementById("mosque").value,
-        imam:document.getElementById("imam").value
-    };
+// Populate country
+country.innerHTML = "<option value=''>Select Country</option>";
+for(let c in data){
+  country.innerHTML += "<option value='"+c+"'>"+c+"</option>";
+}
 
-    localStorage.setItem("certData", JSON.stringify(data));
+// Country change
+country.onchange = function(){
+  region.innerHTML = "<option>Select Region</option>";
+  district.innerHTML = "<option>Select District</option>";
+  ward.innerHTML = "<option>Select Ward</option>";
+  for(let r in data[this.value]){
+    region.innerHTML += "<option value='"+r+"'>"+r+"</option>";
+  }
+};
 
-    // Generate ID
-    const id = "CERT-" + Date.now();
-    localStorage.setItem("certID", id);
+// Region change
+region.onchange = function(){
+  district.innerHTML = "<option>Select District</option>";
+  ward.innerHTML = "<option>Select Ward</option>";
+  let arr = data[country.value][this.value];
+  arr.forEach(d=>{
+    district.innerHTML += "<option value='"+d+"'>"+d+"</option>";
+  });
+};
 
-    // Show message
-    const msg = document.getElementById("msg");
-    msg.style.display = "block";
-    msg.innerText = "⏳ Wait 5 minutes as your credentials are being validated...";
+// District change
+district.onchange = function(){
+  ward.innerHTML = "<option>Select Ward</option>";
+  ["Ward 1","Ward 2","Ward 3"].forEach(w=>{
+    ward.innerHTML += "<option value='"+w+"'>"+w+"</option>";
+  });
+};
 
-    // Redirect after delay
-    setTimeout(function(){
-        window.location.href = "payment.html";
-    }, 3000);
-});
+// Submit
+document.getElementById("form").onsubmit = function(e){
+  e.preventDefault();
+
+  let name = document.getElementById("name").value.trim();
+  let dob = document.getElementById("dob").value;
+
+  if(!name || !dob){
+    alert("Fill required fields");
+    return;
+  }
+
+  let dataObj = {
+    name:name,
+    dob:dob,
+    nid:document.getElementById("nid").value,
+    phone:document.getElementById("phone").value,
+    mosque:document.getElementById("mosque").value,
+    imam:document.getElementById("imam").value,
+    country:country.value,
+    region:region.value,
+    district:district.value,
+    ward:ward.value,
+    location:document.getElementById("location").value
+  };
+
+  localStorage.setItem("certData", JSON.stringify(dataObj));
+
+  let id = "BADAWY-" + Date.now();
+  localStorage.setItem("certID", id);
+
+  // Copy ID automatically
+  navigator.clipboard.writeText(id);
+
+  let msg = document.getElementById("msg");
+  msg.style.display = "block";
+  msg.innerHTML = "⏳ Wait as your credentials are being validated...";
+
+  setTimeout(function(){
+    window.location.href = "payment.html";
+  },3000);
+};
+
 </script>
 
 </body>
