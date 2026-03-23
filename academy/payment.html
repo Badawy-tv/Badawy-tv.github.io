@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Payment</title>
+<style>
+body{font-family:Arial;background:#f4f4f4;margin:0;padding:0;}
+.container{max-width:600px;margin:50px auto;background:white;padding:30px;border-radius:12px;box-shadow:0 5px 20px rgba(0,0,0,0.1);}
+h2{text-align:center;color:#0b5d3b;}
+button{background:#0b5d3b;color:white;padding:12px 20px;border:none;border-radius:6px;cursor:pointer;font-size:16px;margin-top:20px;}
+button:hover{background:#09432b;}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Certificate Payment</h2>
+<p>Payment amount: <strong>1000 KSh</strong></p>
+<p>All payments are made to: <strong>0710784687 (M-PESA)</strong></p>
+<div class="form-group">
+<label>Enter Payment Code</label>
+<input type="text" id="paycode" placeholder="STK code or transaction ID">
+</div>
+<button id="paybtn">Submit Payment</button>
+<div id="paymsg" style="margin-top:20px;text-align:center;color:#0b5d3b;"></div>
+</div>
+
+<script>
+document.getElementById("paybtn").addEventListener("click",function(){
+  const code=document.getElementById("paycode").value.trim();
+  if(!code){document.getElementById("paymsg").innerText="Payment failed, try again.";return;}
+  // Simulate validation
+  document.getElementById("paymsg").innerText="Payment verified, generating certificate...";
+  setTimeout(()=>{window.location.href="certificate-verify.html";},3000);
+});
+</script>
+</body>
+</html>
