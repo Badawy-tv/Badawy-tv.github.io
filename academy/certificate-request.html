@@ -2,68 +2,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Certificate Request</title>
+<title>Certificate System</title>
 
 <style>
-body{
-font-family:serif;
-background:#f4f6f8;
-text-align:center;
-}
+body{font-family:serif;background:#f4f6f8;text-align:center;}
+.container{max-width:700px;margin:auto;background:white;padding:20px;border-radius:10px;}
 
-.container{
-max-width:700px;
-margin:auto;
-background:white;
-padding:20px;
-border-radius:10px;
-}
+input,select{width:90%;padding:10px;margin:5px;}
+button{padding:10px 20px;background:#0b5d3b;color:white;border:none;}
 
-/* CERTIFICATE DESIGN */
 #certificate{
-width:1000px;
-height:700px;
-padding:40px;
-position:absolute;
-left:-9999px;
-background:white;
-border:10px double #bfa046;
+width:1000px;height:700px;padding:40px;background:white;
+position:absolute;left:-9999px;border:10px double #bfa046;
 }
 
-.gold{
-color:#bfa046;
-font-weight:bold;
-}
+.gold{color:#bfa046;font-size:40px;text-align:center;}
+.name{font-size:36px;font-weight:bold;text-align:center;margin:20px;}
 
-.name{
-font-size:36px;
-font-weight:bold;
-margin:20px 0;
-}
-
-.signature{
-margin-top:60px;
-text-align:right;
-}
+.signature{text-align:right;margin-top:60px;}
 
 .watermark{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-opacity:0.05;
-font-size:40px;
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-align-items:center;
+position:absolute;width:100%;height:100%;opacity:0.05;
+display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
 transform:rotate(-30deg);
 }
+.watermark span{margin:20px;font-size:30px;}
 
-.watermark span{
-margin:20px;
-}
+.qr{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);}
 </style>
 </head>
 
@@ -72,105 +37,163 @@ margin:20px;
 <div class="container">
 <h2>Apply for Certificate</h2>
 
-<input id="name" placeholder="Full Name"><br>
-<input id="dob" type="date"><br>
+<input id="name" placeholder="Full Name">
+<input type="date" id="dob">
 
-<button onclick="startProcess()">Submit</button>
+<input id="mosque" placeholder="Nearby Mosque">
+
+<select id="country">
+<option value="">Select Country</option>
+<option value="Kenya">Kenya</option>
+</select>
+
+<select id="region"></select>
+<select id="district"></select>
+<select id="ward"></select>
+
+<input id="location" placeholder="Location">
+<input id="guardian" placeholder="Parent/Guardian Phone">
+
+<h3>Payment (KES 1000)</h3>
+<input id="mpesa" placeholder="Enter M-PESA Code">
+
+<button onclick="start()">Submit</button>
 
 <p id="status"></p>
-
-<button id="downloadBtn" onclick="downloadCert()" style="display:none;">
-Get Certificate
-</button>
+<button id="downloadBtn" onclick="downloadCert()" style="display:none;">Get Certificate</button>
 </div>
 
-<!-- CERTIFICATE TEMPLATE -->
 <div id="certificate">
-
 <div class="watermark" id="wm"></div>
 
-<h1 class="gold" style="text-align:center;font-size:40px;">
-BADAWY TV
-</h1>
+<div class="gold">BADAWY TV</div>
+<h2 style="text-align:center;">Tajweed Mastery Certificate</h2>
 
-<h2 style="text-align:center;">
-Tajweed Mastery Certificate
-</h2>
+<p style="text-align:center;">This certifies that</p>
+<div class="name" id="certName"></div>
 
 <p style="text-align:center;">
-This certifies that
-</p>
-
-<div class="name" id="certName" style="text-align:center;"></div>
-
-<p style="text-align:center;">
-has successfully completed the Tajweed Course
+has successfully completed the Tajweed Course under Imam Ahmad Badawy
 </p>
 
 <p style="text-align:center;" id="certDate"></p>
-
 <p style="text-align:center;" id="certId"></p>
 
 <div class="signature">
-<p style="font-family:cursive;font-size:24px;">
-Ahmad Badawy
-</p>
+<p style="font-family:cursive;font-size:24px;">Ahmad Badawy</p>
 <hr>
 <p>Instructor</p>
 </div>
+
+<canvas id="qrCanvas" class="qr"></canvas>
 
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.min.js"></script>
 
 <script>
 
-function startProcess(){
-document.getElementById("status").innerText =
-"Please wait 5 minutes while your credentials are being validated...";
+// DATA (IEBC style simplified)
+const data = {
+"Kenya": {
+"Nairobi": {"Westlands":["Parklands","Kangemi"]},
+"Kiambu": {"Thika":["Town","Kiganjo"]}
+}
+};
+
+document.getElementById("country").onchange = function(){
+let region = document.getElementById("region");
+region.innerHTML="";
+Object.keys(data[this.value]).forEach(r=>{
+region.innerHTML += `<option>${r}</option>`;
+});
+};
+
+document.getElementById("region").onchange = function(){
+let district = document.getElementById("district");
+district.innerHTML="";
+let c = country.value;
+Object.keys(data[c][this.value]).forEach(d=>{
+district.innerHTML += `<option>${d}</option>`;
+});
+};
+
+document.getElementById("district").onchange = function(){
+let ward = document.getElementById("ward");
+ward.innerHTML="";
+let c = country.value;
+let r = region.value;
+data[c][r][this.value].forEach(w=>{
+ward.innerHTML += `<option>${w}</option>`;
+});
+};
+
+// WATERMARK
+for(let i=0;i<50;i++){
+let s=document.createElement("span");
+s.innerText="Tajweed Mastery Certificate";
+wm.appendChild(s);
+}
+
+let certID = "";
+
+function start(){
+if(!mpesa.value){
+status.innerText="Validation failed";
+return;
+}
+
+status.innerText="Please wait as your credentials are being validated...";
 
 setTimeout(()=>{
-document.getElementById("status").innerText =
-"Your certificate is ready. Click below.";
-document.getElementById("downloadBtn").style.display="block";
+status.innerText="Your certificate is ready";
+downloadBtn.style.display="block";
 },5000);
 }
-
-function generateWatermark(){
-let wm = document.getElementById("wm");
-for(let i=0;i<50;i++){
-let span = document.createElement("span");
-span.innerText="Tajweed Mastery Certificate";
-wm.appendChild(span);
-}
-}
-
-generateWatermark();
 
 function downloadCert(){
 
 const name = document.getElementById("name").value;
 const date = new Date().toLocaleDateString();
-const id = "TJD-"+Math.floor(Math.random()*1000000);
 
-document.getElementById("certName").innerText = name;
-document.getElementById("certDate").innerText = "Date: "+date;
-document.getElementById("certId").innerText = "Certificate ID: "+id;
+certID = "TJD-"+Math.floor(Math.random()*1000000);
 
-html2canvas(document.getElementById("certificate")).then(canvas => {
+navigator.clipboard.writeText(certID);
 
+alert("Certificate ID copied. Use it to unlock.");
+
+certName.innerText = name;
+certDate.innerText = "Date: "+date;
+certId.innerText = "ID: "+certID;
+
+// SAVE DATA
+localStorage.setItem(certID, JSON.stringify({
+name, date,
+guardian: guardian.value
+}));
+
+// QR
+QRCode.toCanvas(document.getElementById('qrCanvas'),
+window.location.origin+"/academy/verify.html?id="+certID);
+
+let input = prompt("Paste your Certificate ID to download:");
+if(input !== certID){
+alert("Validation failed");
+return;
+}
+
+html2canvas(document.getElementById("certificate")).then(canvas=>{
 const img = canvas.toDataURL("image/png");
 const { jsPDF } = window.jspdf;
 const pdf = new jsPDF("landscape");
-
-pdf.addImage(img, 'PNG', 10, 10, 270, 180);
+pdf.addImage(img,'PNG',10,10,270,180);
 pdf.save("Certificate-"+name+".pdf");
-
 });
+
 }
 
 </script>
-
 </body>
 </html>

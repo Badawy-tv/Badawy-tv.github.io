@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Verify Certificate</title>
+</head>
+<body style="text-align:center;font-family:serif;">
+
+<h2>Certificate Verification</h2>
+
+<input id="id" placeholder="Enter Certificate ID">
+<button onclick="verify()">Verify</button>
+
+<div id="result"></div>
+
+<script>
+function verify(){
+
+let id = document.getElementById("id").value;
+let data = localStorage.getItem(id);
+
+if(!data){
+result.innerHTML="Access denied";
+return;
+}
+
+let d = JSON.parse(data);
+
+result.innerHTML = `
+<h3>Valid Certificate</h3>
+<p>Name: ${d.name}</p>
+<p>Date: ${d.date}</p>
+<p>Guardian: ${d.guardian}</p>
+`;
+
+}
+</script>
+
+</body>
+</html>
