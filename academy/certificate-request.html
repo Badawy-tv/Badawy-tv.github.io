@@ -1,50 +1,123 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Badawy TV - Learn Islam with authentic content, courses, articles, and guidance.">
-    <meta property="og:title" content="Badawy TV">
-    <meta property="og:description" content="Badawy TV - Learn Islam with authentic content, courses, articles, and guidance.">
-    <meta property="og:url" content="https://badawy-tv.github.io">
-    <meta property="og:image" content="/assets/images/share-image.png">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    
-<title>Apply for Tajweed Certificate</title>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Request</title>
 <style>
-    body { font-family: Arial; text-align:center; padding:50px; background:#f4f6f8; }
-    h2 { color:#0b5d3b; }
-    button { padding:15px 25px; font-size:18px; background:#0b5d3b; color:white; border:none; border-radius:8px; cursor:pointer; }
-    #payment-status { margin-top:20px; font-weight:bold; }
-  </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Badawy TV","url":"https://badawy-tv.github.io","logo":"https://badawy-tv.github.io/logo.png"}</script></head>
+body{font-family:sans-serif;background:#f4f6f8;margin:0;padding:0;}
+.container{max-width:700px;margin:40px auto;padding:20px;background:white;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);text-align:center;}
+input,textarea{width:100%;padding:10px;margin:10px 0;border-radius:6px;border:1px solid #ccc;}
+button{padding:12px 20px;background:#0b5d3b;color:white;border:none;border-radius:6px;cursor:pointer;}
+#paymentStatus{margin-top:20px;font-weight:bold;}
+#getCertBtn{display:none;padding:12px 20px;background:gold;border:none;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:20px;}
+</style>
+</head>
 <body>
-<h2>Apply for Your Tajweed Certificate</h2>
-<p>Click the button below to pay and receive your certificate.</p>
-<button id="pay-button">💳 Apply Certificate</button>
-<div id="payment-status"></div>
+<div class="container">
+<h2>Apply for Tajweed Certificate</h2>
+<form id="certForm">
+<input type="text" id="name" placeholder="Full Name" required>
+<input type="text" id="phone" placeholder="Phone Number (optional)">
+<input type="email" id="email" placeholder="Email (optional)">
+<input type="date" id="dob" placeholder="Date of Birth" required>
+<textarea id="others" placeholder="Other details (optional)"></textarea>
+<button type="submit">Submit Application</button>
+</form>
+
+<div id="waitMessage" style="display:none;margin-top:20px;">
+<p>Please wait 5 minutes while your credentials are being validated...</p>
+</div>
+
+<div id="paymentSection" style="display:none;">
+<h3>Complete Payment - KES 1000</h3>
+<textarea id="mpesaMessage" placeholder="Paste M-PESA message here..."></textarea>
+<button onclick="verifyPayment()">Verify Payment</button>
+<p id="paymentStatus"></p>
+</div>
+
+<button id="getCertBtn" onclick="generateCertificate()">Get Your Certificate</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-document.getElementById("pay-button").addEventListener("click", async () => {
-    const status = document.getElementById("payment-status");
-    status.innerText = "Processing payment...";
-    
-    try {
-        const res = await fetch("http://localhost:3000/pay-certificate", { method: "POST" });
-        const data = await res.json();
-        
-        if(data.success){
-            status.innerText = "Payment initiated! Check your phone to approve the transaction.";
-        } else {
-            status.innerText = "Error: " + data.message;
-        }
-    } catch(err){
-        status.innerText = "Network error. Backend server may not be running.";
-    }
+let form = document.getElementById("certForm");
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+  form.style.display = "none";
+  document.getElementById("waitMessage").style.display = "block";
+
+  setTimeout(()=> {
+    document.getElementById("waitMessage").style.display = "none";
+    document.getElementById("paymentSection").style.display = "block";
+  }, 5000); // 5 seconds for demo, change to 5*60*1000
 });
+
+function verifyPayment() {
+  const message = document.getElementById("mpesaMessage").value.trim();
+  const status = document.getElementById("paymentStatus");
+
+  if(!message){
+    status.innerHTML = "❌ Payment verification failed. Please try again.";
+    return;
+  }
+
+  try {
+    const amountMatch = message.match(/Ksh\s?([\d,]+)/i);
+    const codeMatch = message.match(/\b[A-Z0-9]{10}\b/);
+    const dateMatch = message.match(/(\d{1,2}\/\d{1,2}\/\d{2,4})/);
+    const timeMatch = message.match(/(\d{1,2}:\d{2}\s?(AM|PM)?)/i);
+
+    if(!amountMatch || !codeMatch || !dateMatch || !timeMatch) throw "fail";
+
+    const amount = amountMatch[1].replace(/,/g,"");
+    const code = codeMatch[0];
+    const now = new Date();
+    const paymentDate = new Date(dateMatch[1]+" "+timeMatch[1]);
+    const diffMinutes = (now - paymentDate)/(1000*60);
+
+    let usedCodes = JSON.parse(localStorage.getItem("usedCodes") || "[]");
+
+    if(amount !== "1000" || diffMinutes > 30 || diffMinutes < 0 || usedCodes.includes(code)) throw "fail";
+
+    usedCodes.push(code);
+    localStorage.setItem("usedCodes", JSON.stringify(usedCodes));
+
+    status.innerHTML = "✅ Payment verified successfully.";
+    setTimeout(()=>{document.getElementById("getCertBtn").style.display="block";}, 1000);
+  } catch(e){
+    status.innerHTML = "❌ Payment verification failed. Please try again.";
+  }
+}
+
+function generateCertificate(){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const name = document.getElementById("name").value;
+  const dob = document.getElementById("dob").value;
+  const others = document.getElementById("others").value;
+  const uniqueId = "TJD-"+Math.floor(Math.random()*1000000);
+
+  doc.setFontSize(24);
+  doc.text("Badawy Islamic Academy",105,30,null,null,"center");
+  doc.setFontSize(20);
+  doc.text("Tajweed Course Completion Certificate",105,50,null,null,"center");
+
+  doc.setFontSize(16);
+  doc.text("This certifies that: "+name,20,80);
+  doc.text("Date of Birth: "+dob,20,90);
+  if(others) doc.text("Other Info: "+others,20,100);
+  doc.text("Instructor: Imam Ahmad Badawy",20,110);
+  const today = new Date().toLocaleDateString();
+  doc.text("Date Issued: "+today,20,120);
+  doc.text("Certificate ID: "+uniqueId,20,130);
+
+  doc.setDrawColor(0);
+  doc.setLineWidth(1);
+  doc.rect(10,10,190,150);
+
+  doc.save("Certificate-"+name.replace(/ /g,"_")+".pdf");
+}
 </script>
 </body>
 </html>
-<section class="footer-legal" style="background:#0b3d2e; color:white; padding:20px; text-align:center; border-radius:8px; margin-top:40px;"><p><a href="/pages/legal/privacy-policy.html" style="color:#66bb6a; text-decoration:underline;">Privacy Policy</a> | <a href="/pages/legal/terms.html" style="color:#66bb6a; text-decoration:underline;">Terms &amp; Conditions</a></p><p>© 2026 Badawy TV. All Rights Reserved.</p></section>
