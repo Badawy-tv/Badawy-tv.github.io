@@ -62,4 +62,100 @@ function generateCertificate(){
     document.getElementById('certificateArea').style.display='block';
 }
 
+</script><!-- Support Toast Popup Start -->
+<style>
+#support-toast {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 380px;
+    max-width: 90%;
+    background: linear-gradient(135deg, #0a7a4b, #b2d8b2);
+    color: #fff;
+    border-radius: 14px;
+    padding: 22px 28px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.5);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: none;
+    z-index: 9999;
+    animation: slideUp 0.6s ease forwards;
+}
+
+#support-toast h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.3em;
+}
+
+#support-toast p {
+    font-size: 0.95em;
+    margin-bottom: 15px;
+}
+
+#support-toast .donate-btn {
+    display: inline-block;
+    background-color: #ffcc00;
+    color: #0a7a4b;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+#support-toast .donate-btn:hover {
+    background-color: #e6b800;
+}
+
+#support-toast .close-toast {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+@keyframes slideUp {
+    from {opacity: 0; transform: translateX(-50%) translateY(30px);}
+    to {opacity: 1; transform: translateX(-50%) translateY(0);}
+}
+</style>
+
+<div id="support-toast">
+    <span class="close-toast">&times;</span>
+    <h3>🌙 Support the Dawah!</h3>
+    <p>Your contributions help <strong>Badawy TV</strong> bring more lectures, features, and services worldwide. Every donation counts!</p>
+    <a href="/pages/donate.html" class="donate-btn">Donate Now</a>
+</div>
+
+<script>
+(function() {
+    const toast = document.getElementById('support-toast');
+    const closeBtn = toast.querySelector('.close-toast');
+    const STORAGE_KEY = 'supportToastClosed';
+
+    function showToast() {
+        if (localStorage.getItem(STORAGE_KEY)) return;
+        toast.style.display = 'block';
+    }
+
+    function hideToast(delay) {
+        toast.style.display = 'none';
+        if (delay) setTimeout(showToast, delay);
+    }
+
+    // Show first after 15 seconds
+    setTimeout(showToast, 15000);
+
+    // Close button click
+    closeBtn.addEventListener('click', () => {
+        hideToast(40000); // Reappear after 40s
+    });
+
+    // Mark as permanently closed if donate button clicked
+    toast.querySelector('.donate-btn').addEventListener('click', () => {
+        localStorage.setItem(STORAGE_KEY, 'true');
+    });
+})();
 </script>
+<!-- Support Toast Popup End -->
