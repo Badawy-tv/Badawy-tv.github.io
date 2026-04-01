@@ -1,0 +1,10 @@
+digraph AcademyCertificateFlow {
+	rankdir=LR size="8,5"
+	Form [label="Certificate Request Form"]
+	Submit [label="Submit / Generate Button"]
+	Generate [label="Certificate Generation"]
+	Done [label="Certificate Ready"]
+	Form -> Submit [label="User submits form"]
+	Submit -> Generate [label="Directly triggers"]
+	Generate -> Done [label="Certificate generated"]
+}

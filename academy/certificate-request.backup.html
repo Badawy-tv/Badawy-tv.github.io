@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Certificate Request</title>
+<style>
+/* Basic styling */
+#submitBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+#submitBtn:hover {
+  background-color: #45a049;
+}
+</style>
+</head>
+<body>
+<h2>Request Your Certificate</h2>
+<form id="certificateForm" onsubmit="generateCertificate(event)">
+  <input type="text" name="name" placeholder="Full Name" required>
+  <input type="text" name="course" placeholder="Course Name" required>
+  <button type="submit" id="submitBtn">Generate Certificate</button>
+</form>
+
+<script>
+function generateCertificate() {
+  const form = document.getElementById('certificateForm');
+  const name = form.name.value;
+  const course = form.course.value;
+
+  // Open certificate in new window
+  const certWindow = window.open('', '_blank');
+  certWindow.document.write('<h1>Certificate of Completion</h1>' +
+                            `<p>This certifies that <strong>${name}</strong></p>` +
+                            `<p>has successfully completed the course <strong>${course}</strong></p>`);
+  certWindow.document.close();
+}
+</script>
+</body>
+</html>
+
+<script>
+function generateCertificate(e){
+  e.preventDefault();
+
+  const name = document.querySelector("input[type='text']").value;
+
+  if(!name){
+    alert("Please enter your full name");
+    return;
+  }
+
+  const certId = "BIA-" + Math.floor(Math.random()*100000);
+  const date = new Date().toLocaleDateString();
+
+  document.body.innerHTML = `
+  <div style="width:900px;margin:40px auto;padding:40px;border:8px double gold;background:#f9f3d6;position:relative;font-family:serif;">
+
+    <div style="text-align:center;">
+      <h2>BADAWY ISLAMIC ACADEMY</h2>
+      <h3>Certificate of Completion</h3>
+      <p>This is to certify that</p>
+
+      <h1 style="margin:20px 0;">${name}</h1>
+
+      <p>has successfully completed the course</p>
+      <h3>Tajweed Mastery</h3>
+    </div>
+
+    <div style="position:absolute;left:40px;top:300px;">
+      Certificate ID:<br>${certId}
+    </div>
+
+    <div style="position:absolute;right:40px;top:300px;">
+      Date:<br>${date}
+    </div>
+
+    <div style="position:absolute;bottom:80px;left:40px;">
+      ___________________<br>
+      Ahmad Badawy<br>
+      Director / Instructor
+    </div>
+
+    <div style="position:absolute;bottom:10px;width:100%;text-align:center;font-size:10px;">
+      This certificate is valid. Any alteration renders it invalid.
+    </div>
+
+  </div>
+  `;
+}
+</script>
+
