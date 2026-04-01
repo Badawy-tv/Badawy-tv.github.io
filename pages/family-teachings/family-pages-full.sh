@@ -86,6 +86,8 @@ esac
 )</p>
 
 <a href="index.html" class="btn-back">Back to Family Topics</a>
+<!-- Support Toast Popup -->
+<script src="/pages/support.html"></script>
 </body>
 </html>
 EOP

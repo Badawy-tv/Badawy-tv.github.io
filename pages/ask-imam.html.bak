@@ -33,5 +33,7 @@
 
 <script src="../assets/js/components.js"></script>
 
+<!-- Support Toast Popup -->
+<script src="/pages/support.html"></script>
 </body>
 </html>
