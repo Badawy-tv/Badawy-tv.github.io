@@ -1237,3 +1237,24 @@ background:#145c46;
   transform: translateY(-2px); 
   box-shadow: 0 8px 22px rgba(0,0,0,0.35); 
 }
+
+/* Floating Ask Me Button */
+#floating-ask-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #1e3a8a;
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transition: background 0.3s, transform 0.3s;
+}
+#floating-ask-btn:hover {
+    background-color: #15306a;
+    transform: translateY(-2px);
+}
